@@ -1,0 +1,79 @@
+{
+  "Maintain Multiple Copies of Computations": [
+    "aiocache",
+    "fastapi"
+  ],
+  "Introduce Concurrency": [
+    "asyncio",
+    "uvicorn"
+  ],
+  "Bound Queue Sizes": [
+    "asyncio"
+  ],
+  "Degradation": [
+    "redis",
+    "sqlalchemy"
+  ],
+  "Ping/Echo": [
+    "tenacity"
+  ],
+  "Retry": [
+    "tenacity"
+  ],
+  "State Resynchronization": [
+    "asyncio",
+    "redis",
+    "sqlalchemy",
+    "sqlite3",
+    "tenacity"
+  ],
+  "Echo": [
+    "tenacity"
+  ],
+  "Throttling": [
+    "asyncio"
+  ],
+  "Maintain Multiple Copies": [
+    "asyncio"
+  ],
+  "Detect Faults": [
+    "fastapi",
+    "pydantic"
+  ],
+  "Graceful Degradation": [
+    "fastapi",
+    "redis",
+    "tenacity"
+  ],
+  "Resynchronize State": [
+    "asyncio"
+  ],
+  "Atomicity": [
+    "sqlalchemy"
+  ],
+  "Limit Event Response": [
+    "aiolimiter",
+    "redis",
+    "starlette"
+  ],
+  "Maintain Multiple Copies of Data": [
+    "redis",
+    "sqlalchemy"
+  ],
+  "Exception Detection": [
+    "asyncio",
+    "fastapi",
+    "sqlalchemy",
+    "starlette",
+    "tenacity"
+  ],
+  "Transactions": [
+    "sqlalchemy"
+  ],
+  "Rate Limiting": [
+    "redis"
+  ],
+  "Caching": [
+    "redis"
+  ]
+}
