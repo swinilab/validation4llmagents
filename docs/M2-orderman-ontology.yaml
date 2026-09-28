@@ -1,0 +1,273 @@
+# M2 — Domain Ontology: Order Management (orderman)
+#
+# Purpose: canonical vocabulary for automated matching (pipeline tier T2),
+# cross-model consistency checks (M9), and PLE/INC adjudication support.
+#
+# HARD RULES
+#   1. Derived from orderman-input-v1.0.md (FR01-16, NFR01-08) and standard
+#      order-management literature. Completed BEFORE any agent run.
+#   2. FROZEN before the 20 official runs. Terms encountered during scoring
+#      that are absent here are NOT added — they are adjudicated by a human,
+#      marked method = human, and logged to sheet 09_ontology_gap.
+#   3. canonical_name is what gold uses. Everything under aliases maps to it.
+#   4. Matching is case-insensitive and whitespace/underscore/hyphen-insensitive
+#      after normalization (tier T1).
+
+version: "1.0"
+domain: order_management
+derived_from: orderman-input-v1.0.md
+frozen: false          # set true before run 01
+
+# ---------------------------------------------------------------------------
+# 1. ENTITIES  — candidate classes for the structural (domain class) diagram
+# ---------------------------------------------------------------------------
+
+entities:
+
+  Customer:
+    aliases: [Client, Buyer, Purchaser, Shopper, EndUser, User, Account, CustomerAccount]
+    attributes: [customer_id, name, email, phone, delivery_address]
+    source_reqs: [FR01, FR02, FR06, FR10, FR12, FR13, FR15]
+
+  ShoppingCart:
+    aliases: [Cart, BasketShoppingBasket, Basket, CartSession]
+    attributes: [cart_id, customer_id, created_at, subtotal]
+    source_reqs: [FR01]
+
+  CartItem:
+    aliases: [CartLine, BasketItem, CartLineItem, CartEntry]
+    attributes: [cart_item_id, product_id, quantity, unit_price]
+    source_reqs: [FR01]
+
+  Order:
+    aliases: [PurchaseOrder, CustomerOrder, SalesOrder, OrderHeader, OrderRecord]
+    attributes: [order_id, customer_id, order_date, status, total_amount, delivery_address]
+    source_reqs: [FR03, FR05, FR06, FR07, FR08, FR09, FR10, FR14, FR15]
+
+  OrderLine:
+    aliases: [OrderItem, LineItem, OrderDetail, OrderLineItem, OrderEntry]
+    attributes: [order_line_id, order_id, product_id, quantity, unit_price, line_total]
+    source_reqs: [FR02, FR03, FR07]
+
+  Product:
+    aliases: [Item, SKU, CatalogItem, Article, Goods, Merchandise]
+    attributes: [product_id, name, description, unit_price]
+    source_reqs: [FR01, FR02]
+
+  Inventory:
+    aliases: [Stock, StockLevel, InventoryItem, StockItem, InventoryRecord, StockRecord]
+    attributes: [product_id, quantity_on_hand, quantity_reserved, location]
+    source_reqs: [FR02, FR07, NFR07]
+
+  Payment:
+    aliases: [PaymentTransaction, Transaction, PaymentRecord, Charge, PaymentAttempt]
+    attributes: [payment_id, order_id, amount, status, authorized_at, gateway_reference]
+    source_reqs: [FR04, FR05, FR06, FR11, NFR03, NFR06]
+
+  Shipment:
+    aliases: [Delivery, Dispatch, ShippingOrder, Consignment, Package, Parcel]
+    attributes: [shipment_id, order_id, carrier, tracking_number, shipped_at]
+    source_reqs: [FR09]
+
+  Carrier:
+    aliases: [ShippingProvider, LogisticsProvider, Courier, ShippingCarrier]
+    attributes: [carrier_id, name]
+    source_reqs: [FR09]
+
+  Return:
+    aliases: [ReturnRequest, RMA, ReturnOrder, ProductReturn, ReturnAuthorization]
+    attributes: [return_id, order_id, requested_at, reason, status]
+    source_reqs: [FR12, FR13]
+
+  Refund:
+    aliases: [Reimbursement, PaymentReversal, Chargeback, RefundTransaction, MoneyBack]
+    attributes: [refund_id, payment_id, amount, issued_at, status]
+    source_reqs: [FR11, FR13]
+
+  Address:
+    aliases: [DeliveryAddress, ShippingAddress, CustomerAddress, PostalAddress]
+    attributes: [address_id, street, city, postal_code, country]
+    source_reqs: [FR15]
+
+  AuditLog:
+    aliases: [AuditEntry, AuditRecord, AuditTrail, StateChangeLog, EventLog, OrderHistory]
+    attributes: [entry_id, order_id, timestamp, actor_role, prior_state, resulting_state]
+    source_reqs: [FR14, NFR04]
+
+  DailyReport:
+    aliases: [SalesReport, SummaryReport, DailySummary, RevenueReport, ManagementReport]
+    attributes: [report_date, total_revenue, shipped_order_count]
+    source_reqs: [FR16]
+
+# ---------------------------------------------------------------------------
+# 2. STATES — order lifecycle; basis for consistency rule CM-04
+# ---------------------------------------------------------------------------
+
+states:
+
+  order_lifecycle:
+    canonical_sequence: [draft, placed, picked, packed, shipped]
+    source_reqs: [FR03, FR05, FR07, FR08, FR09]
+
+  order_exceptions:
+    canonical: [payment_failed, cancelled, returned, refunded]
+    source_reqs: [FR06, FR10, FR11, FR12, FR13]
+
+  state_aliases:
+    draft:          [pending, initiated, created, new, unconfirmed, incomplete]
+    placed:         [confirmed, submitted, accepted, paid, ordered, active]
+    picked:         [allocated, reserved, collected, retrieved, in_picking]
+    packed:         [boxed, packaged, ready_to_ship, prepared]
+    shipped:        [dispatched, in_transit, sent, out_for_delivery, handed_over]
+    payment_failed: [declined, payment_declined, authorization_failed, rejected, failed]
+    cancelled:      [canceled, voided, aborted, terminated, withdrawn]
+    returned:       [return_received, returned_to_warehouse, return_approved]
+    refunded:       [reimbursed, money_returned, refund_issued, reversed]
+
+  legal_transitions:
+    - [draft, placed]
+    - [draft, payment_failed]
+    - [placed, picked]
+    - [placed, cancelled]
+    - [picked, packed]
+    - [packed, shipped]
+    - [shipped, returned]
+    - [returned, refunded]
+    - [cancelled, refunded]
+    # Used by CM-04: any agent-specified transition outside this set is a
+    # candidate inconsistency and is flagged for human review.
+
+# ---------------------------------------------------------------------------
+# 3. ACTORS — candidate swimlanes for the behavioral (activity) diagram
+# ---------------------------------------------------------------------------
+
+actors:
+
+  Customer:
+    aliases: [Client, Buyer, End user, Shopper, Purchaser, User]
+    source_reqs: [FR01, FR02, FR03, FR10, FR12]
+
+  PaymentGateway:
+    aliases: [Payment provider, PSP, Payment service, Payment processor,
+              Payment system, External payment service, Payment provider service]
+    external: true
+    source_reqs: [FR04, FR05, FR06, FR11, NFR06]
+
+  Warehouse:
+    aliases: [Fulfilment, Fulfillment, Fulfilment centre, Warehouse staff,
+              Warehouse team, Stock team, Logistics, Warehouse operator, Picker]
+    source_reqs: [FR07, FR08, FR09, FR13]
+
+  Sales:
+    aliases: [Sales staff, Sales team, Order clerk, CSR, Customer service,
+              Customer support, Administrator, Admin, Back office]
+    source_reqs: [FR14, FR15, FR16]
+
+  System:
+    aliases: [OMS, Order Management System, Platform, Application, Backend, Server]
+    note: >
+      Present in most agent outputs as an implicit swimlane. Accepted as a
+      valid partition; its absence is not penalized, since an activity diagram
+      may legitimately assign system actions to the initiating human lane.
+    source_reqs: [FR02, FR03, FR04, FR05, FR06, FR11, FR13, FR16]
+
+# ---------------------------------------------------------------------------
+# 4. ACTION VERBS — canonical verbs for activity actions and requirement frames
+# ---------------------------------------------------------------------------
+
+action_verbs:
+
+  add:        [insert, put, include, append, select]
+  specify:    [set, enter, indicate, state, choose, define]
+  verify:     [validate, check, confirm, assess, examine, inspect, ensure]
+  alert:      [notify, inform, warn, message, send notification, advise]
+  halt:       [stop, block, prevent, abort, interrupt, suspend]
+  generate:   [create, produce, issue, build, raise, instantiate]
+  calculate:  [compute, determine, total, sum, derive]
+  transmit:   [send, forward, submit, pass, dispatch to, relay, post]
+  transition: [update state, change status, move to, set status, advance, progress]
+  retrieve:   [pick, collect, gather, fetch, obtain, get]
+  pack:       [box, package, prepare, wrap, assemble]
+  ship:       [dispatch, hand over, send out, release to carrier, deliver out]
+  cancel:     [void, abort, terminate, withdraw, revoke]
+  reverse:    [refund, reimburse, return payment, credit back, roll back payment]
+  initiate:   [request, start, trigger, raise, submit request, open]
+  receive:    [accept, take in, log receipt, acknowledge]
+  approve:    [authorize, accept, sign off, validate approval, grant]
+  search:     [look up, find, query, locate, retrieve by id]
+  view:       [display, show, present, render, list]
+  correct:    [amend, modify, edit, update, revise, change]
+  record:     [log, store, persist, capture, write, register]
+  encrypt:    [secure, protect, cipher, safeguard]
+  timeout:    [expire, time out, abandon after, lapse]
+  retry:      [reattempt, resend, repeat, re-request]
+  rollback:   [revert, undo, compensate, unwind, restore]
+  reserve:    [allocate, hold, earmark, lock, commit stock]
+  release:    [free, unreserve, return to stock, deallocate, unlock]
+
+# ---------------------------------------------------------------------------
+# 5. RELATIONSHIP KINDS — normalization for class-diagram relationship matching
+# ---------------------------------------------------------------------------
+
+relationship_kinds:
+  association:    [associates, relates to, links to, uses, references]
+  aggregation:    [has, contains, groups, collects]
+  composition:    [owns, composed of, consists of, part of]
+  generalization: [inherits, extends, is a, specializes, subtype of]
+  dependency:     [depends on, requires, calls]
+
+# Per M5 §6.4: composition vs aggregation confusion scores partial (0.5),
+# not a miss. Association vs dependency confusion likewise scores 0.5.
+
+# ---------------------------------------------------------------------------
+# 6. QUALITY ATTRIBUTES — NFR categorization, ISO 25010 aligned
+# ---------------------------------------------------------------------------
+
+quality_attributes:
+  performance_efficiency: {aliases: [performance, response time, throughput, latency, speed], source_reqs: [NFR01, NFR02]}
+  security:               {aliases: [confidentiality, encryption, data protection, privacy], source_reqs: [NFR03]}
+  auditability:           {aliases: [audit, traceability of changes, accountability, logging], source_reqs: [NFR04]}
+  reliability:            {aliases: [availability, uptime, fault tolerance, resilience], source_reqs: [NFR05, NFR06]}
+  data_integrity:         {aliases: [consistency, transactional integrity, atomicity, correctness of data], source_reqs: [NFR07]}
+  scalability:            {aliases: [elasticity, capacity, growth, extensibility of load], source_reqs: [NFR08]}
+
+# ---------------------------------------------------------------------------
+# 7. OUT-OF-SCOPE CONCEPTS — adjudication support for PLE vs INC
+# ---------------------------------------------------------------------------
+#
+# Concepts absent from the input domain. Their appearance in agent output is
+# NOT automatically INC — this list only routes the element to human
+# adjudication with the relevant question attached. Recorded so the
+# PLE/INC boundary is applied consistently across all 20 outputs.
+
+out_of_scope_concepts:
+
+  likely_INC:
+    # No basis in the input; presence suggests fabrication.
+    - {term: LoyaltyProgram,  aliases: [loyalty points, rewards, membership tier]}
+    - {term: Discount,        aliases: [coupon, promo code, voucher, promotion]}
+    - {term: ProductReview,   aliases: [rating, review, feedback score]}
+    - {term: Wishlist,        aliases: [favourites, saved items, watchlist]}
+    - {term: Recommendation,  aliases: [suggested items, personalization engine]}
+    - {term: Subscription,    aliases: [recurring order, standing order]}
+
+  likely_PLE:
+    # Not stated in the input but entailed by, or standard practice within,
+    # the stated business rules.
+    - {term: Notification,        rationale: "FR02, FR06 require alerting the customer; a notification concept is entailed."}
+    - {term: InventoryReservation, rationale: "FR07 picking and FR10 cancellation before picking imply a reservation state."}
+    - {term: Invoice,             rationale: "FR03 total calculation and FR16 revenue reporting imply a billing artifact."}
+    - {term: OrderStatusHistory,  rationale: "FR14 historical timeline and NFR04 audit log entail a history structure."}
+    - {term: TaxCalculation,      rationale: "FR03 final total plausibly includes tax; standard in the domain."}
+    - {term: ShippingCost,        rationale: "FR03 final total plausibly includes shipping; standard in the domain."}
+    - {term: User / Role,         rationale: "NFR04 records acting role; a role concept is entailed."}
+
+# ---------------------------------------------------------------------------
+# 8. COVERAGE NOTE
+# ---------------------------------------------------------------------------
+#
+# 15 entities, 9 states, 5 actors, 27 canonical verbs, 5 relationship kinds.
+# Alias sets were drawn from the input document and from common order-
+# management terminology, not from any agent output. Terms encountered during
+# scoring that fall outside this file are logged to sheet 09_ontology_gap and
+# reported as ontology coverage, not silently absorbed.
