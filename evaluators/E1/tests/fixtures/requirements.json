@@ -1,0 +1,20 @@
+[
+  {
+    "id": "AR-01",
+    "statement": "The system shall not refund the payment.",
+    "type": "functional",
+    "verification_method": "test"
+  },
+  {
+    "id": "AR-02",
+    "statement": "The Warehouse team hands the packages over to external carriers and updates the order to a shipped state.",
+    "type": "functional",
+    "verification_method": "demonstration"
+  },
+  {
+    "id": "AR-03",
+    "statement": "The system shall sustain 2,000 concurrent user sessions with a request error rate of no more than 0.1%.",
+    "type": "performance",
+    "verification_method": "test"
+  }
+]

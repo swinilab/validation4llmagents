@@ -1,0 +1,22 @@
+@startuml
+autonumber
+actor User
+participant "Web Server" as Web
+database "Database" as DB
+
+User -> Web: Gửi yêu cầu đăng nhập (username, password)
+activate Web
+
+Web -> DB: Truy vấn thông tin người dùng
+activate DB
+DB --> Web: Trả về dữ liệu user
+deactivate DB
+
+alt Đăng nhập thành công
+    Web --> User: Chuyển hướng đến trang chủ
+else Sai mật khẩu
+    Web --> User: Hiển thị thông báo lỗi
+end
+
+deactivate Web
+@enduml

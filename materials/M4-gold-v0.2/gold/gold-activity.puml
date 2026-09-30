@@ -1,0 +1,70 @@
+@startuml activity
+' M4 gold v0.2 — activity diagram with swimlanes (behavioral view)
+' Action labels are "<canonical verb> <object> [to <target>]", verbs from
+' orderman-ontology.yaml v1.0 action_verbs. Tiers are in gold-tier-map.csv.
+
+|Customer|
+start
+:add product to shopping cart;
+:specify quantity;
+:initiate checkout;
+|System|
+:verify inventory availability;
+if (all items in stock?) then (yes)
+  :generate order;
+  :calculate total amount;
+  :transmit payment request;
+  |PaymentGateway|
+  :approve payment;
+  |System|
+  if (payment approved?) then (yes)
+    :transition order to placed;
+  else (no)
+    |System|
+    :transition order to payment_failed;
+    :alert customer of payment failure;
+    stop
+  endif
+else (no)
+  |System|
+  :alert customer of stock shortage;
+  :halt checkout;
+  stop
+endif
+|Customer|
+if (cancel before picking?) then (yes)
+  :cancel order;
+  |System|
+  :transition order to cancelled;
+  :transmit reversal request;
+  |PaymentGateway|
+  :reverse payment;
+  |System|
+  :transition order to refunded;
+  stop
+else (no)
+  |Customer|
+endif
+|Warehouse|
+:retrieve items;
+:transition order to picked;
+:pack items;
+:transition order to packed;
+:ship order to carrier;
+:transition order to shipped;
+|Customer|
+if (return within 30 days?) then (yes)
+  :initiate return;
+  |Warehouse|
+  :receive return;
+  :approve return;
+  |System|
+  :transition order to returned;
+  :reverse payment;
+  :transition order to refunded;
+  stop
+else (no)
+  |Customer|
+  stop
+endif
+@enduml

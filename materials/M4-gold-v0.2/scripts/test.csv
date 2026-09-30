@@ -1,0 +1,4 @@
+element_id,element_type,canonical_name,owner_class,detail,tier
+RL-01,relationship,DB-Web,,DB|association|Web|:,
+RL-02,relationship,Web-User,,Web|association|User|:,
+RL-03,relationship,Web-User,,Web|association|User|:,

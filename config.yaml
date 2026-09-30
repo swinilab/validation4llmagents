@@ -1,0 +1,48 @@
+# Repository configuration.
+#
+# E1 (text normalization) reads the section below. Every key is optional: E1
+# falls back to the defaults in evaluators/E1/config.py when a key or the whole
+# section is absent.
+E1:
+  # Ontology read for order states and their aliases (read-only). Resolved
+  # relative to the repository root. E1 tries ontology/orderman-ontology.yaml
+  # first and falls back to the path below.
+  ontology_path: materials/M2-orderman-ontology.yaml
+
+  # Modals removed from `normalized`. `can` and `may` are included because the
+  # input FRs phrase permissions as "A Customer can ..."; see
+  # evaluators/E1/README.md.
+  modals: [shall, must, should, will, can, may]
+
+  # Articles / determiners removed. `no` is deliberately absent: it is a
+  # negation cue, and cues are always kept in `normalized` since 1.1.0.
+  articles: [a, an, the]
+
+  # Nouns keep their surface form by default; true replaces them with lemmas.
+  singularize_nouns: false
+
+  # spaCy pipeline. Changing it changes lemmas and POS tags, so it is recorded
+  # in every output's .meta.json.
+  spacy_model: en_core_web_sm
+
+  # Split camelCase / PascalCase / snake_case identifiers into words.
+  split_identifiers: true
+
+  # Retained for backward compatibility and no longer read. Since E1 1.1.0
+  # negation cues are always kept in `normalized`; scope is reported in the
+  # `__main_predicate_negated` / `__negation_scope` columns instead.
+  keep_negation_cue_tokens: false
+
+  # Phrases containing a cue word that state a bound rather than a negation.
+  non_negating_phrases:
+    - no more than
+    - not more than
+    - no less than
+    - not less than
+    - no later than
+    - no earlier than
+    - no fewer than
+    - no greater than
+    - no longer than
+    - at least
+    - at most
