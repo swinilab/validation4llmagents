@@ -1,6 +1,6 @@
 """
-pipeline_factory.py
-────────────────────
+workflow_factory.py
+─────────────────
 Reads pipeline_config.yaml and returns concrete instances bound to the
 interfaces declared in interfaces/base.py.
 """

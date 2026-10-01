@@ -12,8 +12,8 @@ for _stream in (sys.stdout, sys.stderr):
     except (AttributeError, ValueError):
         pass
 
-from pipeline import run_pipeline
-from pipeline_factory import build
+from workflow import run_pipeline
+from workflow_factory import build
 
 
 def _parse_args() -> argparse.Namespace:

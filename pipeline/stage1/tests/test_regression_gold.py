@@ -1,4 +1,4 @@
-"""Regression tests for E1 1.1.0 against the real gold requirements file.
+"""Regression tests for Stage 1 1.1.0 against the real gold requirements file.
 
 Every expectation here comes from the 1.1.0 defect review of the v1.0.0 output
 on the 49-row gold set. They pin the four fixed defects (negation kept, scoped
@@ -13,7 +13,7 @@ from pathlib import Path
 
 import pytest
 
-from evaluators.E1.normalize import normalize
+from pipeline.stage1.normalize import normalize
 
 # Expected ``state_mentions`` per gold row, in order of appearance. Rows absent
 # from this table are not pinned: only the ones the review listed are.

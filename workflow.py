@@ -4,14 +4,14 @@ This file owns the workflow logic:
   2. Validation     → compilability (Docker) ► functional tests (HTTP)  [waterfall]
   3. Report         → report.txt (error detail or "check QA manually")
 
-All behaviour is injected via pipeline_factory.build().
+All behaviour is injected via workflow_factory.build().
 """
 
 from __future__ import annotations
 import sys
 from pathlib import Path
 from interfaces.base import GenerationResult, Status, ValidationResult
-from pipeline_factory import PipelineComponents
+from workflow_factory import PipelineComponents
 import json
 
 

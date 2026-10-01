@@ -1,4 +1,4 @@
-"""``python -m evaluators.E1`` entry point."""
+"""``python -m pipeline.stage1`` entry point."""
 
 import sys
 

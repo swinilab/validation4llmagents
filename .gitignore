@@ -2,3 +2,7 @@
 *.zip
 GOLD-NOTES.md
 materials-checklist-agile.md
+# PlantUML jar used by pipeline/stage1/parse_check. Downloaded, not committed.
+tools/*.jar
+stage1/artifact/
+stage1/reports/

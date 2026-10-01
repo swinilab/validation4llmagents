@@ -55,3 +55,24 @@ validator:
 # ── Output ────────────────────────────────────
 output:
   report_dir: "reports/"
+
+# ── Stage 1 analysis modules ──────────────────────────────────────────────
+# Metrics 7 and 8, registered in pipeline/stage1/registry.py and composed via
+# build_stage1_analyzers(). The authoritative defaults live in config.yaml's
+# `stage1:` section; the keys below override them for a pipeline run.
+stage1:
+  # Metric 7 - Diagram Validity (parse_check).
+  parse_check:
+    plantuml_jar: tools/plantuml.jar   # empty -> use `plantuml` on PATH
+    plantuml_cmd: plantuml
+    java_cmd: java
+    layout_smetana: false              # -Playout=smetana, for Graphviz-free layout
+    timeout_seconds: 60
+    extra_args: []
+
+  # Metric 8 - Consistency (consistency), rules CM-01..CM-05.
+  # CM-01 requires swimlane__normalized and owner_class__normalized, which
+  # Stage 1 normalize does not emit yet. No multiplicity rule (CM-06) exists.
+  consistency:
+    rules: [CM-01, CM-02, CM-03, CM-04, CM-05]
+    emit_ontology_gaps: true

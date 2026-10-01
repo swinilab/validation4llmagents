@@ -1,21 +1,39 @@
-# E1 — text normalization
+# Stage 1
 
-E1 is stage 1 of the matching cascade (E1 normalize → E2 ontology → E3
-embedding → E4 human). It turns a raw string into one canonical form so that
-E2 and E3 compare like with like.
+Stage 1 holds three modules:
 
-**E1 never decides whether two items match.** It does no E2/E3 work: no actor
-stripping, no alias lookup, no frame extraction, no synonym mapping, no
-embeddings. It is deterministic and offline — one spaCy pipeline, no network,
-no randomness — and it never modifies an input file or the ontology.
+| Module | Purpose | Metric |
+| --- | --- | --- |
+| [`normalize`](normalize.py) | text normalization for the matching cascade | — |
+| [`parse_check`](parse_check.py) | diagram validity | 7 |
+| [`consistency`](consistency.py) | cross-artifact consistency, CM-01..CM-05 | 8 |
+
+All three are deterministic, read their inputs read-only, never modify the
+ontology, and write a `.meta.json` provenance sidecar beside every output.
+None of them knows whether its input is gold or agent output: `run_id` is an
+opaque label.
 
 For copy-pasteable commands, see [COMMAND.md](COMMAND.md).
 
 ---
 
+# normalize — text normalization
+
+normalize is stage 1 of the matching cascade (Stage 1 normalize → Stage 2
+ontology → Stage 3 embedding → Stage 4 human). It turns a raw string into one
+canonical form so that Stage 2 and Stage 3 compare like with like.
+
+**normalize never decides whether two items match.** It does no Stage 2/Stage 3
+work: no actor stripping, no alias lookup, no frame extraction, no synonym
+mapping, no embeddings. It is deterministic and offline — one spaCy pipeline,
+no network, no randomness — and it never modifies an input file or the
+ontology.
+
+---
+
 ## Output columns
 
-For each normalized column `X`, E1 adds:
+For each normalized column `X`, Stage 1 adds:
 
 | Column | Meaning |
 |---|---|
@@ -26,7 +44,7 @@ For each normalized column `X`, E1 adds:
 | `X__negation_cues` | the surface cues that matched, in sentence order |
 | `X__state_mentions` | ontology state terms used **as states**, `; `-separated |
 
-Plus one `e1_version` column per row.
+Plus one `stage1_version` column per row.
 
 > **Breaking change in 1.1.0:** the single `X__negated` column is gone. It
 > conflated "a negation is present" with "the requirement is negative". Use
@@ -54,14 +72,14 @@ The order is part of the contract:
 
 ### Cues are never removed
 
-Since 1.1.0 a negation cue always survives into `normalized`. E1 never deletes
+Since 1.1.0 a negation cue always survives into `normalized`. Stage 1 never deletes
 `not`, `n't` (written out as `not`), determiner `no`, `never`, `cannot`, `nor`,
 `none` or `without`.
 
 v1.0.0 deleted the pure particles, on the theory that a negated sentence and
 its affirmative twin should share one token sequence and differ only in a flag.
 That was wrong for two reasons. It made `shall not store X` and `shall store X`
-*identical* strings, so E3's cosine similarity could not tell them apart at
+*identical* strings, so Stage 3's cosine similarity could not tell them apart at
 all; and it was inconsistent, because `without` and `no more than` were kept
 while `not` and `no` were not.
 
@@ -114,15 +132,15 @@ what the parser decided without re-running it.
   GR-15, "…in the placed state **and has not been marked** as picked", spaCy
   attaches `marked` as a conjunct of the *root* (`allow`) rather than of the
   `while` clause's `is`. Read literally, rule 1 would then call this `main`.
-  E1 rejects the link because `marked` (VBN, with its own auxiliaries) does not
+  Stage 1 rejects the link because `marked` (VBN, with its own auxiliaries) does not
   share the root's verb form (VB). This works here and on the rest of the gold
   set, but it is a syntactic proxy for a semantic question: a genuinely
   coordinated main verb in a *different* form would be missed.
 - **Lexical negation is not detected.** `prevent`, `deny`, `reject`, `refuse`,
   `fail to`, `exclude` and similar verbs negate their complement without any
   cue word. GR-39 and GR-41 ("shall **reject** a cancellation request") are
-  affirmative requirements to reject something, and E1 reports them as such —
-  which is correct for E1's purpose, but a consumer must not read
+  affirmative requirements to reject something, and Stage 1 reports them as such —
+  which is correct for Stage 1's purpose, but a consumer must not read
   `main_predicate_negated = false` as "this requirement is positive in
   meaning".
 - **`nor`, `none` and `without` never set `main`.** They introduce a
@@ -130,7 +148,7 @@ what the parser decided without re-running it.
   A sentence whose main predicate is genuinely negated by one of them would be
   reported `subordinate`.
 - **Double negation is not resolved.** Two cues in one sentence produce two
-  entries in `negation_cues`; E1 does not cancel them out.
+  entries in `negation_cues`; Stage 1 does not cancel them out.
 
 ---
 
@@ -182,7 +200,7 @@ the gold side as the state `retrieved` and the two could never match.
 
 - **Aliases are invisible outside rule 1.** *"mark the order as **boxed**"*
   reports no state mention, although a human would call that the `packed`
-  state. E1 does not map aliases to canonical names — that is E2's job — so
+  state. Stage 1 does not map aliases to canonical names — that is Stage 2's job — so
   admitting aliases structurally would produce more false positives than it
   fixes.
 - **Rule 2 is anchored on the word `order`.** A state predicated of a synonym
@@ -243,7 +261,214 @@ Identifiers are split on camelCase / PascalCase / snake_case boundaries:
 
 ---
 
+---
+
+# parse_check — metric 7 (Diagram Validity)
+
+Checks each PlantUML diagram in a run and scores the run as
+`diagram_validity = valid_diagrams / total_diagrams`.
+
+A diagram is **valid** iff PlantUML's own parser accepts it **and** every
+structural rule passes.
+
+### Inputs
+
+One or more `.puml` files plus a `run_id`:
+
+```bash
+python -m pipeline.stage1.parse_check --run-id RUN01 \
+  --diagram materials/M4-gold-v0.2/gold/gold-class.puml \
+  --diagram materials/M4-gold-v0.2/gold/gold-activity.puml
+```
+
+| Flag | Meaning |
+| --- | --- |
+| `--run-id` | Opaque label. Not interpreted. |
+| `--diagram` | A `.puml` file. Repeat for several. |
+| `--out` | Output JSON. Default `pipeline/stage1/artifact/<run-id>__parse_check.json`. |
+| `--config` | A `config.yaml` holding the `stage1:` section. |
+
+### Outputs
+
+`<run_id>__parse_check.json` plus its `.meta.json` sidecar. The JSON holds
+`run_id`, run-level `diagram_validity`, and per diagram: `path`, `kind`,
+`parse_ok`, `valid`, `inventory_allowed`, every rule's verdict, and
+`violations[]` with a line number where one can be attributed.
+
+`inventory_allowed` mirrors `valid`. A downstream extractor reads it through
+the helper rather than re-deriving the rules:
+
+```python
+from pipeline.stage1.parse_check import inventory_allowed
+if inventory_allowed("pipeline/stage1/artifact/RUN01__parse_check.json", "gold-class.puml"):
+    ...  # safe to extract an inventory from this diagram
+```
+
+A diagram that was never checked returns `False`: never extract from something
+that was not judged.
+
+### Rules
+
+**Syntax** — `plantuml -checkonly`. This is the official parser's verdict.
+
+| Rule | Applies to | Check |
+| --- | --- | --- |
+| PV-01 | class | At least one class is defined. |
+| PV-02 | activity | Has a start node and an end/stop node. |
+| PV-03 | activity | Every `if` has a matching `endif`. |
+| PV-04 | any | Every `partition`/swimlane block is closed. |
+
+The structural layer is not redundant with the syntax check. `-checkonly`
+**accepts** an activity diagram with an unclosed `if` and one with a missing
+`@enduml`, exiting 0 in both cases. Only PV-02..PV-04 catch those.
+
+### Exit codes
+
+| Code | Meaning |
+| --- | --- |
+| `0` | Ran to completion — **including when diagrams are invalid**. Read the JSON. |
+| `2` | Bad arguments, unreadable file, or output outside the repository. |
+| `3` | PlantUML could not be run (missing jar/binary, timeout). The diagrams were **not** judged. |
+
+The 0-vs-3 split is the point: "this diagram is bad" and "I could not check it"
+are different answers and must not be confused.
+
+### Known limitations
+
+- **The v0 rule set is the four rules above.** Broader UML well-formedness
+  (unreachable nodes, orphan classes, relationship cardinality, type
+  correctness) is not covered.
+- **Syntax violations carry no line number.** `-checkonly` reports only that a
+  diagram contains errors, so `line` is `null` for `SYNTAX`; the structural
+  rules do supply line numbers.
+- **PlantUML is not vendored.** The jar is downloaded to `tools/` and
+  gitignored, so a fresh checkout gets exit code 3 until it is fetched.
+- Diagram kind is inferred from the body, not the `@startuml` label. A file
+  that is neither class-like nor activity-like gets only PV-04.
+
+---
+
+# consistency — metric 8 (Consistency)
+
+Scores cross-artifact agreement **per instance**:
+
+```
+consistency = 1 - failed / total
+```
+
+With no instances the metric is `null` with a `no_instances` flag — never
+`1.0`, because "nothing was checked" is not "everything was right".
+
+### Inputs
+
+Already-flattened CSVs only. This module never parses `.puml`, markdown or
+prose.
+
+```bash
+python -m pipeline.stage1.consistency --run-id RUN01 \
+  --class-csv        pipeline/stage1/artifact/gold-class-elements__stage1.csv \
+  --activity-csv     pipeline/stage1/artifact/gold-activity-elements__stage1.csv \
+  --requirements-csv pipeline/stage1/artifact/gold-requirements__stage1.csv
+```
+
+All three are Stage 1 `normalize` outputs. `--out-dir` defaults to
+`pipeline/stage1/artifact/`.
+
+### Outputs
+
+| File | Contents |
+| --- | --- |
+| `<run_id>__consistency_instances.csv` | `run_id, rule_id, instance, status, detail, ontology_sha256, tool_version` |
+| `<run_id>__consistency.json` | per-rule `{total, failed}`, totals, and `consistency` |
+| `<run_id>__ontology_gaps.csv` | `term, source_file, rule_id, count` |
+| `<run_id>__consistency.json.meta.json` | provenance sidecar |
+
+Unknown terms are **never** added to the ontology. M2's HARD RULE 2 requires
+human adjudication, so they are logged to the gaps CSV instead.
+
+### Rules
+
+| Rule | One instance per | Passes when |
+| --- | --- | --- |
+| CM-01 | swimlane element | The swimlane resolves to an ontology class or actor. |
+| CM-02 | action with an object | The object resolves to a class or attribute. |
+| CM-03 | class | Its canonical name or an alias occurs in ≥1 requirement. |
+| CM-04 | detected transition | The transition is in `states.legal_transitions`. |
+| CM-05 | concept in >1 source | One canonical name is used across sources. |
+
+Matching is ontology lookup only: longest alias first, case-insensitive, and
+insensitive to identifier style (`PaymentGateway` = `payment_gateway`).
+
+**There is deliberately no CM-06.** No multiplicity rule is implemented.
+
+### Exit codes
+
+| Code | Meaning |
+| --- | --- |
+| `0` | Ran to completion, including when instances fail. |
+| `2` | Missing prerequisite column, unreadable input, bad arguments. |
+
+### Known limitations
+
+- **CM-01 needs artifacts built by normalize 1.2.0 or later.** It reads
+  `swimlane__normalized` and `owner_class__normalized`, which the
+  `activity-inv` and `class-inv` presets emit from 1.2.0 on. Against an
+  artifact produced by an older version the module stops with an error naming
+  both columns rather than silently skipping the rule; regenerate the input,
+  or deselect CM-01 via `stage1.consistency.rules` to run the other four.
+  Enabled by default now that the gold artifacts are regenerated with 1.2.0;
+  on the gold set it passes 4/4.
+- **CM-04 is pattern-based and conservative.** An instance is created only
+  when one of three ordered patterns matches: `mark <from> … as <to>`,
+  `<from> … marked as <to>`, and `from <from> … to <to>` (plus the ontology's
+  `action_verbs.transition` surface forms). A requirement that merely mentions
+  two states states no transition — "cancel only while *placed* and not yet
+  *picked*" is a guard, not a move, and yields no instance. The cost is
+  recall: a transition phrased outside these patterns is missed rather than
+  guessed at.
+- **CM-05 covers structured fields only** — class `canonical_name`, activity
+  `swimlane` and `object`, requirement `actor` and `object`. Requirement prose
+  is not mined for names. It also ignores pure formatting differences: two
+  spellings that resolve to the same ontology concept are one name, not an
+  inconsistency.
+- **CM-03 matching tolerates a regular plural** on the final word (`order
+  lines` matches `OrderLine`) because `normalize` keeps surface nouns by
+  default. It does no general stemming.
+- Ontology lookups use the **raw** identifier column, not the normalized one:
+  `normalize_label` lemmatizes short labels (`ShoppingCart` → `shop cart`),
+  which is right for embeddings but destroys the identifier a lookup needs.
+
 ## Changelog
+
+The versions below are `normalize`'s. `parse_check` and `consistency` are
+versioned separately (`PARSE_CHECK_VERSION`, `CONSISTENCY_VERSION`, both
+1.0.0) because their contracts change for different reasons.
+
+### parse_check 1.0.0 / consistency 1.0.0
+
+Initial release of the two analysis modules: metric 7 (syntax via
+`plantuml -checkonly` plus structural rules PV-01..PV-04) and metric 8 (rules
+CM-01..CM-05, per-instance scoring, ontology-gap logging). Both are registered
+in [registry.py](registry.py). `normalize` is unchanged by this work.
+
+### 1.2.0
+
+Additive. No existing column changed name, position or value.
+
+**Added**
+
+- `activity-inv` now normalizes `swimlane`, and `class-inv` now normalizes
+  `owner_class`, each emitting the usual six `X__*` columns. Both are treated
+  as label columns (the same path as `canonical_name` and `verb`/`object`), so
+  identifier splitting applies: `PaymentGateway` and `Payment_Gateway` both
+  normalize to `payment gateway`. Both are optional: `owner_class` is empty on
+  every non-attribute row and `swimlane` may be empty on rows that belong to no
+  lane, and an empty cell emits empty fields rather than raising.
+
+Requested by CM-01 in [consistency.py](consistency.py), which needs canonical
+lane and owner-class names. The gold artifacts have since been regenerated
+with this version, so CM-01 is included in the default rule set and passes
+4/4 on the gold set.
 
 ### 1.1.0
 
@@ -259,7 +484,7 @@ diff is in [reports/gold_v1.0_vs_v1.1.csv](reports/gold_v1.0_vs_v1.1.csv).
   `main` / `subordinate` / `none`. The `Normalized.negated` attribute is gone
   too; `Normalized` now carries `has_negation_cue`, `main_predicate_negated`
   and `negation_scope`.
-- `config.yaml`'s `E1.keep_negation_cue_tokens` is no longer read. Cues are now
+- `config.yaml`'s `Stage1.keep_negation_cue_tokens` is no longer read. Cues are now
   always kept. The key is accepted and ignored.
 
 **Fixed**

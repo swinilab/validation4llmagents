@@ -2,3 +2,7 @@ element_id,element_type,verb,object,swimlane,detail,tier
 AC-01,action,Validate,payment,System,,C
 AC-02,action,updates,order,System,Moves the order to a shipped state.,C
 SL-01,swimlane,,,Customer,,C
+AC-03,action,notify,customer,PaymentGateway,,C
+AC-04,action,route,order,Payment_Gateway,,C
+AC-05,action,inform,user,Customers,,C
+BR-01,branch,,,,Checks whether stock is available.,C
