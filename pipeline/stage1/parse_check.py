@@ -52,13 +52,14 @@ __all__ = [
     "Violation",
     "inventory_allowed",
     "check_diagram",
+    "render_diagram_png",
     "run_parse_check",
     "main",
 ]
 
 # Versioned separately from STAGE1_VERSION: the normalization contract and the
 # diagram-validity contract change for different reasons.
-PARSE_CHECK_VERSION = "1.0.0"
+PARSE_CHECK_VERSION = "1.1.0"
 
 # Exit codes. 0 covers "ran to completion", including diagrams that failed.
 EXIT_OK = 0
@@ -127,6 +128,8 @@ class DiagramResult:
     rules: list[RuleResult] = field(default_factory=list)
     violations: list[Violation] = field(default_factory=list)
     syntax_error: str | None = None
+    png_path: str | None = None
+    png_paths: list[str] = field(default_factory=list)
 
     @property
     def valid(self) -> bool:
@@ -150,6 +153,8 @@ class DiagramResult:
             "valid": self.valid,
             "inventory_allowed": self.inventory_allowed,
             "syntax_error": self.syntax_error,
+            "png_path": self.png_path,
+            "png_paths": self.png_paths,
             "rules": [
                 {"rule_id": r.rule_id, "message": r.message, "passed": r.passed}
                 for r in self.rules
@@ -471,6 +476,96 @@ def check_diagram(path: Path, cfg: Stage1Config) -> DiagramResult:
     )
 
 
+def render_diagram_png(
+    path: Path,
+    out_dir: Path,
+    cfg: Stage1Config,
+) -> list[Path]:
+    """Render one diagram to PNG format in ``out_dir``.
+
+    Args:
+        path: Path to the .puml diagram.
+        out_dir: Destination directory. Must resolve inside the repository.
+        cfg: Effective Stage 1 configuration.
+
+    Returns:
+        A list of generated PNG paths.
+
+    Raises:
+        PlantUmlNotAvailable: If PlantUML executable or jar could not be run.
+    """
+    settings = cfg.parse_check
+    out_dir.mkdir(parents=True, exist_ok=True)
+    before_files = {p.resolve(): p.stat().st_mtime_ns for p in out_dir.glob("*.png")}
+
+    command = [*_plantuml_command(cfg), "-tpng"]
+    if settings.layout_smetana:
+        command.append("-Playout=smetana")
+    command.extend(settings.extra_args)
+    command.extend(["-o", str(out_dir.resolve()), str(path.resolve())])
+
+    try:
+        completed = subprocess.run(
+            command,
+            capture_output=True,
+            text=True,
+            timeout=settings.timeout_seconds,
+            check=False,
+        )
+    except FileNotFoundError as exc:
+        raise PlantUmlNotAvailable(
+            f"Cannot run PlantUML ({command[0]!r} not found): {exc}."
+        ) from exc
+    except subprocess.TimeoutExpired as exc:
+        raise PlantUmlNotAvailable(
+            f"PlantUML timed out after {settings.timeout_seconds}s rendering PNG for {path}."
+        ) from exc
+    except OSError as exc:
+        raise PlantUmlNotAvailable(f"Cannot run PlantUML: {exc}") from exc
+
+    output = f"{completed.stdout}\n{completed.stderr}".strip()
+    if completed.returncode not in (0, 200):
+        if "Error: Unable to access jarfile" in output or "ClassNotFoundException" in output:
+            raise PlantUmlNotAvailable(f"Cannot run PlantUML: {output}")
+
+    if completed.returncode != 0:
+        return []
+
+    # Detect created or updated PNG files
+    generated: list[Path] = []
+    for p in sorted(out_dir.glob("*.png")):
+        resolved = p.resolve()
+        mtime = p.stat().st_mtime_ns
+        if resolved not in before_files or mtime > before_files[resolved]:
+            generated.append(p)
+
+    if not generated:
+        candidate = out_dir / f"{path.stem}.png"
+        if candidate.is_file():
+            generated.append(candidate)
+        else:
+            try:
+                content = path.read_text(encoding="utf-8")
+                match = re.search(r"^\s*@startuml(?:\s+([\w\.\-]+))?", content, re.MULTILINE)
+                if match and match.group(1):
+                    named_candidate = out_dir / f"{match.group(1)}.png"
+                    if named_candidate.is_file():
+                        generated.append(named_candidate)
+            except OSError:
+                pass
+
+    return generated
+
+
+def _resolve_png_dir(png_dir: str | Path | None, run_id: str) -> Path:
+    """Resolve the directory for PNG exports inside the repository."""
+    if png_dir is not None:
+        return resolve_output_path(png_dir, None)
+    from .config import ARTIFACT_DIR
+
+    return resolve_output_path(ARTIFACT_DIR / f"{run_id}__png", None)
+
+
 def _display_path(path: Path) -> str:
     """Repo-relative POSIX path, matching the normalize module's convention."""
     try:
@@ -517,6 +612,8 @@ def run_parse_check(
     diagrams: Sequence[str | Path],
     out_path: str | Path | None = None,
     cfg: Stage1Config | None = None,
+    export_png: bool = False,
+    png_dir: str | Path | None = None,
 ) -> dict[str, Any]:
     """Check every diagram in a run and write ``<run_id>__parse_check.json``.
 
@@ -528,6 +625,8 @@ def run_parse_check(
             ``pipeline/stage1/artifact/<run_id>__parse_check.json``. Must
             resolve inside the repository.
         cfg: Effective config; loaded from ``config.yaml`` when None.
+        export_png: Render valid diagrams to .png images.
+        png_dir: Directory to save rendered .png diagrams. Implies export_png.
 
     Returns:
         The payload that was written.
@@ -535,7 +634,7 @@ def run_parse_check(
     Raises:
         ParseCheckError: On bad arguments or an unreadable diagram.
         PlantUmlNotAvailable: If PlantUML could not be run.
-        Stage1ConfigError: If ``out_path`` resolves outside the repository.
+        Stage1ConfigError: If ``out_path`` or ``png_dir`` resolves outside the repository.
     """
     if not run_id or not str(run_id).strip():
         raise ParseCheckError("run_id must be a non-empty label.")
@@ -544,12 +643,29 @@ def run_parse_check(
 
     effective = cfg or load_config()
 
+    should_export_png = export_png or (png_dir is not None)
+    resolved_png_dir: Path | None = None
+    if should_export_png:
+        resolved_png_dir = _resolve_png_dir(png_dir, run_id)
+        resolved_png_dir.mkdir(parents=True, exist_ok=True)
+
     results: list[DiagramResult] = []
     for item in diagrams:
         path = Path(item)
         if not path.is_file():
             raise ParseCheckError(f"Diagram file not found: {path}")
-        results.append(check_diagram(path, effective))
+        result = check_diagram(path, effective)
+        if should_export_png and result.valid and resolved_png_dir is not None:
+            try:
+                png_files = render_diagram_png(path, resolved_png_dir, effective)
+                result.png_paths = [_display_path(p) for p in png_files]
+                result.png_path = result.png_paths[0] if result.png_paths else None
+            except PlantUmlNotAvailable:
+                raise
+            except Exception:
+                result.png_path = None
+                result.png_paths = []
+        results.append(result)
 
     # Stable row order: sort by the displayed path so the JSON does not depend
     # on the order the shell happened to glob the arguments in.
@@ -562,6 +678,8 @@ def run_parse_check(
         "diagram_validity": (valid / total) if total else None,
         "total_diagrams": total,
         "valid_diagrams": valid,
+        "png_exported": should_export_png,
+        "png_dir": _display_path(resolved_png_dir) if resolved_png_dir else None,
         "diagrams": [r.as_dict() for r in results],
     }
 
@@ -572,7 +690,14 @@ def run_parse_check(
         encoding="utf-8",
         newline="\n",
     )
-    _write_meta(output_file, effective, run_id, results)
+    _write_meta(
+        output_file,
+        effective,
+        run_id,
+        results,
+        png_exported=should_export_png,
+        png_dir=resolved_png_dir,
+    )
     payload["out_path"] = _display_path(output_file)
     return payload
 
@@ -590,7 +715,12 @@ def _resolve_json_output(out_path: str | Path | None, run_id: str) -> Path:
 
 
 def _write_meta(
-    out_path: Path, cfg: Stage1Config, run_id: str, results: Sequence[DiagramResult]
+    out_path: Path,
+    cfg: Stage1Config,
+    run_id: str,
+    results: Sequence[DiagramResult],
+    png_exported: bool = False,
+    png_dir: Path | None = None,
 ) -> Path:
     """Write the ``.meta.json`` sidecar, following the normalize convention."""
     meta_path = out_path.with_name(out_path.name + ".meta.json")
@@ -603,6 +733,8 @@ def _write_meta(
         "run_id": run_id,
         "inputs": [r.path for r in results],
         "diagram_count": len(results),
+        "png_exported": png_exported,
+        "png_dir": _display_path(png_dir) if png_dir else None,
         "structural_rules": dict(sorted(STRUCTURAL_RULES.items())),
     }
     meta_path.write_text(
@@ -618,7 +750,8 @@ def _build_parser() -> argparse.ArgumentParser:
         prog="python -m pipeline.stage1.parse_check",
         description=(
             "Stage 1 - metric 7 (Diagram Validity). Checks PlantUML diagrams "
-            "for syntax (plantuml -checkonly) and structural rules PV-01..PV-04. "
+            "for syntax (plantuml -checkonly) and structural rules PV-01..PV-04, "
+            "and optionally exports rendered .png diagrams. "
             "An invalid diagram is recorded and exits 0; non-zero means the "
             "check could not be performed."
         ),
@@ -641,6 +774,21 @@ def _build_parser() -> argparse.ArgumentParser:
             "inside the repository."
         ),
     )
+    parser.add_argument(
+        "--png-dir",
+        dest="png_dir",
+        help=(
+            "Output directory for rendered .png diagrams. Defaults to "
+            "pipeline/stage1/artifact/<run-id>__png/ when --export-png is used. "
+            "Must be inside the repository."
+        ),
+    )
+    parser.add_argument(
+        "--export-png",
+        dest="export_png",
+        action="store_true",
+        help="Export rendered .png files for valid diagrams.",
+    )
     parser.add_argument("--config", help="Path to a config.yaml holding the stage1 section.")
     return parser
 
@@ -657,7 +805,14 @@ def main(argv: Sequence[str] | None = None) -> int:
         return EXIT_USAGE
 
     try:
-        payload = run_parse_check(args.run_id, args.diagrams, args.out_path, cfg)
+        payload = run_parse_check(
+            args.run_id,
+            args.diagrams,
+            args.out_path,
+            cfg,
+            export_png=args.export_png,
+            png_dir=args.png_dir,
+        )
     except PlantUmlNotAvailable as exc:
         # Distinct exit code: the tool is missing, the diagrams are not judged.
         print(f"parse_check tool error: {exc}", file=sys.stderr)
@@ -673,6 +828,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         f"{payload['valid_diagrams']}/{payload['total_diagrams']} diagrams valid "
         f"(diagram_validity={shown}) -> {payload['out_path']}"
     )
+    if payload.get("png_exported") and payload.get("png_dir"):
+        print(f"  PNG diagrams exported to {payload['png_dir']}")
     for diagram in payload["diagrams"]:
         if not diagram["valid"]:
             for violation in diagram["violations"]:

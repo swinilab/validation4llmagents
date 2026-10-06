@@ -1,11 +1,11 @@
-# main.py
+# main.py — Entry point for the SWELAB Empirical Study Pipeline
+from __future__ import annotations
+
 import argparse
 import sys
+from datetime import datetime
 
-# The pipeline prints ✅/❌ markers. On Windows the console defaults to cp1252,
-# which cannot encode them, and the run dies with UnicodeEncodeError *after*
-# the JSON reports are written but *before* report_writer runs. Force UTF-8 and
-# never let an unencodable character abort a run.
+# Windows console encoding fix
 for _stream in (sys.stdout, sys.stderr):
     try:
         _stream.reconfigure(encoding="utf-8", errors="replace")
@@ -17,33 +17,43 @@ from workflow_factory import build
 
 
 def _parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="SWELAB Empirical Study Pipeline")
+    parser = argparse.ArgumentParser(
+        description="SWELAB Empirical Study Pipeline (ChatDev + Ollama & Stage 1 Validation)"
+    )
     parser.add_argument(
         "--phase",
         choices=["gen", "val", "all"],
         default="all",
+        help="Pipeline phase to execute: gen (generation), val (validation), or all.",
     )
     parser.add_argument(
-        "--stage",
-        type=int,
-        choices=[1, 2, 3, 4, 5, 6],
-        default=None,
-        help=(
-            "Validation sub-stage to run in isolation "
-            "(1=compilability, 2=functional, 3=static QA, 4=QA, 5=TICS, "
-            "6=workflow integration). "
-            "Only applies when --phase includes val. "
-            "Omit to run the full validation waterfall."
-        ),
+        "--run-id",
+        default=f"RUN_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
+        help="Opaque identifier for this run. Used to name artifacts and reports.",
     )
-    parser.add_argument("--config", default="pipeline_config.yaml")
+    parser.add_argument(
+        "--prompt",
+        dest="prompt_file",
+        default=None,
+        help="Path to the generation prompt file (defaults to config agent.prompt_template).",
+    )
+    parser.add_argument(
+        "--config",
+        default="pipeline_config.yaml",
+        help="Path to pipeline configuration YAML.",
+    )
     return parser.parse_args()
 
 
 def main() -> None:
-    args       = _parse_args()
+    args = _parse_args()
     components = build(config_path=args.config)
-    run_pipeline(components, phase=args.phase, stage=args.stage)
+    run_pipeline(
+        components,
+        phase=args.phase,
+        run_id=args.run_id,
+        prompt_file=args.prompt_file,
+    )
 
 
 if __name__ == "__main__":

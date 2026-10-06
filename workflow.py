@@ -1,137 +1,101 @@
-"""
-This file owns the workflow logic:
-  1. Generation     → call agent with prompt
-  2. Validation     → compilability (Docker) ► functional tests (HTTP)  [waterfall]
-  3. Report         → report.txt (error detail or "check QA manually")
+"""workflow.py — Minimal pipeline orchestration logic.
 
-All behaviour is injected via workflow_factory.build().
+Executes:
+  1. Generation: calls generation agent with specified prompt template
+  2. Validation: runs Stage 1 diagram validity, flattening, and quality checks
+  3. Report: writes consolidated execution report
 """
 
 from __future__ import annotations
+
+import json
 import sys
 from pathlib import Path
+from typing import Any
+
 from interfaces.base import GenerationResult, Status, ValidationResult
 from workflow_factory import PipelineComponents
-import json
 
 
-def _read_prompt(config: dict) -> str:
-    workdir = Path(config.get("workdir", "."))
-
-    rel_path = config.get("agent", {}).get("prompt_template", "")
+def _read_prompt(cfg: dict[str, Any], prompt_override: str | None = None) -> str:
+    workdir = Path(cfg.get("workdir", "."))
+    rel_path = prompt_override or cfg.get("agent", {}).get("prompt_template", "prompts/v1.0.md")
     full_path = (workdir / rel_path).resolve()
 
-    try:
-        with open(full_path) as f:
-            return f.read().strip()
-    except FileNotFoundError:
-        print(f"❌ Error: Prompt file not found at path: '{full_path}'")
+    if not full_path.is_file():
+        print(f"❌ Error: Prompt file not found at path: '{full_path}'", file=sys.stderr)
         sys.exit(1)
 
-def run_generation(components: PipelineComponents, prompt: str) -> GenerationResult:
-    print("PHASE 1: GENERATE ORDERMAN")
+    return full_path.read_text(encoding="utf-8").strip()
+
+
+def run_generation(components: PipelineComponents, prompt: str, run_id: str) -> GenerationResult:
+    print(f"\n==================================================")
+    print(f"  PHASE 1: GENERATION (ChatDev + Ollama)")
+    print(f"==================================================")
     result = components.generation_agent.generate(prompt)
-    print("  ✅ done")
-    print(f"  status : {result.status}")
-    print(f"  model  : {result.model}")
-    print(f"  code   : {result.code}")
+    if result.status == Status.PASS:
+        print(f"  ✅ Generation completed successfully")
+    else:
+        print(f"  ⚠️ Generation status: {result.status}")
+    print(f"  Model  : {result.model}")
+    print(f"  Output : {result.code}")
     return result
 
-def _generation_result_from_config(cfg: dict) -> GenerationResult:
-    """Build a stand-in GenerationResult for standalone `--phase val` runs,
-    reading the code path to validate from the pipeline config."""
-    code = cfg.get("validation", {}).get("code", "")
-    return GenerationResult(status=Status.PASS, model="None", code=code)
-
-# stage number -> human-readable name (1-3 are implemented, 4 is a placeholder)
-VALIDATION_STAGES = {
-    1: "compilability",
-    2: "functional",
-    3: "static QA",
-    4: "QA",
-    5: "TICS",
-    6: "workflow",
-}
 
 def run_validation(
     components: PipelineComponents,
     generation: GenerationResult,
-    stage: int | None = None,
-    indent: int = 1,
+    run_id: str,
 ) -> list[ValidationResult]:
-    """Run the validation waterfall, or a single isolated sub-stage.
+    print(f"\n==================================================")
+    print(f"  PHASE 2: VALIDATION (Stage 1 SRS & Diagram Checks)")
+    print(f"==================================================")
+    result = components.stage1_validator.validate(generation, run_id=run_id)
 
-    stage=None runs stages 1→3 in a waterfall (stops at the first failure).
-    stage=1|2|3|4 runs only that sub-stage, regardless of pass/fail.
-    """
-    pad = "  " * indent
-    results: list[ValidationResult] = []
-    stages = [stage] if stage is not None else [1, 2, 3]
-    waterfall = stage is None
+    if result.passed:
+        print(f"  ✅ {result.name}: passed ({result.message})")
+    else:
+        print(f"  ❌ {result.name}: failed ({result.message})")
 
-    for s in stages:
-        name = VALIDATION_STAGES[s]
+    return [result]
 
-        if s == 1:
-            print(f"{pad}validate > {name}")
-            result = components.compilability_validator.validate(generation)
-        elif s == 2:
-            print(f"{pad}validate > {name}")
-            result = components.functional_validator.validate(generation)
-        elif s == 3:
-            print(f"{pad}validate > {name}")
-            result = components.static_quality_validator.validate(generation)
-        elif s == 5:
-            print(f"{pad}validate > {name}")
-            result = components.tics_validator.validate(generation)
-        elif s == 6:
-            print(f"{pad}validate > {name}")
-            result = components.workflow_validator.validate(generation)
-        else:
-            print(f"{pad}validate > {name} (not implemented yet, skipping)")
-            continue
 
-        results.append(result)
-        if result.passed:
-            print(f"{pad}  ✅ passed")
-        else:
-            if s in (2, 6):
-                print(f"{pad}  ❌ {json.dumps(result.details)}")
-            else:
-                print(f"{pad}  ❌ {result.message}")
-            # if waterfall:
-            #     break
-
-    return results
-
-def run_pipeline(components: PipelineComponents, phase: str = "all", stage: int | None = None) -> None:
-    cfg    = components.config
-    prompt = _read_prompt(cfg)
-
+def run_pipeline(
+    components: PipelineComponents,
+    phase: str = "all",
+    run_id: str = "RUN01",
+    prompt_file: str | None = None,
+) -> None:
+    cfg = components.config
     generation: GenerationResult | None = None
     validation_results: list[ValidationResult] = []
 
-    # 1. GENERATION PHASE
+    # 1. Generation Phase
     if phase in ("gen", "all"):
-        generation = run_generation(components, prompt)
+        prompt = _read_prompt(cfg, prompt_file)
+        generation = run_generation(components, prompt, run_id=run_id)
 
-    # generation = GenerationResult('','','')
-    # generation.code = 'generated/sdk_chatdev_20260806222639_20260806222639/code_workspace'
-
-    # 2. VALIDATION PHASE
+    # 2. Validation Phase
     if phase in ("val", "all"):
-        print("PHASE 2: VALIDATION")
         if generation is None:
-            # standalone `--phase val` run: build the GenerationResult from config
-            generation = _generation_result_from_config(cfg)
-        validation_results = run_validation(components, generation, stage=stage, indent=1)
+            # Standalone validation mode: use code path from config
+            target_path = cfg.get("validation", {}).get("code", "materials/M4-gold-v0.2/gold")
+            generation = GenerationResult(
+                status=Status.PASS,
+                model="standalone",
+                code=target_path,
+                output_dir=Path(target_path),
+            )
+        validation_results = run_validation(components, generation, run_id=run_id)
 
-    # 3. EXPORT REPORT
-    print("EXPORTING REPORT")
-    if validation_results:
-        all_passed = all(vr.passed for vr in validation_results)
-    else:
-        all_passed = generation is not None and generation.status is Status.PASS
+    # 3. Report Export
+    print(f"\n==================================================")
+    print(f"  EXPORTING REPORT")
+    print(f"==================================================")
+    all_passed = all(vr.passed for vr in validation_results) if validation_results else (
+        generation is not None and generation.status == Status.PASS
+    )
 
     report_path = components.report_writer.write(
         generation=generation,
@@ -140,7 +104,6 @@ def run_pipeline(components: PipelineComponents, phase: str = "all", stage: int 
     )
 
     if all_passed:
-        print(f"  ✅ done → {report_path} (please check QA manually)")
+        print(f"  ✅ Complete → {report_path}")
     else:
-        print(f"  ❌ failed → {report_path}")
-        sys.exit(1)
+        print(f"  ⚠️ Completed with issues → {report_path}")
