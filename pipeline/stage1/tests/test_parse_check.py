@@ -14,7 +14,7 @@ from pathlib import Path
 
 import pytest
 
-from pipeline.stage1.config import ParseCheckConfig
+from pipeline.stage1.config import ParseCheckConfig, Stage1ConfigError
 from pipeline.stage1.parse_check import (
     EXIT_OK,
     EXIT_TOOL,
@@ -27,6 +27,7 @@ from pipeline.stage1.parse_check import (
     detect_kind,
     inventory_allowed,
     main,
+    render_diagram_png,
     run_parse_check,
 )
 
@@ -329,3 +330,86 @@ def test_inventory_allowed_helper(tmp_path, cfg, artifact_tmp, needs_plantuml):
 
 def test_inventory_allowed_on_missing_file_is_false(tmp_path):
     assert inventory_allowed(tmp_path / "absent.json", "any.puml") is False
+
+
+# --- PNG export ----------------------------------------------------------
+
+
+def test_render_diagram_png_success(tmp_path, cfg, needs_plantuml):
+    puml = _write(tmp_path, "diagram.puml", VALID_ACTIVITY)
+    png_dir = tmp_path / "png_out"
+    created = render_diagram_png(puml, png_dir, cfg)
+    assert len(created) >= 1
+    for p in created:
+        assert p.is_file()
+        assert p.stat().st_size > 0
+
+
+def test_run_parse_check_with_export_png(tmp_path, cfg, artifact_tmp, needs_plantuml):
+    good = _write(tmp_path, "valid.puml", VALID_ACTIVITY)
+    out_json = artifact_tmp / "png_run__parse_check.json"
+    png_dir = artifact_tmp / "png_run__png"
+    payload = run_parse_check(
+        "PNG_RUN",
+        [good],
+        out_path=out_json,
+        cfg=cfg,
+        export_png=True,
+        png_dir=png_dir,
+    )
+    assert payload["png_exported"] is True
+    assert payload["png_dir"] is not None
+    assert len(payload["diagrams"]) == 1
+    d = payload["diagrams"][0]
+    assert d["png_path"] is not None
+    assert Path(d["png_path"]).is_file()
+
+
+def test_run_parse_check_invalid_diagram_skips_png(tmp_path, cfg, artifact_tmp, needs_plantuml):
+    bad = _write(tmp_path, "invalid.puml", SYNTAX_ERROR)
+    out_json = artifact_tmp / "invalid_png__parse_check.json"
+    png_dir = artifact_tmp / "invalid_png__dir"
+    payload = run_parse_check(
+        "INVALID_PNG",
+        [bad],
+        out_path=out_json,
+        cfg=cfg,
+        export_png=True,
+        png_dir=png_dir,
+    )
+    assert payload["png_exported"] is True
+    d = payload["diagrams"][0]
+    assert d["valid"] is False
+    assert d["png_path"] is None
+
+
+def test_export_png_outside_repo_rejected(tmp_path, cfg, artifact_tmp):
+    good = _write(tmp_path, "v.puml", VALID_CLASS)
+    with pytest.raises(Stage1ConfigError):
+        run_parse_check(
+            "OUTSIDE",
+            [good],
+            out_path=artifact_tmp / "outside.json",
+            cfg=cfg,
+            png_dir=Path("/outside/repo/png"),
+        )
+
+
+def test_cli_export_png_flag(tmp_path, cfg, artifact_tmp, needs_plantuml):
+    good = _write(tmp_path, "cli.puml", VALID_CLASS)
+    out_json = artifact_tmp / "cli_test__parse_check.json"
+    png_dir = artifact_tmp / "cli_png"
+    argv = [
+        "--run-id", "CLI_TEST",
+        "--diagram", str(good),
+        "--out", str(out_json),
+        "--export-png",
+        "--png-dir", str(png_dir),
+    ]
+    exit_code = main(argv)
+    assert exit_code == EXIT_OK
+    assert out_json.is_file()
+    payload = json.loads(out_json.read_text(encoding="utf-8"))
+    assert payload["png_exported"] is True
+    assert payload["diagrams"][0]["png_path"] is not None
+

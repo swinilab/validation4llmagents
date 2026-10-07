@@ -6,3 +6,4 @@ materials-checklist-agile.md
 tools/*.jar
 stage1/artifact/
 stage1/reports/
+/reports/

@@ -7,12 +7,12 @@ workdir: "."
 # ── Generation ────────────────────────────────
 agent:
   type: "chatdev"
-  model: "gemma4:31b"                      
-  api_key: "YOUR KEY"
-  api_base: "https://ollama.com/v1"
+  model: "qwen2.5-coder:7b"
+  api_key: "ollama"
+  api_base: "http://localhost:11434/v1"
   temperature: 0.2
   workflow: "agents/chatdev.yaml"             # ChatDev's coding workflow
-  prompt_template: "prompts/simple.md"        # path to the generation prompt
+  prompt_template: "prompts/v1.0.md"          # path to the generation prompt
   generated_dir: "generated"
 
 # ── Validation ────────────────────────────────
@@ -20,7 +20,7 @@ validation:
   # Code path to validate when running `--phase val` standalone
   # (ignored when running `--phase all`, where the code path comes from
   # the generation phase's GenerationResult instead).
-  code: "generated/code_workspace"
+  code: "materials/M4-gold-v0.2/gold"
 
   # Stage 1 – Compilability
   docker:

@@ -1,32 +1,153 @@
-from interfaces.base import GenerationResult, IGenerationAgent, Status
-import chatdev.sdk
+from __future__ import annotations
+
+import json
+import re
+import time
+from datetime import datetime
 from pathlib import Path
-from chatdev import run_workflow
+from typing import Any
+
+import requests
+from interfaces.base import GenerationResult, IGenerationAgent, Status
+
+try:
+    import chatdev.sdk
+    from chatdev import run_workflow
+    HAS_CHATDEV = True
+except ImportError:
+    HAS_CHATDEV = False
 
 
 class ChatDevGenerationAgent(IGenerationAgent):
-    def __init__(self, config) -> None:
+    def __init__(self, config: dict[str, Any]) -> None:
         self._config = config.get("agent", {})
 
     def generate(self, prompt: str) -> GenerationResult:
         generated_dir = Path(self._config.get("generated_dir", "generated"))
-        chatdev.sdk.OUTPUT_ROOT = generated_dir
         workdir = Path(self._config.get("workdir", "."))
+        model = self._config.get("model", "qwen2.5-coder:7b")
+        api_base = self._config.get("api_base", "http://localhost:11434/v1")
+        api_key = self._config.get("api_key", "ollama")
+        workflow_rel = self._config.get("workflow", "agents/chatdev.yaml")
 
-        result = run_workflow(
-            yaml_file=workdir / self._config.get("workflow"),
-            task_prompt=prompt,
-            variables={
-                "BASE_URL":   self._config.get("api_base"),
-                "API_KEY":    self._config.get("api_key"),
-                "MODEL_NAME": self._config.get("model"),
-            },
-        )
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        run_output_dir = generated_dir / f"run_{timestamp}"
+        run_output_dir.mkdir(parents=True, exist_ok=True)
 
-        code = str(result.output_dir / "code_workspace") if result.output_dir else str(generated_dir)
+        # 1. Preferred: Run via ChatDev SDK if installed
+        if HAS_CHATDEV:
+            chatdev.sdk.OUTPUT_ROOT = generated_dir
+            yaml_path = workdir / workflow_rel
 
-        return GenerationResult(
-            status=Status.PASS if result.success else Status.FAIL,
-            model=self._config.get("model"),
-            code=code,
-        )
+            try:
+                result = run_workflow(
+                    yaml_file=yaml_path,
+                    task_prompt=prompt,
+                    variables={
+                        "BASE_URL": api_base,
+                        "API_KEY": api_key,
+                        "MODEL_NAME": model,
+                    },
+                )
+                code_path = str(result.output_dir / "code_workspace") if result.output_dir else str(run_output_dir)
+                return GenerationResult(
+                    status=Status.PASS if result.success else Status.FAIL,
+                    model=model,
+                    code=code_path,
+                    output_dir=Path(code_path),
+                )
+            except Exception as exc:
+                print(f"ChatDev execution encountered an error: {exc}. Falling back to direct Ollama generation.")
+
+        # 2. Fallback: Direct OpenAI-compatible generation via local Ollama
+        print(f"Executing generation via local Ollama API ({api_base}, model={model})...")
+        endpoint = f"{api_base.rstrip('/')}/chat/completions"
+        headers = {"Content-Type": "application/json"}
+        if api_key:
+            headers["Authorization"] = f"Bearer {api_key}"
+
+        payload = {
+            "model": model,
+            "messages": [
+                {
+                    "role": "system",
+                    "content": "You are an expert requirements engineer and software architect.",
+                },
+                {"role": "user", "content": prompt},
+            ],
+            "temperature": float(self._config.get("temperature", 0.2)),
+        }
+
+        try:
+            resp = requests.post(endpoint, json=payload, headers=headers, timeout=300)
+            if resp.status_code != 200:
+                print(f"Ollama API returned error HTTP {resp.status_code}: {resp.text}")
+                return GenerationResult(
+                    status=Status.FAIL,
+                    model=model,
+                    code=str(run_output_dir),
+                    output_dir=run_output_dir,
+                    metadata={"error": f"HTTP {resp.status_code}: {resp.text}"},
+                )
+
+            data = resp.json()
+            content = data["choices"][0]["message"]["content"]
+
+            # Save full generation output
+            (run_output_dir / "generation_raw.md").write_text(content, encoding="utf-8")
+
+            # Extract distinct files mentioned in prompt (srs.md, class.puml, activity.puml, requirements.json)
+            self._extract_files(content, run_output_dir)
+
+            return GenerationResult(
+                status=Status.PASS,
+                model=model,
+                code=str(run_output_dir),
+                output_dir=run_output_dir,
+                metadata={"usage": data.get("usage", {})},
+            )
+
+        except requests.exceptions.ConnectionError as exc:
+            msg = f"Cannot connect to Ollama at {api_base}. Ensure Ollama is running (`ollama serve`)."
+            print(f"Generation error: {msg}")
+            return GenerationResult(
+                status=Status.ERROR,
+                model=model,
+                code=str(run_output_dir),
+                output_dir=run_output_dir,
+                metadata={"error": msg},
+            )
+        except Exception as exc:
+            print(f"Unexpected generation error: {exc}")
+            return GenerationResult(
+                status=Status.ERROR,
+                model=model,
+                code=str(run_output_dir),
+                output_dir=run_output_dir,
+                metadata={"error": str(exc)},
+            )
+
+    @staticmethod
+    def _extract_files(content: str, out_dir: Path) -> None:
+        """Extract tagged code blocks or markdown sections into target files."""
+        # Extract PlantUML diagrams
+        class_match = re.search(r"@startuml\s+classdiagram.*?@enduml", content, re.DOTALL)
+        if class_match:
+            (out_dir / "class.puml").write_text(class_match.group(0), encoding="utf-8")
+
+        activity_match = re.search(r"@startuml\s+activity.*?@enduml", content, re.DOTALL)
+        if activity_match:
+            (out_dir / "activity.puml").write_text(activity_match.group(0), encoding="utf-8")
+
+        # Extract JSON requirement listing
+        json_match = re.search(r"```json\s*(\[\s*\{.*?\}\s*\])\s*```", content, re.DOTALL)
+        if json_match:
+            (out_dir / "requirements.json").write_text(json_match.group(1), encoding="utf-8")
+        else:
+            # Fallback direct array match
+            json_arr = re.search(r"(\[\s*\{\s*\"id\".*?\}\s*\])", content, re.DOTALL)
+            if json_arr:
+                (out_dir / "requirements.json").write_text(json_arr.group(1), encoding="utf-8")
+
+        # Always save srs.md
+        (out_dir / "srs.md").write_text(content, encoding="utf-8")
