@@ -29,6 +29,8 @@ class ChatDevGenerationAgent(IGenerationAgent):
         api_base = self._config.get("api_base", "http://localhost:11434/v1")
         api_key = self._config.get("api_key", "ollama")
         workflow_rel = self._config.get("workflow", "agents/chatdev.yaml")
+        timeout_seconds = self._config.get("timeout", 1800)
+        timeout = float(timeout_seconds) if timeout_seconds is not None else None
 
         dir_name = run_id if run_id else f"run_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
         run_output_dir = generated_dir / dir_name
@@ -79,7 +81,7 @@ class ChatDevGenerationAgent(IGenerationAgent):
         }
 
         try:
-            resp = requests.post(endpoint, json=payload, headers=headers, timeout=300)
+            resp = requests.post(endpoint, json=payload, headers=headers, timeout=timeout)
             if resp.status_code != 200:
                 print(f"Ollama API returned error HTTP {resp.status_code}: {resp.text}")
                 return GenerationResult(

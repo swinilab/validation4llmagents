@@ -94,7 +94,19 @@ def run_pipeline(
                 code=target_path,
                 output_dir=Path(target_path),
             )
-        validation_results = run_validation(components, generation, run_id=run_id)
+        if generation.status != Status.PASS:
+            print(f"\n⚠️ Skipping validation phase: generation did not succeed (status: {generation.status}).")
+            validation_results = [
+                ValidationResult(
+                    stage=1,
+                    name="Stage 1 (Diagram & SRS Validity)",
+                    passed=False,
+                    message=f"Skipped due to generation failure ({generation.status})",
+                    details={"generation_metadata": generation.metadata},
+                )
+            ]
+        else:
+            validation_results = run_validation(components, generation, run_id=run_id)
 
     # 3. Report Export
     print(f"\n==================================================")

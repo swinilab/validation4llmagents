@@ -7,13 +7,14 @@ workdir: "."
 # ── Generation ────────────────────────────────
 agent:
   type: "chatdev"
-  model: "qwen2.5-coder:7b"
+  model: "gemma4:31b"
   api_key: "ollama"
   api_base: "http://localhost:11434/v1"
   temperature: 0.2
   workflow: "agents/chatdev.yaml"             # ChatDev's coding workflow
   prompt_template: "prompts/v1.0.md"          # path to the generation prompt
   generated_dir: "generated"
+  timeout: 1800                               # generation HTTP timeout in seconds (default: 30 minutes)
 
 # ── Validation ────────────────────────────────
 validation:
