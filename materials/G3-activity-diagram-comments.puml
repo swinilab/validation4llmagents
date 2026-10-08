@@ -1,0 +1,178 @@
+@startuml
+title Order to Cash
+
+' Revision notes (plain comments, not rendered):
+' - Removed technical existence checks: D3, D5, D6, D7, D8 (always satisfied in this flow)
+' - Merged A7 (invoice pending = DB default) into A6
+' - Merged A11 (confirm payment) and A12 (set payment completed) into A12
+' - Added D9 (order has at least one item), D10 (payment accepted?) and A17 (reject payment, failed)
+' - Ids of unchanged elements are kept so TRACE.md rows still map
+' - D9, D10, A17 are NOT implemented in code: label them D/N in TRACE.md
+' - TODO verify: UI conditions on A5/A15/A16 (OrderBrowserStaff.tsx:120-155)
+
+start
+
+group Order {
+' src: OrderMan/dev/frontend/src/views/order/OrderForm.tsx:125-144
+' id: A1
+:Submit a new order for a customer with its order items and payment method;
+note right: UI: customer, staff or accountant
+
+' src: OrderMan/dev/backend/src/order/OrderService.ts:66-77
+' id: D1
+if (Is the customer known?) then (no)
+' id: E1
+  end
+else (yes)
+endif
+
+' src: NONE in code (derived from class model Order 1..* OrderItem); code allows empty: OrderMan/dev/backend/src/order/OrderService.ts:131-154, OrderMan/dev/backend/src/customer/CustomerRoutes.ts:77
+' id: D9
+if (Does the order have at least one order item?) then (no)
+' id: E9
+  end
+else (yes)
+endif
+note right
+  Not enforced in code: an order may be
+  registered without any order item
+end note
+
+' src: OrderMan/dev/backend/src/order/OrderService.ts:80-95
+' id: D2
+if (Do all referenced products exist?) then (no)
+' id: E2
+  end
+else (yes)
+endif
+
+' src: OrderMan/dev/backend/src/order/OrderService.ts:110-112
+' id: A2
+:Determine the total amount of the order;
+note right
+  Not enforced in code: the total amount is taken
+  from the submitted order; it is only recomputed
+  from the order items when none is supplied,
+  and never checked against the product prices
+end note
+
+' src: OrderMan/dev/backend/src/order/OrderService.ts:115-129
+' id: A3
+:Register the order with status pending;
+
+' src: OrderMan/dev/backend/src/order/OrderService.ts:131-154
+' id: A4
+:Record the order items with their quantity and unit price;
+
+' src: OrderMan/dev/backend/src/order/OrderController.ts:34-36, OrderMan/dev/frontend/src/views/order/OrderBrowserStaff.tsx:126-132
+' id: A5
+:Set order status to accepted;
+note right
+  UI: staff, offered while the order is pending
+  Not enforced in code: the order's current status
+  is not checked before it is accepted
+end note
+}
+
+group Invoice {
+' src: OrderMan/dev/frontend/src/views/invoice/InvoiceForm.tsx:74-97, OrderMan/dev/backend/prisma/schema.prisma:103
+' id: A6 (includes former A7)
+:Raise an invoice for the order with its amount and payment method, with status pending;
+note right
+  UI: accountant
+  Not enforced in code: the order is not required
+  to exist or to be accepted, and the invoice amount
+  is not checked against the order total
+end note
+
+' src: OrderMan/dev/backend/src/invoice/InvoiceService.ts:105-107
+' id: D4
+if (Has the invoice already been issued?) then (yes)
+' id: E4
+  end
+else (no)
+endif
+
+' src: OrderMan/dev/backend/src/invoice/InvoiceService.ts:110-113
+' id: A8
+:Set invoice status to issued;
+note right
+  Not enforced in code: an invoice that is
+  already paid can be returned to issued
+end note
+}
+
+group Payment {
+' src: OrderMan/dev/frontend/src/views/payment/PaymentForm.tsx:101-124
+' id: A9
+:Submit a payment against the invoice with its amount and payment method;
+note right: UI: customer or accountant
+
+' src: OrderMan/dev/backend/src/payment/PaymentService.ts:58-66
+' id: A10
+:Record the payment with status pending, awaiting confirmation;
+note right
+  Not enforced in code: the invoice is not required
+  to be issued or unpaid, and the payment amount is
+  not checked against the invoice amount
+end note
+
+' src: NONE in code for the rejection branch; PaymentStatus.failed is never assigned: OrderMan/dev/backend/prisma/schema.prisma:27, OrderMan/dev/backend/src/payment/PaymentService.ts:167-178
+' id: D10
+if (Is the payment accepted?) then (yes)
+' src: OrderMan/dev/backend/src/payment/PaymentService.ts:173-178, OrderMan/dev/frontend/src/views/payment/PaymentBrowser.tsx:140-143
+' id: A12 (includes former A11)
+  :Confirm the payment by setting its status to completed;
+  note right
+    UI: accountant, offered while the payment is pending
+    Not enforced in code: the payment's current status
+    is not checked, so a payment can be confirmed again
+  end note
+else (no)
+' id: A17
+  :Reject the payment by setting its status to failed;
+  note right
+    Not enforced in code: no rejection path exists;
+    status failed is defined but never assigned
+  end note
+' id: E10
+  end
+endif
+
+' src: OrderMan/dev/backend/src/payment/PaymentService.ts:187-191
+' id: A13
+:Set invoice status to paid;
+note right
+  A single payment of any amount settles the
+  invoice in full; part payments are not totalled
+end note
+
+' src: OrderMan/dev/backend/src/payment/PaymentService.ts:200-204
+' id: A14
+:Set order status to paid;
+}
+
+group Fulfilment {
+' src: OrderMan/dev/backend/src/order/OrderController.ts:38-40, OrderMan/dev/frontend/src/views/order/OrderBrowserStaff.tsx:133-139
+' id: A15
+:Set order status to shipped;
+note right
+  UI: staff, offered while the order is paid
+  Not enforced in code: the order is not required
+  to be paid before it is shipped, and no
+  shipment details are kept
+end note
+
+' src: OrderMan/dev/backend/src/order/OrderController.ts:42-44, OrderMan/dev/frontend/src/views/order/OrderBrowserStaff.tsx:140-147
+' id: A16
+:Set order status to closed;
+note right
+  UI: staff, offered while the order is shipped
+  Not enforced in code: the order is not required
+  to be shipped before it is closed
+end note
+}
+
+stop
+
+@enduml
