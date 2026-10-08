@@ -15,6 +15,7 @@ agent:
   prompt_template: "prompts/v1.0.md"          # path to the generation prompt
   generated_dir: "generated"
   timeout: 1800                               # generation HTTP timeout in seconds (default: 30 minutes)
+  stream: true                                # stream tokens live to console
 
 # ── Validation ────────────────────────────────
 validation:

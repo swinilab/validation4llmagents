@@ -68,6 +68,8 @@ class ChatDevGenerationAgent(IGenerationAgent):
         if api_key:
             headers["Authorization"] = f"Bearer {api_key}"
 
+        stream_enabled = bool(self._config.get("stream", True))
+
         payload = {
             "model": model,
             "messages": [
@@ -78,22 +80,62 @@ class ChatDevGenerationAgent(IGenerationAgent):
                 {"role": "user", "content": prompt},
             ],
             "temperature": float(self._config.get("temperature", 0.2)),
+            "stream": stream_enabled,
         }
 
         try:
-            resp = requests.post(endpoint, json=payload, headers=headers, timeout=timeout)
-            if resp.status_code != 200:
-                print(f"Ollama API returned error HTTP {resp.status_code}: {resp.text}")
-                return GenerationResult(
-                    status=Status.FAIL,
-                    model=model,
-                    code=str(run_output_dir),
-                    output_dir=run_output_dir,
-                    metadata={"error": f"HTTP {resp.status_code}: {resp.text}"},
-                )
+            if stream_enabled:
+                resp = requests.post(endpoint, json=payload, headers=headers, timeout=timeout, stream=True)
+                if resp.status_code != 200:
+                    print(f"Ollama API returned error HTTP {resp.status_code}: {resp.text}")
+                    return GenerationResult(
+                        status=Status.FAIL,
+                        model=model,
+                        code=str(run_output_dir),
+                        output_dir=run_output_dir,
+                        metadata={"error": f"HTTP {resp.status_code}: {resp.text}"},
+                    )
 
-            data = resp.json()
-            content = data["choices"][0]["message"]["content"]
+                content_chunks: list[str] = []
+                print("\n--- Live Generation Output ---")
+                for line in resp.iter_lines():
+                    if not line:
+                        continue
+                    line_str = line.decode("utf-8")
+                    if line_str.startswith("data: "):
+                        line_str = line_str[6:].strip()
+                    if line_str == "[DONE]":
+                        break
+                    try:
+                        chunk_json = json.loads(line_str)
+                        choices = chunk_json.get("choices", [])
+                        if choices:
+                            delta = choices[0].get("delta", {})
+                            token = delta.get("content", "")
+                            if token:
+                                sys.stdout.write(token)
+                                sys.stdout.flush()
+                                content_chunks.append(token)
+                    except json.JSONDecodeError:
+                        continue
+                print("\n--- End of Generation ---\n")
+                content = "".join(content_chunks)
+                usage = {}
+            else:
+                resp = requests.post(endpoint, json=payload, headers=headers, timeout=timeout)
+                if resp.status_code != 200:
+                    print(f"Ollama API returned error HTTP {resp.status_code}: {resp.text}")
+                    return GenerationResult(
+                        status=Status.FAIL,
+                        model=model,
+                        code=str(run_output_dir),
+                        output_dir=run_output_dir,
+                        metadata={"error": f"HTTP {resp.status_code}: {resp.text}"},
+                    )
+
+                data = resp.json()
+                content = data["choices"][0]["message"]["content"]
+                usage = data.get("usage", {})
 
             # Save full generation output
             (run_output_dir / "generation_raw.md").write_text(content, encoding="utf-8")
@@ -106,7 +148,7 @@ class ChatDevGenerationAgent(IGenerationAgent):
                 model=model,
                 code=str(run_output_dir),
                 output_dir=run_output_dir,
-                metadata={"usage": data.get("usage", {})},
+                metadata={"usage": usage},
             )
 
         except requests.exceptions.ConnectionError as exc:
