@@ -25,25 +25,34 @@ from interfaces.base import (
 class TextReportWriter(IReportWriter):
 
     def __init__(self, report_dir: str = "generated/reports/") -> None:
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        self._path = os.path.join(report_dir, f"report_{timestamp}.txt")
+        self._report_dir = report_dir
 
     def write(
         self,
         generation:         GenerationResult | None,
         validation_results: list[ValidationResult],
         all_passed:         bool,
+        run_id:             str | None = None,
     ) -> str:
+        # Determine the report file path using run_id
+        if run_id:
+            report_name = f"report_{run_id}.txt"
+        else:
+            # Fallback to run_dir or timestamp if run_id not provided
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            report_name = f"report_{timestamp}.txt"
+
+        self._path = os.path.join(self._report_dir, report_name)
+
         # When a stage produced a per-app run folder, put the summary next to
-        # that stage's own artefacts instead of leaving a bare
-        # reports/report_<timestamp>.txt that names no app.
+        # that stage's own artefacts instead of leaving a bare report file.
         run_dir = next(
             (vr.details.get("run_dir") for vr in validation_results
              if vr.details and vr.details.get("run_dir")),
             None,
         )
         if run_dir:
-            self._path = os.path.join(run_dir, "report.txt")
+            self._path = os.path.join(run_dir, f"{run_id or 'report'}.txt")
 
         os.makedirs(os.path.dirname(self._path), exist_ok=True)
 

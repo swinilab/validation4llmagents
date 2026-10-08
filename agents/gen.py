@@ -22,7 +22,7 @@ class ChatDevGenerationAgent(IGenerationAgent):
     def __init__(self, config: dict[str, Any]) -> None:
         self._config = config.get("agent", {})
 
-    def generate(self, prompt: str) -> GenerationResult:
+    def generate(self, prompt: str, run_id: str | None = None) -> GenerationResult:
         generated_dir = Path(self._config.get("generated_dir", "generated"))
         workdir = Path(self._config.get("workdir", "."))
         model = self._config.get("model", "qwen2.5-coder:7b")
@@ -30,8 +30,8 @@ class ChatDevGenerationAgent(IGenerationAgent):
         api_key = self._config.get("api_key", "ollama")
         workflow_rel = self._config.get("workflow", "agents/chatdev.yaml")
 
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        run_output_dir = generated_dir / f"run_{timestamp}"
+        dir_name = run_id if run_id else f"run_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        run_output_dir = generated_dir / dir_name
         run_output_dir.mkdir(parents=True, exist_ok=True)
 
         # 1. Preferred: Run via ChatDev SDK if installed

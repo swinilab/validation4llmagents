@@ -16,6 +16,12 @@ from typing import Any
 from interfaces.base import GenerationResult, Status, ValidationResult
 from workflow_factory import PipelineComponents
 
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except (AttributeError, ValueError):
+        pass
+
 
 def _read_prompt(cfg: dict[str, Any], prompt_override: str | None = None) -> str:
     workdir = Path(cfg.get("workdir", "."))
@@ -33,7 +39,7 @@ def run_generation(components: PipelineComponents, prompt: str, run_id: str) -> 
     print(f"\n==================================================")
     print(f"  PHASE 1: GENERATION (ChatDev + Ollama)")
     print(f"==================================================")
-    result = components.generation_agent.generate(prompt)
+    result = components.generation_agent.generate(prompt, run_id=run_id)
     if result.status == Status.PASS:
         print(f"  ✅ Generation completed successfully")
     else:
@@ -102,6 +108,7 @@ def run_pipeline(
         generation=generation,
         validation_results=validation_results,
         all_passed=all_passed,
+        run_id=run_id,
     )
 
     if all_passed:
