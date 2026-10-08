@@ -23,11 +23,11 @@ class PipelineComponents:
     config: dict[str, Any]
 
 
-def build(config_path: str = "pipeline_config.yaml") -> PipelineComponents:
+def build(config_path: str = "config.yaml") -> PipelineComponents:
     with open(config_path, encoding="utf-8") as f:
         cfg = yaml.safe_load(f)
 
-    report_dir = cfg.get("output", {}).get("report_dir", "reports/")
+    report_dir = cfg.get("output", {}).get("report_dir", "generated/reports/")
 
     return PipelineComponents(
         generation_agent=ChatDevGenerationAgent(config=cfg),

@@ -130,6 +130,10 @@ class DiagramResult:
     syntax_error: str | None = None
     png_path: str | None = None
     png_paths: list[str] = field(default_factory=list)
+    total_elements: int = 0
+    correct_elements: int = 0
+    component_score: str = "0/0"
+    syntax_components: str = "0/0"
 
     @property
     def valid(self) -> bool:
@@ -155,6 +159,10 @@ class DiagramResult:
             "syntax_error": self.syntax_error,
             "png_path": self.png_path,
             "png_paths": self.png_paths,
+            "total_elements": self.total_elements,
+            "correct_elements": self.correct_elements,
+            "component_score": self.component_score,
+            "syntax_components": self.syntax_components,
             "rules": [
                 {"rule_id": r.rule_id, "message": r.message, "passed": r.passed}
                 for r in self.rules
@@ -437,6 +445,122 @@ def _run_plantuml(cfg: Stage1Config, path: Path) -> tuple[bool, str | None]:
 # --- public API ----------------------------------------------------------
 
 
+def _evaluate_class_syntax_components(
+    text: str, is_valid: bool, violations: list[Violation]
+) -> tuple[int, int, float]:
+    """Calculate (correct_syntax, total_components, score) for class diagram."""
+    from .flatten import parse_class_elements, _strip_puml, BLOCK_RE, ATTR_RE, REL_RE
+    import re
+
+    valid_elements = parse_class_elements(text)
+    lines = _strip_puml(text.splitlines())
+    malformed = 0
+    in_block = False
+    is_enum = False
+
+    for line in lines:
+        if in_block:
+            if line.startswith("}"):
+                in_block = False
+                continue
+            if ATTR_RE.match(line):
+                continue
+            if is_enum and re.match(r"^\w+$", line):
+                continue
+            if re.match(r"^[+\-#~]?\s*\w+\s*\(.*?\)(\s*:\s*.+)?$", line):
+                continue
+            malformed += 1
+            continue
+
+        if BLOCK_RE.match(line):
+            if "{" in line:
+                in_block = True
+                is_enum = "enum" in line.lower()
+            continue
+
+        if REL_RE.match(line):
+            continue
+
+        if line == "}":
+            malformed += 1
+            continue
+
+        malformed += 1
+
+    rule_violations = sum(1 for v in violations if v.rule_id != "SYNTAX")
+    malformed = max(malformed, rule_violations)
+
+    if not is_valid and malformed == 0:
+        malformed = 1
+
+    correct = len(valid_elements)
+    total = correct + malformed
+    score = f"{correct}/{total}"
+    return correct, total, score
+
+
+def _evaluate_activity_syntax_components(
+    text: str, is_valid: bool, violations: list[Violation]
+) -> tuple[int, int, str]:
+    """Calculate (correct_syntax, total_components, score) for activity diagram."""
+    from .flatten import parse_activity_elements, _strip_puml
+
+    valid_elements = parse_activity_elements(text)
+    lines = _strip_puml(text.splitlines())
+    malformed = 0
+    in_action_buf = False
+
+    for line in lines:
+        if line.startswith(":"):
+            if not line.endswith(";") and not line.endswith("]") and not line.endswith(">"):
+                in_action_buf = True
+            continue
+        elif in_action_buf:
+            if line.endswith(";") or line.endswith("]") or line.endswith(">"):
+                in_action_buf = False
+            else:
+                continue
+
+        if line.startswith("|") and line.count("|") % 2 != 0:
+            malformed += 1
+            continue
+
+    if in_action_buf:
+        malformed += 1
+
+    rule_violations = sum(1 for v in violations if v.rule_id != "SYNTAX")
+    malformed = max(malformed, rule_violations)
+
+    if not is_valid and malformed == 0:
+        malformed = 1
+
+    correct = len(valid_elements)
+    total = correct + malformed
+    score = f"{correct}/{total}"
+    return correct, total, score
+
+
+def _calculate_component_metrics(
+    text: str, kind: str, is_valid: bool, violations: list[Violation] | None = None
+) -> tuple[int, int, str]:
+    """Calculate (correct_syntax_elements, total_components, score).
+
+    Metric: number of correct syntax / number of components, like '12/14' (not divide).
+    """
+    if kind not in (KIND_CLASS, KIND_ACTIVITY):
+        return 0, 0, "0/0"
+
+    violations_list = violations or []
+    try:
+        if kind == KIND_CLASS:
+            return _evaluate_class_syntax_components(text, is_valid, violations_list)
+        elif kind == KIND_ACTIVITY:
+            return _evaluate_activity_syntax_components(text, is_valid, violations_list)
+    except Exception:
+        pass
+    return 0, 0, "0/0"
+
+
 def check_diagram(path: Path, cfg: Stage1Config) -> DiagramResult:
     """Check one ``.puml`` file: syntax plus the structural rules.
 
@@ -466,6 +590,11 @@ def check_diagram(path: Path, cfg: Stage1Config) -> DiagramResult:
             Violation("SYNTAX", syntax_error or "PlantUML reported a syntax error.", None),
         )
 
+    is_valid = parse_ok and all(rule.passed for rule in rules)
+    correct_elements, total_elements, component_score = _calculate_component_metrics(
+        text, kind, is_valid, violations
+    )
+
     return DiagramResult(
         path=_display_path(path),
         kind=kind,
@@ -473,6 +602,9 @@ def check_diagram(path: Path, cfg: Stage1Config) -> DiagramResult:
         rules=rules,
         violations=violations,
         syntax_error=syntax_error,
+        total_elements=total_elements,
+        correct_elements=correct_elements,
+        component_score=component_score,
     )
 
 
@@ -673,11 +805,31 @@ def run_parse_check(
 
     total = len(results)
     valid = sum(1 for r in results if r.valid)
+
+    components_summary: dict[str, Any] = {
+        "class": {"score": "0/0", "correct": 0, "total": 0},
+        "activity": {"score": "0/0", "correct": 0, "total": 0},
+    }
+    for r in results:
+        if r.kind == KIND_CLASS:
+            components_summary["class"] = {
+                "score": r.component_score,
+                "correct": r.correct_elements,
+                "total": r.total_elements,
+            }
+        elif r.kind == KIND_ACTIVITY:
+            components_summary["activity"] = {
+                "score": r.component_score,
+                "correct": r.correct_elements,
+                "total": r.total_elements,
+            }
+
     payload: dict[str, Any] = {
         "run_id": str(run_id),
         "diagram_validity": (valid / total) if total else None,
         "total_diagrams": total,
         "valid_diagrams": valid,
+        "components": components_summary,
         "png_exported": should_export_png,
         "png_dir": _display_path(resolved_png_dir) if resolved_png_dir else None,
         "diagrams": [r.as_dict() for r in results],

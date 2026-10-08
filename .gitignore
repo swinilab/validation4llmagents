@@ -7,3 +7,6 @@ tools/*.jar
 stage1/artifact/
 stage1/reports/
 /reports/
+generated/*
+!generated/.gitkeep
+logs/

@@ -80,7 +80,8 @@ def run_pipeline(
     if phase in ("val", "all"):
         if generation is None:
             # Standalone validation mode: use code path from config
-            target_path = cfg.get("validation", {}).get("code", "materials/M4-gold-v0.2/gold")
+            val_cfg = cfg.get("validation", {})
+            target_path = val_cfg.get("generated") or val_cfg.get("code", "generated")
             generation = GenerationResult(
                 status=Status.PASS,
                 model="standalone",

@@ -24,7 +24,7 @@ from interfaces.base import (
 
 class TextReportWriter(IReportWriter):
 
-    def __init__(self, report_dir: str = "reports/") -> None:
+    def __init__(self, report_dir: str = "generated/reports/") -> None:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         self._path = os.path.join(report_dir, f"report_{timestamp}.txt")
 
@@ -66,10 +66,22 @@ class TextReportWriter(IReportWriter):
             lines.append("")
 
         if validation_results:
-            lines.append("VALIDATION")
+            lines.append("VALIDATION:")
             for vr in validation_results:
-                icon = "✅" if vr.passed else "❌"
-                lines.append(f"  {icon} {vr.stage} : {vr.message}")
+                if vr.stage == 1:
+                    valid_d = vr.details.get("valid_diagrams", 0)
+                    total_d = vr.details.get("total_diagrams", 0)
+                    cl_corr = vr.details.get("class_correct", 0)
+                    cl_tot = vr.details.get("class_total", 0)
+                    ac_corr = vr.details.get("act_correct", 0)
+                    ac_tot = vr.details.get("act_total", 0)
+
+                    lines.append(f"\t1. SYNTAX CORRECTNESS: {valid_d}/{total_d} diagrams parsed: ")
+                    lines.append(f"\t\t- structural model (class diagram): score = {cl_corr}, {cl_corr}/{cl_tot}")
+                    lines.append(f"\t\t- behavioral model (activity diagram): score = {ac_corr}, {ac_corr}/{ac_tot}")
+                else:
+                    icon = "✅" if vr.passed else "❌"
+                    lines.append(f"  {icon} {vr.stage} : {vr.message}")
 
                 if vr.details.get("stderr"):
                     lines.append(f"    error detail : {vr.details.get('stderr')}")

@@ -39,7 +39,7 @@ def _parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--config",
-        default="pipeline_config.yaml",
+        default="config.yaml",
         help="Path to pipeline configuration YAML.",
     )
     return parser.parse_args()

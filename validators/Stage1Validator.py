@@ -43,6 +43,9 @@ class Stage1Validator(IValidator):
                 details={"workspace": str(workspace)},
             )
 
+        artifact_dir = Path("generated") / "artifact"
+        artifact_dir.mkdir(parents=True, exist_ok=True)
+
         details: dict[str, Any] = {"workspace": str(workspace), "diagrams_found": [p.name for p in all_diagrams]}
 
         # 2. Metric 7: Diagram Validity & PNG rendering
@@ -52,6 +55,8 @@ class Stage1Validator(IValidator):
                 diagrams=all_diagrams,
                 cfg=self.stage1_cfg,
                 export_png=True,
+                out_path=artifact_dir / f"{run_id}__parse_check.json",
+                png_dir=artifact_dir / f"{run_id}__png",
             )
             details["parse_check"] = parse_result
             diagram_validity = parse_result.get("diagram_validity", 0.0)
@@ -78,14 +83,40 @@ class Stage1Validator(IValidator):
                 activity_puml=act_puml,
                 parse_check=parse_check_json if parse_check_json.is_file() else None,
                 cfg=self.stage1_cfg,
+                out_dir=artifact_dir,
             )
             details["flatten"] = flatten_result
         except Exception as exc:
             details["flatten_error"] = str(exc)
 
-        # 4. Check overall pass status
+        # 4. Check overall pass status & component metrics
+        components = parse_result.get("components", {})
+        cl_info = components.get("class", {})
+        ac_info = components.get("activity", {})
+
+        cl_correct = cl_info.get("correct", 0)
+        cl_total = cl_info.get("total", 0)
+        cl_score = cl_info.get("score", f"{cl_correct}/{cl_total}")
+
+        ac_correct = ac_info.get("correct", 0)
+        ac_total = ac_info.get("total", 0)
+        ac_score = ac_info.get("score", f"{ac_correct}/{ac_total}")
+
+        details["valid_diagrams"] = valid_diagrams
+        details["total_diagrams"] = total_diagrams
+        details["class_score"] = cl_score
+        details["class_correct"] = cl_correct
+        details["class_total"] = cl_total
+        details["act_score"] = ac_score
+        details["act_correct"] = ac_correct
+        details["act_total"] = ac_total
+
         passed = diagram_validity == 1.0 and valid_diagrams == total_diagrams
-        msg = f"{valid_diagrams}/{total_diagrams} diagrams valid (score={diagram_validity:.3f})" if total_diagrams else "No diagrams"
+        msg = (
+            f"1. SYNTAX CORRECTNESS: {valid_diagrams}/{total_diagrams} diagrams parsed: "
+            f"structural score={cl_score} ({cl_correct}/{cl_total}), "
+            f"behavioral score={ac_score} ({ac_correct}/{ac_total})"
+        )
 
         return ValidationResult(
             stage=1,

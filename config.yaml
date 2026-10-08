@@ -1,39 +1,62 @@
-# Repository configuration.
-#
-# Stage 1 (text normalization) reads the section below. Every key is optional: Stage 1
-# falls back to the defaults in pipeline/stage1/config.py when a key or the whole
-# section is absent.
+# ─────────────────────────────────────────────
+#  Empirical Study Pipeline – Configuration
+# ─────────────────────────────────────────────
+
+workdir: "."
+
+# ── Generation ────────────────────────────────
+agent:
+  type: "chatdev"
+  model: "qwen2.5-coder:7b"
+  api_key: "ollama"
+  api_base: "http://localhost:11434/v1"
+  temperature: 0.2
+  workflow: "agents/chatdev.yaml"             # ChatDev's coding workflow
+  prompt_template: "prompts/v1.0.md"          # path to the generation prompt
+  generated_dir: "generated"
+
+# ── Validation ────────────────────────────────
+validation:
+  # Code path to validate when running `--phase val` standalone
+  # (ignored when running `--phase all`, where the code path comes from
+  # the generation phase's GenerationResult instead).
+  generated: "generated"
+
+  # Stage 1 – Compilability
+  docker:
+    image: "python:3.11-slim"
+    timeout_seconds: 60
+    workdir: "/app"
+
+  # Stage 2 – Functional tests (HTTP)
+  http:
+    base_url: "http://localhost:8000"
+    timeout_seconds: 10
+
+# ── Validator settings ─────────────────────────
+# Read directly by the validator classes (validators/*.py).
+validator:
+  start_command_file: "start_command.txt"
+  boot_wait_seconds: 15          # Stage 1 – how long to wait for the server to crash on boot
+  smoke_path: "/"                # Stage 1 – path probed after boot to catch startup-time 5xx
+  smoke_timeout: 10
+  nfr_trace_filename: "nfr-trace.json"   # Stage 3 – NFR trace file name inside the code dir
+
+  expect_workflow_manifest: true
+
+# ── Output ────────────────────────────────────
+output:
+  report_dir: "generated/reports/"
+
+# ── Stage 1 analysis modules ──────────────────────────────────────────────
 stage1:
-  # Ontology read for order states and their aliases (read-only). Resolved
-  # relative to the repository root. Stage 1 tries ontology/orderman-ontology.yaml
-  # first and falls back to the path below.
   ontology_path: materials/M2-orderman-ontology.yaml
-
-  # Modals removed from `normalized`. `can` and `may` are included because the
-  # input FRs phrase permissions as "A Customer can ..."; see
-  # pipeline/stage1/README.md.
   modals: [shall, must, should, will, can, may]
-
-  # Articles / determiners removed. `no` is deliberately absent: it is a
-  # negation cue, and cues are always kept in `normalized` since 1.1.0.
   articles: [a, an, the]
-
-  # Nouns keep their surface form by default; true replaces them with lemmas.
   singularize_nouns: false
-
-  # spaCy pipeline. Changing it changes lemmas and POS tags, so it is recorded
-  # in every output's .meta.json.
   spacy_model: en_core_web_sm
-
-  # Split camelCase / PascalCase / snake_case identifiers into words.
   split_identifiers: true
-
-  # Retained for backward compatibility and no longer read. Since Stage 1 1.1.0
-  # negation cues are always kept in `normalized`; scope is reported in the
-  # `__main_predicate_negated` / `__negation_scope` columns instead.
   keep_negation_cue_tokens: false
-
-  # Phrases containing a cue word that state a bound rather than a negation.
   non_negating_phrases:
     - no more than
     - not more than
@@ -47,32 +70,16 @@ stage1:
     - at least
     - at most
 
-  # ── Metric 7: Diagram Validity (pipeline/stage1/parse_check.py) ──────────
+  # Metric 7 - Diagram Validity (parse_check).
   parse_check:
-    # PlantUML is run as the official jar. Downloaded, not committed - see
-    # tools/ in .gitignore. Leave plantuml_jar empty to use a `plantuml`
-    # executable on PATH instead.
     plantuml_jar: tools/plantuml.jar
     plantuml_cmd: plantuml
     java_cmd: java
-
-    # -checkonly does not lay a diagram out, so Graphviz is not needed and
-    # this stays off. Turn it on if a future check does require layout.
     layout_smetana: false
-
     timeout_seconds: 60
     extra_args: []
 
-  # ── Metric 8: Consistency (pipeline/stage1/consistency.py) ───────────────
+  # Metric 8 - Consistency (consistency), rules CM-01..CM-05.
   consistency:
-    # Rules to evaluate. CM-01 needs swimlane__normalized and
-    # owner_class__normalized, emitted by the class-inv/activity-inv presets
-    # from normalize 1.2.0 on. Remove it to run the other four against
-    # artifacts built by an older version.
-    # There is deliberately no multiplicity rule (CM-06).
     rules: [CM-01, CM-02, CM-03, CM-04, CM-05]
-
-    # Terms the ontology does not know are written to
-    # <run_id>__ontology_gaps.csv. They are never added to the ontology:
-    # M2 HARD RULE 2 requires human adjudication instead.
     emit_ontology_gaps: true
