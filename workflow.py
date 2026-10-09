@@ -32,7 +32,33 @@ def _read_prompt(cfg: dict[str, Any], prompt_override: str | None = None) -> str
         print(f"❌ Error: Prompt file not found at path: '{full_path}'", file=sys.stderr)
         sys.exit(1)
 
-    return full_path.read_text(encoding="utf-8").strip()
+    prompt_text = full_path.read_text(encoding="utf-8").strip()
+
+    inputs_rel_path = cfg.get("agent", {}).get("prompt_inputs")
+    if inputs_rel_path:
+        inputs_path = (workdir / inputs_rel_path).resolve()
+        if inputs_path.is_file():
+            try:
+                inputs_data = json.loads(inputs_path.read_text(encoding="utf-8"))
+                
+                # Format FR_INPUT
+                if "{{FR_INPUT}}" in prompt_text and "FR_INPUT" in inputs_data:
+                    fr_lines = []
+                    for req_id, req_data in inputs_data["FR_INPUT"].items():
+                        fr_lines.append(f"- **{req_id}**: {req_data.get('statement', '')}")
+                    prompt_text = prompt_text.replace("{{FR_INPUT}}", "\n".join(fr_lines))
+                
+                # Format NFR_INPUT
+                if "{{NFR_INPUT}}" in prompt_text and "NFR_INPUT" in inputs_data:
+                    nfr_lines = []
+                    for req_id, req_data in inputs_data["NFR_INPUT"].items():
+                        nfr_lines.append(f"- **{req_id}**: {req_data.get('statement', '')}")
+                    prompt_text = prompt_text.replace("{{NFR_INPUT}}", "\n".join(nfr_lines))
+
+            except Exception as e:
+                print(f"⚠️ Warning: Failed to parse or inject prompt inputs from {inputs_path}: {e}", file=sys.stderr)
+
+    return prompt_text
 
 
 def run_generation(components: PipelineComponents, prompt: str, run_id: str) -> GenerationResult:
