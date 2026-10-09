@@ -43,10 +43,14 @@ class Stage1Validator(IValidator):
                 details={"workspace": str(workspace)},
             )
 
-        artifact_dir = Path("generated") / "artifact"
+        artifact_dir = workspace / "artifact"
         artifact_dir.mkdir(parents=True, exist_ok=True)
 
-        details: dict[str, Any] = {"workspace": str(workspace), "diagrams_found": [p.name for p in all_diagrams]}
+        details: dict[str, Any] = {
+            "workspace": str(workspace),
+            "run_dir": str(workspace),
+            "diagrams_found": [p.name for p in all_diagrams],
+        }
 
         # 2. Metric 7: Diagram Validity & PNG rendering
         try:
