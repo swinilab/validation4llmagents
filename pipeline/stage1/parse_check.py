@@ -132,7 +132,7 @@ class DiagramResult:
     png_paths: list[str] = field(default_factory=list)
     total_elements: int = 0
     correct_elements: int = 0
-    component_score: str = "0/0"
+    component_score: float = 0.0
     syntax_components: str = "0/0"
 
     @property
@@ -495,13 +495,13 @@ def _evaluate_class_syntax_components(
 
     correct = len(valid_elements)
     total = correct + malformed
-    score = f"{correct}/{total}"
+    score = round(correct / total, 2) if total > 0 else 0.0
     return correct, total, score
 
 
 def _evaluate_activity_syntax_components(
     text: str, is_valid: bool, violations: list[Violation]
-) -> tuple[int, int, str]:
+) -> tuple[int, int, float]:
     """Calculate (correct_syntax, total_components, score) for activity diagram."""
     from .flatten import parse_activity_elements, _strip_puml
 
@@ -536,19 +536,19 @@ def _evaluate_activity_syntax_components(
 
     correct = len(valid_elements)
     total = correct + malformed
-    score = f"{correct}/{total}"
+    score = round(correct / total, 2) if total > 0 else 0.0
     return correct, total, score
 
 
 def _calculate_component_metrics(
     text: str, kind: str, is_valid: bool, violations: list[Violation] | None = None
-) -> tuple[int, int, str]:
+) -> tuple[int, int, float]:
     """Calculate (correct_syntax_elements, total_components, score).
 
-    Metric: number of correct syntax / number of components, like '12/14' (not divide).
+    Metric: number of correct syntax / number of components, mathematically divided (e.g. 0.86 or 1.0).
     """
     if kind not in (KIND_CLASS, KIND_ACTIVITY):
-        return 0, 0, "0/0"
+        return 0, 0, 0.0
 
     violations_list = violations or []
     try:
@@ -558,7 +558,7 @@ def _calculate_component_metrics(
             return _evaluate_activity_syntax_components(text, is_valid, violations_list)
     except Exception:
         pass
-    return 0, 0, "0/0"
+    return 0, 0, 0.0
 
 
 def check_diagram(path: Path, cfg: Stage1Config) -> DiagramResult:
@@ -594,6 +594,7 @@ def check_diagram(path: Path, cfg: Stage1Config) -> DiagramResult:
     correct_elements, total_elements, component_score = _calculate_component_metrics(
         text, kind, is_valid, violations
     )
+    syntax_components = f"{correct_elements}/{total_elements}"
 
     return DiagramResult(
         path=_display_path(path),
@@ -605,6 +606,7 @@ def check_diagram(path: Path, cfg: Stage1Config) -> DiagramResult:
         total_elements=total_elements,
         correct_elements=correct_elements,
         component_score=component_score,
+        syntax_components=syntax_components,
     )
 
 
@@ -807,8 +809,8 @@ def run_parse_check(
     valid = sum(1 for r in results if r.valid)
 
     components_summary: dict[str, Any] = {
-        "class": {"score": "0/0", "correct": 0, "total": 0},
-        "activity": {"score": "0/0", "correct": 0, "total": 0},
+        "class": {"score": 0.0, "correct": 0, "total": 0},
+        "activity": {"score": 0.0, "correct": 0, "total": 0},
     }
     for r in results:
         if r.kind == KIND_CLASS:

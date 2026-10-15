@@ -100,11 +100,21 @@ class Stage1Validator(IValidator):
 
         cl_correct = cl_info.get("correct", 0)
         cl_total = cl_info.get("total", 0)
-        cl_score = cl_info.get("score", f"{cl_correct}/{cl_total}")
+        cl_score = cl_info.get("score")
+        if cl_score is None or isinstance(cl_score, str):
+            try:
+                cl_score = float(cl_score)
+            except (ValueError, TypeError):
+                cl_score = round(cl_correct / cl_total, 2) if cl_total > 0 else 0.0
 
         ac_correct = ac_info.get("correct", 0)
         ac_total = ac_info.get("total", 0)
-        ac_score = ac_info.get("score", f"{ac_correct}/{ac_total}")
+        ac_score = ac_info.get("score")
+        if ac_score is None or isinstance(ac_score, str):
+            try:
+                ac_score = float(ac_score)
+            except (ValueError, TypeError):
+                ac_score = round(ac_correct / ac_total, 2) if ac_total > 0 else 0.0
 
         details["valid_diagrams"] = valid_diagrams
         details["total_diagrams"] = total_diagrams

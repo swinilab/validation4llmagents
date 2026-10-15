@@ -83,9 +83,17 @@ class TextReportWriter(IReportWriter):
                     ac_corr = vr.details.get("act_correct", 0)
                     ac_tot = vr.details.get("act_total", 0)
 
+                    cl_score = vr.details.get("class_score")
+                    if cl_score is None:
+                        cl_score = round(cl_corr / cl_tot, 2) if cl_tot else 0.0
+
+                    ac_score = vr.details.get("act_score")
+                    if ac_score is None:
+                        ac_score = round(ac_corr / ac_tot, 2) if ac_tot else 0.0
+
                     lines.append(f"\t1. SYNTAX CORRECTNESS: {valid_d}/{total_d} diagrams parsed: ")
-                    lines.append(f"\t\t- structural model (class diagram): score = {cl_corr}, {cl_corr}/{cl_tot}")
-                    lines.append(f"\t\t- behavioral model (activity diagram): score = {ac_corr}, {ac_corr}/{ac_tot}")
+                    lines.append(f"\t\t- structural model (class diagram): score = {cl_score}, {cl_corr}/{cl_tot}")
+                    lines.append(f"\t\t- behavioral model (activity diagram): score = {ac_score}, {ac_corr}/{ac_tot}")
                 else:
                     icon = "✅" if vr.passed else "❌"
                     lines.append(f"  {icon} {vr.stage} : {vr.message}")
