@@ -79,7 +79,6 @@ stage1:
     plantuml_cmd: plantuml
     java_cmd: java
     layout_smetana: true # replacement for graphviz 
-    layout_smetana: false
     timeout_seconds: 60
     extra_args: []
 
