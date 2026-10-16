@@ -1,0 +1,79 @@
+@startuml
+title OrderMan - Order Fulfilment (SRS Behavioral Model)
+
+skinparam monochrome false
+skinparam shadowing false
+skinparam ArrowColor #333333
+skinparam ActivityBorderColor #333333
+
+start
+
+:Submit an order for one or more products;
+
+if (Is the ordering customer registered?) then (no)
+  :Reject the order and report that the customer is unknown;
+  stop
+else (yes)
+endif
+
+if (Are all ordered products available?) then (no)
+  :Reject the order and report the unavailable products;
+  stop
+else (yes)
+endif
+
+:Register the order as pending with its total amount;
+
+if (Is the order approved for fulfilment?) then (no)
+  :Decline the order and inform the customer;
+  stop
+else (yes)
+endif
+
+:Mark the order as accepted;
+
+:Issue an invoice for the accepted order;
+
+if (Has an invoice already been sent for this order?) then (yes)
+  :Refuse to send a duplicate invoice;
+  stop
+else (no)
+endif
+
+:Send the invoice to the customer;
+
+:Submit a payment against the sent invoice;
+
+if (Does the payment match the amount due?) then (no)
+  :Reject the payment and inform the customer of the amount due;
+  stop
+else (yes)
+endif
+
+:Record the payment as awaiting approval;
+
+if (Is the payment confirmed as received?) then (no)
+  :Mark the payment as failed and leave the invoice unpaid;
+  stop
+else (yes)
+endif
+
+:Mark the payment as completed;
+:Mark the invoice as paid;
+:Mark the order as paid;
+
+:Ship the paid order to the customer;
+
+:Mark the order as shipped;
+
+if (Has the customer received the shipment?) then (no)
+  :Resolve the delivery problem before closing;
+  stop
+else (yes)
+endif
+
+:Close the order;
+
+stop
+
+@enduml

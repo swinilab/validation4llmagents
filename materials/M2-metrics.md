@@ -1,12 +1,12 @@
 | Group | Metric | Formula |
 |---|---|---|
 | **Completeness** | Requirement Recall | Number of gold requirements correctly covered by the agent / Total number of gold requirements |
-| | Structural Semantic Recall (Class Diagram) | Number of gold elements (classes, attributes, relationships) semantically matched by the agent / Total number of gold elements |
-| | Behavioral Semantic Recall (Activity Diagram) | Number of gold elements (actions, branches, transitions) semantically matched by the agent / Total number of gold elements |
+| | Structural Semantic Recall | Number of gold elements (classes, attributes, relationships) semantically matched by the agent / Total number of gold elements |
+| | Behavioral Semantic Recall | Number of gold elements (actions, branches, transitions) semantically matched by the agent / Total number of gold elements |
 | | VMX Requirement Coverage | Number of requirements linked to at least one source input, class element, or activity element in the VMX / Total number of requirements |
 | **Correctness** | Requirement Precision | Number of generated requirements that are correct and traceable to the source / Total number of generated requirements |
-| | Structural Semantic Precision (Class Diagram) | Number of generated elements (classes, attributes, relationships) judged semantically correct / Total number of generated elements |
-| | Behavioral Semantic Precision (Activity Diagram) | Number of generated elements (actions, branches, transitions) judged semantically correct / Total number of generated elements |
+| | Structural Semantic Precision | Number of generated elements (classes, attributes, relationships) judged semantically correct / Total number of generated elements |
+| | Behavioral Semantic Precision | Number of generated elements (actions, branches, transitions) judged semantically correct / Total number of generated elements |
 | | Syntax Validity | Number of syntactically valid elements / Total number of elements |
 | | VMX Referential Integrity | Number of VMX references that point to existing items / Total number of VMX references |
 
