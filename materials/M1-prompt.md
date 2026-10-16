@@ -37,8 +37,8 @@ platform. The system interactions revolve around four primary roles:
 
 ### Functional requirements — user story form
 
-Every requirement in clause 3.1 shall be stated as a user story in exactly
-this template, on a single line:
+Every requirement in clause 3.2 (Functions) shall be stated as a user story in
+exactly this template, on a single line:
 
 > As a `<role>`, I want `<capability>`, so that `<benefit>`.
 
@@ -68,8 +68,9 @@ able to determine, by observing the system, whether it holds. Criteria such as
 
 ### Non-functional requirements — declarative form
 
-Requirements in clauses 3.2 through 3.6 (performance, interface, security,
-quality, design constraints) shall **not** be written as user stories. They
+Requirements in clauses 3.1 and 3.3 through 3.8 (external interfaces, usability,
+performance, logical database, design constraints, standards compliance,
+software system attributes) shall **not** be written as user stories. They
 shall be written as single declarative statements using "shall", each with a
 quantified, measurable threshold where the property admits one.
 
@@ -88,29 +89,34 @@ Identifiers shall match the regular expressions `^US-\d{2}$`, `^NFR-\d{2}$` and
 
 ## Output Standard
 
-Produce an SRS conforming to IEEE/ISO/IEC 29148-2018. The document must contain
-the following clauses:
+Produce an SRS conforming to ISO/IEC/IEEE 29148:2018. The document must contain
+the following clauses, in this order, with these headings:
 
 1. Introduction
    1. Purpose
    2. Scope
    3. Definitions, acronyms and abbreviations
-   4. References
 2. Overall description
    1. Product perspective
    2. Product functions
    3. User characteristics
-   4. Constraints
+   4. Limitations
    5. Assumptions and dependencies
-3. Specific requirements
-   1. Functional requirements (user stories with acceptance criteria)
-   2. Performance requirements
-   3. Interface requirements
-   4. Security requirements
-   5. Software quality attributes
+   6. Apportioning of requirements
+3. Specified requirements
+   1. External interfaces
+   2. Functions
+   3. Usability requirements
+   4. Performance requirements
+   5. Logical database requirements
    6. Design constraints
+   7. Standards compliance
+   8. Software system attributes
 4. Verification
 5. Supporting information
+
+Clause 3.2 holds every functional requirement. Security requirements belong in
+clause 3.8; there is no separate security clause.
 
 ---
 
@@ -170,7 +176,7 @@ empty string or an empty array — never `null`, and never omit the member.
 | Field | JSON type | Description |
 | --- | --- | --- |
 | `id` | string | The requirement identifier as used in `srs.md`. Matches `^US-\d{2}$` or `^NFR-\d{2}$`. Unique across the array. |
-| `type` | string | Exactly one of: `functional`, `performance`, `interface`, `security`, `quality`, `constraint`. Every requirement whose `id` matches `^US-` has type `functional`; no requirement whose `id` matches `^NFR-` has type `functional`. |
+| `type` | string | Exactly one of: `functional` (clause 3.2), `interface` (3.1), `usability` (3.3), `performance` (3.4), `database` (3.5), `constraint` (3.6), `standards` (3.7), `attribute` (3.8). The value shall name the clause of `srs.md` in which the requirement appears. Every requirement whose `id` matches `^US-` has type `functional`; no requirement whose `id` matches `^NFR-` has type `functional`. |
 | `form` | string | Exactly one of: `user_story`, `declarative`. `user_story` if and only if `type` is `functional`. |
 | `statement` | string | The full requirement statement exactly as it appears in `srs.md`, verbatim, on one line. For a user story this is the complete "As a ..., I want ..., so that ..." sentence. |
 | `role` | string | For `form` = `user_story`: the `<role>` segment only, without the leading "As a". For `form` = `declarative`: the empty string. |
@@ -232,3 +238,6 @@ to its source input requirement and to the corresponding diagram element(s).
 The `Source-Input-ID` cell of each row shall list the same identifiers as the
 `source_ids` member of the corresponding requirement object in
 `requirements.json`.
+
+Produce all five files in a single response. Do not repeat the contents of the
+files in your reply.
