@@ -230,8 +230,8 @@ requirement and the input requirement it originates from.
 | --- | --- |
 | `SRS-Req-ID` | The identifier of the requirement as used in `srs.md` |
 | `Source-Input-ID` | The FR or NFR identifier(s) given in the input domain requirements from which the requirement originates. Leave the cell empty if the requirement is derived rather than traced to an input. |
-| `Structural-Elements` | The names of the classes, attributes (written `Class.attribute`) or relationships in `structural.puml` that realize the requirement |
-| `Behavorial-Elements` | The names of the actions or decisions in `behavioral.puml` that realize the requirement |
+| `Structural-Elements` | The names of the classes, enums or attributes (written `Class.attribute`) declared in `structural.puml` that realize the requirement. Write each name exactly as it is declared in `structural.puml`. Do not list relationships here. |
+| `Behavorial-Elements` | The names of the actions declared in `behavioral.puml` that realize the requirement. Write each name exactly as it is declared in `behavioral.puml`. Do not list decisions, object nodes, or control nodes (initial, final, fork, join, merge) here. |
 
 Produce all five files in a single response. Do not repeat the contents of the
 files in your reply.
