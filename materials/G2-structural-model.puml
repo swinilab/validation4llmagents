@@ -1,18 +1,17 @@
 @startuml
-title OrderMan - Domain Model (Structural, SRS level, gold v2)
+title OrderMan - Structural Model Gold (G2)
 hide circle
 skinparam classAttributeIconSize 0
 
 enum OrderStatus {
   pending
-  accepted
+  filled
   paid
   shipped
   closed
 }
 
 enum InvoiceStatus {
-  pending
   issued
   paid
 }

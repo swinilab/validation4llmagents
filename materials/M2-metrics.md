@@ -7,7 +7,8 @@
 | **Correctness** | Requirement Precision | Number of generated requirements that are correct and traceable to the source / Total number of generated requirements |
 | | Structural Semantic Precision | Number of generated elements (classes, attributes, relationships) judged semantically correct / Total number of generated elements |
 | | Behavioral Semantic Precision | Number of generated elements (actions, branches, transitions) judged semantically correct / Total number of generated elements |
-| | Syntax Validity | Number of syntactically valid elements / Total number of elements |
+| | Structural Syntax Validity | Number of syntactically valid Structural elements / Total number of Structural elements |
+| | Behavioral Syntax Validity | Number of syntactically valid Behavioral elements / Total number of Behavioral elements |
 | | VMX Referential Integrity | Number of VMX references that point to existing items / Total number of VMX references |
 
 **Glossary**

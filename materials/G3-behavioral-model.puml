@@ -24,13 +24,15 @@ endif
 
 :Register the order as pending with its total amount;
 
-if (Is the order approved for fulfilment?) then (no)
-  :Decline the order and inform the customer;
-  stop
+if (Is the order fulfilled? \n InvoiceBrower.tsx fetchInvoices():55) then (no)
+  ' InvoiceBrower.tsx fetchInvoices():55
+  :TODO end flow Decline the order and inform the customer;
+  stop  
 else (yes)
 endif
 
 :Mark the order as accepted;
+' Check again, tach thanh cac flows, them actor/user object (ui)
 
 :Issue an invoice for the accepted order;
 

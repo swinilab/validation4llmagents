@@ -1,9 +1,8 @@
 # M1 Prompt — SRS Generation with User Stories and Traceability
 
 You are a requirements engineer. Your task is to produce a complete Software
-Requirements Specification (SRS) for the system described below, conforming to
-IEEE/ISO/IEC 29148-2018, in which every functional requirement is expressed as
-a user story with acceptance criteria.
+Requirements Specification (SRS) for the system described below, in which every
+functional requirement is expressed as a user story with acceptance criteria.
 
 ---
 
@@ -14,14 +13,13 @@ a user story with acceptance criteria.
 #### 1. Introduction & Business Roles
 
 This document outlines the requirements for a standard order management
-platform. The system interactions revolve around four primary roles:
+platform. The system interactions revolve around three primary roles:
 
 - **Customer** — the end-user browsing, purchasing, and managing their items.
-- **Payment Gateway** — an external third-party service processing financial
-  transactions.
-- **Warehouse** — the logistics personnel responsible for physical fulfillment.
-- **Sales** — internal staff handling administration, oversight, and customer
-  support.
+- **OrderStaff** — internal staff responsible for receiving, validating and
+  fulfilling orders.
+- **Accountant** — internal staff responsible for invoicing and for recording
+  payments received.
 
 #### 2. Functional Requirements (FR)
 
@@ -37,16 +35,16 @@ platform. The system interactions revolve around four primary roles:
 
 ### Functional requirements — user story form
 
-Every requirement in clause 3.2 (Functions) shall be stated as a user story in
-exactly this template, on a single line:
+Every requirement in clause 3.1 (Functional requirements) shall be stated as a
+user story in exactly this template, on a single line:
 
 > As a `<role>`, I want `<capability>`, so that `<benefit>`.
 
 Rules:
 
 - `<role>` shall be one of the roles named in the input domain requirements
-  (Customer, Payment Gateway, Warehouse, Sales), or `System Administrator`
-  where no business role applies. Do not invent other roles.
+  (Customer, OrderStaff, Accountant), or `System Administrator` where no
+  business role applies. Do not invent other roles.
 - `<capability>` shall describe a single capability. If a requirement would
   need "and" to join two independent capabilities, split it into two
   requirements.
@@ -68,11 +66,10 @@ able to determine, by observing the system, whether it holds. Criteria such as
 
 ### Non-functional requirements — declarative form
 
-Requirements in clauses 3.1 and 3.3 through 3.8 (external interfaces, usability,
-performance, logical database, design constraints, standards compliance,
-software system attributes) shall **not** be written as user stories. They
-shall be written as single declarative statements using "shall", each with a
-quantified, measurable threshold where the property admits one.
+Requirements in clause 3.2 (quality attributes) shall **not** be written as
+user stories. They shall be written as single declarative statements using
+"shall", each with a quantified, measurable threshold where the property admits
+one.
 
 ### Identifiers
 
@@ -85,38 +82,38 @@ Identifiers shall match the regular expressions `^US-\d{2}$`, `^NFR-\d{2}$` and
 `^(US|NFR)-\d{2}-AC\d{2}$` respectively, and shall be identical across
 `srs.md`, `requirements.json` and `VMX.csv`.
 
+Every requirement originating from an input FR shall be specified in clause 3.1
+with a `US-` identifier. Every requirement originating from an input NFR shall
+be specified in clause 3.2 with an `NFR-` identifier. A single input requirement may give rise to more than one specified requirement, and a single specified requirement may trace to more than one input requirement.
+
 ---
 
 ## Output Standard
 
-Produce an SRS conforming to ISO/IEC/IEEE 29148:2018. The document must contain
-the following clauses, in this order, with these headings:
+`srs.md` shall contain the following clauses, in this order, with these
+headings:
 
 1. Introduction
    1. Purpose
    2. Scope
-   3. Definitions, acronyms and abbreviations
+   3. Definitions and acronyms
 2. Overall description
    1. Product perspective
    2. Product functions
    3. User characteristics
-   4. Limitations
-   5. Assumptions and dependencies
-   6. Apportioning of requirements
-3. Specified requirements
-   1. External interfaces
-   2. Functions
-   3. Usability requirements
-   4. Performance requirements
-   5. Logical database requirements
-   6. Design constraints
-   7. Standards compliance
-   8. Software system attributes
+   4. Assumptions and dependencies
+3. Requirements
+   1. Functional requirements
+   2. Quality attributes
+      1. Performance
+      2. Security
+      3. Availability
 4. Verification
 5. Supporting information
 
-Clause 3.2 holds every functional requirement. Security requirements belong in
-clause 3.8; there is no separate security clause.
+Clause 3.1 holds every functional requirement. Clause 3.2 holds every
+non-functional requirement, each placed in the one subclause that names its
+quality attribute.
 
 ---
 
@@ -143,9 +140,8 @@ Open with `@startuml activity` and close with `@enduml`. It must show:
 - Decision nodes, each with an explicit guard condition on every outgoing flow
 - Actions with meaningful names, each connected to the control flow
 
-Swimlanes are not required. The diagram may be written without any swimlane
-(`|...|`) declaration; if swimlanes are used they are optional and carry no
-additional requirement.
+The diagram shall be partitioned into swimlanes, declared with the `|...|`
+syntax. Every action shall lie within a swimlane.
 
 ---
 
@@ -168,7 +164,7 @@ add prefixes or suffixes, or place them in subfolders.
 The file content is a single JSON array of requirement objects, encoded in
 UTF-8 without a byte-order mark. The array is the top-level value: it is not
 wrapped in an enclosing object.
- 
+
 Each requirement object has exactly the following members. Every member is
 mandatory and shall be present on every object. Where no value applies, use an
 empty string or an empty array — never `null`, and never omit the member.
@@ -176,16 +172,17 @@ empty string or an empty array — never `null`, and never omit the member.
 | Field | JSON type | Description |
 | --- | --- | --- |
 | `id` | string | The requirement identifier as used in `srs.md`. Matches `^US-\d{2}$` or `^NFR-\d{2}$`. Unique across the array. |
-| `type` | string | Exactly one of: `functional` (clause 3.2), `interface` (3.1), `usability` (3.3), `performance` (3.4), `database` (3.5), `constraint` (3.6), `standards` (3.7), `attribute` (3.8). The value shall name the clause of `srs.md` in which the requirement appears. Every requirement whose `id` matches `^US-` has type `functional`; no requirement whose `id` matches `^NFR-` has type `functional`. |
+| `type` | string | Exactly one of: `functional` (clause 3.1), `performance` (3.2.1), `security` (3.2.2), `availability` (3.2.3). The value shall name the clause of `srs.md` in which the requirement appears. Every requirement whose `id` matches `^US-` has type `functional`; no requirement whose `id` matches `^NFR-` has type `functional`. |
 | `form` | string | Exactly one of: `user_story`, `declarative`. `user_story` if and only if `type` is `functional`. |
 | `statement` | string | The full requirement statement exactly as it appears in `srs.md`, verbatim, on one line. For a user story this is the complete "As a ..., I want ..., so that ..." sentence. |
 | `role` | string | For `form` = `user_story`: the `<role>` segment only, without the leading "As a". For `form` = `declarative`: the empty string. |
 | `capability` | string | For `form` = `user_story`: the `<capability>` segment only, without the leading "I want". For `form` = `declarative`: the empty string. |
-| `benefit` | string | For `form` = `user_story`: the `<benefit>` segment only, without the leading "so that" and without the trailing full stop. For `form` = `declarative`: the empty string. |
 | `acceptance_criteria` | array | An array of acceptance criterion objects (see below). At least three and at most seven elements for `form` = `user_story`; may be empty for `form` = `declarative`. |
-| `source_ids` | array of strings | The FR or NFR identifiers from the input domain requirements from which this requirement originates. Empty array if the requirement is derived rather than traced to an input. |
 | `priority` | string | Exactly one of: `must`, `should`, `could`. |
 | `verification_method` | string | Exactly one of: `test`, `analysis`, `inspection`, `demonstration`. |
+
+This listing records no source traceability: the link from a specified
+requirement back to its input FR or NFR identifier is held only in `VMX.csv`.
 
 Each acceptance criterion object has exactly the following members:
 
@@ -200,14 +197,13 @@ Each acceptance criterion object has exactly the following members:
 
 Further constraints on the listing:
 
-- The `requirements` array shall contain exactly the requirements specified in
-  `srs.md` — no more, no fewer — and in the same order in which they appear in
-  `srs.md`.
+- The array shall contain exactly the requirements specified in `srs.md` — no
+  more, no fewer — and in the same order in which they appear in `srs.md`.
 - Identifiers, statements and criterion texts in the listing shall be byte-identical
   to their occurrences in `srs.md`, apart from Markdown emphasis markers.
 - No member shall contain a newline character.
 - The file shall parse as valid JSON on the first attempt. Do not emit trailing
-  commas, comments, or any text before or after the top-level object.
+  commas, comments, or any text before or after the top-level array.
 
 ---
 
@@ -215,6 +211,8 @@ Further constraints on the listing:
 
 Write the traceability matrix to `VMX.csv`. It maps each specified requirement
 to its source input requirement and to the corresponding diagram element(s).
+`VMX.csv` is the only file that records the link between a specified
+requirement and the input requirement it originates from.
 
 ### Format of `VMX.csv`
 
@@ -231,13 +229,9 @@ to its source input requirement and to the corresponding diagram element(s).
 | Column | Description |
 | --- | --- |
 | `SRS-Req-ID` | The identifier of the requirement as used in `srs.md` |
-| `Source-Input-ID` | The FR or NFR identifier(s) given in the input domain requirements from which the requirement originates |
+| `Source-Input-ID` | The FR or NFR identifier(s) given in the input domain requirements from which the requirement originates. Leave the cell empty if the requirement is derived rather than traced to an input. |
 | `Structural-Elements` | The names of the classes, attributes (written `Class.attribute`) or relationships in `structural.puml` that realize the requirement |
-| `Behavorial-Elements` | The names of the actions or decisions in `behavorial.puml` that realize the requirement |
-
-The `Source-Input-ID` cell of each row shall list the same identifiers as the
-`source_ids` member of the corresponding requirement object in
-`requirements.json`.
+| `Behavorial-Elements` | The names of the actions or decisions in `behavioral.puml` that realize the requirement |
 
 Produce all five files in a single response. Do not repeat the contents of the
 files in your reply.
