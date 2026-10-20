@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import queue
 import re
 import sys
@@ -10,6 +11,7 @@ from collections import deque
 from datetime import datetime
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 import requests
 from interfaces.base import GenerationResult, IGenerationAgent, Status
@@ -33,7 +35,12 @@ class ChatDevGenerationAgent(IGenerationAgent):
         workdir = Path(self._config.get("workdir", "."))
         model = self._config.get("model", "qwen2.5-coder:7b")
         api_base = self._config.get("api_base", "http://localhost:11434/v1")
-        api_key = self._config.get("api_key", "ollama")
+        openrouter_key = os.environ.get("OPENROUTER_API_KEY")
+        is_openrouter = urlparse(api_base).hostname == "openrouter.ai"
+        api_key = (
+            (openrouter_key if is_openrouter else None)
+            or self._config.get("api_key", "ollama")
+        )
         workflow_rel = self._config.get("workflow", "agents/chatdev.yaml")
         timeout_seconds = self._config.get("timeout", 1800)
         timeout = float(timeout_seconds) if timeout_seconds is not None else None
@@ -41,6 +48,17 @@ class ChatDevGenerationAgent(IGenerationAgent):
         dir_name = run_id if run_id else f"run_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
         run_output_dir = generated_dir / dir_name
         run_output_dir.mkdir(parents=True, exist_ok=True)
+
+        if is_openrouter and not openrouter_key:
+            message = "OPENROUTER_API_KEY is required when agent.api_base uses OpenRouter."
+            print(f"Generation error: {message}", file=sys.stderr)
+            return GenerationResult(
+                status=Status.ERROR,
+                model=model,
+                code=str(run_output_dir),
+                output_dir=run_output_dir,
+                metadata={"error": message},
+            )
 
         # 1. Preferred: Run via ChatDev SDK if installed
         if HAS_CHATDEV:
@@ -65,10 +83,10 @@ class ChatDevGenerationAgent(IGenerationAgent):
                     output_dir=Path(code_path),
                 )
             except Exception as exc:
-                print(f"ChatDev execution encountered an error: {exc}. Falling back to direct Ollama generation.")
+                print(f"ChatDev execution encountered an error: {exc}. Falling back to direct API generation.")
 
-        # 2. Fallback: Direct OpenAI-compatible generation via local Ollama
-        print(f"Executing generation via local Ollama API ({api_base}, model={model})...")
+        # 2. Fallback: Direct OpenAI-compatible generation
+        print(f"Executing generation via API ({api_base}, model={model})...")
         endpoint = f"{api_base.rstrip('/')}/chat/completions"
         headers = {"Content-Type": "application/json"}
         if api_key:

@@ -40,3 +40,51 @@ def test_streaming_generation_reports_wait_and_saves_content(tmp_path, monkeypat
     assert "Waiting for first output" in captured.err
     assert "first output" in captured.err
     assert (tmp_path / "test" / "generation_raw.md").read_text() == "Hello, World!"
+
+
+def test_openrouter_uses_environment_api_key(tmp_path, monkeypatch):
+    monkeypatch.setattr(gen, "HAS_CHATDEV", False)
+    monkeypatch.setenv("OPENROUTER_API_KEY", "test-openrouter-key")
+    captured_headers = {}
+
+    def fake_post(*_args, **kwargs):
+        captured_headers.update(kwargs["headers"])
+        return _StreamingResponse()
+
+    monkeypatch.setattr(gen.requests, "post", fake_post)
+    agent = gen.ChatDevGenerationAgent(
+        {
+            "agent": {
+                "api_base": "https://openrouter.ai/api/v1",
+                "generated_dir": str(tmp_path),
+                "stream": True,
+            }
+        }
+    )
+
+    result = agent.generate("Say hello", run_id="openrouter-test")
+
+    assert result.status is Status.PASS
+    assert captured_headers["Authorization"] == "Bearer test-openrouter-key"
+
+
+def test_openrouter_requires_environment_api_key(tmp_path, monkeypatch):
+    monkeypatch.setattr(gen, "HAS_CHATDEV", False)
+    monkeypatch.delenv("OPENROUTER_API_KEY", raising=False)
+    monkeypatch.setattr(
+        gen.requests,
+        "post",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(AssertionError("unexpected API call")),
+    )
+
+    result = gen.ChatDevGenerationAgent(
+        {
+            "agent": {
+                "api_base": "https://openrouter.ai/api/v1",
+                "generated_dir": str(tmp_path),
+            }
+        }
+    ).generate("Say hello", run_id="openrouter-no-key")
+
+    assert result.status is Status.ERROR
+    assert "OPENROUTER_API_KEY is required" in result.metadata["error"]

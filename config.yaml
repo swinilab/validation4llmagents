@@ -7,9 +7,16 @@ workdir: "."
 # ── Generation ────────────────────────────────
 agent:
   type: "chatdev"
-  model: "gemma4:31b"
-  api_key: "ollama"
-  api_base: "http://localhost:11434/v1"
+
+  # ollama
+  # model: "qwen3.5:27b"
+  # api_key: "ollama"
+  # api_base: "http://localhost:11434/v1" 
+
+  # openrouter
+  model: "gpt-oss-120b"
+  api_base: "https://openrouter.ai/api/v1"
+
   temperature: 0.2
   workflow: "agents/chatdev.yaml"             # ChatDev's coding workflow
   prompt_template: "prompts/M1-prompt.md"     # path to the generation prompt
