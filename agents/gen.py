@@ -190,9 +190,6 @@ class ChatDevGenerationAgent(IGenerationAgent):
                                     first_output_at = now
                                 output_chunks += 1
                                 recent_output_at.append(now)
-                                if progress_is_tty:
-                                    sys.stderr.write("\r\x1b[2K")
-                                    sys.stderr.flush()
                                 sys.stdout.write(token)
                                 sys.stdout.flush()
                                 content_chunks.append(token)
