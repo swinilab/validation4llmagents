@@ -5,8 +5,7 @@ Copy-paste them in order to exercise the module by hand.
 
 The rules themselves, and the 1.1.0 changelog, are in [README.md](README.md).
 
-Stage 1 is stage 1 of the matching cascade (Stage 1 normalize → Stage 2 ontology → Stage 3 embedding
-→ E4 human). It normalizes text and flags negation and state words. **It never
+Stage 1 normalizes text and flags negation, and validates diagrams. **It never
 decides whether two items match.**
 
 ---
@@ -24,8 +23,7 @@ export PYTHONPATH=.
 
 Both lines matter:
 
-- **`cd` to the repo root** — the ontology path in `config.yaml` resolves
-  relative to it.
+- **`cd` to the repo root** — configured paths resolve relative to it.
 - **`export PYTHONPATH=.`** — `pipeline/` has no `__init__.py`, so it is a
   namespace package. Without this you get `No module named pipeline`.
 
@@ -68,8 +66,7 @@ Prints JSON to stdout and writes nothing. The fastest way to check behavior.
   "main_predicate_negated": true,
   "negation_scope": "main",
   "negation_cues": ["not"],
-  "state_mentions": [],
-  "stage1_version": "1.1.0"
+  "stage1_version": "1.3.0"
 }
 ```
 
@@ -88,25 +85,24 @@ $STAGE1 "A Customer can manually cancel an order only if it is in the placed sta
 $STAGE1 "The system shall sustain 2,000 concurrent user sessions with a request error rate of no more than 0.1%."
 ```
 
-Verified `normalized` / `negation_scope` / `state_mentions`:
+Verified `normalized` / `negation_scope`:
 
-| Input (abbreviated) | `normalized` | `scope` | `state_mentions` |
+| Input (abbreviated) | `normalized` | `scope` |
 |---|---|---|---|
-| shall **not** refund | `system **not** refund payment` | `main` | — |
-| shall refund | `system refund payment` | `none` | — |
-| verifies … levels | `system verify current inventory levels` | `none` | — |
-| … to a payment failed state | `system update order to payment failed state` | `none` | `payment failed` |
-| Warehouse … shipped state | `… update order to **shipped** state` | `none` | `shipped` |
-| carrier **shipped** the goods | `carrier **ship** goods` | `none` | — |
-| … only if … placed state | `customer manually cancel order only if it be in placed state` | `none` | `placed` |
-| … no more than 0.1% | `… with request error rate of no more than 0.1%` | `none` | — |
+| shall **not** refund | `system **not** refund payment` | `main` |
+| shall refund | `system refund payment` | `none` |
+| verifies … levels | `system verify current inventory levels` | `none` |
+| … to a payment failed state | `system update order to payment failed state` | `none` |
+| Warehouse … shipped state | `… update order to shipped state` | `none` |
+| carrier **shipped** the goods | `carrier **ship** goods` | `none` |
+| … only if … placed state | `customer manually cancel order only if it be in placed state` | `none` |
+| … no more than 0.1% | `… with request error rate of no more than 0.1%` | `none` |
 
 The two things to look at:
 
 - **Rows 1–2 differ by exactly one token.** Since 1.1.0 the cue is kept, so the
   two strings are no longer identical — `not` is there, and the scope flips.
-- **Rows 5–6 are the state-protection test.** `shipped` stays `shipped` before
-  `state`, but lemmatizes to `ship` as a predicate.
+- State words are normalized like other words; verbs may be lemmatized.
 
 ### Negation cues
 
@@ -243,13 +239,13 @@ Added columns, verified:
 
 ```
 statement__normalized, statement__has_negation_cue, statement__main_predicate_negated,
-statement__negation_scope, statement__negation_cues, statement__state_mentions, stage1_version
+statement__negation_scope, statement__negation_cues, stage1_version
 ```
 
 `.meta.json` keys, verified:
 
 ```
-config, stage1_version, input, library_versions, ontology_path, ontology_sha256, row_count, source
+config, stage1_version, input, library_versions, row_count, source
 ```
 
 Every statement carrying a negation cue, with the scope the parser assigned
@@ -264,17 +260,6 @@ for r in rows:
         print(r["gold_req_id"], "|", r["statement__negation_scope"],
               "|", r["statement__negation_cues"], "|", r["statement__normalized"][:60])
 print(len(rows), "rows total")
-PY
-```
-
-Every state mention found:
-
-```bash
-.venv/bin/python - <<'PY'
-import csv
-for r in csv.DictReader(open("pipeline/stage1/artifact/gold-requirements__stage1.csv", encoding="utf-8-sig")):
-    if r["statement__state_mentions"]:
-        print(r["gold_req_id"], "->", r["statement__state_mentions"])
 PY
 ```
 
@@ -317,13 +302,6 @@ Both refused with `exit=2`:
 Stage 1 error: Refusing to write outside the repository: /tmp/stage1.csv.
 Stage 1 writes only inside /home/swe/validation4llmagents; omit --out to use
 the default pipeline/stage1/artifact/ directory.
-```
-
-### The ontology is read-only
-
-```bash
-sha256sum materials/M2-orderman-ontology.yaml
-# matches ontology_sha256 in every .meta.json: 759fed00b964eb6b21a62e6b…
 ```
 
 ### Offline
@@ -380,7 +358,6 @@ print("Stage 1", STAGE1_VERSION)
 
 r = normalize("The system updates the order to a payment failed state.")
 print(r.normalized)       # system update order to payment failed state
-print(r.state_mentions)   # ['payment failed']
 print(r.negation_scope)   # none
 
 n = normalize("The system shall not refund the payment.")

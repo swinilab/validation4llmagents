@@ -53,7 +53,6 @@ output:
 
 # ── Stage 1 analysis modules ──────────────────────────────────────────────
 stage1:
-  ontology_path: materials/M2-orderman-ontology.yaml
   modals: [shall, must, should, will, can, may]
   articles: [a, an, the]
   singularize_nouns: false
@@ -81,8 +80,3 @@ stage1:
     layout_smetana: true # replacement for graphviz 
     timeout_seconds: 60
     extra_args: []
-
-  # Metric 8 - Consistency (consistency), rules CM-01..CM-05.
-  consistency:
-    rules: [CM-01, CM-02, CM-03, CM-04, CM-05]
-    emit_ontology_gaps: true

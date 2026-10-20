@@ -4,8 +4,8 @@
 out. The command-line interface is a thin wrapper around it.
 
 Input files are opened read-only and never modified. Every run writes a
-``<output>.meta.json`` sidecar recording ``stage1_version``, the ontology SHA-256,
-library versions and the effective config, so an output can be traced back to
+``<output>.meta.json`` sidecar recording ``stage1_version``, library versions
+and the effective config, so an output can be traced back to
 the exact inputs that produced it.
 """
 
@@ -26,7 +26,6 @@ from .config import (
     REPO_ROOT,
     load_config,
     resolve_output_path,
-    sha256_of,
 )
 from .normalize import (
     STAGE1_VERSION,
@@ -95,7 +94,6 @@ SUFFIXES: tuple[str, ...] = (
     "__main_predicate_negated",
     "__negation_scope",
     "__negation_cues",
-    "__state_mentions",
 )
 
 # Value written for a boolean suffix when a column is present but empty.
@@ -123,7 +121,6 @@ def _result_fields(result: Normalized) -> dict[str, Any]:
         "__main_predicate_negated": str(result.main_predicate_negated).lower(),
         "__negation_scope": result.negation_scope,
         "__negation_cues": LIST_SEPARATOR.join(result.negation_cues),
-        "__state_mentions": LIST_SEPARATOR.join(result.state_mentions),
     }
 
 
@@ -234,8 +231,6 @@ def _write_meta(out_path: Path, cfg: Stage1Config, source: str, in_path: Path, r
     meta_path = out_path.with_name(out_path.name + ".meta.json")
     meta = {
         "stage1_version": STAGE1_VERSION,
-        "ontology_sha256": sha256_of(Path(cfg.ontology_path)),
-        "ontology_path": cfg.as_dict()["ontology_path"],
         "library_versions": {**library_versions(), "spacy_model": model_version(cfg)},
         "config": cfg.as_dict(),
         "source": source,
@@ -390,7 +385,6 @@ def main(argv: Sequence[str] | None = None) -> int:
             "main_predicate_negated": result.main_predicate_negated,
             "negation_scope": result.negation_scope,
             "negation_cues": result.negation_cues,
-            "state_mentions": result.state_mentions,
             "stage1_version": result.stage1_version,
         }
         print(json.dumps(payload, indent=2, ensure_ascii=False))

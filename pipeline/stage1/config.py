@@ -9,7 +9,7 @@ from this file.
 from __future__ import annotations
 
 import hashlib
-from dataclasses import dataclass, field, asdict
+from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any, Mapping
 
@@ -43,15 +43,8 @@ DEFAULT_MODALS: tuple[str, ...] = (
 # a negation cue, and since 1.1.0 negation cues are always kept (see README).
 DEFAULT_ARTICLES: tuple[str, ...] = ("a", "an", "the")
 
-# Candidate locations of the ontology, tried in order, relative to REPO_ROOT.
-DEFAULT_ONTOLOGY_CANDIDATES: tuple[str, ...] = (
-    "ontology/orderman-ontology.yaml",
-    "materials/M2-orderman-ontology.yaml",
-)
-
-
 class Stage1ConfigError(RuntimeError):
-    """Raised when the configuration or the ontology cannot be used."""
+    """Raised when the Stage 1 configuration cannot be used."""
 
 
 # Default location of the PlantUML jar, relative to the repository root. The
@@ -91,32 +84,10 @@ class ParseCheckConfig:
 
 
 @dataclass(frozen=True)
-class ConsistencyConfig:
-    """Settings for metric 8 (Consistency).
-
-    Attributes:
-        rules: Rule ids to evaluate. CM-06 is intentionally absent: no
-            multiplicity rule is implemented.
-        emit_ontology_gaps: Write ``<run_id>__ontology_gaps.csv`` listing
-            terms the ontology does not know. Unknown terms are never added
-            to the ontology.
-    """
-
-    rules: tuple[str, ...] = ("CM-01", "CM-02", "CM-03", "CM-04", "CM-05")
-    emit_ontology_gaps: bool = True
-
-    def as_dict(self) -> dict[str, Any]:
-        data = asdict(self)
-        data["rules"] = list(data["rules"])
-        return data
-
-
-@dataclass(frozen=True)
 class Stage1Config:
     """Effective Stage 1 configuration.
 
     Attributes:
-        ontology_path: Ontology file read for state names and aliases. Read-only.
         modals: Modal verbs removed from ``normalized``.
         articles: Articles / determiners removed from ``normalized``.
         singularize_nouns: When true, nouns are replaced by their spaCy lemma.
@@ -129,10 +100,8 @@ class Stage1Config:
         non_negating_phrases: Phrases containing a cue that must not be treated
             as negation (e.g. "no more than", a numeric bound).
         parse_check: Settings for metric 7.
-        consistency: Settings for metric 8.
     """
 
-    ontology_path: Path
     modals: tuple[str, ...] = DEFAULT_MODALS
     articles: tuple[str, ...] = DEFAULT_ARTICLES
     singularize_nouns: bool = False
@@ -141,16 +110,13 @@ class Stage1Config:
     keep_negation_cue_tokens: bool = False
     non_negating_phrases: tuple[str, ...] = ()
     parse_check: ParseCheckConfig = field(default_factory=ParseCheckConfig)
-    consistency: ConsistencyConfig = field(default_factory=ConsistencyConfig)
 
     def as_dict(self) -> dict[str, Any]:
         """Config as plain JSON-serializable data, for the ``.meta.json``."""
         data = asdict(self)
-        data["ontology_path"] = _relative_to_repo(self.ontology_path)
         for key in ("modals", "articles", "non_negating_phrases"):
             data[key] = list(data[key])
         data["parse_check"] = self.parse_check.as_dict()
-        data["consistency"] = self.consistency.as_dict()
         return data
 
 
@@ -227,27 +193,6 @@ def find_repo_config(start: Path | None = None) -> Path | None:
     return None
 
 
-def _resolve_ontology(raw: str | None) -> Path:
-    """Resolve the ontology path, trying the documented candidates."""
-    candidates: list[Path] = []
-    if raw:
-        given = Path(raw)
-        candidates.append(given if given.is_absolute() else REPO_ROOT / given)
-    else:
-        candidates.extend(REPO_ROOT / rel for rel in DEFAULT_ONTOLOGY_CANDIDATES)
-
-    for candidate in candidates:
-        if candidate.is_file():
-            return candidate
-
-    tried = ", ".join(_relative_to_repo(c) for c in candidates)
-    raise Stage1ConfigError(
-        "Stage 1 cannot find the ontology file. Tried: "
-        f"{tried}. Set stage1.ontology_path in config.yaml to the "
-        "orderman ontology YAML."
-    )
-
-
 def _as_str_tuple(value: Any, default: tuple[str, ...], key: str) -> tuple[str, ...]:
     """Coerce a config value to a lowercase string tuple."""
     if value is None:
@@ -295,32 +240,6 @@ def _parse_check_config(raw: Any) -> ParseCheckConfig:
     )
 
 
-def _consistency_config(raw: Any) -> ConsistencyConfig:
-    """Build the metric 8 settings from the ``consistency`` sub-section."""
-    section = _sub_section(raw, "consistency")
-    defaults = ConsistencyConfig()
-    rules = section.get("rules")
-    if rules is None:
-        selected = defaults.rules
-    elif isinstance(rules, (list, tuple)):
-        selected = tuple(str(item).strip().upper() for item in rules if str(item).strip())
-    else:
-        raise Stage1ConfigError("stage1.consistency.rules must be a list of rule ids.")
-    unknown = [rule for rule in selected if rule not in defaults.rules]
-    if unknown:
-        raise Stage1ConfigError(
-            f"stage1.consistency.rules contains unknown rule id(s): {', '.join(unknown)}. "
-            f"Known rules: {', '.join(defaults.rules)}. "
-            f"(There is deliberately no multiplicity rule CM-06.)"
-        )
-    return ConsistencyConfig(
-        rules=selected,
-        emit_ontology_gaps=bool(
-            section.get("emit_ontology_gaps", defaults.emit_ontology_gaps)
-        ),
-    )
-
-
 def load_config(
     config_path: Path | str | None = None,
     overrides: Mapping[str, Any] | None = None,
@@ -359,8 +278,6 @@ def load_config(
 
     return Stage1Config(
         parse_check=_parse_check_config(section.get("parse_check")),
-        consistency=_consistency_config(section.get("consistency")),
-        ontology_path=_resolve_ontology(section.get("ontology_path")),
         modals=_as_str_tuple(section.get("modals"), DEFAULT_MODALS, "modals"),
         articles=_as_str_tuple(section.get("articles"), DEFAULT_ARTICLES, "articles"),
         singularize_nouns=bool(section.get("singularize_nouns", False)),

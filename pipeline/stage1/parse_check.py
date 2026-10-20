@@ -38,7 +38,6 @@ from .config import (
     Stage1ConfigError,
     load_config,
     resolve_output_path,
-    sha256_of,
 )
 from .normalize import STAGE1_VERSION
 
@@ -881,8 +880,6 @@ def _write_meta(
     meta = {
         "stage1_version": STAGE1_VERSION,
         "parse_check_version": PARSE_CHECK_VERSION,
-        "ontology_sha256": sha256_of(Path(cfg.ontology_path)),
-        "ontology_path": cfg.as_dict()["ontology_path"],
         "config": cfg.parse_check.as_dict(),
         "run_id": run_id,
         "inputs": [r.path for r in results],

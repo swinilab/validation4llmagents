@@ -45,7 +45,6 @@ def test_suffixes_are_the_1_1_0_set():
         "__main_predicate_negated",
         "__negation_scope",
         "__negation_cues",
-        "__state_mentions",
     )
     assert "__negated" not in SUFFIXES
 
@@ -62,7 +61,7 @@ def test_gold_reqs_output_columns(gold_requirements_path: Path, out_dir: Path, c
     for suffix in SUFFIXES:
         assert f"statement{suffix}" in rows[0]
     assert "statement__negated" not in rows[0]
-    assert rows[0]["stage1_version"] == "1.2.0"
+    assert rows[0]["stage1_version"] == "1.3.0"
 
 
 def test_input_file_is_never_modified(gold_requirements_path: Path, out_dir: Path, cfg):
@@ -125,7 +124,7 @@ def test_activity_inv_preset(fixtures_dir: Path, out_dir: Path, cfg):
 
     assert rows[0]["verb__normalized"] == "validate"
     assert rows[1]["verb__normalized"] == "update"
-    assert rows[1]["detail__state_mentions"] == "shipped"
+    assert "detail__state_mentions" not in rows[1]
 
 
 def test_class_inv_normalizes_owner_class(fixtures_dir: Path, out_dir: Path, cfg):
@@ -228,10 +227,10 @@ def test_meta_sidecar_records_the_version(
     run_stage1("gold-reqs", gold_requirements_path, out, cfg)
     meta = json.loads((out.with_name(out.name + ".meta.json")).read_text(encoding="utf-8"))
 
-    assert meta["stage1_version"] == "1.2.0"
+    assert meta["stage1_version"] == "1.3.0"
     assert meta["row_count"] == 49
-    assert len(meta["ontology_sha256"]) == 64
-    assert meta["config"]["ontology_path"].endswith(".yaml")
+    assert "ontology_sha256" not in meta
+    assert "ontology_path" not in meta
 
 
 # --------------------------------------------------------------------------

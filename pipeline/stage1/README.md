@@ -1,17 +1,15 @@
 # Stage 1
 
-Stage 1 holds three modules:
+Stage 1 holds two modules:
 
 | Module | Purpose | Metric |
 | --- | --- | --- |
 | [`normalize`](normalize.py) | text normalization for the matching cascade | — |
 | [`parse_check`](parse_check.py) | diagram validity | 7 |
-| [`consistency`](consistency.py) | cross-artifact consistency, CM-01..CM-05 | 8 |
 
-All three are deterministic, read their inputs read-only, never modify the
-ontology, and write a `.meta.json` provenance sidecar beside every output.
-None of them knows whether its input is gold or agent output: `run_id` is an
-opaque label.
+Both are deterministic, read their inputs read-only, and write a `.meta.json`
+provenance sidecar beside every output. Neither depends on an ontology or
+knows whether its input is gold or agent output: `run_id` is an opaque label.
 
 For copy-pasteable commands, see [COMMAND.md](COMMAND.md).
 
@@ -19,15 +17,12 @@ For copy-pasteable commands, see [COMMAND.md](COMMAND.md).
 
 # normalize — text normalization
 
-normalize is stage 1 of the matching cascade (Stage 1 normalize → Stage 2
-ontology → Stage 3 embedding → Stage 4 human). It turns a raw string into one
-canonical form so that Stage 2 and Stage 3 compare like with like.
+normalize prepares a raw string as one canonical form for downstream matching.
 
 **normalize never decides whether two items match.** It does no Stage 2/Stage 3
 work: no actor stripping, no alias lookup, no frame extraction, no synonym
 mapping, no embeddings. It is deterministic and offline — one spaCy pipeline,
-no network, no randomness — and it never modifies an input file or the
-ontology.
+no network, no randomness — and never modifies an input file.
 
 ---
 
@@ -42,7 +37,6 @@ For each normalized column `X`, Stage 1 adds:
 | `X__main_predicate_negated` | the negation applies to the **main predicate** |
 | `X__negation_scope` | `main`, `subordinate` or `none` — what the parser decided |
 | `X__negation_cues` | the surface cues that matched, in sentence order |
-| `X__state_mentions` | ontology state terms used **as states**, `; `-separated |
 
 Plus one `stage1_version` column per row.
 
@@ -63,8 +57,7 @@ The order is part of the contract:
 4. modal removal, possessive-marker removal
 5. article / determiner removal, auxiliary removal
 6. verb lemmatization (participial modifiers keep their surface form)
-7. state protection (ontology states used *as states* keep their surface form)
-8. negation **scope resolution**, on the dependency parse
+7. negation **scope resolution**, on the dependency parse
 
 ---
 
@@ -152,65 +145,11 @@ what the parser decided without re-running it.
 
 ---
 
-## State mentions
+## Ontology-independent normalization
 
-A token is a state mention only if it is in the ontology's state vocabulary
-**and** its context says it is being used as a state. Merely appearing in the
-vocabulary is not enough — that was defect 3 of v1.0.0, which reported `new`,
-`declined`, `retrieved`, `boxed`, `handed over`, `ordered`, `reserved` and
-`returned items` as states.
-
-The vocabulary is read from the ontology at runtime; nothing is hard-coded.
-The ontology **does** distinguish canonical names from aliases: the nine
-canonical states are `order_lifecycle.canonical_sequence` plus
-`order_exceptions.canonical` (equivalently, the keys of `state_aliases`), and
-the aliases are that mapping's values. `legal_transitions` and `source_reqs`
-are skipped — they hold transition pairs and requirement ids, not state names.
-
-### The rules
-
-**Rule 1 — explicit.** The term is immediately followed by `state` / `status`:
-*to the shipped **state***, *payment failed **state***, *declined **state***.
-**Aliases are allowed here**, because the author has said the word is a state.
-
-**Rule 2 — structural.** The term is a **canonical** name (never an alias) and
-is one of:
-
-- **2a** a participial modifier (`amod`) of `order` / `orders`:
-  *a **placed** order*, ***shipped** orders*;
-- **2b** the predicate of `order` / `it` as subject: *when an order is
-  **placed***, *if it is **shipped***. A relative pronoun is resolved to the
-  noun its clause modifies, so *an order that … has already been **picked***
-  counts;
-- **2c** the complement after `as`: *mark … order as **picked***;
-- **2d** the object of `to` / `in` / `into` after `order` or a state verb
-  (`transition`, `move`, `set`, `reach`, …): *transition the order to
-  **placed***.
-
-**Rule 3 — phrases.** Multi-word canonical states (`payment failed`) are
-matched as a phrase, longest first, so `payment failed` wins over `failed`.
-
-Anything else is **not** a state mention and is normalized like any other word
-— lemmatized if it is a verb. This is what makes the two sides of a comparison
-agree: gold's *"once its items have been **retrieved**"* and an agent's *"the
-Warehouse **retrieves** items"* both reduce to `retrieve`, where v1.0.0 kept
-the gold side as the state `retrieved` and the two could never match.
-
-### Known failure modes — states
-
-- **Aliases are invisible outside rule 1.** *"mark the order as **boxed**"*
-  reports no state mention, although a human would call that the `packed`
-  state. Stage 1 does not map aliases to canonical names — that is Stage 2's job — so
-  admitting aliases structurally would produce more false positives than it
-  fixes.
-- **Rule 2 is anchored on the word `order`.** A state predicated of a synonym
-  (*"when the purchase is placed"*) or of a pronoun other than `it`/`they` is
-  missed.
-- **The parse drives 2a–2d.** A misparsed `amod` or a subject spaCy attaches to
-  the wrong verb changes the answer. The gold set is fully covered; other
-  phrasings may not be.
-- **A state word as the main verb is left alone**, by design: *"the carrier
-  **shipped** the goods"* is an action, not a state.
+Normalization does not identify states or resolve terms against an ontology.
+Words such as `placed` and `shipped` are processed like any other word; they
+may be lemmatized according to the normal verb rules.
 
 ---
 
@@ -348,108 +287,23 @@ are different answers and must not be confused.
 
 ---
 
-# consistency — metric 8 (Consistency)
+## Removed ontology-dependent analysis
 
-Scores cross-artifact agreement **per instance**:
-
-```
-consistency = 1 - failed / total
-```
-
-With no instances the metric is `null` with a `no_instances` flag — never
-`1.0`, because "nothing was checked" is not "everything was right".
-
-### Inputs
-
-Already-flattened CSVs only. This module never parses `.puml`, markdown or
-prose.
-
-```bash
-python -m pipeline.stage1.consistency --run-id RUN01 \
-  --class-csv        pipeline/stage1/artifact/gold-class-elements__stage1.csv \
-  --activity-csv     pipeline/stage1/artifact/gold-activity-elements__stage1.csv \
-  --requirements-csv pipeline/stage1/artifact/gold-requirements__stage1.csv
-```
-
-All three are Stage 1 `normalize` outputs. `--out-dir` defaults to
-`pipeline/stage1/artifact/`.
-
-### Outputs
-
-| File | Contents |
-| --- | --- |
-| `<run_id>__consistency_instances.csv` | `run_id, rule_id, instance, status, detail, ontology_sha256, tool_version` |
-| `<run_id>__consistency.json` | per-rule `{total, failed}`, totals, and `consistency` |
-| `<run_id>__ontology_gaps.csv` | `term, source_file, rule_id, count` |
-| `<run_id>__consistency.json.meta.json` | provenance sidecar |
-
-Unknown terms are **never** added to the ontology. M2's HARD RULE 2 requires
-human adjudication, so they are logged to the gaps CSV instead.
-
-### Rules
-
-| Rule | One instance per | Passes when |
-| --- | --- | --- |
-| CM-01 | swimlane element | The swimlane resolves to an ontology class or actor. |
-| CM-02 | action with an object | The object resolves to a class or attribute. |
-| CM-03 | class | Its canonical name or an alias occurs in ≥1 requirement. |
-| CM-04 | detected transition | The transition is in `states.legal_transitions`. |
-| CM-05 | concept in >1 source | One canonical name is used across sources. |
-
-Matching is ontology lookup only: longest alias first, case-insensitive, and
-insensitive to identifier style (`PaymentGateway` = `payment_gateway`).
-
-**There is deliberately no CM-06.** No multiplicity rule is implemented.
-
-### Exit codes
-
-| Code | Meaning |
-| --- | --- |
-| `0` | Ran to completion, including when instances fail. |
-| `2` | Missing prerequisite column, unreadable input, bad arguments. |
-
-### Known limitations
-
-- **CM-01 needs artifacts built by normalize 1.2.0 or later.** It reads
-  `swimlane__normalized` and `owner_class__normalized`, which the
-  `activity-inv` and `class-inv` presets emit from 1.2.0 on. Against an
-  artifact produced by an older version the module stops with an error naming
-  both columns rather than silently skipping the rule; regenerate the input,
-  or deselect CM-01 via `stage1.consistency.rules` to run the other four.
-  Enabled by default now that the gold artifacts are regenerated with 1.2.0;
-  on the gold set it passes 4/4.
-- **CM-04 is pattern-based and conservative.** An instance is created only
-  when one of three ordered patterns matches: `mark <from> … as <to>`,
-  `<from> … marked as <to>`, and `from <from> … to <to>` (plus the ontology's
-  `action_verbs.transition` surface forms). A requirement that merely mentions
-  two states states no transition — "cancel only while *placed* and not yet
-  *picked*" is a guard, not a move, and yields no instance. The cost is
-  recall: a transition phrased outside these patterns is missed rather than
-  guessed at.
-- **CM-05 covers structured fields only** — class `canonical_name`, activity
-  `swimlane` and `object`, requirement `actor` and `object`. Requirement prose
-  is not mined for names. It also ignores pure formatting differences: two
-  spellings that resolve to the same ontology concept are one name, not an
-  inconsistency.
-- **CM-03 matching tolerates a regular plural** on the final word (`order
-  lines` matches `OrderLine`) because `normalize` keeps surface nouns by
-  default. It does no general stemming.
-- Ontology lookups use the **raw** identifier column, not the normalized one:
-  `normalize_label` lemmatizes short labels (`ShoppingCart` → `shop cart`),
-  which is right for embeddings but destroys the identifier a lookup needs.
+Ontology-backed state recognition and the metric 8 consistency analyzer have
+been removed. Stage 1 now consists of normalization and diagram validation.
+The `X__state_mentions` output column and ontology provenance fields are no
+longer produced.
 
 ## Changelog
 
-The versions below are `normalize`'s. `parse_check` and `consistency` are
-versioned separately (`PARSE_CHECK_VERSION`, `CONSISTENCY_VERSION`, both
-1.0.0) because their contracts change for different reasons.
+`parse_check` is versioned separately (`PARSE_CHECK_VERSION`) because its
+contract changes independently of normalization.
 
-### parse_check 1.0.0 / consistency 1.0.0
+### 1.3.0
 
-Initial release of the two analysis modules: metric 7 (syntax via
-`plantuml -checkonly` plus structural rules PV-01..PV-04) and metric 8 (rules
-CM-01..CM-05, per-instance scoring, ontology-gap logging). Both are registered
-in [registry.py](registry.py). `normalize` is unchanged by this work.
+Breaking. Removed ontology-backed state recognition and metric 8 consistency
+analysis. Normalization and parse-check metadata no longer record ontology
+paths or hashes.
 
 ### 1.2.0
 
@@ -458,17 +312,12 @@ Additive. No existing column changed name, position or value.
 **Added**
 
 - `activity-inv` now normalizes `swimlane`, and `class-inv` now normalizes
-  `owner_class`, each emitting the usual six `X__*` columns. Both are treated
+  `owner_class`, each emitting the normalization `X__*` columns. Both are treated
   as label columns (the same path as `canonical_name` and `verb`/`object`), so
   identifier splitting applies: `PaymentGateway` and `Payment_Gateway` both
   normalize to `payment gateway`. Both are optional: `owner_class` is empty on
   every non-attribute row and `swimlane` may be empty on rows that belong to no
   lane, and an empty cell emits empty fields rather than raising.
-
-Requested by CM-01 in [consistency.py](consistency.py), which needs canonical
-lane and owner-class names. The gold artifacts have since been regenerated
-with this version, so CM-01 is included in the default rule set and passes
-4/4 on the gold set.
 
 ### 1.1.0
 

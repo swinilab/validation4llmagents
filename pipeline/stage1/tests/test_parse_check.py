@@ -229,7 +229,6 @@ def test_cli_returns_tool_exit_code_when_plantuml_missing(tmp_path, cfg, repo_ro
     config = tmp_path / "config.yaml"
     config.write_text(
         "stage1:\n"
-        "  ontology_path: materials/M2-orderman-ontology.yaml\n"
         "  parse_check:\n"
         "    plantuml_jar: ''\n"
         "    plantuml_cmd: definitely-not-a-real-plantuml-binary\n",
@@ -295,7 +294,8 @@ def test_meta_sidecar_written(tmp_path, cfg, artifact_tmp, needs_plantuml):
     run_parse_check("META", [path], out, cfg)
     meta = json.loads(out.with_name(out.name + ".meta.json").read_text(encoding="utf-8"))
     assert meta["run_id"] == "META"
-    assert len(meta["ontology_sha256"]) == 64
+    assert "ontology_sha256" not in meta
+    assert "ontology_path" not in meta
     assert "PV-01" in meta["structural_rules"]
 
 
@@ -412,4 +412,3 @@ def test_cli_export_png_flag(tmp_path, cfg, artifact_tmp, needs_plantuml):
     payload = json.loads(out_json.read_text(encoding="utf-8"))
     assert payload["png_exported"] is True
     assert payload["diagrams"][0]["png_path"] is not None
-

@@ -15,37 +15,6 @@ import pytest
 
 from pipeline.stage1.normalize import normalize
 
-# Expected ``state_mentions`` per gold row, in order of appearance. Rows absent
-# from this table are not pinned: only the ones the review listed are.
-EXPECTED_STATE_MENTIONS: dict[str, list[str]] = {
-    "GR-06": ["draft"],
-    "GR-07": [],
-    "GR-09": ["placed"],
-    "GR-10": ["payment failed"],
-    "GR-11": [],
-    "GR-12": ["placed", "picked"],
-    "GR-13": ["picked", "packed"],
-    "GR-14": ["packed", "shipped"],
-    "GR-15": ["placed", "picked"],
-    "GR-16": ["cancelled"],
-    "GR-18": ["shipped"],
-    "GR-19": [],
-    "GR-20": [],
-    "GR-21": [],
-    "GR-23": [],
-    "GR-24": [],
-    "GR-25": ["packed"],
-    "GR-26": ["shipped"],
-    "GR-39": ["placed", "picked"],
-    "GR-40": [],
-    "GR-41": ["packed"],
-    "GR-42": ["returned"],
-    "GR-43": ["refunded"],
-    "GR-44": ["placed"],
-    "GR-45": ["cancelled"],
-    "GR-47": ["shipped"],
-}
-
 # The only gold row whose main predicate is negated.
 MAIN_NEGATED_ROWS: set[str] = {"GR-30"}
 
@@ -134,41 +103,7 @@ def test_old_negated_attribute_is_gone(results):
 
 
 # --------------------------------------------------------------------------
-# 3. State mentions (defect 3)
-# --------------------------------------------------------------------------
-
-
-@pytest.mark.parametrize("req_id, expected", sorted(EXPECTED_STATE_MENTIONS.items()))
-def test_state_mentions(results, req_id, expected):
-    assert results[req_id].state_mentions == expected
-
-
-@pytest.mark.parametrize(
-    "req_id, word",
-    [
-        ("GR-06", "new"),
-        ("GR-07", "new"),
-        ("GR-10", "declined"),
-        ("GR-11", "declined"),
-        ("GR-12", "retrieved"),
-        ("GR-23", "retrieved"),
-        ("GR-24", "retrieved"),
-        ("GR-13", "boxed"),
-        ("GR-14", "handed"),
-        ("GR-44", "ordered"),
-        ("GR-45", "reserved"),
-        ("GR-19", "returned"),
-        ("GR-20", "returned"),
-        ("GR-21", "returned"),
-    ],
-)
-def test_aliases_used_as_ordinary_words_are_not_state_mentions(results, req_id, word):
-    """An alias outside the ``<alias> state`` form is never a state mention."""
-    assert word not in results[req_id].state_mentions
-
-
-# --------------------------------------------------------------------------
-# 4. Possessives (defect 4)
+# 3. Possessives (defect 4)
 # --------------------------------------------------------------------------
 
 
@@ -258,7 +193,6 @@ def test_article_choice_does_not_change_the_output(cfg):
     indefinite = normalize("when an order is placed", cfg)
     definite = normalize("when the order is placed", cfg)
     assert indefinite.normalized == definite.normalized
-    assert indefinite.state_mentions == definite.state_mentions
 
 
 # --------------------------------------------------------------------------
@@ -275,14 +209,6 @@ def test_no_object_of_root_negates_the_main_predicate(cfg):
     assert "no" in result.normalized.split()
 
 
-def test_agent_phrasing_keeps_lemma_and_state(cfg):
-    result = normalize(
-        "The Warehouse retrieves items and updates the order to picked.", cfg
-    )
-    assert "retrieve" in result.normalized.split(), result.normalized
-    assert "picked" in result.state_mentions, result.state_mentions
-
-
 def test_gold_and_agent_wording_agree_on_the_verb(cfg):
     """The gold "have been retrieved" and an agent's "retrieves" both lemmatize.
 
@@ -293,7 +219,6 @@ def test_gold_and_agent_wording_agree_on_the_verb(cfg):
     agent = normalize("the Warehouse retrieves the items from the shelves", cfg)
     assert "retrieve" in gold.normalized.split(), gold.normalized
     assert "retrieve" in agent.normalized.split(), agent.normalized
-    assert gold.state_mentions == [] and agent.state_mentions == []
 
 
 # --------------------------------------------------------------------------

@@ -65,36 +65,12 @@ def _build_parse_check(cfg: Stage1Config) -> Callable[..., dict[str, Any]]:
     return run
 
 
-def _build_consistency(cfg: Stage1Config) -> Callable[..., dict[str, Any]]:
-    """Return a bound consistency runner."""
-    from .consistency import run_consistency
-
-    def run(
-        run_id: str,
-        class_csv: str | Path,
-        activity_csv: str | Path,
-        requirements_csv: str | Path,
-        out_dir: str | Path | None = None,
-    ) -> dict[str, Any]:
-        return run_consistency(
-            run_id, class_csv, activity_csv, requirements_csv, out_dir, cfg
-        )
-
-    return run
-
-
 ANALYZERS: dict[str, AnalyzerSpec] = {
     "parse_check": AnalyzerSpec(
         name="parse_check",
         metric=7,
         title="Diagram Validity",
         build=_build_parse_check,
-    ),
-    "consistency": AnalyzerSpec(
-        name="consistency",
-        metric=8,
-        title="Consistency",
-        build=_build_consistency,
     ),
 }
 

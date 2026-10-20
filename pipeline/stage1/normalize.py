@@ -1,9 +1,8 @@
 """Stage 1 - text normalization for the SRS-evaluation matching cascade.
 
-Stage 1 turns a raw string into one canonical form so that Stage 2 (ontology frame match)
-and Stage 3 (embedding cosine) compare like with like. Stage 1 never decides whether two
-items match, and it does no Stage 2/Stage 3 work: no actor stripping, no frame extraction,
-no alias lookup, no synonym mapping, no embeddings.
+Stage 1 turns a raw string into one canonical form for downstream matching. Stage 1 never
+decides whether two items match, and it does no actor stripping, frame extraction,
+alias lookup, synonym mapping, or embedding.
 
 Pipeline order (the order is part of the contract):
 
@@ -13,13 +12,11 @@ Pipeline order (the order is part of the contract):
 4. modal removal
 5. article / determiner removal, auxiliary removal
 6. verb lemmatization (participial modifiers keep their surface form)
-7. state protection (ontology states used *as states* keep their surface form)
-8. negation scope resolution on the dependency parse
+7. negation scope resolution on the dependency parse
 
 Negation cues are never deleted from ``normalized`` (changed in 1.1.0): the
-words carry meaning Stage 3 must see. Scope is reported separately, so a downstream
-stage can tell "shall not store X" from "store X only while it has not been
-marked".
+words carry meaning downstream consumers need. Scope is reported separately, so
+consumers can distinguish a negated main predicate from subordinate negation.
 
 Everything is deterministic and offline: one spaCy pipeline, no network, no
 randomness.
@@ -31,22 +28,19 @@ import re
 import threading
 from dataclasses import dataclass
 from functools import lru_cache
-from pathlib import Path
 from typing import Any, Iterable, Sequence
 
 import yaml
 
 from .config import Stage1Config, Stage1ConfigError, load_config
 
-STAGE1_VERSION = "1.2.0"
+STAGE1_VERSION = "1.3.0"
 
 __all__ = [
     "STAGE1_VERSION",
     "NEGATION_CUES",
     "NON_NEGATING_PHRASES",
     "Normalized",
-    "StateVocabulary",
-    "load_state_vocabulary",
     "normalize",
     "normalize_label",
 ]
@@ -185,183 +179,6 @@ def _expand_identifiers(text: str) -> str:
 
 
 # --------------------------------------------------------------------------
-# Ontology state vocabulary
-# --------------------------------------------------------------------------
-
-
-@dataclass(frozen=True)
-class StateVocabulary:
-    """Order states and their aliases, read from the ontology at runtime.
-
-    The ontology distinguishes canonical state names (``order_lifecycle``
-    ``canonical_sequence`` plus ``order_exceptions.canonical``) from the alias
-    lists under ``state_aliases``. Stage 1 keeps the two apart because the state-use
-    rules treat them differently: an alias is a state mention only in the
-    explicit ``<alias> state`` form, whereas a canonical name is also
-    recognised structurally (see :func:`_is_state_use`).
-
-    Attributes:
-        canonical_single: One-word canonical state names (``shipped``).
-        canonical_multi: Multi-word canonical names, as token tuples
-            (``('payment', 'failed')``).
-        alias_single: One-word aliases (``boxed``, ``retrieved``).
-        alias_multi: Multi-word aliases, as token tuples
-            (``('handed', 'over')``).
-        canonical: Every canonical term, space-joined.
-        all_terms: Canonical names and aliases together, space-joined.
-    """
-
-    canonical_single: frozenset[str]
-    canonical_multi: tuple[tuple[str, ...], ...]
-    alias_single: frozenset[str]
-    alias_multi: tuple[tuple[str, ...], ...]
-
-    @property
-    def canonical(self) -> frozenset[str]:
-        """Every canonical state term, space-joined."""
-        return frozenset(self.canonical_single) | frozenset(
-            " ".join(m) for m in self.canonical_multi
-        )
-
-    @property
-    def all_terms(self) -> frozenset[str]:
-        """Canonical names and aliases together, space-joined."""
-        aliases = frozenset(self.alias_single) | frozenset(
-            " ".join(m) for m in self.alias_multi
-        )
-        return self.canonical | aliases
-
-    @property
-    def single(self) -> frozenset[str]:
-        """Every one-word state term, canonical or alias."""
-        return frozenset(self.canonical_single) | frozenset(self.alias_single)
-
-    @property
-    def multi(self) -> tuple[tuple[str, ...], ...]:
-        """Every multi-word state term, longest first."""
-        merged = set(self.canonical_multi) | set(self.alias_multi)
-        return tuple(sorted(merged, key=lambda m: (-len(m), m)))
-
-    @property
-    def max_multi_len(self) -> int:
-        """Longest multi-word state, in tokens (0 when there are none)."""
-        return max((len(m) for m in self.multi), default=0)
-
-    def is_canonical(self, term: str) -> bool:
-        """True when ``term`` (space-joined, lowercase) is a canonical name."""
-        return term in self.canonical
-
-
-def _normalize_state_term(term: Any) -> str:
-    """Turn an ontology state term into its normalized word form."""
-    return " ".join(_expand_identifiers(str(term).replace("-", "_")).lower().split())
-
-
-# Ontology keys under ``states`` that hold provenance or structure rather than
-# state names: transition pairs (already-collected names) and the requirement
-# ids each block was derived from.
-_NON_STATE_KEYS: frozenset[str] = frozenset({"legal_transitions", "source_reqs"})
-
-
-def _collect_terms(node: Any, key: str | None, terms: set[str]) -> None:
-    """Collect every string leaf under ``node``, skipping non-state keys."""
-    if key in _NON_STATE_KEYS:
-        return
-    if isinstance(node, str):
-        terms.add(node)
-    elif isinstance(node, dict):
-        for sub_key, value in node.items():
-            _collect_terms(value, sub_key, terms)
-    elif isinstance(node, (list, tuple)):
-        for item in node:
-            _collect_terms(item, key, terms)
-
-
-def _split_canonical_and_aliases(states: Any) -> tuple[set[str], set[str]]:
-    """Separate canonical state names from aliases in the ontology block.
-
-    The canonical names are the keys of ``state_aliases`` together with every
-    string leaf outside it (the lifecycle sequence and the exception list);
-    the aliases are the values of ``state_aliases``. When the ontology has no
-    ``state_aliases`` mapping the distinction is unavailable, so every term is
-    reported as canonical and the caller is expected to note the limitation.
-    """
-    canonical: set[str] = set()
-    aliases: set[str] = set()
-    if not isinstance(states, dict):
-        _collect_terms(states, None, canonical)
-        return canonical, aliases
-
-    for key, value in states.items():
-        if key in _NON_STATE_KEYS:
-            continue
-        if key == "state_aliases" and isinstance(value, dict):
-            for state_name, alias_list in value.items():
-                canonical.add(str(state_name))
-                _collect_terms(alias_list, key, aliases)
-            continue
-        _collect_terms(value, key, canonical)
-    # A term that is both (an alias listed under its own name) stays canonical.
-    aliases -= canonical
-    return canonical, aliases
-
-
-def load_state_vocabulary(ontology_path: Path) -> StateVocabulary:
-    """Read order states and aliases from the ontology file.
-
-    The ontology is opened read-only and never written to.
-
-    Raises:
-        Stage1ConfigError: If the file is missing or unparsable, or if no state
-            terms can be found. Stage 1 fails loudly rather than silently running
-            without state protection.
-    """
-    path = Path(ontology_path)
-    if not path.is_file():
-        raise Stage1ConfigError(f"Ontology file not found: {path}")
-    try:
-        data = yaml.safe_load(path.read_text(encoding="utf-8"))
-    except yaml.YAMLError as exc:
-        raise Stage1ConfigError(f"Cannot parse ontology {path}: {exc}") from exc
-    if not isinstance(data, dict):
-        raise Stage1ConfigError(f"Ontology {path} must contain a YAML mapping.")
-
-    states = data.get("states")
-    if not states:
-        raise Stage1ConfigError(
-            f"Ontology {path} has no 'states' section. Stage 1 needs order states and "
-            "aliases to protect state words; refusing to run without them."
-        )
-
-    raw_canonical, raw_aliases = _split_canonical_and_aliases(states)
-    canonical = {_normalize_state_term(t) for t in raw_canonical} - {""}
-    aliases = ({_normalize_state_term(t) for t in raw_aliases} - {""}) - canonical
-
-    if not canonical and not aliases:
-        raise Stage1ConfigError(
-            f"Ontology {path} 'states' section yielded no state terms. "
-            "Refusing to run without state protection."
-        )
-
-    def split(terms: set[str]) -> tuple[frozenset[str], tuple[tuple[str, ...], ...]]:
-        single = frozenset(t for t in terms if " " not in t)
-        multi = tuple(sorted(
-            (tuple(t.split()) for t in terms if " " in t),
-            key=lambda m: (-len(m), m),
-        ))
-        return single, multi
-
-    canonical_single, canonical_multi = split(canonical)
-    alias_single, alias_multi = split(aliases)
-    return StateVocabulary(
-        canonical_single=canonical_single,
-        canonical_multi=canonical_multi,
-        alias_single=alias_single,
-        alias_multi=alias_multi,
-    )
-
-
-# --------------------------------------------------------------------------
 # spaCy pipeline (loaded once, reused; deterministic)
 # --------------------------------------------------------------------------
 
@@ -385,20 +202,6 @@ def _load_nlp(model_name: str):
             f"spaCy model '{model_name}' is not installed. Install it with: "
             "pip install -r pipeline/stage1/requirements.txt"
         ) from exc
-
-
-@lru_cache(maxsize=4)
-def _cached_vocabulary(ontology_path: str, mtime_ns: int) -> StateVocabulary:
-    """State vocabulary cached per (path, mtime) so edits are picked up."""
-    del mtime_ns  # part of the cache key only
-    return load_state_vocabulary(Path(ontology_path))
-
-
-def _vocabulary_for(cfg: Stage1Config) -> StateVocabulary:
-    path = Path(cfg.ontology_path)
-    if not path.is_file():
-        raise Stage1ConfigError(f"Ontology file not found: {path}")
-    return _cached_vocabulary(str(path.resolve()), path.stat().st_mtime_ns)
 
 
 @lru_cache(maxsize=1)
@@ -425,7 +228,6 @@ class Normalized:
             predicate of the sentence (see :func:`_negation_scope`).
         negation_scope: ``main``, ``subordinate`` or ``none``.
         negation_cues: The surface cues that matched, in sentence order.
-        state_mentions: Ontology state terms used *as states* in this string.
         tokens: Per-token detail: ``text``, ``lemma``, ``pos``, ``kept``, and
             ``reason_removed`` when the token was dropped.
         stage1_version: :data:`STAGE1_VERSION` at the time of the call.
@@ -437,7 +239,6 @@ class Normalized:
     main_predicate_negated: bool
     negation_scope: str
     negation_cues: list[str]
-    state_mentions: list[str]
     tokens: list[dict]
     stage1_version: str
 
@@ -509,7 +310,7 @@ def _non_negating_token_spans(doc, cfg: Stage1Config) -> set[int]:
 
 
 # --------------------------------------------------------------------------
-# Step 8: negation scope on the dependency parse
+# Step 7: negation scope on the dependency parse
 # --------------------------------------------------------------------------
 
 
@@ -624,222 +425,6 @@ def _negation_scope(doc, cfg: Stage1Config) -> str:
 
 
 # --------------------------------------------------------------------------
-# Step 7: state mentions
-# --------------------------------------------------------------------------
-
-# Nouns whose participial modifier / predicate may name an order state. A state
-# word attached to any other noun ("returned items", "reserved inventory") is
-# an ordinary participle, not a state mention.
-_ORDER_NOUNS: frozenset[str] = frozenset({"order", "orders"})
-
-# Pronouns that may stand for an order in "if it is shipped". Relative pronouns
-# are resolved to the noun their clause attaches to before this is consulted.
-_ORDER_PRONOUNS: frozenset[str] = frozenset({"it", "they", "them"})
-
-# Relative pronouns whose referent is the noun the relative clause modifies:
-# "an order that is not in the placed state or has already been picked".
-_RELATIVE_PRONOUNS: frozenset[str] = frozenset({"that", "which", "who"})
-
-# Words that, immediately after a candidate, mark it as a state. This is the
-# only rule an alias may satisfy.
-_STATE_RIGHT_CUES: frozenset[str] = frozenset({"state", "status", "states", "statuses"})
-
-# Verbs that introduce a state as the object of ``to``/``in``:
-# "transition the order to placed", "put the order in cancelled".
-_STATE_VERBS: frozenset[str] = frozenset({
-    "transition",
-    "transitions",
-    "transitioned",
-    "move",
-    "moves",
-    "moved",
-    "set",
-    "sets",
-    "put",
-    "puts",
-    "change",
-    "changes",
-    "changed",
-    "advance",
-    "advances",
-    "advanced",
-    "reach",
-    "reaches",
-    "reached",
-    "return",
-    "returns",
-})
-
-_SKIPPABLE: frozenset[str] = frozenset({"a", "an", "the", "its", "their", "his", "her"})
-
-
-def _next_word(doc, index: int) -> Any:
-    """The next non-punctuation token after ``index``, or None."""
-    cursor = index
-    while cursor < len(doc) and doc[cursor].is_punct:
-        cursor += 1
-    return doc[cursor] if cursor < len(doc) else None
-
-
-def _prev_word(doc, index: int, *, skip_determiners: bool = True) -> Any:
-    """The previous meaningful token before ``index``, or None."""
-    cursor = index - 1
-    while cursor >= 0 and (
-        doc[cursor].is_punct
-        or (skip_determiners and doc[cursor].lower_ in _SKIPPABLE)
-    ):
-        cursor -= 1
-    return doc[cursor] if cursor >= 0 else None
-
-
-def _followed_by_state_word(doc, index: int, span_len: int) -> bool:
-    """Rule 1: the span is immediately followed by ``state``/``status``."""
-    nxt = _next_word(doc, index + span_len)
-    return nxt is not None and nxt.lower_ in _STATE_RIGHT_CUES
-
-
-def _modifies_order_noun(token) -> bool:
-    """Rule 2a: participial modifier of ``order``/``orders``.
-
-    ``a placed order`` / ``shipped orders``. spaCy sometimes hangs the modifier
-    off an intervening ``as``/preposition ("marked as picked"); that case is
-    handled by :func:`_complement_of_as` instead.
-    """
-    return token.dep_ == "amod" and token.head.lower_ in _ORDER_NOUNS
-
-
-def _clause_head(token):
-    """The verb that carries ``token``'s subject.
-
-    A conjunct predicate shares the subject of the verb it is coordinated with
-    ("an order that **is** not in the placed state or **has been picked**"), so
-    ``conj`` links are followed up to the first non-conjunct verb. A copular
-    complement's subject sits on the copula, so ``acomp``/``attr``/``oprd``
-    step up one level too.
-    """
-    seen: set[int] = set()
-    current = token
-    while current.i not in seen and current.dep_ in {"conj", "acomp", "attr", "oprd"}:
-        seen.add(current.i)
-        if current.head.i == current.i:
-            break
-        current = current.head
-    return current
-
-
-def _subject_names_order(doc, subject) -> bool:
-    """True when ``subject`` denotes an order, directly or as a relative pronoun."""
-    if subject.lower_ in _ORDER_NOUNS or subject.lower_ in _ORDER_PRONOUNS:
-        return True
-    if subject.lower_ not in _RELATIVE_PRONOUNS:
-        return False
-    # "an order that is ...": the relative clause hangs off the noun it
-    # modifies, so the pronoun's antecedent is that clause's head noun.
-    clause = subject.head
-    while clause.dep_ in {"conj", "acomp", "attr", "oprd"} and clause.head.i != clause.i:
-        clause = clause.head
-    return clause.dep_ in {"relcl", "acl"} and clause.head.lower_ in _ORDER_NOUNS
-
-
-def _predicates_order(doc, token) -> bool:
-    """Rule 2b: the span is the predicate of ``order``/``it`` as subject.
-
-    ``when an order is placed``, ``if it is shipped``, and - through
-    :func:`_clause_head` - ``an order that ... has already been picked``. spaCy
-    analyses the first two as a passive participle with the order as
-    ``nsubjpass``; the copular reading parsed as ``acomp`` is accepted too.
-    """
-    clause = _clause_head(token)
-    subjects = [
-        child
-        for child in clause.children
-        if child.dep_ in {"nsubj", "nsubjpass"}
-    ]
-    return any(_subject_names_order(doc, subject) for subject in subjects)
-
-
-def _complement_of_as(doc, index: int) -> bool:
-    """Rule 2c: the complement after ``as`` in ``mark ... order as picked``."""
-    prev = _prev_word(doc, index)
-    return prev is not None and prev.lower_ == "as"
-
-
-def _object_of_state_preposition(doc, index: int) -> bool:
-    """Rule 2d: object of ``to``/``in`` after ``order`` or a state verb.
-
-    ``transition the order to placed``, ``the order is in cancelled``. The
-    preposition must be reached directly (articles are skipped), and the word
-    before it must be ``order``/``orders`` or one of :data:`_STATE_VERBS`.
-    """
-    prep = _prev_word(doc, index)
-    if prep is None or prep.lower_ not in {"to", "in", "into"}:
-        return False
-    anchor = _prev_word(doc, prep.i)
-    if anchor is None:
-        return False
-    return anchor.lower_ in _ORDER_NOUNS or anchor.lower_ in _STATE_VERBS
-
-
-def _is_state_use(doc, index: int, span_len: int, *, canonical: bool) -> bool:
-    """Decide whether the tokens at ``index`` are a *state* mention.
-
-    Rule 1 - ``<term> state`` - accepts aliases as well as canonical names.
-    Rules 2a-2d apply to canonical names only, because an alias used bare is
-    far more often an ordinary participle ("returned items", "reserved
-    inventory", "retrieved order") than a state.
-    """
-    if _followed_by_state_word(doc, index, span_len):
-        return True
-    if not canonical:
-        return False
-
-    last = doc[index + span_len - 1]
-    return (
-        _modifies_order_noun(last)
-        or _predicates_order(doc, last)
-        or _complement_of_as(doc, index)
-        or _object_of_state_preposition(doc, index)
-    )
-
-
-def _find_state_spans(doc, vocab: StateVocabulary) -> dict[int, tuple[int, str]]:
-    """Map each state span's start index to ``(length, surface form)``.
-
-    Longer spans are matched first so ``payment failed`` wins over ``failed``.
-    A span is recorded only when :func:`_is_state_use` accepts it; a state word
-    used as an ordinary verb or participle is left to normal token handling.
-    """
-    spans: dict[int, tuple[int, str]] = {}
-    claimed: set[int] = set()
-    lowered = [t.lower_ for t in doc]
-
-    multi = vocab.multi
-    canonical_multi = set(vocab.canonical_multi)
-    for length in sorted({len(c) for c in multi}, reverse=True):
-        for start in range(len(doc) - length + 1):
-            if any(i in claimed for i in range(start, start + length)):
-                continue
-            window = tuple(lowered[start:start + length])
-            if window not in multi:
-                continue
-            if _is_state_use(doc, start, length, canonical=window in canonical_multi):
-                surface = " ".join(doc[i].text for i in range(start, start + length))
-                spans[start] = (length, surface)
-                claimed.update(range(start, start + length))
-
-    singles = vocab.single
-    for index, token in enumerate(doc):
-        if index in claimed or token.lower_ not in singles:
-            continue
-        if _is_state_use(
-            doc, index, 1, canonical=token.lower_ in vocab.canonical_single
-        ):
-            spans[index] = (1, token.text)
-            claimed.add(index)
-    return spans
-
-
-# --------------------------------------------------------------------------
 # Token shaping
 # --------------------------------------------------------------------------
 
@@ -911,7 +496,7 @@ def _is_root_copula(token, root) -> bool:
 
 
 def _lemma_for(token, cfg: Stage1Config) -> str:
-    """Lemma used in ``normalized`` for a non-state token.
+    """Lemma used in ``normalized`` for a non-negation token.
 
     Verbs and auxiliaries are lemmatized **unless** they are participial
     modifiers (``amod``): ``the acting role`` and ``the resulting state`` are
@@ -960,7 +545,6 @@ def _normalize_impl(
             main_predicate_negated=False,
             negation_scope=SCOPE_NONE,
             negation_cues=cues,
-            state_mentions=[],
             tokens=[],
             stage1_version=STAGE1_VERSION,
         )
@@ -968,18 +552,15 @@ def _normalize_impl(
     with _NLP_LOCK:
         doc = _load_nlp(cfg.spacy_model)(staged)
 
-    vocab = _vocabulary_for(cfg)
-    state_spans = _find_state_spans(doc, vocab)
     joined = _join_hyphen_and_percent(doc)
     root = _root_of(doc)
 
-    # Step 8: scope. Only computed when a cue was seen on the raw sentence, so
+    # Step 7: scope. Only computed when a cue was seen on the raw sentence, so
     # detection order stays "surface first, parse second".
     scope = _negation_scope(doc, cfg) if has_cue else SCOPE_NONE
 
     tokens: list[dict] = []
     out: list[str] = []
-    state_mentions: list[str] = []
 
     index = 0
     first_kept_decided = False
@@ -987,7 +568,7 @@ def _normalize_impl(
         token = doc[index]
 
         # A multi-token group that must stay one word (aes-256, 0.1%).
-        if index in joined and index not in state_spans:
+        if index in joined:
             length, surface = joined[index]
             cleaned = _clean_surface(surface)
             keep = bool(cleaned)
@@ -1001,26 +582,6 @@ def _normalize_impl(
             if keep:
                 out.append(cleaned)
                 first_kept_decided = True
-            index += length
-            continue
-
-        # Step 7: a state span keeps its surface form and is reported.
-        if index in state_spans:
-            length, surface = state_spans[index]
-            cleaned = " ".join(filter(None, (_clean_surface(p) for p in surface.split())))
-            if cleaned:
-                out.append(cleaned)
-                state_mentions.append(cleaned)
-                first_kept_decided = True
-            for offset in range(length):
-                sub = doc[index + offset]
-                tokens.append({
-                    "text": sub.text,
-                    "lemma": sub.lower_,
-                    "pos": sub.pos_,
-                    "kept": bool(cleaned),
-                    "state": True,
-                })
             index += length
             continue
 
@@ -1084,7 +645,6 @@ def _normalize_impl(
         main_predicate_negated=scope == SCOPE_MAIN,
         negation_scope=scope,
         negation_cues=cues,
-        state_mentions=state_mentions,
         tokens=tokens,
         stage1_version=STAGE1_VERSION,
     )

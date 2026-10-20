@@ -8,7 +8,6 @@ factory will delegate to, using the repository's existing config style.
 
 from __future__ import annotations
 
-import csv
 from pathlib import Path
 
 import pytest
@@ -23,12 +22,11 @@ from pipeline.stage1.registry import (
 
 
 def test_both_modules_are_registered():
-    assert available_metrics() == {"consistency": 8, "parse_check": 7}
+    assert available_metrics() == {"parse_check": 7}
 
 
 def test_registry_titles():
     assert ANALYZERS["parse_check"].title == "Diagram Validity"
-    assert ANALYZERS["consistency"].title == "Consistency"
 
 
 def test_build_each_analyzer_by_name(cfg):
@@ -44,7 +42,7 @@ def test_unknown_analyzer_rejected(cfg):
 
 def test_build_all_from_default_config():
     analyzers = build_stage1_analyzers()
-    assert set(analyzers) == {"consistency", "parse_check"}
+    assert set(analyzers) == {"parse_check"}
     assert all(callable(runner) for runner in analyzers.values())
 
 
@@ -54,7 +52,7 @@ def test_build_all_from_config_path(repo_root):
     if not config_path.is_file():
         pytest.skip("repository config.yaml not present")
     analyzers = build_stage1_analyzers(config_path)
-    assert set(analyzers) == {"consistency", "parse_check"}
+    assert set(analyzers) == {"parse_check"}
 
 
 def test_build_all_from_parsed_mapping(repo_root):
@@ -64,37 +62,7 @@ def test_build_all_from_parsed_mapping(repo_root):
         pytest.skip("repository config.yaml not present")
     parsed = yaml.safe_load(config_path.read_text(encoding="utf-8"))
     analyzers = build_stage1_analyzers(parsed)
-    assert set(analyzers) == {"consistency", "parse_check"}
-
-
-def test_registered_consistency_runner_executes(tmp_path, cfg, artifact_tmp):
-    """A registry-built runner does the real work, not just construction."""
-    runner = build_analyzer("consistency", cfg)
-
-    class_csv = tmp_path / "c.csv"
-    activity_csv = tmp_path / "a.csv"
-    req_csv = tmp_path / "r.csv"
-    for path, fields, rows in (
-        (class_csv,
-         ["element_id", "element_type", "canonical_name", "owner_class__normalized"],
-         []),
-        (activity_csv,
-         ["element_id", "element_type", "object", "swimlane", "swimlane__normalized"],
-         [{"element_id": "AC-01", "element_type": "action", "object": "Order"}]),
-        (req_csv,
-         ["gold_req_id", "statement", "statement__normalized",
-          "statement__state_mentions"],
-         []),
-    ):
-        with open(path, "w", encoding="utf-8", newline="\n") as handle:
-            writer = csv.DictWriter(handle, fieldnames=fields, lineterminator="\n")
-            writer.writeheader()
-            for row in rows:
-                writer.writerow({k: row.get(k, "") for k in fields})
-
-    payload = runner("REG", class_csv, activity_csv, req_csv, artifact_tmp)
-    assert payload["run_id"] == "REG"
-    assert payload["total_instances"] >= 1
+    assert set(analyzers) == {"parse_check"}
 
 
 def test_registered_parse_check_runner_is_bound(cfg):
