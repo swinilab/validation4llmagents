@@ -1,0 +1,74 @@
+# ─────────────────────────────────────────────
+#  Sandbox Test Configuration (Lightweight Model)
+# ─────────────────────────────────────────────
+
+workdir: "."
+
+# ── Generation ────────────────────────────────
+agent:
+  type: "chatdev"
+  model: "qwen2.5-coder:7b"                   # Model tầm trung, suy luận nhanh, không tràn VRAM
+  api_key: "ollama"
+  api_base: "http://localhost:11434/v1"
+  temperature: 0.2
+  workflow: "agents/chatdev.yaml"
+  prompt_template: "sandbox_test/prompt.md"   # Prompt test trong sandbox
+  prompt_inputs: "prompts/prompt_inputs.json"
+  generated_dir: "sandbox_test/generated"
+  timeout: 300                                # 5 phút timeout cho test nhanh
+  stream: true                                # Live stream token ra console
+
+# ── Validation ────────────────────────────────
+validation:
+  generated: "sandbox_test/generated"
+
+  docker:
+    image: "python:3.11-slim"
+    timeout_seconds: 60
+    workdir: "/app"
+
+  http:
+    base_url: "http://localhost:8000"
+    timeout_seconds: 10
+
+# ── Validator settings ─────────────────────────
+validator:
+  start_command_file: "start_command.txt"
+  boot_wait_seconds: 15
+  smoke_path: "/"
+  smoke_timeout: 10
+  nfr_trace_filename: "nfr-trace.json"
+  expect_workflow_manifest: true
+
+# ── Output ────────────────────────────────────
+output:
+  report_dir: "sandbox_test/reports/"
+
+# ── Stage 1 analysis modules ──────────────────
+stage1:
+  modals: [shall, must, should, will, can, may]
+  articles: [a, an, the]
+  singularize_nouns: false
+  spacy_model: en_core_web_sm
+  split_identifiers: true
+  keep_negation_cue_tokens: false
+  non_negating_phrases:
+    - no more than
+    - not more than
+    - no less than
+    - not less than
+    - no later than
+    - no earlier than
+    - no fewer than
+    - no greater than
+    - no longer than
+    - at least
+    - at most
+
+  parse_check:
+    plantuml_jar: tools/plantuml.jar
+    plantuml_cmd: plantuml
+    java_cmd: java
+    layout_smetana: true
+    timeout_seconds: 60
+    extra_args: []
