@@ -1,15 +1,20 @@
 from __future__ import annotations
 
 import json
+import queue
 import re
 import sys
+import threading
 import time
+from collections import deque
 from datetime import datetime
 from pathlib import Path
 from typing import Any
 
 import requests
 from interfaces.base import GenerationResult, IGenerationAgent, Status
+
+GENERATION_PROGRESS_INTERVAL_SECONDS = 5.0
 
 try:
     import chatdev.sdk
@@ -86,20 +91,87 @@ class ChatDevGenerationAgent(IGenerationAgent):
 
         try:
             if stream_enabled:
-                resp = requests.post(endpoint, json=payload, headers=headers, timeout=timeout, stream=True)
-                if resp.status_code != 200:
-                    print(f"Ollama API returned error HTTP {resp.status_code}: {resp.text}")
-                    return GenerationResult(
-                        status=Status.FAIL,
-                        model=model,
-                        code=str(run_output_dir),
-                        output_dir=run_output_dir,
-                        metadata={"error": f"HTTP {resp.status_code}: {resp.text}"},
-                    )
+                events: queue.Queue[tuple[str, Any]] = queue.Queue()
+                started_at = time.monotonic()
+                progress_interval = GENERATION_PROGRESS_INTERVAL_SECONDS
+                progress_is_tty = sys.stderr.isatty()
+                last_progress_at = started_at
+                first_output_at: float | None = None
+                output_chunks = 0
+                recent_output_at: deque[float] = deque()
 
+                def read_stream() -> None:
+                    try:
+                        with requests.post(
+                            endpoint,
+                            json=payload,
+                            headers=headers,
+                            timeout=timeout,
+                            stream=True,
+                        ) as response:
+                            if response.status_code != 200:
+                                events.put(("http_error", (response.status_code, response.text)))
+                                return
+                            for response_line in response.iter_lines():
+                                events.put(("line", response_line))
+                    except Exception as exc:
+                        events.put(("error", exc))
+                    finally:
+                        events.put(("done", None))
+
+                worker = threading.Thread(target=read_stream, daemon=True)
+                worker.start()
                 content_chunks: list[str] = []
                 print("\n--- Live Generation Output ---")
-                for line in resp.iter_lines():
+                print("[Generation] Waiting for Ollama response...", file=sys.stderr, flush=True)
+                finished = False
+                while not finished:
+                    try:
+                        event, event_data = events.get(timeout=min(1.0, progress_interval))
+                    except queue.Empty:
+                        event, event_data = "", None
+
+                    now = time.monotonic()
+                    if now - last_progress_at >= progress_interval:
+                        elapsed = now - started_at
+                        if first_output_at is None:
+                            message = f"[Generation] Waiting for first output | elapsed {elapsed:.0f}s"
+                        else:
+                            while recent_output_at and now - recent_output_at[0] > 10:
+                                recent_output_at.popleft()
+                            chunk_rate = len(recent_output_at) / min(elapsed, 10)
+                            message = (
+                                f"[Generation] Generating | elapsed {elapsed:.0f}s"
+                                f" | ~{chunk_rate:.1f} output chunks/s"
+                            )
+                        if progress_is_tty:
+                            sys.stderr.write(f"\r{message}")
+                            sys.stderr.flush()
+                        else:
+                            print(message, file=sys.stderr, flush=True)
+                        last_progress_at = now
+                        continue
+
+                    if event == "done":
+                        finished = True
+                        continue
+                    if event == "error":
+                        raise event_data
+                    if event == "http_error":
+                        status_code, response_text = event_data
+                        error = f"HTTP {status_code}: {response_text}"
+                        print(f"Ollama API returned error {error}")
+                        return GenerationResult(
+                            status=Status.FAIL,
+                            model=model,
+                            code=str(run_output_dir),
+                            output_dir=run_output_dir,
+                            metadata={"error": error},
+                        )
+                    if event != "line":
+                        continue
+
+                    line = event_data
                     if not line:
                         continue
                     line_str = line.decode("utf-8")
@@ -114,12 +186,34 @@ class ChatDevGenerationAgent(IGenerationAgent):
                             delta = choices[0].get("delta", {})
                             token = delta.get("content", "")
                             if token:
+                                if first_output_at is None:
+                                    first_output_at = now
+                                output_chunks += 1
+                                recent_output_at.append(now)
+                                if progress_is_tty:
+                                    sys.stderr.write("\r\x1b[2K")
+                                    sys.stderr.flush()
                                 sys.stdout.write(token)
                                 sys.stdout.flush()
                                 content_chunks.append(token)
                     except json.JSONDecodeError:
                         continue
                 print("\n--- End of Generation ---\n")
+                if progress_is_tty:
+                    sys.stderr.write("\r\x1b[2K")
+                    sys.stderr.flush()
+                elapsed = time.monotonic() - started_at
+                first_output = (
+                    f"{first_output_at - started_at:.1f}s" if first_output_at is not None else "none"
+                )
+                chunk_rate = output_chunks / elapsed if elapsed else 0.0
+                print(
+                    f"[Generation] Finished | elapsed {elapsed:.1f}s"
+                    f" | first output {first_output} | {output_chunks} output chunks"
+                    f" (~{chunk_rate:.1f}/s)",
+                    file=sys.stderr,
+                    flush=True,
+                )
                 content = "".join(content_chunks)
                 usage = {}
             else:
