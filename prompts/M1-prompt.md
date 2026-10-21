@@ -235,3 +235,15 @@ requirement and the input requirement it originates from.
 
 Produce all five files in a single response. Do not repeat the contents of the
 files in your reply.
+
+---
+
+### IMPORTANT: COMPLETION REQUIREMENT
+You MUST write out the full content of ALL FIVE files in this single response in the order listed:
+1. `srs.md`
+2. `structural.puml`
+3. `behavioral.puml`
+4. `requirements.json`
+5. `VMX.csv`
+
+Do NOT stop after writing `srs.md`. Immediately follow `srs.md` with the full PlantUML blocks, the JSON block, and the CSV block.

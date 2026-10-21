@@ -98,7 +98,16 @@ class ChatDevGenerationAgent(IGenerationAgent):
             "messages": [
                 {
                     "role": "system",
-                    "content": "You are an expert requirements engineer and software architect.",
+                    "content": (
+                        "You are an expert requirements engineer and software architect. "
+                        "You MUST produce all 5 required files sequentially in your single response:\n"
+                        "1. `srs.md` (the complete SRS document in Markdown)\n"
+                        "2. `structural.puml` (raw PlantUML from @startuml classdiagram to @enduml)\n"
+                        "3. `behavioral.puml` (raw PlantUML from @startuml activity to @enduml)\n"
+                        "4. `requirements.json` (raw JSON array of requirements)\n"
+                        "5. `VMX.csv` (raw CSV traceability matrix starting with header: SRS-Req-ID,Source-Input-ID,Structural-Elements,Behavorial-Elements)\n\n"
+                        "CRITICAL INSTRUCTION: Do NOT stop after writing `srs.md`! You must immediately proceed to output the complete source code and content for all remaining 4 files in the exact order specified."
+                    ),
                 },
                 {"role": "user", "content": prompt},
             ],
