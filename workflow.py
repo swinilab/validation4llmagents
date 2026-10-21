@@ -95,7 +95,7 @@ def run_validation(
     if d:
         # 1. Completeness
         vmx = d.get("vmx")
-        print(f"    1. COMPLETENESS (com):")
+        print(f"    1. COMPLETENESS:")
         if vmx and not vmx.get("missing"):
             cov_rate = vmx.get("coverage_rate", 0.0) * 100
             cov_comp = vmx.get("coverage_complete", 0)
@@ -114,7 +114,7 @@ def run_validation(
         ac_corr = d.get("act_correct", 0)
         ac_tot = d.get("act_total", 0)
 
-        print(f"    2. CORRECTNESS (cor):")
+        print(f"    2. CORRECTNESS:")
         print(f"       - Structural Model Syntax   : score={cl_score} ({cl_corr}/{cl_tot} elements)")
         print(f"       - Behavioral Model Syntax   : score={ac_score} ({ac_corr}/{ac_tot} elements)")
         if vmx and not vmx.get("missing"):

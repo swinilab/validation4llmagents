@@ -103,7 +103,7 @@ class TextReportWriter(IReportWriter):
                         ac_score = round(ac_corr / ac_tot, 2) if ac_tot else 0.0
 
                     vmx_d = vr.details.get("vmx")
-                    lines.append("\t1. COMPLETENESS (com):")
+                    lines.append("\t1. COMPLETENESS:")
                     if vmx_d and not vmx_d.get("missing"):
                         lines.append(
                             f"\t\t- vmx reqs coverage: {vmx_d['coverage_rate'] * 100:.1f}% "
@@ -113,7 +113,7 @@ class TextReportWriter(IReportWriter):
                         lines.append("\t\t- vmx reqs coverage: 0.0% (missing VMX.csv)")
                     lines.append("")
 
-                    lines.append(f"\t2. CORRECTNESS (cor):")
+                    lines.append(f"\t2. CORRECTNESS:")
                     lines.append(f"\t\t- struct syntax: score = {cl_score}, {cl_corr}/{cl_tot}")
                     lines.append(f"\t\t- behave syntax: score = {ac_score}, {ac_corr}/{ac_tot}")
                     if vmx_d and not vmx_d.get("missing"):
