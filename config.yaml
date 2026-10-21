@@ -21,6 +21,7 @@ agent:
   prompt_template: "prompts/M1-prompt.md"       # path to the generation prompt
   prompt_inputs: "prompts/prompt_inputs.json"   # path to the prompt inputs JSON file
   generated_dir: "generated"
+  max_tokens: 16384                             # prevent truncated output for large SRS + JSON
   timeout: 1800                                    # generation HTTP timeout in seconds (default: 30 minutes)
   stream: true                                     # stream tokens live to console
 

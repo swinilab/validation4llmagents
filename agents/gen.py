@@ -105,6 +105,9 @@ class ChatDevGenerationAgent(IGenerationAgent):
             "temperature": float(self._config.get("temperature", 0.2)),
             "stream": stream_enabled,
         }
+        max_tokens = self._config.get("max_tokens")
+        if max_tokens:
+            payload["max_tokens"] = int(max_tokens)
 
         try:
             if stream_enabled:
@@ -271,15 +274,10 @@ class ChatDevGenerationAgent(IGenerationAgent):
         if behavioral_puml:
             (out_dir / "behavioral.puml").write_text(behavioral_puml, encoding="utf-8")
 
-        # Extract JSON requirement listing
-        json_match = re.search(r"```(?:json)?\s*(\[\s*\{.*?\}\s*\])\s*```", content, re.DOTALL)
-        if json_match:
-            (out_dir / "requirements.json").write_text(json_match.group(1), encoding="utf-8")
-        else:
-            # Fallback direct array match
-            json_arr = re.search(r"(\[\s*\{\s*\"id\".*?\}\s*\])", content, re.DOTALL)
-            if json_arr:
-                (out_dir / "requirements.json").write_text(json_arr.group(1), encoding="utf-8")
+        # Extract JSON requirement listing (with auto-repair for truncated JSON)
+        repaired_json = ChatDevGenerationAgent._extract_and_repair_json(content)
+        if repaired_json:
+            (out_dir / "requirements.json").write_text(repaired_json, encoding="utf-8")
 
         # Extract VMX.csv (traceability matrix)
         # Look for a fenced CSV block or a table starting with the VMX header (allowing typo Behavorial or Behavioral)
@@ -303,3 +301,63 @@ class ChatDevGenerationAgent(IGenerationAgent):
 
         # Always save srs.md (full generation as SRS document)
         (out_dir / "srs.md").write_text(content, encoding="utf-8")
+
+    @staticmethod
+    def _extract_and_repair_json(content: str) -> str | None:
+        """Extract JSON requirement array, repairing truncated closing brackets if necessary."""
+        candidate = None
+
+        # 1. Look for fenced code block (closed or unclosed/truncated)
+        m = re.search(r"```(?:json)?\s*(\[\s*\{.*?)\s*```", content, re.DOTALL)
+        if m:
+            candidate = m.group(1).strip()
+        else:
+            m = re.search(r"```(?:json)?\s*(\[\s*\{.*)", content, re.DOTALL)
+            if m:
+                candidate = m.group(1).strip()
+            else:
+                m = re.search(r"(\[\s*\{\s*\"id\".*)", content, re.DOTALL)
+                if m:
+                    candidate = m.group(1).strip()
+
+        if not candidate:
+            return None
+
+        # 2. Try parsing directly
+        try:
+            return json.dumps(json.loads(candidate), indent=2)
+        except Exception:
+            pass
+
+        # 3. Try bracket closure heuristics
+        closing_sequences = [
+            "\n]\n}\n]",
+            "\n}\n]\n}\n]",
+            "\n}\n]",
+            "\n]",
+            "\n}\n}\n]",
+        ]
+        for seq in closing_sequences:
+            test_str = candidate.rstrip().rstrip(",") + seq
+            try:
+                parsed = json.loads(test_str)
+                return json.dumps(parsed, indent=2)
+            except Exception:
+                pass
+
+        # 4. Backward scan to last valid object brace '}' and close array
+        last_idx = len(candidate)
+        while True:
+            last_brace = candidate.rfind("}", 0, last_idx)
+            if last_brace == -1:
+                break
+            for closing in ["\n]", "\n]\n}"]:
+                test_str = candidate[:last_brace + 1].strip().rstrip(",") + closing
+                try:
+                    parsed = json.loads(test_str)
+                    return json.dumps(parsed, indent=2)
+                except Exception:
+                    pass
+            last_idx = last_brace
+
+        return candidate
