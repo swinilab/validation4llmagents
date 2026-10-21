@@ -1,6 +1,6 @@
 """workflow_factory.py — Minimal pipeline factory.
 
-Constructs generation and validation pipeline components from pipeline_config.yaml.
+Constructs generation and evaluation pipeline components from config.yaml.
 """
 
 from __future__ import annotations
@@ -12,7 +12,7 @@ import yaml
 from agents.gen import ChatDevGenerationAgent
 from interfaces.base import IGenerationAgent, IReportWriter, IValidator
 from report_writer import TextReportWriter
-from validators.Stage1Validator import Stage1Validator
+from evaluators.Stage1Evaluator import Stage1Evaluator
 
 
 @dataclass
@@ -31,7 +31,7 @@ def build(config_path: str = "config.yaml") -> PipelineComponents:
 
     return PipelineComponents(
         generation_agent=ChatDevGenerationAgent(config=cfg),
-        stage1_validator=Stage1Validator(config=cfg),
+        stage1_validator=Stage1Evaluator(config=cfg),
         report_writer=TextReportWriter(report_dir=report_dir),
         config=cfg,
     )

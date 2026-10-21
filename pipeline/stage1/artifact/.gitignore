@@ -1,4 +1,0 @@
-# Stage 1 writes its CLI output here by default. Generated artifacts are not
-# committed; this file keeps the directory present in the checkout.
-*
-!.gitignore

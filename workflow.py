@@ -2,7 +2,7 @@
 
 Executes:
   1. Generation: calls generation agent with specified prompt template
-  2. Validation: runs Stage 1 diagram validity, flattening, and quality checks
+  2. Evaluation: runs Stage 1 diagram validity, flattening, and quality checks
   3. Report: writes consolidated execution report
 """
 
@@ -63,15 +63,17 @@ def _read_prompt(cfg: dict[str, Any], prompt_override: str | None = None) -> str
 
 def run_generation(components: PipelineComponents, prompt: str, run_id: str) -> GenerationResult:
     print(f"\n==================================================")
-    print(f"  PHASE 1: GENERATION (ChatDev + Ollama)")
+    print(f"  PHASE 1: GENERATION")
     print(f"==================================================")
     result = components.generation_agent.generate(prompt, run_id=run_id)
     if result.status == Status.PASS:
         print(f"  ✅ Generation completed successfully")
     else:
         print(f"  ⚠️ Generation status: {result.status}")
-    print(f"  Model  : {result.model}")
-    print(f"  Output : {result.code}")
+    print(f"  LLM         : {result.model}")
+    print(f"  Reasoning   : ")
+    print(f"  Agent       : ChatDev")
+    print(f"  SRS Package : {result.code}")
     return result
 
 
@@ -81,7 +83,7 @@ def run_validation(
     run_id: str,
 ) -> list[ValidationResult]:
     print(f"\n==================================================")
-    print(f"  PHASE 2: VALIDATION (Stage 1 SRS & Diagram Checks)")
+    print(f"  PHASE 2: EVALUATION (Stage 1 SRS & Diagram Checks)")
     print(f"==================================================")
     result = components.stage1_validator.validate(generation, run_id=run_id)
 
@@ -108,12 +110,12 @@ def run_pipeline(
         prompt = _read_prompt(cfg, prompt_file)
         generation = run_generation(components, prompt, run_id=run_id)
 
-    # 2. Validation Phase
+    # 2. Evaluation Phase
     if phase in ("val", "all"):
         if generation is None:
-            # Standalone validation mode: use code path from config
-            val_cfg = cfg.get("validation", {})
-            target_path = val_cfg.get("generated") or val_cfg.get("code", "generated")
+            # Standalone evaluation mode: use code path from config
+            eval_cfg = cfg.get("evaluation", cfg.get("validation", {}))
+            target_path = eval_cfg.get("generated") or eval_cfg.get("code", "generated")
             generation = GenerationResult(
                 status=Status.PASS,
                 model="standalone",

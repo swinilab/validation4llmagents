@@ -6,52 +6,34 @@ workdir: "."
 
 # ── Generation ────────────────────────────────
 agent:
-  type: "chatdev"
+  type: "direct_api"
 
   # ollama
   # model: "qwen3.5:27b"
   # api_key: "ollama"
-  # api_base: "http://localhost:11434/v1" 
+  # api_base: "http://localhost:11434/v1"
 
   # openrouter
   model: "gpt-oss-120b"
   api_base: "https://openrouter.ai/api/v1"
 
   temperature: 0.2
-  workflow: "agents/chatdev.yaml"             # ChatDev's coding workflow
-  prompt_template: "prompts/M1-prompt.md"     # path to the generation prompt
-  prompt_inputs: "prompts/prompt_inputs.json" # path to the prompt inputs JSON file
+  prompt_template: "prompts/M1-prompt.md"       # path to the generation prompt
+  prompt_inputs: "prompts/prompt_inputs.json"   # path to the prompt inputs JSON file
   generated_dir: "generated"
-  timeout: 1800                               # generation HTTP timeout in seconds (default: 30 minutes)
-  stream: true                                # stream tokens live to console
+  timeout: 1800                                    # generation HTTP timeout in seconds (default: 30 minutes)
+  stream: true                                     # stream tokens live to console
 
-# ── Validation ────────────────────────────────
-validation:
-  # Code path to validate when running `--phase val` standalone
+# ── Evaluation ────────────────────────────────
+evaluation:
+  # Code path to evaluate when running `--phase val` standalone
   # (ignored when running `--phase all`, where the code path comes from
   # the generation phase's GenerationResult instead).
   generated: "generated"
 
-  # Stage 1 – Compilability
-  docker:
-    image: "python:3.11-slim"
-    timeout_seconds: 60
-    workdir: "/app"
-
-  # Stage 2 – Functional tests (HTTP)
-  http:
-    base_url: "http://localhost:8000"
-    timeout_seconds: 10
-
-# ── Validator settings ─────────────────────────
-# Read directly by the validator classes (validators/*.py).
-validator:
-  start_command_file: "start_command.txt"
-  boot_wait_seconds: 15          # Stage 1 – how long to wait for the server to crash on boot
-  smoke_path: "/"                # Stage 1 – path probed after boot to catch startup-time 5xx
-  smoke_timeout: 10
-  nfr_trace_filename: "nfr-trace.json"   # Stage 3 – NFR trace file name inside the code dir
-
+# ── Evaluator settings ─────────────────────────
+# Read directly by the evaluator classes (evaluators/*.py).
+evaluator:
   expect_workflow_manifest: true
 
 # ── Output ────────────────────────────────────
@@ -84,6 +66,6 @@ stage1:
     plantuml_jar: tools/plantuml.jar
     plantuml_cmd: plantuml
     java_cmd: java
-    layout_smetana: true # replacement for graphviz 
+    layout_smetana: true # replacement for graphviz
     timeout_seconds: 60
     extra_args: []

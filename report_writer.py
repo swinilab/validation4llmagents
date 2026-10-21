@@ -64,16 +64,27 @@ class TextReportWriter(IReportWriter):
             lines.append("skipped (phase not run)")
             lines.append("")
         elif generation.status is Status.PASS:
-            lines.append(f"model: {generation.model}")
-            lines.append(f"code: {generation.code}")
+            agent_name = (generation.metadata.get("agent") if generation.metadata else None) or "ChatDev"
+            reasoning = (generation.metadata.get("reasoning") if generation.metadata else None) or ""
+            srs_package = str(Path(generation.code)).replace("\\", "/")
+            lines.append(f"LLM: {generation.model}")
+            lines.append(f"Reasoning: {reasoning}".rstrip())
+            lines.append(f"Agent: {agent_name}")
+            lines.append(f"SRS Package: {srs_package}")
             lines.append("")
         else:
+            agent_name = (generation.metadata.get("agent") if generation.metadata else None) or "ChatDev"
+            reasoning = (generation.metadata.get("reasoning") if generation.metadata else None) or ""
+            srs_package = str(Path(generation.code)).replace("\\", "/")
             lines.append("❌ Generation failed.")
-            lines.append(f"model: {generation.model}")
+            lines.append(f"LLM: {generation.model}")
+            lines.append(f"Reasoning: {reasoning}".rstrip())
+            lines.append(f"Agent: {agent_name}")
+            lines.append(f"SRS Package: {srs_package}")
             lines.append("")
 
         if validation_results:
-            lines.append("VALIDATION:")
+            lines.append("EVALUATION:")
             for vr in validation_results:
                 if vr.stage == 1:
                     valid_d = vr.details.get("valid_diagrams", 0)
@@ -91,9 +102,23 @@ class TextReportWriter(IReportWriter):
                     if ac_score is None:
                         ac_score = round(ac_corr / ac_tot, 2) if ac_tot else 0.0
 
-                    lines.append(f"\t1. SYNTAX CORRECTNESS: {valid_d}/{total_d} diagrams parsed: ")
-                    lines.append(f"\t\t- structural model (class diagram): score = {cl_score}, {cl_corr}/{cl_tot}")
-                    lines.append(f"\t\t- behavioral model (activity diagram): score = {ac_score}, {ac_corr}/{ac_tot}")
+                    vmx_d = vr.details.get("vmx")
+                    if vmx_d:
+                        lines.append("\t1. COMPLETENESS (com):")
+                        lines.append(
+                            f"\t\t- vmx reqs coverage: {vmx_d['coverage_rate'] * 100:.1f}% "
+                            f"({vmx_d['coverage_complete']}/{vmx_d['rows']} complete)"
+                        )
+                        lines.append("")
+
+                    lines.append(f"\t2. CORRECTNESS (cor):")
+                    lines.append(f"\t\t- struct syntax: score = {cl_score}, {cl_corr}/{cl_tot}")
+                    lines.append(f"\t\t- behave syntax: score = {ac_score}, {ac_corr}/{ac_tot}")
+                    if vmx_d:
+                        lines.append(
+                            f"\t\t- vmx referential integrity: {vmx_d['integrity_rate'] * 100:.1f}% "
+                            f"({vmx_d['integrity_found']}/{vmx_d['integrity_total']} references valid)"
+                        )
                 else:
                     icon = "✅" if vr.passed else "❌"
                     lines.append(f"  {icon} {vr.stage} : {vr.message}")
