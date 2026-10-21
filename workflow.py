@@ -87,10 +87,40 @@ def run_validation(
     print(f"==================================================")
     result = components.stage1_validator.validate(generation, run_id=run_id)
 
-    if result.passed:
-        print(f"  ✅ {result.name}: passed ({result.message})")
-    else:
-        print(f"  ❌ {result.name}: failed ({result.message})")
+    status_icon = "✅" if result.passed else "❌"
+    status_text = "passed" if result.passed else "failed"
+    print(f"  {status_icon} {result.name}: {status_text}")
+
+    d = result.details
+    if d:
+        # 1. Completeness
+        if "vmx" in d:
+            vmx = d["vmx"]
+            cov_rate = vmx.get("coverage_rate", 0.0) * 100
+            cov_comp = vmx.get("coverage_complete", 0)
+            cov_rows = vmx.get("rows", 0)
+            print(f"    1. COMPLETENESS:")
+            print(f"       - VMX Requirement Coverage : {cov_rate:.1f}% ({cov_comp}/{cov_rows} complete)")
+
+        # 2. Correctness
+        valid_d = d.get("valid_diagrams", 0)
+        total_d = d.get("total_diagrams", 0)
+        cl_score = d.get("class_score", 0.0)
+        cl_corr = d.get("class_correct", 0)
+        cl_tot = d.get("class_total", 0)
+        ac_score = d.get("act_score", 0.0)
+        ac_corr = d.get("act_correct", 0)
+        ac_tot = d.get("act_total", 0)
+
+        print(f"    2. CORRECTNESS:")
+        print(f"       - Structural Model Syntax   : score={cl_score} ({cl_corr}/{cl_tot} elements)")
+        print(f"       - Behavioral Model Syntax   : score={ac_score} ({ac_corr}/{ac_tot} elements)")
+        if "vmx" in d:
+            vmx = d["vmx"]
+            int_rate = vmx.get("integrity_rate", 0.0) * 100
+            int_fnd = vmx.get("integrity_found", 0)
+            int_tot = vmx.get("integrity_total", 0)
+            print(f"       - VMX Referential Integrity : {int_rate:.1f}% ({int_fnd}/{int_tot} references valid)")
 
     return [result]
 
