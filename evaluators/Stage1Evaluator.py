@@ -270,10 +270,50 @@ class Stage1Evaluator(IValidator):
                     "integrity_rate": integrity_score,
                     "incomplete": incomplete,
                     "broken": broken,
+                    "missing": False,
                 }
 
             except Exception as vmx_err:
                 details["vmx_error"] = str(vmx_err)
+        else:
+            # VMX.csv is missing
+            vmx_completeness = {
+                "metric": "VMX Requirement Coverage",
+                "score": 0.0,
+                "coverage_rate": 0.0,
+                "complete_rows": 0,
+                "total_rows": 0,
+                "incomplete": ["VMX.csv not found"],
+                "missing": True,
+            }
+            (completeness_dir / "vmx_reqs_coverage.json").write_text(
+                json.dumps(vmx_completeness, indent=2), encoding="utf-8"
+            )
+
+            vmx_correctness = {
+                "metric": "VMX Referential Integrity",
+                "score": 0.0,
+                "integrity_rate": 0.0,
+                "found_references": 0,
+                "total_references": 0,
+                "broken": ["VMX.csv not found"],
+                "missing": True,
+            }
+            (vmx_integrity_dir / "vmx_integrity.json").write_text(
+                json.dumps(vmx_correctness, indent=2), encoding="utf-8"
+            )
+
+            details["vmx"] = {
+                "rows": 0,
+                "coverage_complete": 0,
+                "coverage_rate": 0.0,
+                "integrity_found": 0,
+                "integrity_total": 0,
+                "integrity_rate": 0.0,
+                "incomplete": ["VMX.csv not found"],
+                "broken": ["VMX.csv not found"],
+                "missing": True,
+            }
 
         # 8. Load into Gradebook (gradebook/gradebook_<RUN_ID>.json)
         gradebook_payload = {
@@ -303,7 +343,11 @@ class Stage1Evaluator(IValidator):
         )
         details["gradebook"] = str(gradebook_dir / f"gradebook_{run_id}.json")
 
-        passed = diagram_validity == 1.0 and valid_diagrams == total_diagrams
+        passed = (
+            diagram_validity == 1.0
+            and valid_diagrams == total_diagrams
+            and not details.get("vmx", {}).get("missing", False)
+        )
         msg = (
             f"1. SYNTAX CORRECTNESS: {valid_diagrams}/{total_diagrams} diagrams parsed: "
             f"structural score={cl_score} ({cl_correct}/{cl_total}), "

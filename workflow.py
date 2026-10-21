@@ -94,13 +94,15 @@ def run_validation(
     d = result.details
     if d:
         # 1. Completeness
-        if "vmx" in d:
-            vmx = d["vmx"]
+        vmx = d.get("vmx")
+        print(f"    1. COMPLETENESS (com):")
+        if vmx and not vmx.get("missing"):
             cov_rate = vmx.get("coverage_rate", 0.0) * 100
             cov_comp = vmx.get("coverage_complete", 0)
             cov_rows = vmx.get("rows", 0)
-            print(f"    1. COMPLETENESS:")
             print(f"       - VMX Requirement Coverage : {cov_rate:.1f}% ({cov_comp}/{cov_rows} complete)")
+        else:
+            print(f"       - VMX Requirement Coverage : ❌ Missing VMX.csv (0.0%)")
 
         # 2. Correctness
         valid_d = d.get("valid_diagrams", 0)
@@ -112,15 +114,16 @@ def run_validation(
         ac_corr = d.get("act_correct", 0)
         ac_tot = d.get("act_total", 0)
 
-        print(f"    2. CORRECTNESS:")
+        print(f"    2. CORRECTNESS (cor):")
         print(f"       - Structural Model Syntax   : score={cl_score} ({cl_corr}/{cl_tot} elements)")
         print(f"       - Behavioral Model Syntax   : score={ac_score} ({ac_corr}/{ac_tot} elements)")
-        if "vmx" in d:
-            vmx = d["vmx"]
+        if vmx and not vmx.get("missing"):
             int_rate = vmx.get("integrity_rate", 0.0) * 100
             int_fnd = vmx.get("integrity_found", 0)
             int_tot = vmx.get("integrity_total", 0)
             print(f"       - VMX Referential Integrity : {int_rate:.1f}% ({int_fnd}/{int_tot} references valid)")
+        else:
+            print(f"       - VMX Referential Integrity : ❌ Missing VMX.csv (0.0%)")
 
     return [result]
 
