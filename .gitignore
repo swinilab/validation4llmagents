@@ -10,3 +10,6 @@ stage1/reports/
 generated/*
 !generated/.gitkeep
 logs/
+mynote.txt
+grading.md
+m2-req-grading-spec.md
