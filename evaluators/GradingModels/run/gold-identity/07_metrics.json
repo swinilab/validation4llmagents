@@ -1,0 +1,280 @@
+{
+  "run_id": "gold-identity",
+  "primary_threshold": 0.75,
+  "status": "final",
+  "pending_type": 0,
+  "pending_guard": 0,
+  "pending_rubric": 0,
+  "manual_default": null,
+  "kappa": null,
+  "kappa_n": null,
+  "kappa_pool": "per_section",
+  "control": {
+    "item_1": "pass",
+    "item_2": "pass",
+    "item_3": "pass",
+    "item_4": "pass",
+    "item_5": "pass",
+    "item_6": "pass"
+  },
+  "diagnostics": {
+    "threshold": 0.75,
+    "gate_blocked": {},
+    "rule_rejections": {},
+    "prerequisite_blocked": {
+      "structural/literal": 2
+    },
+    "label_collapsed": {
+      "structural": {
+        "gold": [],
+        "gen": []
+      },
+      "behavioral": {
+        "gold": [
+          {
+            "element_id": "ACT:Make Payment",
+            "kind": "action",
+            "kept_line": 32,
+            "collapsed_line": 39
+          },
+          {
+            "element_id": "LANE:Make Payment",
+            "kind": "swimlane",
+            "kept_line": 32,
+            "collapsed_line": 39
+          },
+          {
+            "element_id": "OBJ:Payment[pending]",
+            "kind": "object_node",
+            "kept_line": 33,
+            "collapsed_line": 40
+          },
+          {
+            "element_id": "T:Make Payment->Accept Payment",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Make Payment->Reject Payment",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          }
+        ],
+        "gen": [
+          {
+            "element_id": "ACT:Make Payment",
+            "kind": "action",
+            "kept_line": 32,
+            "collapsed_line": 39
+          },
+          {
+            "element_id": "LANE:Make Payment",
+            "kind": "swimlane",
+            "kept_line": 32,
+            "collapsed_line": 39
+          },
+          {
+            "element_id": "OBJ:Payment[pending]",
+            "kind": "object_node",
+            "kept_line": 33,
+            "collapsed_line": 40
+          },
+          {
+            "element_id": "T:Make Payment->Accept Payment",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Make Payment->Reject Payment",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          }
+        ]
+      }
+    },
+    "dropped_arrows": {
+      "structural": [
+        {
+          "line": 77,
+          "source": "Order ..> OrderStatus",
+          "source_element": "Order",
+          "target_element": "OrderStatus",
+          "reason": "class_enum_dependency"
+        },
+        {
+          "line": 78,
+          "source": "Order ..> PaymentMethod",
+          "source_element": "Order",
+          "target_element": "PaymentMethod",
+          "reason": "class_enum_dependency"
+        },
+        {
+          "line": 79,
+          "source": "Invoice ..> InvoiceStatus",
+          "source_element": "Invoice",
+          "target_element": "InvoiceStatus",
+          "reason": "class_enum_dependency"
+        },
+        {
+          "line": 80,
+          "source": "Invoice ..> PaymentMethod",
+          "source_element": "Invoice",
+          "target_element": "PaymentMethod",
+          "reason": "class_enum_dependency"
+        },
+        {
+          "line": 81,
+          "source": "Payment ..> PaymentStatus",
+          "source_element": "Payment",
+          "target_element": "PaymentStatus",
+          "reason": "class_enum_dependency"
+        },
+        {
+          "line": 82,
+          "source": "Payment ..> PaymentMethod",
+          "source_element": "Payment",
+          "target_element": "PaymentMethod",
+          "reason": "class_enum_dependency"
+        }
+      ],
+      "behavioral": []
+    },
+    "cross_kind_near_miss": [],
+    "manual_resolved": {
+      "type": {},
+      "guard": {}
+    },
+    "elements_per_kind": {
+      "structural": {
+        "gen": {
+          "class": 6,
+          "enum": 4,
+          "literal": 13,
+          "attribute": 22,
+          "relationship": 5
+        },
+        "gold": {
+          "class": 6,
+          "enum": 4,
+          "literal": 13,
+          "attribute": 22,
+          "relationship": 5
+        }
+      },
+      "behavioral": {
+        "gen": {
+          "action": 9,
+          "swimlane": 9,
+          "object_node": 10,
+          "transition": 11
+        },
+        "gold": {
+          "action": 9,
+          "swimlane": 9,
+          "object_node": 10,
+          "transition": 11
+        }
+      }
+    },
+    "format_violations": {
+      "duplicate_label": 5
+    },
+    "excluded_candidates": {},
+    "stale_ledger_rows": {
+      "type": [],
+      "guard": []
+    }
+  },
+  "structural": {
+    "syntax_validity": 1.0,
+    "gate": "pass",
+    "n_gen": 50,
+    "gold_total": 50,
+    "rubric_pass": 0,
+    "sweep": [
+      {
+        "threshold": 0.7,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0,
+        "matched_gold": 50,
+        "matched_gen": 50
+      },
+      {
+        "threshold": 0.75,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0,
+        "matched_gold": 50,
+        "matched_gen": 50
+      },
+      {
+        "threshold": 0.8,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0,
+        "matched_gold": 50,
+        "matched_gen": 50
+      },
+      {
+        "threshold": 0.85,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0,
+        "matched_gold": 50,
+        "matched_gen": 50
+      }
+    ],
+    "recall": 1.0,
+    "precision": 1.0,
+    "f1": 1.0
+  },
+  "behavioral": {
+    "syntax_validity": 1.0,
+    "gate": "pass",
+    "n_gen": 39,
+    "gold_total": 39,
+    "rubric_pass": 0,
+    "sweep": [
+      {
+        "threshold": 0.7,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0,
+        "matched_gold": 39,
+        "matched_gen": 39
+      },
+      {
+        "threshold": 0.75,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0,
+        "matched_gold": 39,
+        "matched_gen": 39
+      },
+      {
+        "threshold": 0.8,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0,
+        "matched_gold": 39,
+        "matched_gen": 39
+      },
+      {
+        "threshold": 0.85,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0,
+        "matched_gold": 39,
+        "matched_gen": 39
+      }
+    ],
+    "recall": 1.0,
+    "precision": 1.0,
+    "f1": 1.0
+  }
+}

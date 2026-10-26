@@ -12,13 +12,13 @@ US-10,REQ-F-09;REQ-F-10;REQ-F-28;REQ-F-29;REQ-F-30;REQ-F-31;REQ-F-46;REQ-F-47,In
 US-11,REQ-F-11;REQ-F-12;REQ-F-32;REQ-F-33;REQ-F-46;REQ-F-47;REQ-F-48,Payment;Payment.date;Payment.amount;Payment.status;Payment.method;PaymentStatus;PaymentMethod,Make Payment
 US-12,REQ-F-12;REQ-F-34,Payment;Payment.status;PaymentStatus,Make Payment
 US-13,REQ-F-35;REQ-F-36;REQ-F-37;REQ-F-39;REQ-F-50,Payment.status;Invoice.status;Order.status;PaymentStatus;InvoiceStatus;OrderStatus,Accept Payment
-US-14,REQ-F-38;REQ-F-39;REQ-F-50,Payment.status;Invoice.status;Order.status;PaymentStatus,Reject Payment
+US-14,REQ-F-38;REQ-F-39;REQ-F-50,Payment.status;Invoice.status;Order.status;PaymentStatus,Make Payment
 US-15,REQ-F-40;REQ-F-41;REQ-F-42;REQ-F-43;REQ-F-44,Order.status;OrderStatus;Invoice.status;InvoiceStatus,Close Order
 NFR-01,REQ-N-01,Order;OrderItem,Make an Order
 NFR-02,REQ-N-02,Order,Make an Order
 NFR-03,REQ-N-05,Customer;Order;Invoice;Payment,
-NFR-04,REQ-N-06,Payment;Payment.status;PaymentStatus,Accept Payment;Reject Payment
+NFR-04,REQ-N-06,Payment;Payment.status;PaymentStatus,Accept Payment;Make Payment
 NFR-05,REQ-N-07,Customer.name;Customer.address;Customer.phone;Customer.bankAccount,
-NFR-06,REQ-N-08,Order.status;Invoice.status;Payment.status;OrderStatus;InvoiceStatus;PaymentStatus,Receive order;Fill Order;Ship Order;Close Order;Send Invoice;Make Payment;Accept Payment;Reject Payment
+NFR-06,REQ-N-08,Order.status;Invoice.status;Payment.status;OrderStatus;InvoiceStatus;PaymentStatus,Receive order;Fill Order;Ship Order;Close Order;Send Invoice;Make Payment;Accept Payment
 NFR-07,REQ-N-03,,
 NFR-08,REQ-N-04,Order;Invoice;Payment,

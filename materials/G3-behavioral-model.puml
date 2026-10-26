@@ -28,25 +28,25 @@ if () then ([accepted])
     |Accountant|
     :Send Invoice;
     :Invoice [issued]; <<obj>>
+
     |Customer|
-    :Make Payment;
-    :Payment [pending]; <<obj>>
-    |Accountant|
-    while () is ([declined])
-      :Reject Payment;
-      :Payment [failed]; <<obj>>
-      |Customer|
+    repeat
       :Make Payment;
       :Payment [pending]; <<obj>>
       |Accountant|
-    endwhile ([authorized])
+      
+     
+       backward:Payment [failed]; <<obj>>
+    
+    repeat while () is ([declined]) not ([authorized])
+    
     :Accept Payment;
-    split
+    if () 
       :Payment [completed]; <<obj>>
       detach
-    split again
+    else ()
       :Invoice [paid]; <<obj>>
-    end split
+    endif
   end fork
   |OrderStaff|
 else ([declined])

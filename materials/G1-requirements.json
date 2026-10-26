@@ -27,8 +27,7 @@
           "format": "given_when_then",
           "text": "Given a customer record that lacks a name, an address or a phone number, When the record is saved, Then the system rejects the record."
         }
-      ],
-      "priority": "must"
+      ]
     },
     {
       "id": "US-02",
@@ -55,8 +54,7 @@
           "format": "condition",
           "text": "A product may be referred to by any number of order items, including none, and a product exists independently of the order items that refer to it."
         }
-      ],
-      "priority": "must"
+      ]
     },
     {
       "id": "US-03",
@@ -93,8 +91,7 @@
           "format": "condition",
           "text": "An order item exists only as part of the order it belongs to, and cannot be moved to another order; when an order is removed from the system, its order items are removed with it."
         }
-      ],
-      "priority": "must"
+      ]
     },
     {
       "id": "US-04",
@@ -116,8 +113,7 @@
           "format": "given_when_then",
           "text": "Given an order item that refers to a product that does not exist, When the order is submitted, Then the system rejects the submission and registers no order."
         }
-      ],
-      "priority": "must"
+      ]
     },
     {
       "id": "US-05",
@@ -139,8 +135,7 @@
           "format": "condition",
           "text": "The total amount of an order is stored as a decimal number."
         }
-      ],
-      "priority": "must"
+      ]
     },
     {
       "id": "US-06",
@@ -167,8 +162,7 @@
           "format": "condition",
           "text": "The status of an order changes only from submitted to pending, from pending to filled or to closed, from filled to shipped, and from shipped to closed."
         }
-      ],
-      "priority": "must"
+      ]
     },
     {
       "id": "US-07",
@@ -190,8 +184,7 @@
           "format": "condition",
           "text": "A filled order can next be set only to shipped."
         }
-      ],
-      "priority": "must"
+      ]
     },
     {
       "id": "US-08",
@@ -213,8 +206,7 @@
           "format": "given_when_then",
           "text": "Given a declined order, When an invoice is requested for the order, Then the system rejects the request."
         }
-      ],
-      "priority": "must"
+      ]
     },
     {
       "id": "US-09",
@@ -236,8 +228,7 @@
           "format": "given_when_then",
           "text": "Given an order that is marked as shipped, When the system records the change, Then the status of its invoice and of any payment against that invoice remains unchanged."
         }
-      ],
-      "priority": "must"
+      ]
     },
     {
       "id": "US-10",
@@ -274,8 +265,7 @@
           "format": "condition",
           "text": "Once an order has been filled, invoicing and shipping proceed independently of each other: issuing an invoice does not require the order to have been shipped, and marking the order as shipped does not require an invoice to have been issued, so the two may happen in either order or at the same time."
         }
-      ],
-      "priority": "must"
+      ]
     },
     {
       "id": "US-11",
@@ -312,8 +302,7 @@
           "format": "condition",
           "text": "Every payment settles exactly one invoice, and a payment is recorded against an invoice rather than directly against an order."
         }
-      ],
-      "priority": "must"
+      ]
     },
     {
       "id": "US-12",
@@ -335,8 +324,7 @@
           "format": "condition",
           "text": "An invoice may have any number of payments."
         }
-      ],
-      "priority": "should"
+      ]
     },
     {
       "id": "US-13",
@@ -368,8 +356,7 @@
           "format": "condition",
           "text": "Confirming a payment does not change the status of the order billed by the invoice."
         }
-      ],
-      "priority": "must"
+      ]
     },
     {
       "id": "US-14",
@@ -396,8 +383,7 @@
           "format": "condition",
           "text": "The status of a payment changes only from pending to completed or from pending to failed."
         }
-      ],
-      "priority": "must"
+      ]
     },
     {
       "id": "US-15",
@@ -429,64 +415,55 @@
           "format": "condition",
           "text": "A filled order is closed only after both the shipping of the order and the settlement of its invoice have completed, whichever of the two finishes last."
         }
-      ],
-      "priority": "must"
+      ]
     },
     {
       "id": "NFR-01",
       "type": "performance",
       "statement": "The system shall register a submitted order containing up to 50 order items and respond within 2 seconds for at least 95% of submissions under normal operating conditions.",
-      "acceptance_criteria": [],
-      "priority": "must"
+      "acceptance_criteria": []
     },
     {
       "id": "NFR-02",
       "type": "performance",
       "statement": "The system shall support at least 200 concurrent users and at least 20 order submissions per second under normal operating conditions while meeting the response time of NFR-01.",
-      "acceptance_criteria": [],
-      "priority": "should"
+      "acceptance_criteria": []
     },
     {
       "id": "NFR-03",
       "type": "security",
       "statement": "The system shall authenticate every user before granting access to any customer, order, invoice or payment data, and shall reject 100% of unauthenticated requests.",
-      "acceptance_criteria": [],
-      "priority": "must"
+      "acceptance_criteria": []
     },
     {
       "id": "NFR-04",
       "type": "security",
       "statement": "The system shall allow only users holding the Accountant role to confirm or reject a payment, and shall reject the same request from any other user.",
-      "acceptance_criteria": [],
-      "priority": "must"
+      "acceptance_criteria": []
     },
     {
       "id": "NFR-05",
       "type": "security",
       "statement": "The system shall encrypt customer personal data and bank account numbers in transit using TLS 1.2 or higher and at rest.",
-      "acceptance_criteria": [],
-      "priority": "must"
+      "acceptance_criteria": []
     },
     {
       "id": "NFR-06",
       "type": "security",
       "statement": "The system shall record the user and the time of every status change of an order, an invoice or a payment, and shall retain these records for at least 12 months.",
-      "acceptance_criteria": [],
-      "priority": "should"
+      "acceptance_criteria": []
     },
     {
       "id": "NFR-07",
       "type": "availability",
       "statement": "The system shall be available for at least 99.5% of each calendar month, excluding scheduled maintenance announced at least 24 hours in advance.",
-      "acceptance_criteria": [],
-      "priority": "must"
+      "acceptance_criteria": []
     },
     {
       "id": "NFR-08",
       "type": "availability",
       "statement": "The system shall resume accepting requests within 15 minutes after a server failure without losing any order, invoice or payment recorded before the failure.",
-      "acceptance_criteria": [],
-      "priority": "must"
+      "acceptance_criteria": []
     }
   ]
 }

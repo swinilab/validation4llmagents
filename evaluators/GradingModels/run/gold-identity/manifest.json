@@ -1,0 +1,212 @@
+{
+  "run_id": "gold-identity",
+  "submission_dir": "/home/swe/validation4llmagents/submissions/gold-identity",
+  "gold_paths": {
+    "structural": "/home/swe/validation4llmagents/gold/G2-structural.puml",
+    "behavioral": "/home/swe/validation4llmagents/gold/G3-behavioral.puml"
+  },
+  "diagrams": [
+    "structural",
+    "behavioral"
+  ],
+  "embedding_model": "sentence-transformers/all-mpnet-base-v2",
+  "embedding_revision": null,
+  "sentence_transformers_version": "6.2.0",
+  "pooling": "mean",
+  "normalized": true,
+  "parser_version": "1.0.0",
+  "supported_constructs": [
+    "class",
+    "abstract class",
+    "interface",
+    "enum",
+    "attribute",
+    "method",
+    "association",
+    "aggregation",
+    "composition",
+    "generalization",
+    "realization",
+    "dependency",
+    "hide",
+    "skinparam",
+    "title",
+    "note",
+    "start",
+    "stop",
+    "end",
+    "activity",
+    "object node",
+    "swimlane",
+    "if/elseif/else/endif",
+    "while/endwhile",
+    "repeat/repeat while",
+    "fork/fork again/end fork",
+    "split/split again/end split",
+    "detach",
+    "kill",
+    "label/goto",
+    "partition",
+    "group",
+    "style",
+    "arrow label",
+    "backward",
+    "break"
+  ],
+  "unsupported_constructs": [
+    "state diagram syntax",
+    "sequence diagram syntax",
+    "component/deployment diagram syntax",
+    "json/yaml/wbs/mindmap diagrams",
+    "preprocessor directives (!define, !include, !if)",
+    "sprite/inline image declarations",
+    "swimlane alias with colour-only redefinition"
+  ],
+  "on_pending": "halt",
+  "config": {
+    "pooling": "mean",
+    "kappa_pool": "per_section",
+    "normalize_embeddings": true,
+    "syntax_gate": "strict",
+    "judge_model": null,
+    "threshold_models": 0.75,
+    "embedding_revision": null,
+    "embedding_model": "sentence-transformers/all-mpnet-base-v2",
+    "judge_temperature": 0,
+    "kappa_accept": 0.6,
+    "sweep_models": [
+      0.7,
+      0.75,
+      0.8,
+      0.85
+    ],
+    "manual_default": "not_covered",
+    "kappa_sample_size": 30,
+    "random_seed": 20261024
+  },
+  "rules": {
+    "status_sets": {
+      "order": [
+        "submitted",
+        "pending",
+        "filled",
+        "shipped",
+        "closed"
+      ],
+      "invoice": [
+        "issued",
+        "paid"
+      ],
+      "payment": [
+        "pending",
+        "completed",
+        "failed"
+      ]
+    },
+    "payment_methods": [
+      "bank",
+      "card",
+      "cash"
+    ],
+    "roles": [
+      "Customer",
+      "OrderStaff",
+      "Accountant"
+    ],
+    "roles_case_sensitive": true,
+    "type_table": {
+      "Decimal": {
+        "accept": [
+          "BigDecimal",
+          "Numeric",
+          "Money"
+        ],
+        "warn": [
+          "Float",
+          "Double"
+        ],
+        "fail": [
+          "String",
+          "Integer"
+        ]
+      },
+      "Integer": {
+        "accept": [
+          "Int",
+          "Long"
+        ],
+        "warn": [],
+        "fail": [
+          "String",
+          "Decimal"
+        ]
+      },
+      "Date": {
+        "accept": [
+          "DateTime",
+          "LocalDate"
+        ],
+        "warn": [
+          "Timestamp"
+        ],
+        "fail": [
+          "String"
+        ]
+      },
+      "String": {
+        "accept": [
+          "Text",
+          "VarChar"
+        ],
+        "warn": [],
+        "fail": [
+          "Integer",
+          "Decimal",
+          "Float"
+        ]
+      }
+    },
+    "type_unlisted": "manual",
+    "rel_type_map": {
+      "*--": "composition",
+      "o--": "aggregation",
+      "--": "association",
+      "<|--": "generalization",
+      "<|..": "realization"
+    },
+    "drop_arrows": [
+      "..>"
+    ],
+    "guard_aliases": {
+      "accepted": [
+        "accepted",
+        "approved",
+        "valid",
+        "ok"
+      ],
+      "declined": [
+        "declined",
+        "rejected",
+        "invalid",
+        "refused"
+      ],
+      "authorized": [
+        "authorized",
+        "authorised",
+        "successful"
+      ]
+    },
+    "normalization": {
+      "strip_stereotypes": true,
+      "strip_visibility": true,
+      "collapse_separators": [
+        "_",
+        "-"
+      ],
+      "lowercase": false
+    }
+  },
+  "review_commit": "011bc89ed16e4bf7d3c0181a2b5692e0b8b29bad",
+  "started_at": "2026-10-25T17:01:03+00:00",
+  "finished_at": "2026-10-25T17:01:15+00:00"
+}
