@@ -1,0 +1,180 @@
+{
+  "FR_INPUT": {
+    "REQ-F-01": {
+      "statement": "The system shall store a name, an address and a phone number for each customer."
+    },
+    "REQ-F-02": {
+      "statement": "The system shall allow a customer to have at most one bank account, which is optional."
+    },
+    "REQ-F-03": {
+      "statement": "The system shall store a name, a description, a price and an image for each product."
+    },
+    "REQ-F-04": {
+      "statement": "The system shall allow a product to be referred to by any number of order items, including none, and shall keep a product in existence independently of the order items that refer to it."
+    },
+    "REQ-F-05": {
+      "statement": "The system shall record each order with an order date, a total amount, a status and a payment method."
+    },
+    "REQ-F-06": {
+      "statement": "The system shall record each order item with a quantity, a unit price and a reference to exactly one product, and shall associate each order item with exactly one order."
+    },
+    "REQ-F-07": {
+      "statement": "The system shall keep an order item in existence only as part of the order it belongs to, shall not allow an order item to be moved to another order, and shall remove the order items of an order when that order is removed."
+    },
+    "REQ-F-08": {
+      "statement": "The system shall associate each order with exactly one customer, while a customer may have any number of orders."
+    },
+    "REQ-F-09": {
+      "statement": "The system shall record each invoice with a date, an amount, a status and a payment method."
+    },
+    "REQ-F-10": {
+      "statement": "The system shall allow at most one invoice per order, and shall associate each invoice with exactly one order."
+    },
+    "REQ-F-11": {
+      "statement": "The system shall record each payment with a date, an amount, a status and a payment method."
+    },
+    "REQ-F-12": {
+      "statement": "The system shall allow any number of payments against one invoice, and shall record each payment against exactly one invoice rather than directly against an order."
+    },
+    "REQ-F-13": {
+      "statement": "The system shall allow a customer to submit an order that names a known customer, contains one or more order items each referring to an existing product, and carries a payment method, and shall register it as an order with the submission date as its order date and the status submitted."
+    },
+    "REQ-F-14": {
+      "statement": "The system shall reject an order submission if the customer is not known to the system, and shall register no order."
+    },
+    "REQ-F-15": {
+      "statement": "The system shall reject an order submission that contains no order item, and shall register no order."
+    },
+    "REQ-F-16": {
+      "statement": "The system shall reject an order submission if any order item refers to a product that does not exist, and shall register no order."
+    },
+    "REQ-F-17": {
+      "statement": "The system shall record for each registered order a total amount equal to the sum over its order items of quantity multiplied by unit price."
+    },
+    "REQ-F-18": {
+      "statement": "The system shall allow order staff to receive an order whose status is submitted by setting its status to pending."
+    },
+    "REQ-F-19": {
+      "statement": "The system shall reject an attempt to receive an order if the status of the order is not submitted, and shall leave the status unchanged."
+    },
+    "REQ-F-20": {
+      "statement": "The system shall allow order staff to mark an order whose status is pending as filled."
+    },
+    "REQ-F-21": {
+      "statement": "The system shall reject an attempt to mark an order as filled if the status of the order is not pending, and shall leave the status unchanged."
+    },
+    "REQ-F-22": {
+      "statement": "The system shall allow order staff to decline an order whose status is pending by setting its status to closed."
+    },
+    "REQ-F-23": {
+      "statement": "The system shall reject an attempt to decline an order if the status of the order is not pending, and shall leave the status unchanged."
+    },
+    "REQ-F-24": {
+      "statement": "The system shall reject a request to raise an invoice for an order that has been declined."
+    },
+    "REQ-F-25": {
+      "statement": "The system shall allow order staff to set the status of an order to shipped when its status is filled."
+    },
+    "REQ-F-26": {
+      "statement": "The system shall reject an attempt to set an order to shipped if the status of the order is not filled, and shall leave the status unchanged."
+    },
+    "REQ-F-27": {
+      "statement": "The system shall leave the status of an invoice and of any payment against that invoice unchanged when an order is set to shipped."
+    },
+    "REQ-F-28": {
+      "statement": "The system shall allow an accountant to raise an invoice for an order whose status is filled or shipped and that has no invoice, with a date, an amount, a payment method and the status issued."
+    },
+    "REQ-F-29": {
+      "statement": "The system shall reject a request to raise a further invoice for an order that already has one."
+    },
+    "REQ-F-30": {
+      "statement": "The system shall reject a request to raise an invoice for an order whose status is submitted, pending or closed."
+    },
+    "REQ-F-31": {
+      "statement": "The system shall let invoicing and shipping proceed independently of each other once an order has been filled, so that raising an invoice does not require the order to have been shipped, setting the order to shipped does not require an invoice to have been raised, and the two may occur in either order or at the same time."
+    },
+    "REQ-F-32": {
+      "statement": "The system shall allow a customer to submit a payment against an invoice whose status is issued, with a date, an amount and a payment method, and shall record the payment with the status pending."
+    },
+    "REQ-F-33": {
+      "statement": "The system shall reject a payment submitted against an invoice whose status is paid."
+    },
+    "REQ-F-34": {
+      "statement": "The system shall allow a further payment to be submitted against an invoice whose earlier payment has the status failed, shall record it as a separate payment with the status pending, and shall keep the failed payment at the status failed."
+    },
+    "REQ-F-35": {
+      "statement": "The system shall allow an accountant to confirm a payment whose status is pending by setting its status to completed."
+    },
+    "REQ-F-36": {
+      "statement": "When an accountant confirms a pending payment against an invoice whose status is issued, the system shall set the status of that invoice to paid."
+    },
+    "REQ-F-37": {
+      "statement": "The system shall leave the status of the order billed by an invoice unchanged when a payment against that invoice is confirmed."
+    },
+    "REQ-F-38": {
+      "statement": "The system shall allow an accountant to reject a payment whose status is pending by setting its status to failed, and shall leave the status of its invoice and of its order unchanged."
+    },
+    "REQ-F-39": {
+      "statement": "The system shall reject an attempt to confirm or to reject a payment whose status is not pending, and shall leave the status unchanged."
+    },
+    "REQ-F-40": {
+      "statement": "The system shall allow order staff to close an order whose status is shipped and whose invoice has the status paid, by setting its status to closed."
+    },
+    "REQ-F-41": {
+      "statement": "The system shall reject an attempt to close an order whose status is shipped if its invoice does not have the status paid, and shall leave the status unchanged."
+    },
+    "REQ-F-42": {
+      "statement": "The system shall reject an attempt to close an order whose invoice has the status paid if the status of the order is not shipped, and shall leave the status unchanged."
+    },
+    "REQ-F-43": {
+      "statement": "The system shall close a filled order only after both the shipping of the order and the settlement of its invoice have completed, whichever of the two finishes last."
+    },
+    "REQ-F-44": {
+      "statement": "The system shall not change the status of an order whose status is closed."
+    },
+    "REQ-F-45": {
+      "statement": "The system shall treat every attribute as mandatory, except the bank account of a customer, and shall reject a customer record or a product record in which a mandatory attribute is absent."
+    },
+    "REQ-F-46": {
+      "statement": "The system shall represent monetary values (product price, unit price, order total, invoice amount, payment amount) as decimal numbers."
+    },
+    "REQ-F-47": {
+      "statement": "The system shall restrict the status of an order to submitted, pending, filled, shipped or closed; of an invoice to issued or paid; and of a payment to pending, completed or failed."
+    },
+    "REQ-F-48": {
+      "statement": "The system shall restrict the payment method recorded on an order, on an invoice and on a payment to bank, card or cash."
+    },
+    "REQ-F-49": {
+      "statement": "The system shall change the status of an order only from submitted to pending, from pending to filled or to closed, from filled to shipped, and from shipped to closed."
+    },
+    "REQ-F-50": {
+      "statement": "The system shall change the status of an invoice only from issued to paid, and the status of a payment only from pending to completed or to failed."
+    }
+  },
+  "NFR_INPUT": {
+    "REQ-N-01": {
+      "statement": "When a user submits an order containing up to 50 order items under normal operating conditions, the system shall register the order and respond within 2 seconds for at least 95% of submissions."
+    },
+    "REQ-N-02": {
+      "statement": "Under normal operating conditions, the system shall support at least 200 concurrent users and at least 20 order submissions per second while meeting the response time of REQ-N-01."
+    },
+    "REQ-N-03": {
+      "statement": "The system shall be available for at least 99.5% of each calendar month, excluding scheduled maintenance announced at least 24 hours in advance."
+    },
+    "REQ-N-04": {
+      "statement": "When a server failure occurs, the system shall resume accepting requests within 15 minutes without losing any order, invoice or payment recorded before the failure."
+    },
+    "REQ-N-05": {
+      "statement": "The system shall authenticate every user before granting access to any customer, order, invoice or payment data, and shall reject 100% of unauthenticated requests."
+    },
+    "REQ-N-06": {
+      "statement": "The system shall allow only users holding the accountant role to confirm or reject a payment, and shall reject the same request from any other user."
+    },
+    "REQ-N-07": {
+      "statement": "The system shall protect customer personal data and bank account numbers by encrypting them in transit with TLS 1.2 or higher and at rest."
+    },
+    "REQ-N-08": {
+      "statement": "The system shall record the user and the time of every status change of an order, an invoice and a payment, and shall retain these records for at least 12 months."
+    }
+  }
+}

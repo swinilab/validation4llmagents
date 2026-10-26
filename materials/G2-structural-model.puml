@@ -1,12 +1,12 @@
-@startuml
+@startuml structural
 title OrderMan - Structural Model Gold (G2)
 hide circle
 skinparam classAttributeIconSize 0
 
 enum OrderStatus {
+  submitted
   pending
   filled
-  paid
   shipped
   closed
 }

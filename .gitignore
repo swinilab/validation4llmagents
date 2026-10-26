@@ -17,5 +17,7 @@ logs/
 !.env.example
 RequirementGrading/run/
 GradingRequirements/run/
-
-
+mynote.txt
+grading.md
+m2-req-grading-spec.md
+*:Zone.Identifier
