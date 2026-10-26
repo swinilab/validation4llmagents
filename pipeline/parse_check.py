@@ -450,7 +450,7 @@ def _evaluate_class_syntax_components(
     text: str, is_valid: bool, violations: list[Violation]
 ) -> tuple[int, int, float]:
     """Calculate (correct_syntax, total_components, score) for class diagram."""
-    from .flatten import parse_class_elements, _strip_puml, BLOCK_RE, ATTR_RE, REL_RE
+    from .flatten import parse_class_elements, _strip_puml, BLOCK_RE, match_attribute, REL_RE
     import re
 
     valid_elements = parse_class_elements(text)
@@ -464,7 +464,7 @@ def _evaluate_class_syntax_components(
             if line.startswith("}"):
                 in_block = False
                 continue
-            if ATTR_RE.match(line):
+            if match_attribute(line):
                 continue
             if is_enum and re.match(r"^\w+$", line):
                 continue

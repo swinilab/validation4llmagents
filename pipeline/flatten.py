@@ -74,6 +74,22 @@ REL_RE = re.compile(
 )
 BLOCK_RE = re.compile(r'^(?:(abstract)\s+)?(class|enum|interface)\s+"?(\w+)"?.*?(\{)?\s*$')
 ATTR_RE = re.compile(r'^[+\-#~]?\s*(\w+)\s*:\s*(.+)$')
+# Java-style attribute, type first: `+String name`, `-List<Item> items`, `+BankAccount? account`.
+JAVA_ATTR_RE = re.compile(r'^[+\-#~]?\s*(?P<type>[\w.]+(?:<[^>]*>)?(?:\[\])*\??)\s+(?P<name>\w+)\s*$')
+
+
+def match_attribute(line: str) -> tuple[str, str] | None:
+    """Return `(name, type)` for an attribute line in either notation.
+
+    PlantUML accepts both `name : Type` and `Type name`; so do we.
+    """
+    m = ATTR_RE.match(line)
+    if m:
+        return m.group(1), m.group(2).strip()
+    m = JAVA_ATTR_RE.match(line)
+    if m:
+        return m.group("name"), m.group("type")
+    return None
 
 
 class FlattenError(RuntimeError):
@@ -127,9 +143,9 @@ def parse_class_elements(text: str) -> list[dict[str, str]]:
             if line.startswith("}"):
                 owner = None
                 continue
-            m = ATTR_RE.match(line)
-            if m:
-                add("attribute", m.group(1), owner, f"type={m.group(2).strip()}")
+            attr = match_attribute(line)
+            if attr:
+                add("attribute", attr[0], owner, f"type={attr[1]}")
             elif is_enum and re.match(r"^\w+$", line):
                 add("attribute", line, owner, "literal")
             continue

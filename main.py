@@ -19,25 +19,35 @@ except ImportError:
     pass
 
 from workflow_pipeline import run_pipeline
-from workflow_factory import build
+from workflow_factory import GRADER_NAMES, build
 
 
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="SWELAB Empirical Study Pipeline (ChatDev + Ollama & Validation)"
+        description="SWELAB Empirical Study Pipeline (ChatDev + Ollama & Grading)"
     )
     parser.add_argument(
         "--phase",
-        choices=["gen", "val", "all"],
+        choices=["gen", "grade", "all"],
         default="all",
-        help="Pipeline phase to execute: gen (generation), val (validation), or all.",
+        help="Pipeline phase to execute: gen (generation), grade (grading), or all.",
     )
     parser.add_argument(
         "--grade",
         nargs="+",
-        choices=["models"],
-        default=[],
-        help="Grading modules to run after validation (results go into the run dir).",
+        choices=list(GRADER_NAMES),
+        default=None,
+        help="Grading modules to run in the grade phase: reqs (requirements), "
+             "models (structural + behavioral), vmx (traceability matrix). "
+             "Default: all three. Results go into the run dir.",
+    )
+    parser.add_argument(
+        "--on-pending",
+        choices=["provisional", "halt"],
+        default="provisional",
+        help="Grading modules: halt = stop and write review files for a human, "
+             "provisional = resolve unreviewed pairs with the configured default. "
+             "(VMX grading is automatic and ignores it.)",
     )
     parser.add_argument(
         "--run-id",
@@ -67,6 +77,7 @@ def main() -> None:
         run_id=args.run_id,
         prompt_file=args.prompt_file,
         grade=args.grade,
+        on_pending=args.on_pending,
     )
 
 

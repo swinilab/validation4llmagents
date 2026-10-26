@@ -2,7 +2,7 @@
 
 Executes:
   1. Generation: calls generation agent with specified prompt template
-  2. Evaluation: runs diagram validity, flattening, and quality checks
+  2. Grading: runs the selected grading modules (requirements, models, VMX)
   3. Report: writes consolidated execution report
 """
 
@@ -10,11 +10,12 @@ from __future__ import annotations
 
 import json
 import sys
+import traceback
 from pathlib import Path
 from typing import Any
 
 from interfaces.base import GenerationResult, Status, ValidationResult
-from workflow_factory import PipelineComponents
+from workflow_factory import GRADER_NAMES, PipelineComponents
 
 for _stream in (sys.stdout, sys.stderr):
     try:
@@ -40,14 +41,14 @@ def _read_prompt(cfg: dict[str, Any], prompt_override: str | None = None) -> str
         if inputs_path.is_file():
             try:
                 inputs_data = json.loads(inputs_path.read_text(encoding="utf-8"))
-                
+
                 # Format FR_INPUT
                 if "{{FR_INPUT}}" in prompt_text and "FR_INPUT" in inputs_data:
                     fr_lines = []
                     for req_id, req_data in inputs_data["FR_INPUT"].items():
                         fr_lines.append(f"- **{req_id}**: {req_data.get('statement', '')}")
                     prompt_text = prompt_text.replace("{{FR_INPUT}}", "\n".join(fr_lines))
-                
+
                 # Format NFR_INPUT
                 if "{{NFR_INPUT}}" in prompt_text and "NFR_INPUT" in inputs_data:
                     nfr_lines = []
@@ -77,70 +78,54 @@ def run_generation(components: PipelineComponents, prompt: str, run_id: str) -> 
     return result
 
 
-def run_validation(
-    components: PipelineComponents,
-    generation: GenerationResult,
-    run_id: str,
-) -> list[ValidationResult]:
-    print(f"\n==================================================")
-    print(f"  PHASE 2: EVALUATION (SRS & Diagram Checks)")
-    print(f"==================================================")
-    result = components.validator.validate(generation, run_id=run_id)
+def _standalone_generation(target: str) -> GenerationResult:
+    """Rebuild a GenerationResult from an existing run directory.
 
-    status_icon = "✅" if result.passed else "❌"
-    status_text = "passed" if result.passed else "failed"
-    print(f"  {status_icon} {result.name}: {status_text}")
-
-    d = result.details
-    if d:
-        # 1. Completeness
-        vmx = d.get("vmx")
-        print(f"    1. COMPLETENESS:")
-        if vmx and not vmx.get("missing"):
-            cov_rate = vmx.get("coverage_rate", 0.0) * 100
-            cov_comp = vmx.get("coverage_complete", 0)
-            cov_rows = vmx.get("rows", 0)
-            print(f"       - VMX Requirement Coverage : {cov_rate:.1f}% ({cov_comp}/{cov_rows} complete)")
-        else:
-            print(f"       - VMX Requirement Coverage : ❌ Missing VMX.csv (0.0%)")
-
-        # 2. Correctness
-        valid_d = d.get("valid_diagrams", 0)
-        total_d = d.get("total_diagrams", 0)
-        cl_score = d.get("class_score", 0.0)
-        cl_corr = d.get("class_correct", 0)
-        cl_tot = d.get("class_total", 0)
-        ac_score = d.get("act_score", 0.0)
-        ac_corr = d.get("act_correct", 0)
-        ac_tot = d.get("act_total", 0)
-
-        print(f"    2. CORRECTNESS:")
-        print(f"       - Structural Model Syntax   : score={cl_score} ({cl_corr}/{cl_tot} elements)")
-        print(f"       - Behavioral Model Syntax   : score={ac_score} ({ac_corr}/{ac_tot} elements)")
-        if vmx and not vmx.get("missing"):
-            int_rate = vmx.get("integrity_rate", 0.0) * 100
-            int_fnd = vmx.get("integrity_found", 0)
-            int_tot = vmx.get("integrity_total", 0)
-            print(f"       - VMX Referential Integrity : {int_rate:.1f}% ({int_fnd}/{int_tot} references valid)")
-        else:
-            print(f"       - VMX Referential Integrity : ❌ Missing VMX.csv (0.0%)")
-
-    return [result]
+    `target` may be the run dir (`generated/RUN_x`, holding the generator's
+    `sdk_*/code_workspace`) or a workspace itself. Either way the pipeline's
+    own output goes to the run dir, as it does after `--phase gen`.
+    """
+    path = Path(target)
+    workspaces = sorted(path.glob("sdk_*/code_workspace"),
+                        key=lambda p: p.stat().st_mtime)
+    if workspaces:
+        return GenerationResult(status=Status.PASS, model="standalone",
+                                code=str(workspaces[-1]), output_dir=path)
+    if path.name == "code_workspace" and path.parent.name.startswith("sdk_"):
+        return GenerationResult(status=Status.PASS, model="standalone",
+                                code=str(path), output_dir=path.parent.parent)
+    return GenerationResult(status=Status.PASS, model="standalone",
+                            code=target, output_dir=path)
 
 
 def run_grading(
     components: PipelineComponents,
     generation: GenerationResult,
     run_id: str,
-    grade: list[str],
+    grade: list[str] | None = None,
+    on_pending: str = "provisional",
 ) -> list[ValidationResult]:
-    """Run the selected grading modules; each writes into the run directory."""
+    """Run the selected grading modules (all of them by default).
+
+    Each module writes into the run directory. They always run in the canonical
+    order, and one that crashes is reported as failed without costing the
+    results of the others.
+    """
+    selected = [name for name in GRADER_NAMES if not grade or name in grade]
     results: list[ValidationResult] = []
-    for name in grade:
+    for name in selected:
         print(f"\n==================================================")
-        print(f"  PHASE 3: GRADING ({name})")
+        print(f"  GRADING: {name}")
         print(f"==================================================")
-        result = components.graders[name].validate(generation, run_id=run_id)
+        try:
+            result = components.graders[name].validate(
+                generation, run_id=run_id, on_pending=on_pending)
+        except Exception as error:  # noqa: BLE001 - a crash must not hide the other modules
+            traceback.print_exc()
+            result = ValidationResult(
+                stage=2, name=f"{name} grading", passed=False,
+                message=f"crashed: {type(error).__name__}: {error}",
+                details={"grading_kind": name, "error": repr(error)})
         icon = "✅" if result.passed else "❌"
         print(f"  {icon} {result.name}: {result.message}")
         grading_dir = (result.details or {}).get("grading_dir")
@@ -156,6 +141,7 @@ def run_pipeline(
     run_id: str = "RUN01",
     prompt_file: str | None = None,
     grade: list[str] | None = None,
+    on_pending: str = "provisional",
 ) -> None:
     cfg = components.config
     generation: GenerationResult | None = None
@@ -166,33 +152,27 @@ def run_pipeline(
         prompt = _read_prompt(cfg, prompt_file)
         generation = run_generation(components, prompt, run_id=run_id)
 
-    # 2. Evaluation Phase
-    if phase in ("val", "all"):
+    # 2. Grading Phase
+    if phase in ("grade", "all"):
         if generation is None:
-            # Standalone evaluation mode: use code path from config
+            # Standalone grading mode: use code path from config
             eval_cfg = cfg.get("evaluation", cfg.get("validation", {}))
             target_path = eval_cfg.get("generated") or eval_cfg.get("code", "generated")
-            generation = GenerationResult(
-                status=Status.PASS,
-                model="standalone",
-                code=target_path,
-                output_dir=Path(target_path),
-            )
+            generation = _standalone_generation(target_path)
         if generation.status != Status.PASS:
-            print(f"\n⚠️ Skipping validation phase: generation did not succeed (status: {generation.status}).")
+            print(f"\n⚠️ Skipping grading phase: generation did not succeed (status: {generation.status}).")
             validation_results = [
                 ValidationResult(
-                    stage=1,
-                    name="Diagram & SRS Validity",
+                    stage=2,
+                    name="Grading",
                     passed=False,
                     message=f"Skipped due to generation failure ({generation.status})",
                     details={"generation_metadata": generation.metadata},
                 )
             ]
         else:
-            validation_results = run_validation(components, generation, run_id=run_id)
-            validation_results += run_grading(
-                components, generation, run_id, grade or [])
+            validation_results = run_grading(
+                components, generation, run_id, grade, on_pending)
 
     # 3. Report Export
     print(f"\n==================================================")
@@ -209,12 +189,10 @@ def run_pipeline(
         run_id=run_id,
     )
 
-    details_path = getattr(components.report_writer, "_details_path", None)
     if all_passed:
         print(f"  ✅ Complete → {report_path}")
-        if details_path:
-            print(f"  📄 Details  → {details_path}")
     else:
         print(f"  ⚠️ Completed with issues → {report_path}")
-        if details_path:
-            print(f"  📄 Details  → {details_path}")
+    json_path = getattr(components.report_writer, "json_path", None)
+    if json_path:
+        print(f"    Raw report → {json_path}")

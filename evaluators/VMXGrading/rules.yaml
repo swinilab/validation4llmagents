@@ -1,0 +1,33 @@
+# VMXGrading rules: the VMX schema and the completeness conditions.
+# Source: M2-metrics.md §1.1 (metric table) and §1.2 (glossary).
+# Nothing here may be duplicated as a literal in source code.
+
+# --- files the module reads from the submission directory ---
+submission_files:
+  requirements: requirements.json
+  vmx: VMX.csv
+  structural: structural.puml
+  behavioral: behavioral.puml
+
+# --- VMX columns, matched by exact header name (§1.2) ---
+# `behavioral` is spelled without the second "i" in the schema. A header spelled
+# differently is not the column: it is reported in `inputs.schema` and read as empty.
+columns:
+  id: SRS-Req-ID
+  source: Domain-Req-ID
+  structural: Structural-Elements
+  behavioral: Behavorial-Elements
+
+# Separator inside a reference cell; cells are trimmed and de-duplicated (§1.2).
+separator: ";"
+
+# --- VMX Requirement Coverage (§1.1) ---
+# A requirement is covered when its row exists and every column listed for its
+# id prefix is non-empty. A prefix not listed here cannot be covered.
+completeness:
+  "US-": [source, structural]
+  "NFR-": [source]
+
+# --- domain requirement ids (§1.2) ---
+# Top-level sections of the domain input file whose keys are requirement ids.
+domain_sections: [FR_INPUT, NFR_INPUT]
