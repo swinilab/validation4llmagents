@@ -14,11 +14,14 @@ out (§7.5). An element whose prerequisite missed *does* reach here (§7.1).
 
 from __future__ import annotations
 
+import json
 import random
+import re
 from pathlib import Path
 from typing import Any
 
 from .. import ledgers
+from ..judge import JudgeError
 
 # A fixed judge prompt (§7.6). Interpolated with the element and the domain
 # input; the pipeline never varies it per element beyond that.
@@ -93,24 +96,79 @@ def build_prompt(element: dict, domain: str, gold_summary: str) -> str:
         element_id=element["element_id"], gold_summary=gold_summary)
 
 
+def _judge_bool(value: str) -> bool | None:
+    """Read a judge's yes/no from the first word, so `**Yes**.` or `yes, since
+    ...` still count. Anything else stays None (unscored), never a guess."""
+    words = re.findall(r"[a-z0-9]+", value.lower())
+    return ledgers.as_bool(words[0]) if words else None
+
+
 def parse_judge_reply(text: str) -> tuple[bool | None, bool | None, str]:
+    """Pull `traceable`, `consistent` and `rationale` out of the reply.
+
+    Tolerates markdown around the key (`**traceable:** yes`) and punctuation
+    around the value. A condition the reply does not state clearly is None.
+    """
     traceable = consistent = None
     rationale = ""
     for line in text.splitlines():
         key, _, value = line.partition(":")
-        key, value = key.strip().lower(), value.strip()
+        key, value = re.sub(r"[^a-z]", "", key.lower()), value.strip()
         if key == "traceable":
-            traceable = ledgers.as_bool(value)
+            traceable = _judge_bool(value)
         elif key == "consistent":
-            consistent = ledgers.as_bool(value)
+            consistent = _judge_bool(value)
         elif key == "rationale":
-            rationale = value
+            rationale = value.strip("*_` ")
+    return traceable, consistent, rationale
+
+
+def _log_call(log_path: Path | None, record: dict[str, Any]) -> None:
+    """Append one judge call (prompt and raw reply included) to the JSONL log."""
+    if log_path is None:
+        return
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    with log_path.open("a", encoding="utf-8") as handle:
+        handle.write(json.dumps(record, ensure_ascii=False) + "\n")
+
+
+def _ask_judge(judge, prompt: str, element: dict, config: dict,
+               log_path: Path | None) -> tuple[bool | None, bool | None, str]:
+    """Call the judge until its reply parses, up to `judge_max_attempts` times.
+
+    Every attempt is logged with the prompt and the raw reply. A reply that
+    never parses leaves the unreadable condition None, so the element stays
+    unscored instead of being recorded as a verdict nobody gave. A transport
+    failure (`JudgeError`) is logged and re-raised, as before.
+    """
+    traceable = consistent = None
+    rationale = ""
+    for attempt in range(1, config["judge_max_attempts"] + 1):
+        record = {
+            "element_id": element["element_id"], "diagram": element.get("diagram"),
+            "kind": element["kind"], "attempt": attempt,
+            "judge_model": config["judge_model"],
+            "judge_temperature": config["judge_temperature"],
+            "timestamp": _now(), "prompt": prompt,
+        }
+        try:
+            reply = judge(prompt)
+        except JudgeError as error:
+            _log_call(log_path, {**record, "reply": None, "error": str(error)})
+            raise
+        traceable, consistent, rationale = parse_judge_reply(reply)
+        parsed = traceable is not None and consistent is not None
+        _log_call(log_path, {**record, "reply": reply, "parsed": parsed,
+                             "traceable": traceable, "consistent": consistent,
+                             "rationale": rationale})
+        if parsed:
+            break
     return traceable, consistent, rationale
 
 
 def run(elements: dict, axis_records: list[dict], config: dict, diagrams,
         review_dir: Path, domain_path: Path, on_pending: str,
-        judge=None) -> dict[str, Any]:
+        judge=None, log_path: Path | None = None) -> dict[str, Any]:
     """Judge the unmatched set and maintain the κ sample.
 
     `judge` is a callable taking a prompt and returning the model's reply. It is
@@ -139,7 +197,10 @@ def run(elements: dict, axis_records: list[dict], config: dict, diagrams,
 
     for element in unmatched:
         previous = existing.get(element["element_id"])
-        if previous and (previous.get("traceable") or "").strip():
+        # Reuse a row only when both conditions were scored; a half-read row is
+        # judged again.
+        if previous and (previous.get("traceable") or "").strip() \
+                and (previous.get("consistent") or "").strip():
             judged.append(previous)
             continue
         if judge is None or not config["judge_model"]:
@@ -151,13 +212,17 @@ def run(elements: dict, axis_records: list[dict], config: dict, diagrams,
                 "timestamp": "",
             })
             continue
-        reply = judge(build_prompt(element, domain, gold_summary))
-        traceable, consistent, rationale = parse_judge_reply(reply)
+        traceable, consistent, rationale = _ask_judge(
+            judge, build_prompt(element, domain, gold_summary), element, config,
+            log_path)
+        # None (an unreadable reply) is written blank: the element stays
+        # unscored rather than being recorded as a "no" the judge never gave.
+        cell = {True: "yes", False: "no"}
         judged.append({
             "element_id": element["element_id"], "kind": element["kind"],
             "label": element.get("label_raw", ""),
-            "traceable": "yes" if traceable else "no",
-            "consistent": "yes" if consistent else "no",
+            "traceable": cell.get(traceable, ""),
+            "consistent": cell.get(consistent, ""),
             "rationale": rationale, "judge_model": config["judge_model"],
             "timestamp": _now(),
         })

@@ -11,11 +11,22 @@ point at it.
 ## Running
 
 ```bash
-.venv/bin/python GradingModels/run.py --run-id <run_id> \
+.venv/bin/python evaluators/GradingModels/run.py \
+    --submission <dir> --out <run dir> [--run-id <id>] \
     [--diagram structural|behavioral|both] \
     [--on-pending halt|provisional] \
     [--stage all|S0..S7] [--force]
 ```
+
+Or from the pipeline, on the generated diagrams of a run:
+
+```bash
+uv run main.py --phase val --grade models
+```
+
+The module keeps no workspace of its own. It reads `--submission` and writes
+only to `<out>/grading_models/{run,review}/` (the run directory, for example
+`generated/RUN_x`). From Python: `GradingModels.run.grade(submission, out, ...)`.
 
 Exit codes (§11):
 
@@ -32,15 +43,18 @@ completes with `n/a` semantics for that diagram and exits 0.
 
 | Input | Path |
 |---|---|
-| Gold structural (50 elements) | `gold/G2-structural.puml` |
-| Gold behavioral (39 elements) | `gold/G3-behavioral.puml` |
-| Submission | `submissions/<run_id>/{structural,behavioral}.puml` |
-| Domain input (rubric traceability) | `gold/domain-requirements.md` |
+| Gold structural (50 elements) | `config.yaml` → `gold.structural` |
+| Gold behavioral (39 elements) | `config.yaml` → `gold.behavioral` |
+| Domain input (rubric traceability) | `config.yaml` → `gold.domain` |
+| Submission | `--submission <dir>` with `{structural,behavioral}.puml` |
 | Numeric parameters, run policy | `config.yaml` (project root) |
 | Rule-layer vocabularies | `GradingModels/rules.yaml` |
 
-`gold/domain-requirements.md` is generated from `prompts/prompt_inputs.json`,
-which is where this project keeps the 40 `REQ-F-*` / `REQ-NF-*` statements.
+The gold paths live in one shared `gold:` section of `config.yaml` (currently
+under `materials/`), so a new grading module reads them from there instead of
+carrying its own. Relative paths are taken from the config file's directory.
+`materials/domain-requirements.md` holds the 40 `REQ-F-*` / `REQ-N-*`
+statements used for rubric traceability.
 
 ## Layout
 
@@ -67,9 +81,15 @@ GradingModels/
     s6_control.py   the six-item control checklist (§8)
     s7_rubric.py    rubric for unmatched elements, blind κ sample (§7.6)
     s8_metrics.py   metrics and diagnostics (§10, §12)
-  run/<run_id>/     disposable cache — safe to delete
-  review/<run_id>/  human-authored, version-controlled — do not delete
   tests/            the acceptance tests of §14
+```
+
+Written at run time, inside the caller's run directory (not in this folder):
+
+```
+<out>/grading_models/
+  run/      disposable cache (00..07, manifest.json, 08_judge_log.jsonl)
+  review/   human-authored ledgers — keep with the run, do not delete
 ```
 
 Module file names carry the stage number from the spec. `s6_control.py` implements

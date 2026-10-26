@@ -5,13 +5,14 @@ Constructs generation and evaluation pipeline components from config.yaml.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any
 import yaml
 
 from agents.gen import ChatDevGenerationAgent
 from interfaces.base import IGenerationAgent, IReportWriter, IValidator
 from report_writer import TextReportWriter
+from evaluators.ModelGradingEvaluator import ModelGradingEvaluator
 from evaluators.SRSEvaluator import SRSEvaluator, Stage1Evaluator
 
 
@@ -21,6 +22,8 @@ class PipelineComponents:
     validator: IValidator
     report_writer: IReportWriter
     config: dict[str, Any]
+    # Optional grading modules, selected with `--grade <name>`.
+    graders: dict[str, IValidator] = field(default_factory=dict)
 
     @property
     def stage1_validator(self) -> IValidator:
@@ -39,4 +42,5 @@ def build(config_path: str = "config.yaml") -> PipelineComponents:
         validator=SRSEvaluator(config=cfg),
         report_writer=TextReportWriter(report_dir=report_dir),
         config=cfg,
+        graders={"models": ModelGradingEvaluator(config_path=config_path)},
     )

@@ -7,6 +7,7 @@ import re
 import sys
 import threading
 import time
+import traceback
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -23,12 +24,35 @@ from interfaces.base import GenerationResult, IGenerationAgent, Status
 
 GENERATION_PROGRESS_INTERVAL_SECONDS = 5.0
 
+# ChatDev's OpenAI provider falls back to this when a node sets no temperature
+# (runtime/node/agent/providers/openai_provider.py in the chatdev package).
+CHATDEV_DEFAULT_TEMPERATURE = 0.7
+
 try:
     import chatdev.sdk
+    import yaml
     from chatdev import run_workflow
+    from chatdev.config import AgentConfig
     HAS_CHATDEV = True
-except ImportError:
+    CHATDEV_IMPORT_ERROR = None
+except ImportError as exc:
     HAS_CHATDEV = False
+    CHATDEV_IMPORT_ERROR = exc
+
+
+def _agent_model_overrides(yaml_file: str | Path, model: str) -> dict[str, Any]:
+    """Override the model name on every agent node of the workflow YAML.
+
+    Only `model` is set, so temperature and the other params stay at the
+    workflow's / ChatDev's defaults.
+    """
+    path = chatdev.sdk._resolve_yaml_path(yaml_file)
+    graph = yaml.safe_load(path.read_text(encoding="utf-8")).get("graph", {})
+    return {
+        node["id"]: AgentConfig(model=model)
+        for node in graph.get("nodes", [])
+        if node.get("type") == "agent"
+    }
 
 
 class ChatDevGenerationAgent(IGenerationAgent):
@@ -67,28 +91,42 @@ class ChatDevGenerationAgent(IGenerationAgent):
 
         # 1. Preferred: Run via ChatDev SDK if installed
         if HAS_CHATDEV:
-            chatdev.sdk.OUTPUT_ROOT = generated_dir
+            # ChatDev writes its sdk_<workflow>_<ts>/ folder straight into the
+            # RUN dir and is left untouched; pipeline results sit next to it.
+            chatdev.sdk.OUTPUT_ROOT = run_output_dir
             yaml_path = workdir / workflow_rel
 
             try:
+                # yaml_file = yaml_path
+                yaml_file = "ChatDev_v1.yaml"
                 result = run_workflow(
-                    yaml_file=yaml_path,
+                    yaml_file=yaml_file,
                     task_prompt=prompt,
                     variables={
                         "BASE_URL": api_base,
                         "API_KEY": api_key,
                         "MODEL_NAME": model,
                     },
+                    agent_configs=_agent_model_overrides(yaml_file, model),
                 )
                 code_path = str(result.output_dir / "code_workspace") if result.output_dir else str(run_output_dir)
                 return GenerationResult(
                     status=Status.PASS if result.success else Status.FAIL,
                     model=model,
                     code=code_path,
-                    output_dir=Path(code_path),
+                    output_dir=run_output_dir,
+                    metadata={
+                        "agent": "ChatDev",
+                        "reasoning": f"temperature {CHATDEV_DEFAULT_TEMPERATURE}",
+                    },
                 )
-            except Exception as exc:
-                print(f"ChatDev execution encountered an error: {exc}. Falling back to direct API generation.")
+            except Exception:
+                print("ChatDev execution failed:", file=sys.stderr)
+                traceback.print_exc()
+                sys.exit(1)
+        else:
+            print(f"ChatDev SDK is not available: {CHATDEV_IMPORT_ERROR!r}", file=sys.stderr)
+            sys.exit(1)
 
         # 2. Fallback: Direct OpenAI-compatible generation
         print(f"Executing generation via API ({api_base}, model={model})...")

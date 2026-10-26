@@ -3,6 +3,11 @@
 Tài liệu này mô tả toàn bộ pipeline chấm `structural.puml` và `behavioral.puml`
 của một submission so với gold model đã đóng băng.
 
+> **Đường dẫn hiện tại:** `run/` và `review/` trong các sơ đồ nằm ở
+> `<RUN>/grading_models/{run,review}/` (thư mục RUN do người gọi chỉ định, ví dụ
+> `generated/RUN_x`), submission truyền bằng `--submission`, còn gold và domain
+> input lấy từ mục `gold:` của `config.yaml`. Xem [README.md](README.md).
+
 Ký hiệu trong mọi sơ đồ dưới đây:
 
 - 🤖 **tự động** — pipeline tự chấm, không cần người.

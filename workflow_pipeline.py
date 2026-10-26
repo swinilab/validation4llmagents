@@ -71,8 +71,8 @@ def run_generation(components: PipelineComponents, prompt: str, run_id: str) -> 
     else:
         print(f"  ⚠️ Generation status: {result.status}")
     print(f"  LLM         : {result.model}")
-    print(f"  Reasoning   : ")
-    print(f"  Agent       : ChatDev")
+    print(f"  Reasoning   : {result.metadata.get('reasoning', '')}")
+    print(f"  Agent       : {result.metadata.get('agent', 'ChatDev')}")
     print(f"  SRS Package : {result.code}")
     return result
 
@@ -128,11 +128,34 @@ def run_validation(
     return [result]
 
 
+def run_grading(
+    components: PipelineComponents,
+    generation: GenerationResult,
+    run_id: str,
+    grade: list[str],
+) -> list[ValidationResult]:
+    """Run the selected grading modules; each writes into the run directory."""
+    results: list[ValidationResult] = []
+    for name in grade:
+        print(f"\n==================================================")
+        print(f"  PHASE 3: GRADING ({name})")
+        print(f"==================================================")
+        result = components.graders[name].validate(generation, run_id=run_id)
+        icon = "✅" if result.passed else "❌"
+        print(f"  {icon} {result.name}: {result.message}")
+        grading_dir = (result.details or {}).get("grading_dir")
+        if grading_dir:
+            print(f"    Results → {grading_dir}")
+        results.append(result)
+    return results
+
+
 def run_pipeline(
     components: PipelineComponents,
     phase: str = "all",
     run_id: str = "RUN01",
     prompt_file: str | None = None,
+    grade: list[str] | None = None,
 ) -> None:
     cfg = components.config
     generation: GenerationResult | None = None
@@ -168,6 +191,8 @@ def run_pipeline(
             ]
         else:
             validation_results = run_validation(components, generation, run_id=run_id)
+            validation_results += run_grading(
+                components, generation, run_id, grade or [])
 
     # 3. Report Export
     print(f"\n==================================================")

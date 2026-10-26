@@ -135,6 +135,8 @@ class TextReportWriter(IReportWriter):
 
         for vr in validation_results:
             d = vr.details or {}
+            if d.get("grading_kind"):
+                continue
             syntax_audits = d.get("syntax_audits", [])
             struct_audit = next((a for a in syntax_audits if a.get("is_structural")), None)
             behave_audit = next((a for a in syntax_audits if a.get("is_behavioral")), None)
@@ -187,6 +189,8 @@ class TextReportWriter(IReportWriter):
                 lines.append("[VMX REQUIREMENT COVERAGE] VMX.csv (Coverage: ❌ FAIL | Rate: 0.0% | VMX.csv missing)")
                 lines.append("[VMX REFERENTIAL INTEGRITY] VMX.csv (Integrity: ❌ FAIL | Rate: 0.0% | VMX.csv missing)")
 
+        lines.extend(self._grading_section(validation_results))
+
         lines.append("")
         lines.append("FINAL VERDICT")
         lines.append("-" * 80)
@@ -202,6 +206,34 @@ class TextReportWriter(IReportWriter):
         lines.append(f"Detailed line-by-line audit: {details_filename}")
         lines.append("=" * 80)
         return "\n".join(lines) + "\n"
+
+    @staticmethod
+    def _grading_section(validation_results: list[ValidationResult]) -> list[str]:
+        """Summary of the grading modules (`--grade`); their full output sits in
+        the run directory, next to this report."""
+        graded = [vr for vr in validation_results
+                  if (vr.details or {}).get("grading_kind")]
+        if not graded:
+            return []
+        lines = ["", "PHASE 3: GRADING", "-" * 80]
+        for vr in graded:
+            d = vr.details or {}
+            icon = "✅" if vr.passed else "❌"
+            lines.append(f"{icon} {vr.name}: {vr.message}")
+            metrics = d.get("metrics") or {}
+            for diagram in ("structural", "behavioral"):
+                block = metrics.get(diagram)
+                if not isinstance(block, dict):
+                    continue
+                parts = [f"gate={block.get('gate')}"]
+                for key in ("recall", "precision", "f1"):
+                    value = block.get(key)
+                    parts.append(f"{key}={value:.3f}" if isinstance(value, (int, float))
+                                 else f"{key}={value}")
+                lines.append(f"  [{diagram.upper()}] " + " | ".join(parts))
+            if d.get("grading_dir"):
+                lines.append(f"  Results: {str(d['grading_dir']).replace(chr(92), '/')}")
+        return lines
 
     def _build_details(
         self,
@@ -221,6 +253,8 @@ class TextReportWriter(IReportWriter):
 
         for vr in validation_results:
             d = vr.details or {}
+            if d.get("grading_kind"):
+                continue
             syntax_audits = d.get("syntax_audits", [])
             struct_audit = next((a for a in syntax_audits if a.get("is_structural")), None)
             behave_audit = next((a for a in syntax_audits if a.get("is_behavioral")), None)

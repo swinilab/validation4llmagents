@@ -30,10 +30,13 @@ DIAGRAMS = ("structural", "behavioral")
 # Requirements section; `sweep_models` / `threshold_models` are ours (§9.2).
 _CONFIG_KEYS = {
     "embedding_model", "embedding_revision", "pooling", "normalize_embeddings",
-    "manual_default", "judge_model", "judge_temperature", "kappa_sample_size",
-    "kappa_accept", "random_seed",
+    "manual_default", "judge_model", "judge_temperature", "judge_max_attempts",
+    "kappa_sample_size", "kappa_accept", "random_seed",
     "threshold_models", "sweep_models", "syntax_gate", "kappa_pool",
 }
+
+# Keys this section reads from the shared `gold:` mapping of config.yaml.
+_GOLD_KEYS = {"structural", "behavioral", "domain"}
 
 # `dedup_threshold` is deliberately not read by this section (§5.3, §9.2): its
 # absence must be deliberate rather than forgotten, so supplying it aborts.
@@ -99,6 +102,10 @@ def load_config(path: str | Path) -> dict:
         raise ConfigError(
             f"{path}: threshold_models {config['threshold_models']} must appear in "
             f"sweep_models {sweep}, so the primary threshold is part of the sweep")
+    attempts = config["judge_max_attempts"]
+    if isinstance(attempts, bool) or not isinstance(attempts, int) or attempts < 1:
+        raise ConfigError(
+            f"{path}: judge_max_attempts must be an integer >= 1; got {attempts!r}")
     if config["syntax_gate"] not in _SYNTAX_GATE_VALUES:
         raise ConfigError(
             f"{path}: syntax_gate must be one of {sorted(_SYNTAX_GATE_VALUES)}; "
@@ -108,6 +115,33 @@ def load_config(path: str | Path) -> dict:
             f"{path}: kappa_pool must be one of {sorted(_KAPPA_POOL_VALUES)}; "
             f"got {config['kappa_pool']!r}")
     return config
+
+
+def load_gold_paths(path: str | Path) -> dict[str, Path]:
+    """Resolve the shared `gold:` section of `config.yaml`.
+
+    Every grading module finds its gold standard and domain input here, so a
+    path is changed in one place. Relative paths are taken from the directory
+    of the config file. Keys other modules own are left alone.
+    """
+    path = Path(path)
+    if not path.is_file():
+        raise ConfigError(f"config file not found: {path}")
+    raw = _require_mapping(yaml.safe_load(path.read_text(encoding="utf-8")), str(path))
+    section = _require_mapping(raw.get("gold"), f"{path}:gold")
+
+    missing = sorted(_GOLD_KEYS - set(section))
+    if missing:
+        raise ConfigError(f"{path}: gold is missing required key(s): {missing}")
+
+    resolved: dict[str, Path] = {}
+    for key in sorted(_GOLD_KEYS):
+        target = Path(section[key])
+        target = target if target.is_absolute() else path.parent / target
+        if not target.is_file():
+            raise ConfigError(f"{path}: gold.{key} file not found: {target}")
+        resolved[key] = target
+    return resolved
 
 
 def load_rules(path: str | Path) -> dict:

@@ -9,17 +9,13 @@ agent:
   type: "direct_api"
 
   # ollama
-  # model: "qwen2.5-coder:7b"
-  # api_key: "ollama"
-  # api_base: "http://localhost:11434/v1"
-
-  # openrouter
-  model: "gpt-oss-120b"
-  api_base: "https://openrouter.ai/api/v1"
+  model: "gpt-oss:120b"
+  api_key: ""
+  api_base: "https://ollama.com/v1"
 
   temperature: 0.2
-  prompt_template: "materials/M1-prompt.md"       # path to the generation prompt
-  prompt_inputs: "materials/G1a-prompt-inputs.json"   # path to the prompt inputs JSON file
+  prompt_template: "materials/M1-prompt-GUIDE.md"       # path to the generation prompt
+  prompt_inputs: "materials/M1a-transformation.json"   # path to the prompt inputs JSON file
   generated_dir: "generated"
   # max_tokens: 16384                             # DO NOT ENABLE
   timeout: 1800                                    # generation HTTP timeout in seconds (default: 30 minutes)
@@ -118,6 +114,15 @@ judge_temperature: 0
 kappa_sample_size: 30
 kappa_accept: 0.60
 random_seed: 20261024
+judge_max_attempts: 3             # calls per element while the reply does not parse
+
+# ── Gold standards (shared by every grading module) ───────────────────────
+# One place for every gold / domain-input path; modules read it from here.
+# Relative paths are taken from this file's directory.
+gold:
+  structural: materials/G2-structural-model.puml
+  behavioral: materials/G3-behavioral-model.puml
+  domain: materials/domain-requirements.md   # rubric traceability input
 
 # ── M2 grading: models section (models spec §9.2) ─────────────────────────
 # --- thresholds, models section ---

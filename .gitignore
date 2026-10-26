@@ -22,5 +22,5 @@ grading.md
 m2-req-grading-spec.md
 m2-model-grading-spec.md
 *:Zone.Identifier
-GradingModels/run/
 .grading-tmp/
+config.yaml

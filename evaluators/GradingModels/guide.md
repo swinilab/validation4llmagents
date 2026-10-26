@@ -4,6 +4,19 @@ Tài liệu này dành cho người **chưa biết gì** về module `GradingMod
 bạn sẽ biết: module này để làm gì, các khái niệm cần biết, cách chạy lần đầu, cách
 đọc kết quả, và cách xử lý khi pipeline "dừng lại chờ bạn".
 
+> **Cập nhật đường dẫn (đọc trước):** module không còn giữ workspace riêng. Các
+> ví dụ bên dưới dùng cách chạy và đường dẫn cũ; hãy đổi như sau:
+>
+> | Cũ | Mới |
+> |---|---|
+> | `--run-id <id>` (đọc `submissions/<id>/`) | `--submission <thư mục chứa 2 file .puml> --out <thư mục RUN>` |
+> | `evaluators/GradingModels/run/<id>/` | `<RUN>/grading_models/run/` |
+> | `evaluators/GradingModels/review/<id>/` | `<RUN>/grading_models/review/` (không còn nằm trong git) |
+> | `gold/G2-…`, `gold/G3-…`, `gold/domain-requirements.md` | mục `gold:` trong `config.yaml` (hiện trỏ vào `materials/`) |
+>
+> Từ pipeline chính: `uv run main.py --phase val --grade models`. Chi tiết ở
+> [README.md](README.md).
+
 > Các tài liệu khác trong thư mục này dành cho người đã quen:
 > - [README.md](README.md) — tóm tắt kỹ thuật, bố cục mã nguồn.
 > - [workflow.md](workflow.md) — sơ đồ luồng chi tiết.

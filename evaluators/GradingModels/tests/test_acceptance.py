@@ -88,10 +88,10 @@ def test_01c_gold_transitions_match_the_table(gold_behavioral_text, rules):
 # --- 2. Identity -----------------------------------------------------------
 
 @pytest.fixture(scope="module")
-def identity_run(gold_structural_text, gold_behavioral_text):
+def identity_run(gold_structural_text, gold_behavioral_text, tmp_path_factory):
     """One shared identity run: grading gold against itself."""
     from .conftest import Harness
-    item = Harness("test-identity-shared")
+    item = Harness("test-identity-shared", tmp_path_factory.mktemp("identity"))
     item.cleanup()
     item.write(gold_structural_text, gold_behavioral_text)
     completed = item.run()

@@ -18,7 +18,7 @@ try:
 except ImportError:
     pass
 
-from workflow import run_pipeline
+from workflow_pipeline import run_pipeline
 from workflow_factory import build
 
 
@@ -31,6 +31,13 @@ def _parse_args() -> argparse.Namespace:
         choices=["gen", "val", "all"],
         default="all",
         help="Pipeline phase to execute: gen (generation), val (validation), or all.",
+    )
+    parser.add_argument(
+        "--grade",
+        nargs="+",
+        choices=["models"],
+        default=[],
+        help="Grading modules to run after validation (results go into the run dir).",
     )
     parser.add_argument(
         "--run-id",
@@ -59,6 +66,7 @@ def main() -> None:
         phase=args.phase,
         run_id=args.run_id,
         prompt_file=args.prompt_file,
+        grade=args.grade,
     )
 
 

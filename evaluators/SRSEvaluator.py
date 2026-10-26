@@ -64,9 +64,12 @@ class SRSEvaluator(IValidator):
             )
 
         # 3. Prepare target evaluation directories matching the research methodology diagram
-        gradebook_dir = workspace / "gradebook"
-        completeness_dir = workspace / "completeness"
-        correctness_dir = workspace / "correctness"
+        # Results go next to the generator's output (the RUN dir), never into
+        # the generated workspace itself.
+        out_root = Path(generation.output_dir) if generation.output_dir else workspace
+        gradebook_dir = out_root / "gradebook"
+        completeness_dir = out_root / "completeness"
+        correctness_dir = out_root / "correctness"
         struct_syntax_dir = correctness_dir / "struct_syntax"
         behave_syntax_dir = correctness_dir / "behave_syntax"
         vmx_integrity_dir = correctness_dir / "vmx_referential_integrity"
@@ -76,7 +79,7 @@ class SRSEvaluator(IValidator):
 
         details: dict[str, Any] = {
             "workspace": str(workspace),
-            "run_dir": str(workspace),
+            "run_dir": str(out_root),
             "diagrams_found": [p.name for p in all_diagrams],
         }
 
