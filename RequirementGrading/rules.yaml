@@ -1,0 +1,50 @@
+# --- closed vocabularies (§7.3) ---
+status_sets:
+  order:   [submitted, pending, filled, shipped, closed]
+  invoice: [issued, paid]
+  payment: [pending, completed, failed]
+payment_methods: [bank, card, cash]
+roles: [Customer, OrderStaff, Accountant]
+roles_case_sensitive: true
+
+cardinality_phrases:
+  canonical: [at most one, at least one, exactly one, any number of]
+  aliases:
+    no more than one: at most one
+    zero or one: at most one
+    no fewer than one: at least one
+
+# --- polarity (§7.2); reject is tested first ---
+polarity:
+  reject:
+    - '\brejects?\b'
+    - '\bleaves\b[^.]*\bunchanged\b'
+    - '\bremains? unchanged\b'
+    - '\bregisters no\b'
+    - '\bdoes not\b'
+    - '\bcannot\b'
+    - '\bis not (allowed|permitted|accepted)\b'
+  accept:
+    - '\bsets\b[^.]*\bto\b'
+    - '\brecords?\b'
+    - '\bstores?\b'
+    - '\baccepts?\b'
+    - '\bregisters\b'
+    - '\bis set to\b'
+
+# --- numeric extraction (§7.4) ---
+numeric:
+  units: ['%', seconds, s, minutes, months, users, submissions, items]
+  direction_markers: [at least, at most, within, up to, no more than, no fewer than, exceeds]
+  literals: ['TLS 1.2']
+
+# --- transition extraction (§7.3, sub-check 2a) ---
+transition_pattern: 'from\s+(STATUS)\s+to\s+(STATUS)'
+entity_nouns: [order, invoice, payment]
+
+# --- text normalization (§4.2) ---
+normalization:
+  strip_markdown_chars: ['*', '_', '`']
+  collapse_whitespace: true
+  strip_trailing_period: true
+  lowercase: false                # must stay false; roles are case-sensitive

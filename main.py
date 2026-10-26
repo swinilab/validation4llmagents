@@ -12,13 +12,19 @@ for _stream in (sys.stdout, sys.stderr):
     except (AttributeError, ValueError):
         pass
 
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
 from workflow import run_pipeline
 from workflow_factory import build
 
 
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="SWELAB Empirical Study Pipeline (ChatDev + Ollama & Stage 1 Validation)"
+        description="SWELAB Empirical Study Pipeline (ChatDev + Ollama & Validation)"
     )
     parser.add_argument(
         "--phase",

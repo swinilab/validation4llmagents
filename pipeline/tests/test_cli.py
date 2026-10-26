@@ -1,4 +1,4 @@
-"""Tests for the Stage 1 batch runner and CLI.
+"""Tests for the pipeline batch runner and CLI.
 
 Covers the source presets, the schema error messages, the metadata sidecar and
 the guarantee that running twice produces byte-identical output.
@@ -12,9 +12,9 @@ from pathlib import Path
 
 import pytest
 
-from pipeline.stage1.cli import SOURCES, SUFFIXES, Stage1InputError, main, run_stage1
-from pipeline.stage1.config import Stage1ConfigError
-from pipeline.stage1.normalize import STAGE1_VERSION
+from pipeline.cli import SOURCES, SUFFIXES, InputError, Stage1InputError, main, run_pipeline_cli, run_stage1
+from pipeline.config import ConfigError, Stage1ConfigError
+from pipeline.normalize import PIPELINE_VERSION, STAGE1_VERSION
 
 
 def _read_csv(path: Path) -> list[dict[str, str]]:
@@ -24,8 +24,8 @@ def _read_csv(path: Path) -> list[dict[str, str]]:
 
 @pytest.fixture()
 def out_dir(repo_root: Path, tmp_path_factory) -> Path:
-    """A scratch output directory *inside* the repo, since Stage 1 refuses to leave it."""
-    directory = repo_root / "pipeline" / "stage1" / "artifact" / "_test_tmp"
+    """A scratch output directory *inside* the repo, since the pipeline refuses to leave it."""
+    directory = repo_root / "pipeline" / "artifact" / "_test_tmp"
     directory.mkdir(parents=True, exist_ok=True)
     yield directory
     for item in directory.iterdir():

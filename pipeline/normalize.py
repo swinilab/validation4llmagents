@@ -32,11 +32,13 @@ from typing import Any, Iterable, Sequence
 
 import yaml
 
-from .config import Stage1Config, Stage1ConfigError, load_config
+from .config import ConfigError, PipelineConfig, Stage1Config, Stage1ConfigError, load_config
 
-STAGE1_VERSION = "1.3.0"
+PIPELINE_VERSION = "1.3.0"
+STAGE1_VERSION = PIPELINE_VERSION
 
 __all__ = [
+    "PIPELINE_VERSION",
     "STAGE1_VERSION",
     "NEGATION_CUES",
     "NON_NEGATING_PHRASES",
@@ -191,21 +193,21 @@ def _load_nlp(model_name: str):
     try:
         import spacy
     except ImportError as exc:  # pragma: no cover - dependency missing
-        raise Stage1ConfigError(
-            "spaCy is required by Stage 1. Install it with: "
-            "pip install -r pipeline/stage1/requirements.txt"
+        raise ConfigError(
+            "spaCy is required by the pipeline. Install it with: "
+            "pip install -r pipeline/requirements.txt"
         ) from exc
     try:
         return spacy.load(model_name)
     except OSError as exc:
-        raise Stage1ConfigError(
+        raise ConfigError(
             f"spaCy model '{model_name}' is not installed. Install it with: "
-            "pip install -r pipeline/stage1/requirements.txt"
+            "pip install -r pipeline/requirements.txt"
         ) from exc
 
 
 @lru_cache(maxsize=1)
-def _default_config() -> Stage1Config:
+def _default_config() -> PipelineConfig:
     return load_config()
 
 
@@ -230,7 +232,8 @@ class Normalized:
         negation_cues: The surface cues that matched, in sentence order.
         tokens: Per-token detail: ``text``, ``lemma``, ``pos``, ``kept``, and
             ``reason_removed`` when the token was dropped.
-        stage1_version: :data:`STAGE1_VERSION` at the time of the call.
+        pipeline_version: :data:`PIPELINE_VERSION` at the time of the call.
+        stage1_version: Backward compatibility alias for ``pipeline_version``.
     """
 
     raw: str
@@ -240,7 +243,11 @@ class Normalized:
     negation_scope: str
     negation_cues: list[str]
     tokens: list[dict]
-    stage1_version: str
+    pipeline_version: str = PIPELINE_VERSION
+
+    @property
+    def stage1_version(self) -> str:
+        return self.pipeline_version
 
 
 # --------------------------------------------------------------------------
@@ -266,7 +273,7 @@ def _masked_for_cues(text: str, non_negating: Sequence[str]) -> str:
     return masked
 
 
-def _detect_negation(text: str, cfg: Stage1Config) -> tuple[bool, list[str]]:
+def _detect_negation(text: str, cfg: PipelineConfig) -> tuple[bool, list[str]]:
     """Find negation cues on the raw sentence.
 
     Returns ``(has_cue, cues)`` where ``cues`` are the matched surface forms in
@@ -289,7 +296,7 @@ def _detect_negation(text: str, cfg: Stage1Config) -> tuple[bool, list[str]]:
     return bool(cues), cues
 
 
-def _non_negating_token_spans(doc, cfg: Stage1Config) -> set[int]:
+def _non_negating_token_spans(doc, cfg: PipelineConfig) -> set[int]:
     """Token indices covered by a non-negating phrase such as "no more than".
 
     Scope resolution runs on the parse, so the surface mask of
@@ -367,7 +374,7 @@ def _is_main_clause(token, root) -> bool:
     return False
 
 
-def _negation_scope(doc, cfg: Stage1Config) -> str:
+def _negation_scope(doc, cfg: PipelineConfig) -> str:
     """Decide whether a negation cue reaches the sentence's main predicate.
 
     Returns :data:`SCOPE_MAIN`, :data:`SCOPE_SUBORDINATE` or
@@ -495,7 +502,7 @@ def _is_root_copula(token, root) -> bool:
     return root is not None and token.i == root.i and token.pos_ == "AUX"
 
 
-def _lemma_for(token, cfg: Stage1Config) -> str:
+def _lemma_for(token, cfg: PipelineConfig) -> str:
     """Lemma used in ``normalized`` for a non-negation token.
 
     Verbs and auxiliaries are lemmatized **unless** they are participial
@@ -519,7 +526,7 @@ def _lemma_for(token, cfg: Stage1Config) -> str:
 
 def _normalize_impl(
     text: str,
-    cfg: Stage1Config,
+    cfg: PipelineConfig,
     *,
     is_label: bool,
 ) -> Normalized:
@@ -546,7 +553,7 @@ def _normalize_impl(
             negation_scope=SCOPE_NONE,
             negation_cues=cues,
             tokens=[],
-            stage1_version=STAGE1_VERSION,
+            pipeline_version=PIPELINE_VERSION,
         )
 
     with _NLP_LOCK:
@@ -646,11 +653,11 @@ def _normalize_impl(
         negation_scope=scope,
         negation_cues=cues,
         tokens=tokens,
-        stage1_version=STAGE1_VERSION,
+        pipeline_version=PIPELINE_VERSION,
     )
 
 
-def normalize(text: str, cfg: Stage1Config | None = None) -> Normalized:
+def normalize(text: str, cfg: PipelineConfig | None = None) -> Normalized:
     """Normalize a full sentence or requirement statement.
 
     Args:
@@ -658,18 +665,17 @@ def normalize(text: str, cfg: Stage1Config | None = None) -> Normalized:
         cfg: Effective config; the repository ``config.yaml`` is used when None.
 
     Returns:
-        A :class:`Normalized` result. Stage 1 makes no matching decision.
+        A :class:`Normalized` result. The pipeline makes no matching decision.
     """
     return _normalize_impl(text, cfg or _default_config(), is_label=False)
 
 
-def normalize_label(label: str, cfg: Stage1Config | None = None) -> Normalized:
+def normalize_label(label: str, cfg: PipelineConfig | None = None) -> Normalized:
     """Normalize a short diagram label or identifier.
 
     Differs from :func:`normalize` in one way: the first meaningful token is
     never removed, so a label such as ``Can`` or ``The Order`` keeps its head
-    word. No actor stripping is attempted - that belongs to Stage 2. Guard brackets
-    (``[stock available]``) are dropped as punctuation.
+    word. Guard brackets (``[stock available]``) are dropped as punctuation.
     """
     return _normalize_impl(label, cfg or _default_config(), is_label=True)
 
@@ -678,7 +684,11 @@ def library_versions() -> dict[str, str]:
     """Versions of the libraries whose behavior affects the output."""
     import platform
 
-    versions = {"python": platform.python_version(), "stage1": STAGE1_VERSION}
+    versions = {
+        "python": platform.python_version(),
+        "pipeline": PIPELINE_VERSION,
+        "stage1": STAGE1_VERSION,
+    }
     try:
         import spacy
 
@@ -692,15 +702,15 @@ def library_versions() -> dict[str, str]:
     return versions
 
 
-def model_version(cfg: Stage1Config) -> str:
+def model_version(cfg: PipelineConfig) -> str:
     """Version of the loaded spaCy pipeline, for the metadata sidecar."""
     try:
         return str(_load_nlp(cfg.spacy_model).meta.get("version", "unknown"))
-    except Stage1ConfigError:  # pragma: no cover
+    except ConfigError:  # pragma: no cover
         return "unknown"
 
 
-def iter_normalized(texts: Iterable[str], cfg: Stage1Config | None = None) -> list[Normalized]:
+def iter_normalized(texts: Iterable[str], cfg: PipelineConfig | None = None) -> list[Normalized]:
     """Normalize many strings with one config, in order."""
     effective = cfg or _default_config()
     return [_normalize_impl(t, effective, is_label=False) for t in texts]

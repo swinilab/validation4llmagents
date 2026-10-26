@@ -34,12 +34,14 @@ from typing import Any, Sequence
 
 from .config import (
     REPO_ROOT,
+    ConfigError,
+    PipelineConfig,
     Stage1Config,
     Stage1ConfigError,
     load_config,
     resolve_output_path,
 )
-from .normalize import STAGE1_VERSION
+from .normalize import PIPELINE_VERSION, STAGE1_VERSION
 
 __all__ = [
     "PARSE_CHECK_VERSION",
@@ -370,7 +372,7 @@ def _structural_check(text: str, kind: str) -> tuple[list[RuleResult], list[Viol
 # --- PlantUML invocation -------------------------------------------------
 
 
-def _plantuml_command(cfg: Stage1Config) -> list[str]:
+def _plantuml_command(cfg: PipelineConfig) -> list[str]:
     """Build the PlantUML command from config.
 
     Supports either a ``plantuml`` executable on PATH or a jar run through
@@ -384,15 +386,15 @@ def _plantuml_command(cfg: Stage1Config) -> list[str]:
             jar = REPO_ROOT / jar
         if not jar.is_file():
             raise PlantUmlNotAvailable(
-                f"PlantUML jar not found: {jar}. Set stage1.parse_check.plantuml_jar "
+                f"PlantUML jar not found: {jar}. Set pipeline.parse_check.plantuml_jar "
                 f"in config.yaml, or install a 'plantuml' executable and set "
-                f"stage1.parse_check.plantuml_cmd."
+                f"pipeline.parse_check.plantuml_cmd."
             )
         return [settings.java_cmd, "-jar", str(jar)]
     return [settings.plantuml_cmd]
 
 
-def _run_plantuml(cfg: Stage1Config, path: Path) -> tuple[bool, str | None]:
+def _run_plantuml(cfg: PipelineConfig, path: Path) -> tuple[bool, str | None]:
     """Run ``-checkonly`` on one file.
 
     Returns:
@@ -419,7 +421,7 @@ def _run_plantuml(cfg: Stage1Config, path: Path) -> tuple[bool, str | None]:
     except FileNotFoundError as exc:
         raise PlantUmlNotAvailable(
             f"Cannot run PlantUML ({command[0]!r} not found): {exc}. "
-            f"Install PlantUML or set stage1.parse_check.plantuml_jar in config.yaml."
+            f"Install PlantUML or set pipeline.parse_check.plantuml_jar in config.yaml."
         ) from exc
     except subprocess.TimeoutExpired as exc:
         raise PlantUmlNotAvailable(
@@ -560,12 +562,12 @@ def _calculate_component_metrics(
     return 0, 0, 0.0
 
 
-def check_diagram(path: Path, cfg: Stage1Config) -> DiagramResult:
+def check_diagram(path: Path, cfg: PipelineConfig) -> DiagramResult:
     """Check one ``.puml`` file: syntax plus the structural rules.
 
     Args:
         path: The diagram. Opened read-only.
-        cfg: Effective Stage 1 config.
+        cfg: Effective pipeline config.
 
     Returns:
         A :class:`DiagramResult`; a failing diagram is reported, not raised.
@@ -612,14 +614,14 @@ def check_diagram(path: Path, cfg: Stage1Config) -> DiagramResult:
 def render_diagram_png(
     path: Path,
     out_dir: Path,
-    cfg: Stage1Config,
+    cfg: PipelineConfig,
 ) -> list[Path]:
     """Render one diagram to PNG format in ``out_dir``.
 
     Args:
         path: Path to the .puml diagram.
         out_dir: Destination directory. Must resolve inside the repository.
-        cfg: Effective Stage 1 configuration.
+        cfg: Effective pipeline configuration.
 
     Returns:
         A list of generated PNG paths.
@@ -744,7 +746,7 @@ def run_parse_check(
     run_id: str,
     diagrams: Sequence[str | Path],
     out_path: str | Path | None = None,
-    cfg: Stage1Config | None = None,
+    cfg: PipelineConfig | None = None,
     export_png: bool = False,
     png_dir: str | Path | None = None,
 ) -> dict[str, Any]:
@@ -755,7 +757,7 @@ def run_parse_check(
             output are treated identically.
         diagrams: The ``.puml`` files to check.
         out_path: Output JSON. Defaults to
-            ``pipeline/stage1/artifact/<run_id>__parse_check.json``. Must
+            ``pipeline/artifact/<run_id>__parse_check.json``. Must
             resolve inside the repository.
         cfg: Effective config; loaded from ``config.yaml`` when None.
         export_png: Render valid diagrams to .png images.
@@ -767,7 +769,7 @@ def run_parse_check(
     Raises:
         ParseCheckError: On bad arguments or an unreadable diagram.
         PlantUmlNotAvailable: If PlantUML could not be run.
-        Stage1ConfigError: If ``out_path`` or ``png_dir`` resolves outside the repository.
+        ConfigError: If ``out_path`` or ``png_dir`` resolves outside the repository.
     """
     if not run_id or not str(run_id).strip():
         raise ParseCheckError("run_id must be a non-empty label.")
@@ -869,7 +871,7 @@ def _resolve_json_output(out_path: str | Path | None, run_id: str) -> Path:
 
 def _write_meta(
     out_path: Path,
-    cfg: Stage1Config,
+    cfg: PipelineConfig,
     run_id: str,
     results: Sequence[DiagramResult],
     png_exported: bool = False,
@@ -878,6 +880,7 @@ def _write_meta(
     """Write the ``.meta.json`` sidecar, following the normalize convention."""
     meta_path = out_path.with_name(out_path.name + ".meta.json")
     meta = {
+        "pipeline_version": PIPELINE_VERSION,
         "stage1_version": STAGE1_VERSION,
         "parse_check_version": PARSE_CHECK_VERSION,
         "config": cfg.parse_check.as_dict(),
@@ -898,9 +901,9 @@ def _write_meta(
 
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        prog="python -m pipeline.stage1.parse_check",
+        prog="python -m pipeline.parse_check",
         description=(
-            "Stage 1 - metric 7 (Diagram Validity). Checks PlantUML diagrams "
+            "Pipeline - metric 7 (Diagram Validity). Checks PlantUML diagrams "
             "for syntax (plantuml -checkonly) and structural rules PV-01..PV-04, "
             "and optionally exports rendered .png diagrams. "
             "An invalid diagram is recorded and exits 0; non-zero means the "
@@ -921,7 +924,7 @@ def _build_parser() -> argparse.ArgumentParser:
         dest="out_path",
         help=(
             "Output .json file. Defaults to "
-            "pipeline/stage1/artifact/<run-id>__parse_check.json. Must be "
+            "pipeline/artifact/<run-id>__parse_check.json. Must be "
             "inside the repository."
         ),
     )
@@ -930,7 +933,7 @@ def _build_parser() -> argparse.ArgumentParser:
         dest="png_dir",
         help=(
             "Output directory for rendered .png diagrams. Defaults to "
-            "pipeline/stage1/artifact/<run-id>__png/ when --export-png is used. "
+            "pipeline/artifact/<run-id>__png/ when --export-png is used. "
             "Must be inside the repository."
         ),
     )
@@ -940,7 +943,7 @@ def _build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Export rendered .png files for valid diagrams.",
     )
-    parser.add_argument("--config", help="Path to a config.yaml holding the stage1 section.")
+    parser.add_argument("--config", help="Path to a config.yaml holding the pipeline section.")
     return parser
 
 
@@ -951,7 +954,7 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     try:
         cfg = load_config(args.config)
-    except Stage1ConfigError as exc:
+    except ConfigError as exc:
         print(f"parse_check config error: {exc}", file=sys.stderr)
         return EXIT_USAGE
 
@@ -968,7 +971,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         # Distinct exit code: the tool is missing, the diagrams are not judged.
         print(f"parse_check tool error: {exc}", file=sys.stderr)
         return EXIT_TOOL
-    except (ParseCheckError, Stage1ConfigError) as exc:
+    except (ParseCheckError, ConfigError) as exc:
         print(f"parse_check error: {exc}", file=sys.stderr)
         return EXIT_USAGE
 

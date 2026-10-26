@@ -1,4 +1,4 @@
-"""Shared fixtures for the Stage 1 test suite."""
+"""Shared fixtures for the pipeline test suite."""
 
 from __future__ import annotations
 
@@ -7,14 +7,14 @@ from pathlib import Path
 
 import pytest
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
+REPO_ROOT = Path(__file__).resolve().parents[2]
 FIXTURES = Path(__file__).resolve().parent / "fixtures"
 
-# Allow `pytest pipeline/stage1/tests` from the repository root without install.
+# Allow `pytest pipeline/tests` from the repository root without install.
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from pipeline.stage1.config import load_config  # noqa: E402
+from pipeline.config import load_config  # noqa: E402
 
 
 def normalize_ws(text: str) -> str:
@@ -24,7 +24,7 @@ def normalize_ws(text: str) -> str:
 
 @pytest.fixture(scope="session")
 def cfg():
-    """The effective Stage 1 config for this repository."""
+    """The effective pipeline config for this repository."""
     return load_config()
 
 
@@ -42,14 +42,14 @@ def repo_root() -> Path:
 def artifact_tmp(repo_root: Path):
     """A scratch output directory inside the repo.
 
-    Stage 1 refuses to write outside the checkout, so tests cannot use
+    Pipeline refuses to write outside the checkout, so tests cannot use
     ``tmp_path`` for module *output*. Cleaned up afterwards.
     """
     import shutil
     import uuid
 
     directory = (
-        repo_root / "pipeline" / "stage1" / "artifact" / f"_test_{uuid.uuid4().hex[:8]}"
+        repo_root / "pipeline" / "artifact" / f"_test_{uuid.uuid4().hex[:8]}"
     )
     directory.mkdir(parents=True, exist_ok=True)
     try:

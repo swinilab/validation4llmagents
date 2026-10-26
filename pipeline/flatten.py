@@ -23,6 +23,8 @@ from typing import Any, Mapping, Sequence
 
 from .config import (
     ARTIFACT_DIR,
+    ConfigError,
+    PipelineConfig,
     REPO_ROOT,
     Stage1Config,
     Stage1ConfigError,
@@ -30,7 +32,7 @@ from .config import (
     resolve_output_path,
     sha256_of,
 )
-from .normalize import STAGE1_VERSION
+from .normalize import PIPELINE_VERSION, STAGE1_VERSION
 from .parse_check import detect_kind, inventory_allowed
 
 __all__ = [
@@ -294,7 +296,7 @@ def flatten_diagram(
     parse_check: Path | str | dict[str, Any] | None = None,
     tier_map: Path | str | None = None,
     force: bool = False,
-    cfg: Stage1Config | None = None,
+    cfg: PipelineConfig | None = None,
 ) -> tuple[Path, list[dict[str, str]]]:
     """Flatten one diagram file into a CSV element inventory.
 
@@ -305,7 +307,7 @@ def flatten_diagram(
         parse_check: Path or dict of parse_check result.
         tier_map: Optional tier mapping CSV.
         force: If True, bypass parse_check's inventory_allowed gate.
-        cfg: Optional Stage1Config.
+        cfg: Optional PipelineConfig.
 
     Returns:
         (resolved_output_path, rows)
@@ -355,7 +357,7 @@ def _write_flatten_meta(
     diagram_path: Path,
     kind: str,
     rows: Sequence[Mapping[str, str]],
-    cfg: Stage1Config | None,
+    cfg: PipelineConfig | None,
 ) -> Path:
     """Write provenance sidecar beside the output CSV."""
     meta_path = out_path.with_name(out_path.name + ".meta.json")
@@ -365,6 +367,7 @@ def _write_flatten_meta(
         counts[t] = counts.get(t, 0) + 1
 
     meta = {
+        "pipeline_version": PIPELINE_VERSION,
         "stage1_version": STAGE1_VERSION,
         "flatten_version": FLATTEN_VERSION,
         "kind": kind,
@@ -389,7 +392,7 @@ def run_flatten(
     parse_check: Path | str | dict[str, Any] | None = None,
     tier_map: Path | str | None = None,
     force: bool = False,
-    cfg: Stage1Config | None = None,
+    cfg: PipelineConfig | None = None,
 ) -> dict[str, Any]:
     """Batch flatten diagrams for a given run_id."""
     if not run_id or not str(run_id).strip():
@@ -441,7 +444,7 @@ def run_flatten(
 
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        prog="python -m pipeline.stage1.flatten",
+        prog="python -m pipeline.flatten",
         description="Stage 1: Flatten PlantUML diagrams into element CSV inventories.",
     )
     # Mode 1: single diagram
@@ -505,7 +508,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         parser.print_help(sys.stderr)
         return EXIT_USAGE
 
-    except (FlattenError, Stage1ConfigError) as exc:
+    except (FlattenError, ConfigError) as exc:
         print(f"flatten error: {exc}", file=sys.stderr)
         return EXIT_USAGE
 

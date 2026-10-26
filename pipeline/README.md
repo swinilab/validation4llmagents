@@ -38,7 +38,7 @@ For each normalized column `X`, Stage 1 adds:
 | `X__negation_scope` | `main`, `subordinate` or `none` — what the parser decided |
 | `X__negation_cues` | the surface cues that matched, in sentence order |
 
-Plus one `stage1_version` column per row.
+Plus `pipeline_version` and `stage1_version` columns per row.
 
 > **Breaking change in 1.1.0:** the single `X__negated` column is gone. It
 > conflated "a negation is present" with "the requirement is negative". Use
@@ -215,7 +215,7 @@ structural rule passes.
 One or more `.puml` files plus a `run_id`:
 
 ```bash
-python -m pipeline.stage1.parse_check --run-id RUN01 \
+python -m pipeline.parse_check --run-id RUN01 \
   --diagram materials/M4-gold-v0.2/gold/gold-class.puml \
   --diagram materials/M4-gold-v0.2/gold/gold-activity.puml
 ```
@@ -224,8 +224,8 @@ python -m pipeline.stage1.parse_check --run-id RUN01 \
 | --- | --- |
 | `--run-id` | Opaque label. Not interpreted. |
 | `--diagram` | A `.puml` file. Repeat for several. |
-| `--out` | Output JSON. Default `pipeline/stage1/artifact/<run-id>__parse_check.json`. |
-| `--config` | A `config.yaml` holding the `stage1:` section. |
+| `--out` | Output JSON. Default `pipeline/artifact/<run-id>__parse_check.json`. |
+| `--config` | A `config.yaml` holding the `pipeline:` section. |
 
 ### Outputs
 
@@ -238,8 +238,8 @@ python -m pipeline.stage1.parse_check --run-id RUN01 \
 the helper rather than re-deriving the rules:
 
 ```python
-from pipeline.stage1.parse_check import inventory_allowed
-if inventory_allowed("pipeline/stage1/artifact/RUN01__parse_check.json", "gold-class.puml"):
+from pipeline.parse_check import inventory_allowed
+if inventory_allowed("pipeline/artifact/RUN01__parse_check.json", "gold-class.puml"):
     ...  # safe to extract an inventory from this diagram
 ```
 

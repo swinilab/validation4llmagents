@@ -1,9 +1,9 @@
-"""Configuration for Stage 1 (text normalization).
+"""Configuration for the normalization and analysis pipeline.
 
-Defaults live here; a repository ``config.yaml`` may override them under an
-``stage1:`` section. No absolute paths are hard-coded: every path in the config is
-resolved relative to the repository root, which is discovered by walking up
-from this file.
+Defaults live here; a repository ``config.yaml`` may override them under a
+``pipeline:`` section (or legacy ``stage1:`` section). No absolute paths are
+hard-coded: every path in the config is resolved relative to the repository
+root, which is discovered by walking up from this file.
 """
 
 from __future__ import annotations
@@ -15,14 +15,15 @@ from typing import Any, Mapping
 
 import yaml
 
-# Repository root = three levels up from this file (pipeline/stage1/config.py).
-REPO_ROOT = Path(__file__).resolve().parents[2]
+# Repository root = two levels up from this file (pipeline/config.py).
+REPO_ROOT = Path(__file__).resolve().parents[1]
 
-# The Stage 1 module directory, and the directory Stage 1 writes its outputs to when
-# --out is not given. Both stay inside the repository: Stage 1 never writes to /tmp
+# The pipeline module directory, and the directory pipeline writes its outputs to when
+# --out is not given. Both stay inside the repository: pipeline never writes to /tmp
 # or anywhere outside the checkout.
-STAGE1_DIR = Path(__file__).resolve().parent
-ARTIFACT_DIR = STAGE1_DIR / "artifact"
+PIPELINE_DIR = Path(__file__).resolve().parent
+ARTIFACT_DIR = PIPELINE_DIR / "artifact"
+STAGE1_DIR = PIPELINE_DIR  # Backward compatibility alias
 
 DEFAULT_CONFIG_FILENAME = "config.yaml"
 
@@ -43,8 +44,12 @@ DEFAULT_MODALS: tuple[str, ...] = (
 # a negation cue, and since 1.1.0 negation cues are always kept (see README).
 DEFAULT_ARTICLES: tuple[str, ...] = ("a", "an", "the")
 
-class Stage1ConfigError(RuntimeError):
-    """Raised when the Stage 1 configuration cannot be used."""
+
+class ConfigError(RuntimeError):
+    """Raised when the pipeline configuration cannot be used."""
+
+
+Stage1ConfigError = ConfigError  # Backward compatibility alias
 
 
 # Default location of the PlantUML jar, relative to the repository root. The
@@ -84,8 +89,8 @@ class ParseCheckConfig:
 
 
 @dataclass(frozen=True)
-class Stage1Config:
-    """Effective Stage 1 configuration.
+class PipelineConfig:
+    """Effective pipeline configuration.
 
     Attributes:
         modals: Modal verbs removed from ``normalized``.
@@ -118,6 +123,9 @@ class Stage1Config:
             data[key] = list(data[key])
         data["parse_check"] = self.parse_check.as_dict()
         return data
+
+
+Stage1Config = PipelineConfig  # Backward compatibility alias
 
 
 # Phrases that contain a negation cue but express a bound or a fixed
@@ -161,13 +169,13 @@ def resolve_output_path(out: str | Path | None, in_path: str | Path | None = Non
         An absolute path inside the repository.
 
     Raises:
-        Stage1ConfigError: If the resolved path lies outside the repository. Stage 1
+        ConfigError: If the resolved path lies outside the repository. The pipeline
             writes only inside the checkout, so ``/tmp`` and other external
             locations are refused rather than silently redirected.
     """
     if out is None:
-        stem = Path(in_path).stem if in_path else "stage1_output"
-        resolved = (ARTIFACT_DIR / f"{stem}__stage1.csv").resolve()
+        stem = Path(in_path).stem if in_path else "pipeline_output"
+        resolved = (ARTIFACT_DIR / f"{stem}__normalized.csv").resolve()
     else:
         candidate = Path(out)
         resolved = (candidate if candidate.is_absolute() else Path.cwd() / candidate).resolve()
@@ -175,9 +183,9 @@ def resolve_output_path(out: str | Path | None, in_path: str | Path | None = Non
     try:
         resolved.relative_to(REPO_ROOT)
     except ValueError:
-        raise Stage1ConfigError(
+        raise ConfigError(
             f"Refusing to write outside the repository: {resolved}. "
-            f"Stage 1 writes only inside {REPO_ROOT}; omit --out to use the default "
+            f"Pipeline writes only inside {REPO_ROOT}; omit --out to use the default "
             f"{_relative_to_repo(ARTIFACT_DIR)}/ directory."
         ) from None
     return resolved
@@ -198,7 +206,7 @@ def _as_str_tuple(value: Any, default: tuple[str, ...], key: str) -> tuple[str, 
     if value is None:
         return default
     if isinstance(value, str) or not isinstance(value, (list, tuple)):
-        raise Stage1ConfigError(f"stage1.{key} in config.yaml must be a list of strings.")
+        raise ConfigError(f"pipeline.{key} in config.yaml must be a list of strings.")
     return tuple(str(item).strip().lower() for item in value if str(item).strip())
 
 
@@ -207,7 +215,7 @@ def _sub_section(value: Any, key: str) -> dict[str, Any]:
     if value is None:
         return {}
     if not isinstance(value, dict):
-        raise Stage1ConfigError(f"stage1.{key} in config.yaml must be a mapping.")
+        raise ConfigError(f"pipeline.{key} in config.yaml must be a mapping.")
     return dict(value)
 
 
@@ -221,15 +229,15 @@ def _parse_check_config(raw: Any) -> ParseCheckConfig:
     elif isinstance(extra, (list, tuple)):
         extra_args = tuple(str(item) for item in extra)
     else:
-        raise Stage1ConfigError("stage1.parse_check.extra_args must be a list of strings.")
+        raise ConfigError("pipeline.parse_check.extra_args must be a list of strings.")
     try:
         timeout = int(section.get("timeout_seconds", defaults.timeout_seconds))
     except (TypeError, ValueError):
-        raise Stage1ConfigError(
-            "stage1.parse_check.timeout_seconds must be an integer number of seconds."
+        raise ConfigError(
+            "pipeline.parse_check.timeout_seconds must be an integer number of seconds."
         ) from None
     if timeout <= 0:
-        raise Stage1ConfigError("stage1.parse_check.timeout_seconds must be positive.")
+        raise ConfigError("pipeline.parse_check.timeout_seconds must be positive.")
     return ParseCheckConfig(
         plantuml_jar=str(section.get("plantuml_jar", defaults.plantuml_jar) or ""),
         plantuml_cmd=str(section.get("plantuml_cmd", defaults.plantuml_cmd)),
@@ -243,40 +251,42 @@ def _parse_check_config(raw: Any) -> ParseCheckConfig:
 def load_config(
     config_path: Path | str | None = None,
     overrides: Mapping[str, Any] | None = None,
-) -> Stage1Config:
+) -> PipelineConfig:
     """Build the effective config from ``config.yaml`` plus ``overrides``.
 
     Args:
         config_path: Explicit config file. When None, the nearest
             ``config.yaml`` at or above the repository root is used if present.
-        overrides: Values applied on top of the file's ``Stage 1`` section.
+        overrides: Values applied on top of the file's ``pipeline`` section.
 
     Returns:
-        The effective, frozen :class:`Stage1Config`.
+        The effective, frozen :class:`PipelineConfig`.
 
     Raises:
-        Stage1ConfigError: If the file is unreadable or a value has the wrong type.
+        ConfigError: If the file is unreadable or a value has the wrong type.
     """
     section: dict[str, Any] = {}
     path = Path(config_path) if config_path else find_repo_config()
     if path is not None:
         if not path.is_file():
-            raise Stage1ConfigError(f"Config file not found: {path}")
+            raise ConfigError(f"Config file not found: {path}")
         try:
             loaded = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
         except yaml.YAMLError as exc:  # pragma: no cover - malformed config
-            raise Stage1ConfigError(f"Cannot parse {path}: {exc}") from exc
+            raise ConfigError(f"Cannot parse {path}: {exc}") from exc
         if not isinstance(loaded, dict):
-            raise Stage1ConfigError(f"{path} must contain a YAML mapping at the top level.")
-        raw_section = loaded.get("stage1") or {}
+            raise ConfigError(f"{path} must contain a YAML mapping at the top level.")
+        raw_section = loaded.get("pipeline")
+        if raw_section is None:
+            raw_section = loaded.get("stage1") or {}
         if not isinstance(raw_section, dict):
-            raise Stage1ConfigError(f"The stage1 section of {path} must be a mapping.")
+            raise ConfigError(f"The pipeline section of {path} must be a mapping.")
         section = dict(raw_section)
 
     if overrides:
         section.update(overrides)
 
-    return Stage1Config(
+    return PipelineConfig(
         parse_check=_parse_check_config(section.get("parse_check")),
         modals=_as_str_tuple(section.get("modals"), DEFAULT_MODALS, "modals"),
         articles=_as_str_tuple(section.get("articles"), DEFAULT_ARTICLES, "articles"),

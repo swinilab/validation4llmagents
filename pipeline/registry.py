@@ -23,12 +23,13 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
 
-from .config import Stage1Config, load_config
+from .config import PipelineConfig, Stage1Config, load_config
 
 __all__ = [
     "ANALYZERS",
     "AnalyzerSpec",
     "build_analyzer",
+    "build_analyzers",
     "build_stage1_analyzers",
     "available_metrics",
 ]
@@ -48,10 +49,10 @@ class AnalyzerSpec:
     name: str
     metric: int
     title: str
-    build: Callable[[Stage1Config], Callable[..., dict[str, Any]]]
+    build: Callable[[PipelineConfig], Callable[..., dict[str, Any]]]
 
 
-def _build_parse_check(cfg: Stage1Config) -> Callable[..., dict[str, Any]]:
+def _build_parse_check(cfg: PipelineConfig) -> Callable[..., dict[str, Any]]:
     """Return a bound parse_check runner."""
     from .parse_check import run_parse_check
 
@@ -81,7 +82,7 @@ def available_metrics() -> dict[str, int]:
 
 
 def build_analyzer(
-    name: str, cfg: Stage1Config | None = None
+    name: str, cfg: PipelineConfig | None = None
 ) -> Callable[..., dict[str, Any]]:
     """Instantiate one registered analyzer by name.
 
@@ -97,13 +98,13 @@ def build_analyzer(
     """
     if name not in ANALYZERS:
         raise KeyError(
-            f"Unknown Stage 1 analyzer {name!r}. "
+            f"Unknown analyzer {name!r}. "
             f"Registered: {', '.join(sorted(ANALYZERS))}."
         )
     return ANALYZERS[name].build(cfg or load_config())
 
 
-def build_stage1_analyzers(
+def build_analyzers(
     config: Mapping[str, Any] | str | Path | None = None,
 ) -> dict[str, Callable[..., dict[str, Any]]]:
     """Instantiate every registered analyzer.
@@ -113,21 +114,25 @@ def build_stage1_analyzers(
     path to a config file, or None for the default.
 
     Args:
-        config: A mapping holding a ``stage1`` section, a path to a config
-            file, or None.
+        config: A mapping holding a ``pipeline`` (or legacy ``stage1``) section,
+            a path to a config file, or None.
 
     Returns:
         Module name -> bound runner, for every registered analyzer.
     """
     if isinstance(config, Mapping):
-        # A pipeline_config.yaml mapping: the stage1 settings may be nested
-        # under 'stage1', in which case load_config applies them as overrides.
+        # A pipeline_config.yaml mapping: settings may be nested under 'pipeline' or 'stage1'
         from .config import load_config as _load
 
-        section = config.get("stage1")
+        section = config.get("pipeline")
+        if section is None:
+            section = config.get("stage1")
         cfg = _load(None, section if isinstance(section, Mapping) else None)
     elif config is None:
         cfg = load_config()
     else:
         cfg = load_config(config)
     return {name: spec.build(cfg) for name, spec in sorted(ANALYZERS.items())}
+
+
+build_stage1_analyzers = build_analyzers  # Backward compatibility alias

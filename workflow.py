@@ -2,7 +2,7 @@
 
 Executes:
   1. Generation: calls generation agent with specified prompt template
-  2. Evaluation: runs Stage 1 diagram validity, flattening, and quality checks
+  2. Evaluation: runs diagram validity, flattening, and quality checks
   3. Report: writes consolidated execution report
 """
 
@@ -25,7 +25,7 @@ for _stream in (sys.stdout, sys.stderr):
 
 def _read_prompt(cfg: dict[str, Any], prompt_override: str | None = None) -> str:
     workdir = Path(cfg.get("workdir", "."))
-    rel_path = prompt_override or cfg.get("agent", {}).get("prompt_template", "prompts/v1.0.md")
+    rel_path = prompt_override or cfg.get("agent", {}).get("prompt_template", "materials/M1-prompt.md")
     full_path = (workdir / rel_path).resolve()
 
     if not full_path.is_file():
@@ -83,9 +83,9 @@ def run_validation(
     run_id: str,
 ) -> list[ValidationResult]:
     print(f"\n==================================================")
-    print(f"  PHASE 2: EVALUATION (Stage 1 SRS & Diagram Checks)")
+    print(f"  PHASE 2: EVALUATION (SRS & Diagram Checks)")
     print(f"==================================================")
-    result = components.stage1_validator.validate(generation, run_id=run_id)
+    result = components.validator.validate(generation, run_id=run_id)
 
     status_icon = "✅" if result.passed else "❌"
     status_text = "passed" if result.passed else "failed"
@@ -160,7 +160,7 @@ def run_pipeline(
             validation_results = [
                 ValidationResult(
                     stage=1,
-                    name="Stage 1 (Diagram & SRS Validity)",
+                    name="Diagram & SRS Validity",
                     passed=False,
                     message=f"Skipped due to generation failure ({generation.status})",
                     details={"generation_metadata": generation.metadata},
@@ -184,7 +184,12 @@ def run_pipeline(
         run_id=run_id,
     )
 
+    details_path = getattr(components.report_writer, "_details_path", None)
     if all_passed:
         print(f"  ✅ Complete → {report_path}")
+        if details_path:
+            print(f"  📄 Details  → {details_path}")
     else:
         print(f"  ⚠️ Completed with issues → {report_path}")
+        if details_path:
+            print(f"  📄 Details  → {details_path}")

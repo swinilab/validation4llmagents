@@ -9,7 +9,7 @@ agent:
   type: "direct_api"
 
   # ollama
-  # model: "qwen3.5:27b"
+  # model: "qwen2.5-coder:7b"
   # api_key: "ollama"
   # api_base: "http://localhost:11434/v1"
 
@@ -18,8 +18,8 @@ agent:
   api_base: "https://openrouter.ai/api/v1"
 
   temperature: 0.2
-  prompt_template: "prompts/M1-prompt.md"       # path to the generation prompt
-  prompt_inputs: "prompts/prompt_inputs.json"   # path to the prompt inputs JSON file
+  prompt_template: "materials/M1-prompt.md"       # path to the generation prompt
+  prompt_inputs: "materials/G1a-prompt-inputs.json"   # path to the prompt inputs JSON file
   generated_dir: "generated"
   max_tokens: 16384                             # prevent truncated output for large SRS + JSON
   timeout: 1800                                    # generation HTTP timeout in seconds (default: 30 minutes)
@@ -41,8 +41,8 @@ evaluator:
 output:
   report_dir: "generated/reports/"
 
-# ── Stage 1 analysis modules ──────────────────────────────────────────────
-stage1:
+# ── Pipeline analysis modules ──────────────────────────────────────────────
+pipeline:
   modals: [shall, must, should, will, can, may]
   articles: [a, an, the]
   singularize_nouns: false
@@ -70,3 +70,32 @@ stage1:
     layout_smetana: true # replacement for graphviz
     timeout_seconds: 60
     extra_args: []
+
+# ── Requirements Grading (M2) ───────────────────
+requirement_grading:
+  # --- embedding ---
+  embedding_model: "sentence-transformers/all-mpnet-base-v2"
+  embedding_revision: null          # pin before the real run; copied into manifest
+  pooling: "mean"
+  normalize_embeddings: true
+
+  # --- thresholds ---
+  threshold: 0.75                   # primary, reported in the paper body
+  sweep: [0.70, 0.75, 0.80, 0.85]   # sensitivity analysis; min() is review_threshold
+  dedup_threshold: 0.90             # intra-generation clustering
+
+  # --- matching policy ---
+  allow_cross_kind: false           # may a gold `ac` be covered by a generated `nfr`
+  manual_default: "not_covered"     # substitution used in provisional mode
+
+  # --- rubric and agreement ---
+  judge_model: null                 # pinned snapshot, e.g. gpt-4o-2024-08-06
+  judge_temperature: 0
+  kappa_sample_size: 30
+  kappa_accept: 0.60
+  random_seed: 20261024
+
+  # --- paths & gold count ---
+  gold_path: "materials/G1-requirements.json"
+  expected_gold_units: null         # null allows dynamic count (e.g. 59 or 70)
+

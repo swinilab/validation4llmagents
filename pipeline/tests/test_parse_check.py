@@ -14,8 +14,8 @@ from pathlib import Path
 
 import pytest
 
-from pipeline.stage1.config import ParseCheckConfig, Stage1ConfigError
-from pipeline.stage1.parse_check import (
+from pipeline.config import ConfigError, ParseCheckConfig, Stage1ConfigError
+from pipeline.parse_check import (
     EXIT_OK,
     EXIT_TOOL,
     EXIT_USAGE,
@@ -108,7 +108,7 @@ def plantuml_available(cfg) -> bool:
     """Whether PlantUML can actually be run in this environment."""
     jar = cfg.parse_check.plantuml_jar
     if jar:
-        from pipeline.stage1.config import REPO_ROOT
+        from pipeline.config import REPO_ROOT
 
         candidate = Path(jar)
         if not candidate.is_absolute():
@@ -228,7 +228,7 @@ def test_cli_returns_tool_exit_code_when_plantuml_missing(tmp_path, cfg, repo_ro
     path = _write(tmp_path, "c.puml", VALID_CLASS)
     config = tmp_path / "config.yaml"
     config.write_text(
-        "stage1:\n"
+        "pipeline:\n"
         "  parse_check:\n"
         "    plantuml_jar: ''\n"
         "    plantuml_cmd: definitely-not-a-real-plantuml-binary\n",
@@ -239,7 +239,7 @@ def test_cli_returns_tool_exit_code_when_plantuml_missing(tmp_path, cfg, repo_ro
             "--run-id", "TOOLMISSING",
             "--diagram", str(path),
             "--config", str(config),
-            "--out", str(repo_root / "pipeline" / "stage1" / "artifact"
+            "--out", str(repo_root / "pipeline" / "artifact"
                          / "_test_toolmissing.json"),
         ]
     )
@@ -385,7 +385,7 @@ def test_run_parse_check_invalid_diagram_skips_png(tmp_path, cfg, artifact_tmp, 
 
 def test_export_png_outside_repo_rejected(tmp_path, cfg, artifact_tmp):
     good = _write(tmp_path, "v.puml", VALID_CLASS)
-    with pytest.raises(Stage1ConfigError):
+    with pytest.raises(ConfigError):
         run_parse_check(
             "OUTSIDE",
             [good],

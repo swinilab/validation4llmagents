@@ -12,6 +12,12 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
 
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
 import requests
 from interfaces.base import GenerationResult, IGenerationAgent, Status
 

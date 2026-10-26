@@ -13,7 +13,7 @@ from pathlib import Path
 
 import pytest
 
-from pipeline.stage1.normalize import normalize
+from pipeline.normalize import normalize
 
 # The only gold row whose main predicate is negated.
 MAIN_NEGATED_ROWS: set[str] = {"GR-30"}

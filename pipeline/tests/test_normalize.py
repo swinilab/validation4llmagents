@@ -1,4 +1,4 @@
-"""Unit tests for Stage 1's normalization contract.
+"""Unit tests for the normalization contract.
 
 These cover determinism, identifier splitting, modal and article removal, label
 handling, and negation behavior.
@@ -8,8 +8,9 @@ from __future__ import annotations
 
 import pytest
 
-from pipeline.stage1.config import load_config
-from pipeline.stage1.normalize import (
+from pipeline.config import load_config
+from pipeline.normalize import (
+    PIPELINE_VERSION,
     STAGE1_VERSION,
     normalize,
     normalize_label,
@@ -17,6 +18,7 @@ from pipeline.stage1.normalize import (
 
 
 def test_version_is_current():
+    assert PIPELINE_VERSION == "1.3.0"
     assert STAGE1_VERSION == "1.3.0"
 
 

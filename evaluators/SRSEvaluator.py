@@ -1,4 +1,4 @@
-"""Stage 1 Evaluator for SRS and PlantUML diagrams."""
+"""SRS Evaluator for requirements and PlantUML diagrams."""
 
 from __future__ import annotations
 
@@ -11,24 +11,28 @@ from pathlib import Path
 from typing import Any
 
 from interfaces.base import GenerationResult, IValidator, Status, ValidationResult
-from pipeline.stage1.config import load_config
-from pipeline.stage1.flatten import run_flatten
-from pipeline.stage1.parse_check import run_parse_check
+from pipeline.config import load_config
+from pipeline.flatten import run_flatten
+from pipeline.parse_check import run_parse_check
 
 
-class Stage1Evaluator(IValidator):
-    """Evaluates generated requirements and UML diagrams using Stage 1 analysis suite."""
+class SRSEvaluator(IValidator):
+    """Evaluates generated requirements and UML diagrams using pipeline analysis suite."""
 
     def __init__(self, config: dict[str, Any] | None = None) -> None:
         self.config = config or {}
-        self.stage1_cfg = load_config()
+        self.pipeline_cfg = load_config()
+
+    @property
+    def stage1_cfg(self):
+        return self.pipeline_cfg
 
     def validate(self, generation: GenerationResult, run_id: str = "RUN01") -> ValidationResult:
         workspace = Path(generation.code)
         if not workspace.is_dir():
             return ValidationResult(
                 stage=1,
-                name="Stage 1 (Diagram & SRS Validity)",
+                name="Diagram & SRS Validity",
                 passed=False,
                 message=f"Workspace directory not found: {workspace}",
             )
@@ -44,16 +48,16 @@ class Stage1Evaluator(IValidator):
         all_diagrams = list(artifacts_dir.glob("*.puml"))
 
         if not structural_diagrams and all_diagrams:
-            from pipeline.stage1.parse_check import detect_kind, KIND_CLASS
+            from pipeline.parse_check import detect_kind, KIND_CLASS
             structural_diagrams = [p for p in all_diagrams if detect_kind(p.read_text(encoding="utf-8", errors="replace")) == KIND_CLASS]
         if not behavioral_diagrams and all_diagrams:
-            from pipeline.stage1.parse_check import detect_kind, KIND_ACTIVITY
+            from pipeline.parse_check import detect_kind, KIND_ACTIVITY
             behavioral_diagrams = [p for p in all_diagrams if detect_kind(p.read_text(encoding="utf-8", errors="replace")) == KIND_ACTIVITY]
 
         if not all_diagrams:
             return ValidationResult(
                 stage=1,
-                name="Stage 1 (Diagram & SRS Validity)",
+                name="Diagram & SRS Validity",
                 passed=False,
                 message=f"No PlantUML diagrams found in {artifacts_dir}",
                 details={"workspace": str(workspace)},
@@ -82,7 +86,7 @@ class Stage1Evaluator(IValidator):
             parse_result = run_parse_check(
                 run_id=run_id,
                 diagrams=all_diagrams,
-                cfg=self.stage1_cfg,
+                cfg=self.pipeline_cfg,
                 export_png=True,
                 out_path=parse_check_json_path,
                 png_dir=correctness_dir / "_temp_png",
@@ -103,10 +107,84 @@ class Stage1Evaluator(IValidator):
                         shutil.copy2(png_file, struct_syntax_dir / "structural.png")
                 shutil.rmtree(temp_png_dir, ignore_errors=True)
 
+            # Generate line-by-line syntax audit for each diagram
+            syntax_audits = []
+            for diag_info in parse_result.get("diagrams", []):
+                d_path_str = diag_info.get("path", "")
+                d_file = Path(d_path_str)
+                if not d_file.is_file():
+                    for cand in all_diagrams:
+                        if cand.name == d_file.name or str(cand).endswith(d_file.name):
+                            d_file = cand
+                            break
+
+                lines = d_file.read_text(encoding="utf-8", errors="replace").splitlines() if d_file.is_file() else []
+                violations = diag_info.get("violations", [])
+                viol_by_line: dict[int, list[str]] = {}
+                for v in violations:
+                    l_num = v.get("line")
+                    msg = f"[{v.get('rule_id', 'ERROR')}] {v.get('message', '')}"
+                    if l_num is not None:
+                        viol_by_line.setdefault(l_num, []).append(msg)
+                    else:
+                        viol_by_line.setdefault(0, []).append(msg)
+
+                line_records = []
+                for line_no, raw_line in enumerate(lines, start=1):
+                    clean_line = raw_line.rstrip()
+                    if line_no in viol_by_line:
+                        line_status = "FAIL"
+                        line_msg = "; ".join(viol_by_line[line_no])
+                    else:
+                        line_status = "PASS"
+                        line_msg = "-"
+                    line_records.append({
+                        "line": line_no,
+                        "text": clean_line,
+                        "status": line_status,
+                        "message": line_msg,
+                    })
+
+                d_kind = diag_info.get("kind", "unknown")
+                fname = d_file.name
+                is_struct = (d_kind == "class") or ("struct" in fname.lower()) or ("class" in fname.lower())
+                is_behave = (d_kind == "activity") or ("behave" in fname.lower()) or ("activity" in fname.lower())
+
+                audit_item = {
+                    "file_name": fname,
+                    "path": str(d_file),
+                    "kind": d_kind,
+                    "is_structural": is_struct,
+                    "is_behavioral": is_behave,
+                    "valid": diag_info.get("valid", False),
+                    "parse_ok": diag_info.get("parse_ok", False),
+                    "score": diag_info.get("component_score", 0.0),
+                    "correct_elements": diag_info.get("correct_elements", 0),
+                    "total_elements": diag_info.get("total_elements", 0),
+                    "syntax_components": diag_info.get("syntax_components", "0/0"),
+                    "syntax_error": diag_info.get("syntax_error"),
+                    "rules": diag_info.get("rules", []),
+                    "violations": violations,
+                    "general_errors": viol_by_line.get(0, []),
+                    "lines": line_records,
+                }
+                syntax_audits.append(audit_item)
+
+                if is_struct:
+                    (struct_syntax_dir / "syntax_audit.json").write_text(
+                        json.dumps(audit_item, indent=2), encoding="utf-8"
+                    )
+                if is_behave:
+                    (behave_syntax_dir / "syntax_audit.json").write_text(
+                        json.dumps(audit_item, indent=2), encoding="utf-8"
+                    )
+
+            details["syntax_audits"] = syntax_audits
+
         except Exception as exc:
             return ValidationResult(
                 stage=1,
-                name="Stage 1 (Diagram & SRS Validity)",
+                name="Diagram & SRS Validity",
                 passed=False,
                 message=f"Diagram parse_check error: {exc}",
                 details=details,
@@ -124,7 +202,7 @@ class Stage1Evaluator(IValidator):
                 class_puml=class_puml,
                 activity_puml=act_puml,
                 parse_check=parse_check_json_path if parse_check_json_path.is_file() else None,
-                cfg=self.stage1_cfg,
+                cfg=self.pipeline_cfg,
                 out_dir=flatten_temp_dir,
             )
             details["flatten"] = flatten_result
@@ -187,7 +265,7 @@ class Stage1Evaluator(IValidator):
         if not vmx_path.is_file():
             vmx_path = workspace / "VMX.csv"
 
-        dom_inputs_path = Path(self.config.get("agent", {}).get("prompt_inputs", "prompts/prompt_inputs.json"))
+        dom_inputs_path = Path(self.config.get("agent", {}).get("prompt_inputs", "materials/G1a-prompt-inputs.json"))
         if not dom_inputs_path.is_file():
             dom_inputs_path = Path("materials/G1a-prompt-inputs.json")
 
@@ -210,9 +288,12 @@ class Stage1Evaluator(IValidator):
                 body = [r for r in rows[1:] if any(v.strip() for v in r)]
                 complete, incomplete = 0, []
                 found, total, broken = 0, 0, []
-                for row in body:
+                row_audits = []
+
+                for row_idx, row in enumerate(body, start=1):
                     rid, src, st, bh = cells(row)[:4]
-                    if rid.startswith("NFR-"):
+                    is_nfr = rid.startswith("NFR-")
+                    if is_nfr:
                         ok = bool(src)
                         need = "Source"
                     else:
@@ -221,17 +302,77 @@ class Stage1Evaluator(IValidator):
                     complete += ok
                     if not ok:
                         incomplete.append(f"{rid} (needs {need})")
-                    for cell, vocab, label in (
-                        (src, source_vocab, "source"),
-                        (st, st_vocab, "structural"),
-                        (bh, bh_vocab, "behavioral"),
-                    ):
-                        for ref in filter(None, (v.strip() for v in cell.split(";"))):
-                            total += 1
-                            if ref in vocab:
-                                found += 1
-                            else:
-                                broken.append(f"{rid} [{label}] {ref!r}")
+
+                    src_refs = [v.strip() for v in src.split(";") if v.strip()]
+                    st_refs = [v.strip() for v in st.split(";") if v.strip()]
+                    bh_refs = [v.strip() for v in bh.split(";") if v.strip()]
+
+                    src_checks = []
+                    for ref in src_refs:
+                        total += 1
+                        valid = ref in source_vocab
+                        if valid:
+                            found += 1
+                        else:
+                            broken.append(f"{rid} [source] {ref!r}")
+                        src_checks.append({"ref": ref, "valid": valid})
+
+                    st_checks = []
+                    for ref in st_refs:
+                        total += 1
+                        valid = ref in st_vocab
+                        if valid:
+                            found += 1
+                        else:
+                            broken.append(f"{rid} [structural] {ref!r}")
+                        st_checks.append({"ref": ref, "valid": valid})
+
+                    bh_checks = []
+                    for ref in bh_refs:
+                        total += 1
+                        valid = ref in bh_vocab
+                        if valid:
+                            found += 1
+                        else:
+                            broken.append(f"{rid} [behavioral] {ref!r}")
+                        bh_checks.append({"ref": ref, "valid": valid})
+
+                    src_ok = all(c["valid"] for c in src_checks) if src_checks else (not is_nfr or bool(src))
+                    st_ok = all(c["valid"] for c in st_checks) if st_checks else True
+                    bh_ok = all(c["valid"] for c in bh_checks) if bh_checks else True
+
+                    row_pass = ok and all(c["valid"] for c in (src_checks + st_checks + bh_checks))
+
+                    reasons = []
+                    if not ok:
+                        reasons.append(f"Missing mapping (needs {need})")
+                    for c in src_checks:
+                        if not c["valid"]:
+                            reasons.append(f"[SRC] '{c['ref']}' not in domain inputs")
+                    for c in st_checks:
+                        if not c["valid"]:
+                            reasons.append(f"[STR] '{c['ref']}' not in structural model")
+                    for c in bh_checks:
+                        if not c["valid"]:
+                            reasons.append(f"[BEH] '{c['ref']}' not in behavioral model")
+
+                    row_audits.append({
+                        "row": row_idx,
+                        "req_id": rid,
+                        "passed": row_pass,
+                        "completeness_pass": ok,
+                        "completeness_need": need,
+                        "src_pass": src_ok,
+                        "st_pass": st_ok,
+                        "bh_pass": bh_ok,
+                        "has_src": bool(src_refs),
+                        "has_st": bool(st_refs),
+                        "has_bh": bool(bh_refs),
+                        "src_refs": src_checks,
+                        "st_refs": st_checks,
+                        "bh_refs": bh_checks,
+                        "detail": "; ".join(reasons) if reasons else "All references resolved",
+                    })
 
                 # Output into completeness/vmx_reqs_coverage.json
                 coverage_score = round(complete / len(body), 4) if body else 0.0
@@ -260,6 +401,9 @@ class Stage1Evaluator(IValidator):
                 (vmx_integrity_dir / "vmx_integrity.json").write_text(
                     json.dumps(vmx_correctness, indent=2), encoding="utf-8"
                 )
+                (vmx_integrity_dir / "vmx_row_audits.json").write_text(
+                    json.dumps(row_audits, indent=2), encoding="utf-8"
+                )
 
                 details["vmx"] = {
                     "rows": len(body),
@@ -271,6 +415,7 @@ class Stage1Evaluator(IValidator):
                     "incomplete": incomplete,
                     "broken": broken,
                     "missing": False,
+                    "row_audits": row_audits,
                 }
 
             except Exception as vmx_err:
@@ -313,6 +458,7 @@ class Stage1Evaluator(IValidator):
                 "incomplete": ["VMX.csv not found"],
                 "broken": ["VMX.csv not found"],
                 "missing": True,
+                "row_audits": [],
             }
 
         # 8. Load into Gradebook (gradebook/gradebook_<RUN_ID>.json)
@@ -364,8 +510,11 @@ class Stage1Evaluator(IValidator):
 
         return ValidationResult(
             stage=1,
-            name="Stage 1 (Diagram & SRS Validity)",
+            name="Diagram & SRS Validity",
             passed=passed,
             message=msg,
             details=details,
         )
+
+
+Stage1Evaluator = SRSEvaluator  # Backward compatibility alias

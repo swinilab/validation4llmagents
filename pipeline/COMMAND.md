@@ -1,11 +1,11 @@
-# Stage 1 — manual test commands
+# Pipeline — manual test commands
 
 Every command below was run against this checkout and its real output recorded.
 Copy-paste them in order to exercise the module by hand.
 
 The rules themselves, and the 1.1.0 changelog, are in [README.md](README.md).
 
-Stage 1 normalizes text and flags negation, and validates diagrams. **It never
+Pipeline normalizes text and flags negation, and validates diagrams. **It never
 decides whether two items match.**
 
 ---
@@ -37,14 +37,14 @@ Check the interpreter has what it needs:
 Expected: `3.8.7 6.0.3` and `3.8.0`. If either fails:
 
 ```bash
-uv pip install -r pipeline/stage1/requirements.txt
+uv pip install -r pipeline/requirements.txt
 uv pip install click        # spaCy's CLI needs it; not pulled in automatically
 ```
 
 Show the CLI contract:
 
 ```bash
-.venv/bin/python -m pipeline.stage1 --help
+.venv/bin/python -m pipeline --help
 ```
 
 ---
@@ -54,7 +54,7 @@ Show the CLI contract:
 Prints JSON to stdout and writes nothing. The fastest way to check behavior.
 
 ```bash
-.venv/bin/python -m pipeline.stage1 --source text \
+.venv/bin/python -m pipeline --source text \
   --text "The system shall not refund the payment."
 ```
 
@@ -66,23 +66,23 @@ Prints JSON to stdout and writes nothing. The fastest way to check behavior.
   "main_predicate_negated": true,
   "negation_scope": "main",
   "negation_cues": ["not"],
-  "stage1_version": "1.3.0"
+  "pipeline_version": "1.3.0"
 }
 ```
 
 ### The spec table, one command each
 
 ```bash
-STAGE1=".venv/bin/python -m pipeline.stage1 --source text --text"
+PIPELINE=".venv/bin/python -m pipeline --source text --text"
 
-$STAGE1 "The system shall not refund the payment."
-$STAGE1 "The system shall refund the payment."
-$STAGE1 "The system verifies current inventory levels."
-$STAGE1 "The system updates the order to a payment failed state."
-$STAGE1 "The Warehouse team hands the packages over to external carriers and updates the order to a shipped state."
-$STAGE1 "The carrier shipped the goods."
-$STAGE1 "A Customer can manually cancel an order only if it is in the placed state."
-$STAGE1 "The system shall sustain 2,000 concurrent user sessions with a request error rate of no more than 0.1%."
+$PIPELINE "The system shall not refund the payment."
+$PIPELINE "The system shall refund the payment."
+$PIPELINE "The system verifies current inventory levels."
+$PIPELINE "The system updates the order to a payment failed state."
+$PIPELINE "The Warehouse team hands the packages over to external carriers and updates the order to a shipped state."
+$PIPELINE "The carrier shipped the goods."
+$PIPELINE "A Customer can manually cancel an order only if it is in the placed state."
+$PIPELINE "The system shall sustain 2,000 concurrent user sessions with a request error rate of no more than 0.1%."
 ```
 
 Verified `normalized` / `negation_scope`:
@@ -107,12 +107,12 @@ The two things to look at:
 ### Negation cues
 
 ```bash
-$STAGE1 "The system shall store no unencrypted primary account numbers in any log."      # no
-$STAGE1 "... modifiable by no role."                                                     # no
-$STAGE1 "The system shall support a 3x increase without modification to code."           # without
-$STAGE1 "The system can never expose the primary account number."                        # never
-$STAGE1 "The order cannot be cancelled after picking."                                   # cannot
-$STAGE1 "The system doesn't retain the card number."                                     # n't
+$PIPELINE "The system shall store no unencrypted primary account numbers in any log."      # no
+$PIPELINE "... modifiable by no role."                                                     # no
+$PIPELINE "The system shall support a 3x increase without modification to code."           # without
+$PIPELINE "The system can never expose the primary account number."                        # never
+$PIPELINE "The order cannot be cancelled after picking."                                   # cannot
+$PIPELINE "The system doesn't retain the card number."                                     # n't
 ```
 
 Every one of those comes back `main_predicate_negated: true` except the last
@@ -121,9 +121,9 @@ Every one of those comes back `main_predicate_negated: true` except the last
 Not negation — these must come back `has_negation_cue: false`:
 
 ```bash
-$STAGE1 "A Customer can cancel an order only if it is in the placed state."   # "only if"
-$STAGE1 "The system halts the workflow when validation fails."                # "halts", "fails"
-$STAGE1 "... error rate of no more than 0.1%."                                # a bound
+$PIPELINE "A Customer can cancel an order only if it is in the placed state."   # "only if"
+$PIPELINE "The system halts the workflow when validation fails."                # "halts", "fails"
+$PIPELINE "... error rate of no more than 0.1%."                                # a bound
 ```
 
 ### Labels (`--label`)
@@ -131,10 +131,10 @@ $STAGE1 "... error rate of no more than 0.1%."                                # 
 Uses `normalize_label`: never drops the first token, never strips actors.
 
 ```bash
-.venv/bin/python -m pipeline.stage1 --source text --label --text "OrderLine"
-.venv/bin/python -m pipeline.stage1 --source text --label --text "payment_failed"
-.venv/bin/python -m pipeline.stage1 --source text --label --text "Validate payment"
-.venv/bin/python -m pipeline.stage1 --source text --label --text "[stock available]"
+.venv/bin/python -m pipeline --source text --label --text "OrderLine"
+.venv/bin/python -m pipeline --source text --label --text "payment_failed"
+.venv/bin/python -m pipeline --source text --label --text "Validate payment"
+.venv/bin/python -m pipeline --source text --label --text "[stock available]"
 ```
 
 | Input | `normalized` |
@@ -147,14 +147,14 @@ Uses `normalize_label`: never drops the first token, never strips actors.
 The difference `--label` makes — a head word that looks like an article:
 
 ```bash
-.venv/bin/python -m pipeline.stage1 --source text --label --text "The Order"   # -> "the order"
-.venv/bin/python -m pipeline.stage1 --source text         --text "The Order"   # -> "order"
+.venv/bin/python -m pipeline --source text --label --text "The Order"   # -> "the order"
+.venv/bin/python -m pipeline --source text         --text "The Order"   # -> "order"
 ```
 
 ### Value preservation
 
 ```bash
-$STAGE1 "Data shall use tls 1.2 and aes-256 over a 30-day window at 99.9% uptime."
+$PIPELINE "Data shall use tls 1.2 and aes-256 over a 30-day window at 99.9% uptime."
 ```
 
 `tls 1.2`, `aes-256`, `30-day` and `99.9%` all survive intact.
@@ -163,30 +163,30 @@ $STAGE1 "Data shall use tls 1.2 and aes-256 over a 30-day window at 99.9% uptime
 
 ## 2. Files — the four presets
 
-`--out` is optional. Omitted, output goes to `pipeline/stage1/artifact/` as
-`<input-stem>__stage1.csv`.
+`--out` is optional. Omitted, output goes to `pipeline/artifact/` as
+`<input-stem>__normalized.csv`.
 
 ```bash
-.venv/bin/python -m pipeline.stage1 --source gold-reqs \
+.venv/bin/python -m pipeline --source gold-reqs \
   --in materials/M4-gold-v0.2/gold/gold-requirements.csv
 
-.venv/bin/python -m pipeline.stage1 --source class-inv \
+.venv/bin/python -m pipeline --source class-inv \
   --in materials/M4-gold-v0.2/gold/gold-class-elements.csv
 
-.venv/bin/python -m pipeline.stage1 --source activity-inv \
+.venv/bin/python -m pipeline --source activity-inv \
   --in materials/M4-gold-v0.2/gold/gold-activity-elements.csv
 
-.venv/bin/python -m pipeline.stage1 --source reqs-json \
-  --in pipeline/stage1/tests/fixtures/requirements.json
+.venv/bin/python -m pipeline --source reqs-json \
+  --in pipeline/tests/fixtures/requirements.json
 ```
 
 Verified output:
 
 ```
-Stage 1 1.0.0: 49 rows  -> pipeline/stage1/artifact/gold-requirements__stage1.csv      (normalized: statement)
-Stage 1 1.0.0: 103 rows -> pipeline/stage1/artifact/gold-class-elements__stage1.csv    (normalized: canonical_name, detail)
-Stage 1 1.0.0: 44 rows  -> pipeline/stage1/artifact/gold-activity-elements__stage1.csv (normalized: verb, object, detail)
-Stage 1 1.0.0: 3 rows   -> pipeline/stage1/artifact/requirements__stage1.csv           (normalized: statement)
+Pipeline 1.0.0: 49 rows  -> pipeline/artifact/gold-requirements__normalized.csv      (normalized: statement)
+Pipeline 1.0.0: 103 rows -> pipeline/artifact/gold-class-elements__normalized.csv    (normalized: canonical_name, detail)
+Pipeline 1.0.0: 44 rows  -> pipeline/artifact/gold-activity-elements__normalized.csv (normalized: verb, object, detail)
+Pipeline 1.0.0: 3 rows   -> pipeline/artifact/requirements__normalized.csv           (normalized: statement)
 ```
 
 | `--source` | Format | Columns normalized |
@@ -199,15 +199,15 @@ Stage 1 1.0.0: 3 rows   -> pipeline/stage1/artifact/requirements__stage1.csv    
 On a real agent run:
 
 ```bash
-.venv/bin/python -m pipeline.stage1 --source reqs-json --in outputs/raw/RUN01/requirements.json
+.venv/bin/python -m pipeline --source reqs-json --in outputs/raw/RUN01/requirements.json
 ```
 
 ### A specific name, or JSONL
 
 ```bash
-.venv/bin/python -m pipeline.stage1 --source gold-reqs \
+.venv/bin/python -m pipeline --source gold-reqs \
   --in materials/M4-gold-v0.2/gold/gold-requirements.csv \
-  --out pipeline/stage1/artifact/gold_v2.jsonl
+  --out pipeline/artifact/gold_v2.jsonl
 ```
 
 A `.jsonl` extension switches the writer; anything else is CSV.
@@ -215,7 +215,7 @@ A `.jsonl` extension switches the writer; anything else is CSV.
 ### An explicit config
 
 ```bash
-.venv/bin/python -m pipeline.stage1 --source text --config config.yaml \
+.venv/bin/python -m pipeline --source text --config config.yaml \
   --text "The system shall refund the payment."
 ```
 
@@ -225,27 +225,27 @@ A `.jsonl` extension switches the writer; anything else is CSV.
 
 ```bash
 # the 5 added columns
-head -1 pipeline/stage1/artifact/gold-requirements__stage1.csv | tr ',' '\n' | tail -5
+head -1 pipeline/artifact/gold-requirements__normalized.csv | tr ',' '\n' | tail -5
 
 # row parity: 50 = 49 rows + header, both sides
 wc -l < materials/M4-gold-v0.2/gold/gold-requirements.csv
-wc -l < pipeline/stage1/artifact/gold-requirements__stage1.csv
+wc -l < pipeline/artifact/gold-requirements__normalized.csv
 
 # the metadata sidecar
-cat pipeline/stage1/artifact/gold-requirements__stage1.csv.meta.json
+cat pipeline/artifact/gold-requirements__normalized.csv.meta.json
 ```
 
 Added columns, verified:
 
 ```
 statement__normalized, statement__has_negation_cue, statement__main_predicate_negated,
-statement__negation_scope, statement__negation_cues, stage1_version
+statement__negation_scope, statement__negation_cues, pipeline_version
 ```
 
 `.meta.json` keys, verified:
 
 ```
-config, stage1_version, input, library_versions, row_count, source
+config, pipeline_version, input, library_versions, row_count, source
 ```
 
 Every statement carrying a negation cue, with the scope the parser assigned
@@ -254,7 +254,7 @@ Every statement carrying a negation cue, with the scope the parser assigned
 ```bash
 .venv/bin/python - <<'PY'
 import csv
-rows = list(csv.DictReader(open("pipeline/stage1/artifact/gold-requirements__stage1.csv", encoding="utf-8-sig")))
+rows = list(csv.DictReader(open("pipeline/artifact/gold-requirements__normalized.csv", encoding="utf-8-sig")))
 for r in rows:
     if r["statement__has_negation_cue"] == "true":
         print(r["gold_req_id"], "|", r["statement__negation_scope"],
@@ -272,7 +272,7 @@ PY
 ```bash
 G=materials/M4-gold-v0.2/gold/gold-requirements.csv
 sha256sum $G > /dev/shm/stage1_before
-.venv/bin/python -m pipeline.stage1 --source gold-reqs --in $G
+.venv/bin/python -m pipeline --source gold-reqs --in $G
 sha256sum -c /dev/shm/stage1_before && echo "INPUT UNCHANGED"
 ```
 
@@ -281,10 +281,10 @@ Verified: digest identical before and after (`5a8e1269b834ac77…`).
 ### Two runs are byte-identical
 
 ```bash
-.venv/bin/python -m pipeline.stage1 --source gold-reqs --in $G --out pipeline/stage1/artifact/det1.csv
-.venv/bin/python -m pipeline.stage1 --source gold-reqs --in $G --out pipeline/stage1/artifact/det2.csv
-cmp pipeline/stage1/artifact/det1.csv pipeline/stage1/artifact/det2.csv && echo "BYTE-IDENTICAL"
-rm pipeline/stage1/artifact/det1.csv* pipeline/stage1/artifact/det2.csv*
+.venv/bin/python -m pipeline --source gold-reqs --in $G --out pipeline/artifact/det1.csv
+.venv/bin/python -m pipeline --source gold-reqs --in $G --out pipeline/artifact/det2.csv
+cmp pipeline/artifact/det1.csv pipeline/artifact/det2.csv && echo "BYTE-IDENTICAL"
+rm pipeline/artifact/det1.csv* pipeline/artifact/det2.csv*
 ```
 
 Verified identical, 16 599 bytes.
@@ -292,16 +292,16 @@ Verified identical, 16 599 bytes.
 ### Nothing is written outside the repo
 
 ```bash
-.venv/bin/python -m pipeline.stage1 --source gold-reqs --in $G --out /tmp/stage1.csv    ; echo "exit=$?"
-.venv/bin/python -m pipeline.stage1 --source gold-reqs --in $G --out ../outside.csv ; echo "exit=$?"
+.venv/bin/python -m pipeline --source gold-reqs --in $G --out /tmp/stage1.csv    ; echo "exit=$?"
+.venv/bin/python -m pipeline --source gold-reqs --in $G --out ../outside.csv ; echo "exit=$?"
 ```
 
 Both refused with `exit=2`:
 
 ```
-Stage 1 error: Refusing to write outside the repository: /tmp/stage1.csv.
-Stage 1 writes only inside /home/swe/validation4llmagents; omit --out to use
-the default pipeline/stage1/artifact/ directory.
+Pipeline error: Refusing to write outside the repository: /tmp/stage1.csv.
+Pipeline writes only inside /home/swe/validation4llmagents; omit --out to use
+the default pipeline/artifact/ directory.
 ```
 
 ### Offline
@@ -309,7 +309,7 @@ the default pipeline/stage1/artifact/ directory.
 No network is used. To prove it, unset resolution and rerun:
 
 ```bash
-( unset http_proxy https_proxy; .venv/bin/python -m pipeline.stage1 --source gold-reqs --in $G )
+( unset http_proxy https_proxy; .venv/bin/python -m pipeline --source gold-reqs --in $G )
 ```
 
 ---
@@ -318,29 +318,29 @@ No network is used. To prove it, unset resolution and rerun:
 
 ```bash
 # missing required column
-.venv/bin/python -m pipeline.stage1 --source gold-reqs \
-  --in pipeline/stage1/tests/fixtures/bad-columns.csv ; echo "exit=$?"
+.venv/bin/python -m pipeline --source gold-reqs \
+  --in pipeline/tests/fixtures/bad-columns.csv ; echo "exit=$?"
 
 # input file does not exist
-.venv/bin/python -m pipeline.stage1 --source gold-reqs --in does/not/exist.csv ; echo "exit=$?"
+.venv/bin/python -m pipeline --source gold-reqs --in does/not/exist.csv ; echo "exit=$?"
 
 # unknown source
-.venv/bin/python -m pipeline.stage1 --source nope ; echo "exit=$?"
+.venv/bin/python -m pipeline --source nope ; echo "exit=$?"
 
 # missing arguments
-.venv/bin/python -m pipeline.stage1 --source text      ; echo "exit=$?"
-.venv/bin/python -m pipeline.stage1 --source gold-reqs ; echo "exit=$?"
+.venv/bin/python -m pipeline --source text      ; echo "exit=$?"
+.venv/bin/python -m pipeline --source gold-reqs ; echo "exit=$?"
 ```
 
 Verified:
 
 | Case | Exit | Message |
 |---|---|---|
-| missing column | `2` | `Stage 1 error: …bad-columns.csv: --source gold-reqs requires column(s) statement, which are not present. Columns found: gold_req_id, tier, requirement_text.` |
-| missing file | `2` | `Stage 1 error: Input file not found: does/not/exist.csv` |
+| missing column | `2` | `Pipeline error: …bad-columns.csv: --source gold-reqs requires column(s) statement, which are not present. Columns found: gold_req_id, tier, requirement_text.` |
+| missing file | `2` | `Pipeline error: Input file not found: does/not/exist.csv` |
 | unknown source | `2` | `argparse: invalid choice: 'nope'` |
-| `text` without `--text` | `2` | `Stage 1 error: --source text requires --text.` |
-| `gold-reqs` without `--in` | `2` | `Stage 1 error: --source gold-reqs requires --in.` |
+| `text` without `--text` | `2` | `Pipeline error: --source text requires --text.` |
+| `gold-reqs` without `--in` | `2` | `Pipeline error: --source gold-reqs requires --in.` |
 
 > **Careful reading exit codes through `wsl.exe` from PowerShell.** That wrapper
 > swallows `$?` and truncates stderr — a failing command appears to exit 0.
@@ -348,13 +348,13 @@ Verified:
 
 ---
 
-## 6. From Python (how Stage 2 calls Stage 1)
+## 6. From Python (how Stage 2 calls Pipeline)
 
 ```bash
 .venv/bin/python - <<'PY'
-from pipeline.stage1 import normalize, normalize_label, run_stage1, STAGE1_VERSION
+from pipeline import normalize, normalize_label, run_stage1, STAGE1_VERSION
 
-print("Stage 1", STAGE1_VERSION)
+print("Pipeline", STAGE1_VERSION)
 
 r = normalize("The system updates the order to a payment failed state.")
 print(r.normalized)       # system update order to payment failed state
@@ -372,7 +372,7 @@ print(normalize_label("OrderLine").normalized)   # order line
 for t in normalize("The system shall refund the payment.").tokens:
     print(f"  {t['text']:9s} {t['pos']:6s} kept={t['kept']!s:5s} {t.get('reason_removed','')}")
 
-# batch, without shelling out; out_path=None -> pipeline/stage1/artifact/
+# batch, without shelling out; out_path=None -> pipeline/artifact/
 print(run_stage1("gold-reqs", "materials/M4-gold-v0.2/gold/gold-requirements.csv"))
 PY
 ```
@@ -382,7 +382,7 @@ PY
 ## 7. From Windows PowerShell
 
 ```powershell
-wsl.exe -d Ubuntu -- bash -c 'cd /home/swe/validation4llmagents; PYTHONPATH=. .venv/bin/python -m pipeline.stage1 --source text --text "The system shall not refund the payment."'
+wsl.exe -d Ubuntu -- bash -c 'cd /home/swe/validation4llmagents; PYTHONPATH=. .venv/bin/python -m pipeline --source text --text "The system shall not refund the payment."'
 ```
 
 Works, but see the exit-code caveat in §5. Prefer a WSL shell for real testing.
@@ -391,11 +391,11 @@ Works, but see the exit-code caveat in §5. Prefer a WSL shell for real testing.
 
 ## 8. Tidying up
 
-`pipeline/stage1/artifact/` is gitignored except for its `.gitignore`, so generated
+`pipeline/artifact/` is gitignored except for its `.gitignore`, so generated
 files never reach a commit. To clear it:
 
 ```bash
-find pipeline/stage1/artifact -type f ! -name .gitignore -delete
+find pipeline/artifact -type f ! -name .gitignore -delete
 git status --short        # only the .gitignore should ever be tracked
 ```
 
@@ -403,11 +403,11 @@ git status --short        # only the .gitignore should ever be tracked
 
 ## Not yet available
 
-`pytest pipeline/stage1/tests` currently **collects nothing** — `conftest.py` and
+`pytest pipeline/tests` currently **collects nothing** — `conftest.py` and
 the fixtures exist, but the four test modules (`test_normalize.py`,
 `test_negation.py`, `test_states.py`, `test_cli.py`) are not written yet. Until
-they are, the commands above are the way to test Stage 1. The intended command:
+they are, the commands above are the way to test Pipeline. The intended command:
 
 ```bash
-.venv/bin/python -m pytest pipeline/stage1/tests -v
+.venv/bin/python -m pytest pipeline/tests -v
 ```

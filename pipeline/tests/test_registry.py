@@ -13,10 +13,11 @@ from pathlib import Path
 import pytest
 import yaml
 
-from pipeline.stage1.registry import (
+from pipeline.registry import (
     ANALYZERS,
     available_metrics,
     build_analyzer,
+    build_analyzers,
     build_stage1_analyzers,
 )
 
@@ -71,7 +72,7 @@ def test_registered_parse_check_runner_is_bound(cfg):
     assert callable(runner)
     # Calling with no diagrams is an argument error, which proves the config
     # is bound and the call reaches the module rather than failing earlier.
-    from pipeline.stage1.parse_check import ParseCheckError
+    from pipeline.parse_check import ParseCheckError
 
     with pytest.raises(ParseCheckError):
         runner("X", [])

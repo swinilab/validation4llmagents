@@ -21,13 +21,16 @@ from typing import Any, Iterable, Sequence
 
 from .config import (
     ARTIFACT_DIR,
+    ConfigError,
+    PipelineConfig,
+    REPO_ROOT,
     Stage1Config,
     Stage1ConfigError,
-    REPO_ROOT,
     load_config,
     resolve_output_path,
 )
 from .normalize import (
+    PIPELINE_VERSION,
     STAGE1_VERSION,
     SCOPE_NONE,
     Normalized,
@@ -37,11 +40,14 @@ from .normalize import (
     normalize_label,
 )
 
-__all__ = ["SOURCES", "SourcePreset", "run_stage1", "main"]
+__all__ = ["SOURCES", "SourcePreset", "InputError", "Stage1InputError", "run_pipeline_cli", "run_stage1", "main"]
 
 
-class Stage1InputError(RuntimeError):
+class InputError(RuntimeError):
     """Raised when an input file is missing a required column or is malformed."""
+
+
+Stage1InputError = InputError  # Backward compatibility alias
 
 
 @dataclass(frozen=True)
@@ -129,7 +135,7 @@ def _read_csv_rows(path: Path) -> tuple[list[str], list[dict[str, str]]]:
     with open(path, "r", encoding="utf-8-sig", newline="") as handle:
         reader = csv.DictReader(handle)
         if reader.fieldnames is None:
-            raise Stage1InputError(f"{path} is empty: no CSV header row found.")
+            raise InputError(f"{path} is empty: no CSV header row found.")
         fieldnames = list(reader.fieldnames)
         rows = [{k: ("" if v is None else v) for k, v in row.items() if k is not None}
                 for row in reader]
@@ -141,14 +147,14 @@ def _read_json_rows(path: Path) -> tuple[list[str], list[dict[str, Any]]]:
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
     except json.JSONDecodeError as exc:
-        raise Stage1InputError(f"{path} is not valid JSON: {exc}") from exc
+        raise InputError(f"{path} is not valid JSON: {exc}") from exc
     if not isinstance(data, list):
-        raise Stage1InputError(f"{path} must contain a JSON array of objects.")
+        raise InputError(f"{path} must contain a JSON array of objects.")
     fieldnames: list[str] = []
     rows: list[dict[str, Any]] = []
     for index, item in enumerate(data):
         if not isinstance(item, dict):
-            raise Stage1InputError(f"{path} element {index} is not a JSON object.")
+            raise InputError(f"{path} element {index} is not a JSON object.")
         for key in item:
             if key not in fieldnames:
                 fieldnames.append(key)
@@ -163,7 +169,7 @@ def _validate_columns(preset: SourcePreset, fieldnames: Sequence[str], path: Pat
     required one may not.
 
     Raises:
-        Stage1InputError: naming the missing column and the columns that are there.
+        InputError: naming the missing column and the columns that are there.
     """
     present = list(fieldnames)
     missing = [
@@ -172,7 +178,7 @@ def _validate_columns(preset: SourcePreset, fieldnames: Sequence[str], path: Pat
         if column not in present and column not in preset.optional_columns
     ]
     if missing:
-        raise Stage1InputError(
+        raise InputError(
             f"{path}: --source {preset.name} requires column(s) "
             f"{', '.join(missing)}, which are not present. "
             f"Columns found: {', '.join(present) or '(none)'}."
@@ -184,7 +190,7 @@ def _normalize_row(
     row: dict[str, Any],
     columns: Iterable[str],
     preset: SourcePreset,
-    cfg: Stage1Config,
+    cfg: PipelineConfig,
 ) -> dict[str, Any]:
     """Return the added output fields for one row."""
     added: dict[str, Any] = {}
@@ -226,10 +232,11 @@ def _write_jsonl(path: Path, fieldnames: Sequence[str], rows: Sequence[dict[str,
             handle.write("\n")
 
 
-def _write_meta(out_path: Path, cfg: Stage1Config, source: str, in_path: Path, row_count: int) -> Path:
+def _write_meta(out_path: Path, cfg: PipelineConfig, source: str, in_path: Path, row_count: int) -> Path:
     """Write the ``.meta.json`` sidecar next to the output."""
     meta_path = out_path.with_name(out_path.name + ".meta.json")
     meta = {
+        "pipeline_version": PIPELINE_VERSION,
         "stage1_version": STAGE1_VERSION,
         "library_versions": {**library_versions(), "spacy_model": model_version(cfg)},
         "config": cfg.as_dict(),
@@ -245,11 +252,11 @@ def _write_meta(out_path: Path, cfg: Stage1Config, source: str, in_path: Path, r
     return meta_path
 
 
-def run_stage1(
+def run_pipeline_cli(
     source: str,
     in_path: str | Path,
     out_path: str | Path | None = None,
-    cfg: Stage1Config | None = None,
+    cfg: PipelineConfig | None = None,
 ) -> dict[str, Any]:
     """Normalize one input file and write the output plus its metadata sidecar.
 
@@ -258,27 +265,27 @@ def run_stage1(
             ``class-inv``, ``activity-inv``).
         in_path: Input file. Opened read-only; never modified.
         out_path: Output file. ``.jsonl`` writes JSON Lines, anything else CSV.
-            When None, the output goes to ``pipeline/stage1/artifact/`` under a
+            When None, the output goes to ``pipeline/artifact/`` under a
             name derived from the input. Must resolve inside the repository.
         cfg: Effective config; loaded from ``config.yaml`` when None.
 
     Returns:
         A summary dict with ``rows``, ``columns_normalized``, ``out_path``,
-        ``meta_path`` and ``stage1_version``.
+        ``meta_path``, ``pipeline_version`` and ``stage1_version``.
 
     Raises:
-        Stage1InputError: On an unknown source, a missing file, or a missing column.
-        Stage1ConfigError: If ``out_path`` resolves outside the repository.
+        InputError: On an unknown source, a missing file, or a missing column.
+        ConfigError: If ``out_path`` resolves outside the repository.
     """
     if source not in SOURCES:
-        raise Stage1InputError(
+        raise InputError(
             f"Unknown --source '{source}'. Choose one of: "
             f"{', '.join(sorted(SOURCES))}, text."
         )
     preset = SOURCES[source]
     input_file = Path(in_path)
     if not input_file.is_file():
-        raise Stage1InputError(f"Input file not found: {input_file}")
+        raise InputError(f"Input file not found: {input_file}")
 
     effective = cfg or load_config()
 
@@ -295,6 +302,8 @@ def run_stage1(
             name = f"{column}{suffix}"
             if name not in out_fields:
                 out_fields.append(name)
+    if "pipeline_version" not in out_fields:
+        out_fields.append("pipeline_version")
     if "stage1_version" not in out_fields:
         out_fields.append("stage1_version")
 
@@ -302,10 +311,11 @@ def run_stage1(
     for row in rows:
         merged: dict[str, Any] = {k: ("" if v is None else v) for k, v in row.items()}
         merged.update(_normalize_row(row, columns, preset, effective))
+        merged["pipeline_version"] = PIPELINE_VERSION
         merged["stage1_version"] = STAGE1_VERSION
         out_rows.append(merged)
 
-    # Default to pipeline/stage1/artifact/ and refuse anything outside the repo.
+    # Default to pipeline/artifact/ and refuse anything outside the repo.
     output_file = resolve_output_path(out_path, input_file)
     output_file.parent.mkdir(parents=True, exist_ok=True)
     if output_file.suffix.lower() == ".jsonl":
@@ -319,16 +329,20 @@ def run_stage1(
         "columns_normalized": columns,
         "out_path": _display_path(output_file),
         "meta_path": _display_path(meta_path),
+        "pipeline_version": PIPELINE_VERSION,
         "stage1_version": STAGE1_VERSION,
     }
 
 
+run_stage1 = run_pipeline_cli  # Backward compatibility alias
+
+
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        prog="python -m pipeline.stage1",
+        prog="python -m pipeline",
         description=(
-            "Stage 1 - text normalization for the SRS-evaluation matching cascade. "
-            "Prepares strings for Stage 2/Stage 3; makes no matching decision."
+            "Pipeline - text normalization for the SRS-evaluation matching cascade. "
+            "Prepares strings for evaluation; makes no matching decision."
         ),
     )
     parser.add_argument(
@@ -343,8 +357,8 @@ def _build_parser() -> argparse.ArgumentParser:
         dest="out_path",
         help=(
             "Output .csv or .jsonl file. Defaults to "
-            "pipeline/stage1/artifact/<input-stem>__stage1.csv. Must be inside the "
-            "repository; Stage 1 never writes to /tmp or outside the checkout."
+            "pipeline/artifact/<input-stem>__normalized.csv. Must be inside the "
+            "repository; pipeline never writes to /tmp or outside the checkout."
         ),
     )
     parser.add_argument("--text", help="The string to normalize, with --source text.")
@@ -353,7 +367,7 @@ def _build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="With --source text, use normalize_label (short labels/identifiers).",
     )
-    parser.add_argument("--config", help="Path to a config.yaml holding the stage1 section.")
+    parser.add_argument("--config", help="Path to a config.yaml holding the pipeline section.")
     return parser
 
 
@@ -364,19 +378,19 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     try:
         cfg = load_config(args.config)
-    except Stage1ConfigError as exc:
-        print(f"Stage 1 config error: {exc}", file=sys.stderr)
+    except ConfigError as exc:
+        print(f"Pipeline config error: {exc}", file=sys.stderr)
         return 2
 
     if args.source == "text":
         if args.text is None:
-            print("Stage 1 error: --source text requires --text.", file=sys.stderr)
+            print("Pipeline error: --source text requires --text.", file=sys.stderr)
             return 2
         try:
             fn = normalize_label if args.label else normalize
             result = fn(args.text, cfg)
-        except Stage1ConfigError as exc:
-            print(f"Stage 1 config error: {exc}", file=sys.stderr)
+        except ConfigError as exc:
+            print(f"Pipeline config error: {exc}", file=sys.stderr)
             return 2
         payload = {
             "raw": result.raw,
@@ -385,22 +399,23 @@ def main(argv: Sequence[str] | None = None) -> int:
             "main_predicate_negated": result.main_predicate_negated,
             "negation_scope": result.negation_scope,
             "negation_cues": result.negation_cues,
+            "pipeline_version": result.pipeline_version,
             "stage1_version": result.stage1_version,
         }
         print(json.dumps(payload, indent=2, ensure_ascii=False))
         return 0
 
     if not args.in_path:
-        print(f"Stage 1 error: --source {args.source} requires --in.", file=sys.stderr)
+        print(f"Pipeline error: --source {args.source} requires --in.", file=sys.stderr)
         return 2
     try:
-        summary = run_stage1(args.source, args.in_path, args.out_path, cfg)
-    except (Stage1InputError, Stage1ConfigError) as exc:
-        print(f"Stage 1 error: {exc}", file=sys.stderr)
+        summary = run_pipeline_cli(args.source, args.in_path, args.out_path, cfg)
+    except (InputError, ConfigError) as exc:
+        print(f"Pipeline error: {exc}", file=sys.stderr)
         return 2
 
     print(
-        f"Stage 1 {summary['stage1_version']}: {summary['rows']} rows -> {summary['out_path']} "
+        f"Pipeline {summary['pipeline_version']}: {summary['rows']} rows -> {summary['out_path']} "
         f"(normalized: {', '.join(summary['columns_normalized'])}; "
         f"metadata: {summary['meta_path']})"
     )

@@ -1,7 +1,7 @@
-"""Stage 1 - text normalization, stage 1 of the SRS-evaluation matching cascade.
+"""Pipeline - text normalization and diagram verification for SRS evaluation.
 
-Stage 1 produces one canonical form of a string for downstream matching and
-checks diagram validity. It never decides whether two items match.
+The pipeline produces canonical forms of strings for downstream evaluation and
+checks diagram validity.
 
 See README.md for the normalization rules and the changelog, and COMMAND.md for
 copy-pasteable commands.
@@ -9,12 +9,15 @@ copy-pasteable commands.
 
 from .config import (
     ARTIFACT_DIR,
+    ConfigError,
     ParseCheckConfig,
+    PipelineConfig,
     Stage1Config,
     Stage1ConfigError,
     load_config,
 )
 from .normalize import (
+    PIPELINE_VERSION,
     STAGE1_VERSION,
     NEGATION_CUES,
     NON_NEGATING_PHRASES,
@@ -25,7 +28,13 @@ from .normalize import (
     normalize,
     normalize_label,
 )
-from .cli import SOURCES, run_stage1
+from .cli import (
+    SOURCES,
+    InputError,
+    Stage1InputError,
+    run_pipeline_cli,
+    run_stage1,
+)
 
 # parse_check is runnable with ``python -m``. Importing it
 # eagerly here would load each one twice - once as a package attribute, once as
@@ -58,16 +67,22 @@ def __getattr__(name: str):
 def __dir__() -> list[str]:
     return sorted({*globals(), *_LAZY_EXPORTS})
 
+
 __all__ = [
     "ARTIFACT_DIR",
     "PARSE_CHECK_VERSION",
     "STRUCTURAL_RULES",
+    "PIPELINE_VERSION",
     "STAGE1_VERSION",
     "ParseCheckConfig",
     "ParseCheckError",
     "PlantUmlNotAvailable",
+    "PipelineConfig",
+    "ConfigError",
     "Stage1Config",
     "Stage1ConfigError",
+    "InputError",
+    "Stage1InputError",
     "inventory_allowed",
     "run_parse_check",
     "NEGATION_CUES",
@@ -80,5 +95,6 @@ __all__ = [
     "load_config",
     "normalize",
     "normalize_label",
+    "run_pipeline_cli",
     "run_stage1",
 ]

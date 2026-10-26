@@ -12,15 +12,20 @@ import yaml
 from agents.gen import ChatDevGenerationAgent
 from interfaces.base import IGenerationAgent, IReportWriter, IValidator
 from report_writer import TextReportWriter
-from evaluators.Stage1Evaluator import Stage1Evaluator
+from evaluators.SRSEvaluator import SRSEvaluator, Stage1Evaluator
 
 
 @dataclass
 class PipelineComponents:
     generation_agent: IGenerationAgent
-    stage1_validator: IValidator
+    validator: IValidator
     report_writer: IReportWriter
     config: dict[str, Any]
+
+    @property
+    def stage1_validator(self) -> IValidator:
+        """Backward compatibility alias for validator."""
+        return self.validator
 
 
 def build(config_path: str = "config.yaml") -> PipelineComponents:
@@ -31,7 +36,7 @@ def build(config_path: str = "config.yaml") -> PipelineComponents:
 
     return PipelineComponents(
         generation_agent=ChatDevGenerationAgent(config=cfg),
-        stage1_validator=Stage1Evaluator(config=cfg),
+        validator=SRSEvaluator(config=cfg),
         report_writer=TextReportWriter(report_dir=report_dir),
         config=cfg,
     )
