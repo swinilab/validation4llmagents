@@ -1,0 +1,18 @@
+{
+  "structural": {
+    "validity": "n/a",
+    "accepted": 0,
+    "total": 0,
+    "parse_error": "structural.puml not found",
+    "rejections": [],
+    "gate": "missing"
+  },
+  "behavioral": {
+    "validity": "n/a",
+    "accepted": 0,
+    "total": 0,
+    "parse_error": "behavioral.puml not found",
+    "rejections": [],
+    "gate": "missing"
+  }
+}

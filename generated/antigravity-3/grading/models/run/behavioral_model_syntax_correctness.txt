@@ -1,0 +1,73 @@
+==================================================================================
+BEHAVIORAL MODEL SYNTAX CORRECTNESS (behavioral.puml)
+==================================================================================
+Gate: fail  |  Syntax validity: 0.875 (42/48 declarations accepted)
+
+Line  Status  Kind          Source                                         Message
+----------------------------------------------------------------------------------
+   1  -                     @startuml behavioral                           -
+   2  PASS    swimlane      |Customer|                                     -
+   3  PASS    initial       start                                          -
+   4  PASS    action        :Submit Order;                                 -
+   5  PASS    decision      if (Order submission valid?) then ([valid])    -
+   6  PASS    object_node   :Order [submitted];                            -
+   7  PASS    decision      else ([invalid])                               -
+   8  PASS    final         stop                                           -
+   9  PASS    merge         endif                                          -
+  10  -                                                                    -
+  11  PASS    swimlane      |OrderStaff|                                   -
+  12  PASS    action        :Receive Order;                                -
+  13  PASS    object_node   :Order [pending];                              -
+  14  -                                                                    -
+  15  PASS    decision      if (Order review?) then ([decline])            -
+  16  PASS    action        :Decline Order;                                -
+  17  PASS    object_node   :Order [closed];                               -
+  18  PASS    final         stop                                           -
+  19  PASS    decision      else ([fill])                                  -
+  20  PASS    action        :Fill Order;                                   -
+  21  PASS    object_node   :Order [filled];                               -
+  22  PASS    merge         endif                                          -
+  23  -                                                                    -
+  24  FAIL    unknown       fork                                           unbalanced_block; unbalanced_block: fork opened at line 24 never closed
+  25  PASS    swimlane      |OrderStaff|                                   -
+  26  PASS    action        :Ship Order;                                   -
+  27  PASS    object_node   :Order [shipped];                              -
+  28  PASS    fork          fork again                                     -
+  29  PASS    swimlane      |Accountant|                                   -
+  30  PASS    action        :Raise Invoice;                                -
+  31  PASS    object_node   :Invoice [issued];                             -
+  32  PASS    swimlane      |Customer|                                     -
+  33  FAIL    unknown       repeat :Submit Payment;                        unsupported_construct
+  34  PASS    object_node   :Payment [pending];                            -
+  35  PASS    swimlane      |Accountant|                                   -
+  36  FAIL    unknown       if (Payment review?) then ([reject])           unbalanced_block; unbalanced_block: if opened at line 36 never closed
+  37  PASS    action        :Reject Payment;                               -
+  38  PASS    object_node   :Payment [failed];                             -
+  39  PASS    swimlane      |Customer|                                     -
+  40  FAIL    unknown       repeat while (Retry payment?) is ([resubmit])  unsupported_construct
+  41  FAIL    unknown       ->[confirm];                                   unsupported_construct
+  42  PASS    swimlane      |Accountant|                                   -
+  43  PASS    action        :Confirm Payment;                              -
+  44  PASS    object_node   :Payment [completed];                          -
+  45  PASS    object_node   :Invoice [paid];                               -
+  46  FAIL    unknown       end fork                                       unbalanced_block
+  47  -                                                                    -
+  48  PASS    swimlane      |OrderStaff|                                   -
+  49  PASS    action        :Close Order;                                  -
+  50  PASS    object_node   :Order [closed];                               -
+  51  PASS    final         stop                                           -
+  52  -                     @enduml                                        -
+----------------------------------------------------------------------------------
+
+Rejected declarations (6):
+  line 33: unsupported_construct: repeat :Submit Payment;
+  line 40: unsupported_construct: repeat while (Retry payment?) is ([resubmit])
+  line 41: unsupported_construct: ->[confirm];
+  line 46: unbalanced_block: end fork
+  line 24: unbalanced_block: fork
+  line 36: unbalanced_block: if
+
+Format violations (2):
+  line 24: unbalanced_block: fork opened at line 24 never closed
+  line 36: unbalanced_block: if opened at line 36 never closed
+==================================================================================

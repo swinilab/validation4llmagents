@@ -1,0 +1,30 @@
+{
+  "score": 0.9948,
+  "resolved": 191,
+  "total": 192,
+  "by_column": {
+    "source": {
+      "resolved": 83,
+      "total": 83,
+      "score": 1.0
+    },
+    "structural": {
+      "resolved": 95,
+      "total": 95,
+      "score": 1.0
+    },
+    "behavioral": {
+      "resolved": 13,
+      "total": 14,
+      "score": 0.9286
+    }
+  },
+  "broken": [
+    {
+      "row": 7,
+      "id": "US-07",
+      "column": "behavioral",
+      "reference": "Submit Payment"
+    }
+  ]
+}

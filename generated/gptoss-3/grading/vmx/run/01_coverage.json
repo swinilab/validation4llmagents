@@ -1,0 +1,97 @@
+{
+  "score": 1.0,
+  "covered": 18,
+  "total": 18,
+  "requirements": [
+    {
+      "id": "US-01",
+      "outcome": "covered",
+      "duplicate_rows": 2
+    },
+    {
+      "id": "US-02",
+      "outcome": "covered",
+      "duplicate_rows": 2
+    },
+    {
+      "id": "US-03",
+      "outcome": "covered",
+      "duplicate_rows": 2
+    },
+    {
+      "id": "US-04",
+      "outcome": "covered",
+      "duplicate_rows": 2
+    },
+    {
+      "id": "US-05",
+      "outcome": "covered",
+      "duplicate_rows": 2
+    },
+    {
+      "id": "US-06",
+      "outcome": "covered",
+      "duplicate_rows": 2
+    },
+    {
+      "id": "US-07",
+      "outcome": "covered",
+      "duplicate_rows": 2
+    },
+    {
+      "id": "US-08",
+      "outcome": "covered",
+      "duplicate_rows": 2
+    },
+    {
+      "id": "US-09",
+      "outcome": "covered",
+      "duplicate_rows": 2
+    },
+    {
+      "id": "US-10",
+      "outcome": "covered",
+      "duplicate_rows": 2
+    },
+    {
+      "id": "NFR-01",
+      "outcome": "covered",
+      "duplicate_rows": 2
+    },
+    {
+      "id": "NFR-02",
+      "outcome": "covered",
+      "duplicate_rows": 2
+    },
+    {
+      "id": "NFR-03",
+      "outcome": "covered",
+      "duplicate_rows": 2
+    },
+    {
+      "id": "NFR-04",
+      "outcome": "covered",
+      "duplicate_rows": 2
+    },
+    {
+      "id": "NFR-05",
+      "outcome": "covered",
+      "duplicate_rows": 2
+    },
+    {
+      "id": "NFR-06",
+      "outcome": "covered",
+      "duplicate_rows": 2
+    },
+    {
+      "id": "NFR-07",
+      "outcome": "covered",
+      "duplicate_rows": 2
+    },
+    {
+      "id": "NFR-08",
+      "outcome": "covered",
+      "duplicate_rows": 2
+    }
+  ]
+}

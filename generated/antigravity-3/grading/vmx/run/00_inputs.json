@@ -1,0 +1,34 @@
+{
+  "domain_path": "C:\\Users\\Admin\\Documents\\validation4llmagents\\materials\\M1a.json",
+  "domain_ids": 58,
+  "requirements": {
+    "status": "read",
+    "count": 18
+  },
+  "vmx": {
+    "status": "read",
+    "rows": 18,
+    "schema": {
+      "header": [
+        "SRS-Req-ID",
+        "Domain-Req-ID",
+        "Structural-Elements",
+        "Behavorial-Elements"
+      ],
+      "missing_columns": [],
+      "unknown_columns": []
+    }
+  },
+  "structural": {
+    "status": "parsed",
+    "size": 32,
+    "validity": 1.0,
+    "parse_error": null
+  },
+  "behavioral": {
+    "status": "parsed",
+    "size": 9,
+    "validity": 0.875,
+    "parse_error": null
+  }
+}

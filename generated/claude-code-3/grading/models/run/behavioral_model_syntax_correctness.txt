@@ -1,0 +1,64 @@
+================================================================================================================
+BEHAVIORAL MODEL SYNTAX CORRECTNESS (behavioral.puml)
+================================================================================================================
+Gate: pass  |  Syntax validity: 1.0 (47/47 declarations accepted)
+
+Line  Status  Kind          Source                                                                       Message
+----------------------------------------------------------------------------------------------------------------
+   1  -                     @startuml behavioral                                                         -
+   2  PASS    swimlane      |Customer|                                                                   -
+   3  PASS    initial       start                                                                        -
+   4  PASS    action        :Register customer details;                                                  -
+   5  PASS    action        :Browse products;                                                            -
+   6  PASS    action        :Submit order;                                                               -
+   7  PASS    decision      if (customer known, order items present and all products exist?) then (yes)  -
+   8  PASS    object_node   :Order [submitted];                                                          -
+   9  PASS    decision      else (no)                                                                    -
+  10  PASS    final         end                                                                          -
+  11  PASS    merge         endif                                                                        -
+  12  PASS    swimlane      |OrderStaff|                                                                 -
+  13  PASS    action        :Receive order;                                                              -
+  14  PASS    object_node   :Order [pending];                                                            -
+  15  PASS    decision      if (order can be fulfilled?) then (no)                                       -
+  16  PASS    action        :Decline order;                                                              -
+  17  PASS    object_node   :Order [closed];                                                             -
+  18  PASS    final         stop                                                                         -
+  19  PASS    decision      else (yes)                                                                   -
+  20  PASS    action        :Mark order as filled;                                                       -
+  21  PASS    object_node   :Order [filled];                                                             -
+  22  PASS    merge         endif                                                                        -
+  23  PASS    fork          fork                                                                         -
+  24  PASS    action        :Ship order;                                                                 -
+  25  PASS    object_node   :Order [shipped];                                                            -
+  26  PASS    fork          fork again                                                                   -
+  27  PASS    swimlane      |Accountant|                                                                 -
+  28  PASS    action        :Raise invoice;                                                              -
+  29  PASS    object_node   :Invoice [issued];                                                           -
+  30  PASS    merge         repeat                                                                       -
+  31  PASS    swimlane      |Customer|                                                                   -
+  32  PASS    action        :Submit payment;                                                             -
+  33  PASS    object_node   :Payment [pending];                                                          -
+  34  PASS    swimlane      |Accountant|                                                                 -
+  35  PASS    decision      if (payment received?) then (yes)                                            -
+  36  PASS    action        :Confirm payment;                                                            -
+  37  PASS    object_node   :Payment [completed];                                                        -
+  38  PASS    object_node   :Invoice [paid];                                                             -
+  39  PASS    decision      else (no)                                                                    -
+  40  PASS    action        :Reject payment;                                                             -
+  41  PASS    object_node   :Payment [failed];                                                           -
+  42  PASS    merge         endif                                                                        -
+  43  PASS    decision      repeat while (payment failed?) is (yes) not (no)                             -
+  44  PASS    join          end fork                                                                     -
+  45  PASS    swimlane      |OrderStaff|                                                                 -
+  46  PASS    action        :Close order;                                                                -
+  47  PASS    object_node   :Order [closed];                                                             -
+  48  PASS    final         stop                                                                         -
+  49  -                     @enduml                                                                      -
+----------------------------------------------------------------------------------------------------------------
+
+Rejected declarations (0):
+  none
+
+Format violations (0):
+  none
+================================================================================================================

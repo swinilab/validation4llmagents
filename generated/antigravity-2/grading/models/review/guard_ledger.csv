@@ -1,0 +1,3 @@
+gold_id,gen_id,gold_guard,gen_guard,path_detail,verdict,reviewer,timestamp,note
+T:Make Payment->Accept Payment,T:Submit Payment->Confirm Payment,authorized,payment valid,gold=['authorized'] gen=['payment valid'] (gen guard outside every alias set),,,,
+T:Make Payment->Reject Payment,T:Submit Payment->Reject Payment,declined,payment invalid,gold=['declined'] gen=['payment invalid'] (gen guard outside every alias set),,,,

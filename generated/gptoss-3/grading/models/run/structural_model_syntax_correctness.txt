@@ -1,0 +1,6 @@
+=====================================================
+STRUCTURAL MODEL SYNTAX CORRECTNESS (structural.puml)
+=====================================================
+Gate: missing
+structural.puml was not found: nothing to check.
+=====================================================

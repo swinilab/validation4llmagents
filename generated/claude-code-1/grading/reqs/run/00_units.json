@@ -1,0 +1,1093 @@
+{
+  "run_id": "claude-code-1",
+  "gold": [
+    {
+      "unit_id": "US-01-AC01",
+      "parent_id": "US-01",
+      "kind": "ac",
+      "text_raw": "The system stores a name, an address and a phone number for every customer.",
+      "text_norm": "The system stores a name, an address and a phone number for every customer"
+    },
+    {
+      "unit_id": "US-01-AC02",
+      "parent_id": "US-01",
+      "kind": "ac",
+      "text_raw": "The system accepts a customer record that has no bank account.",
+      "text_norm": "The system accepts a customer record that has no bank account"
+    },
+    {
+      "unit_id": "US-01-AC03",
+      "parent_id": "US-01",
+      "kind": "ac",
+      "text_raw": "A customer has at most one bank account.",
+      "text_norm": "A customer has at most one bank account"
+    },
+    {
+      "unit_id": "US-01-AC04",
+      "parent_id": "US-01",
+      "kind": "ac",
+      "text_raw": "Given a customer record that lacks a name, an address or a phone number, When the record is saved, Then the system rejects the record.",
+      "text_norm": "Given a customer record that lacks a name, an address or a phone number, When the record is saved, Then the system rejects the record"
+    },
+    {
+      "unit_id": "US-02-AC01",
+      "parent_id": "US-02",
+      "kind": "ac",
+      "text_raw": "The system stores a name, a description, a price and an image for every product.",
+      "text_norm": "The system stores a name, a description, a price and an image for every product"
+    },
+    {
+      "unit_id": "US-02-AC02",
+      "parent_id": "US-02",
+      "kind": "ac",
+      "text_raw": "Given a product record that lacks a name, a description, a price or an image, When the record is saved, Then the system rejects the record.",
+      "text_norm": "Given a product record that lacks a name, a description, a price or an image, When the record is saved, Then the system rejects the record"
+    },
+    {
+      "unit_id": "US-02-AC03",
+      "parent_id": "US-02",
+      "kind": "ac",
+      "text_raw": "The price of a product is stored as a decimal number.",
+      "text_norm": "The price of a product is stored as a decimal number"
+    },
+    {
+      "unit_id": "US-02-AC04",
+      "parent_id": "US-02",
+      "kind": "ac",
+      "text_raw": "A product may be referred to by any number of order items, including none, and a product exists independently of the order items that refer to it.",
+      "text_norm": "A product may be referred to by any number of order items, including none, and a product exists independently of the order items that refer to it"
+    },
+    {
+      "unit_id": "US-03-AC01",
+      "parent_id": "US-03",
+      "kind": "ac",
+      "text_raw": "Given a known customer and at least one order item that refers to an existing product, When the order is submitted with a payment method, Then the system registers an order with the submission date as its order date and the status submitted.",
+      "text_norm": "Given a known customer and at least one order item that refers to an existing product, When the order is submitted with a payment method, Then the system registers an order with the submission date as its order date and the status submitted"
+    },
+    {
+      "unit_id": "US-03-AC02",
+      "parent_id": "US-03",
+      "kind": "ac",
+      "text_raw": "Each order item records a quantity, a unit price and exactly one product, and belongs to exactly one order.",
+      "text_norm": "Each order item records a quantity, a unit price and exactly one product, and belongs to exactly one order"
+    },
+    {
+      "unit_id": "US-03-AC03",
+      "parent_id": "US-03",
+      "kind": "ac",
+      "text_raw": "Each order belongs to exactly one customer, and a customer may have any number of orders.",
+      "text_norm": "Each order belongs to exactly one customer, and a customer may have any number of orders"
+    },
+    {
+      "unit_id": "US-03-AC04",
+      "parent_id": "US-03",
+      "kind": "ac",
+      "text_raw": "The unit price of an order item is stored as a decimal number.",
+      "text_norm": "The unit price of an order item is stored as a decimal number"
+    },
+    {
+      "unit_id": "US-03-AC05",
+      "parent_id": "US-03",
+      "kind": "ac",
+      "text_raw": "The payment method recorded on an order is one of bank, card or cash.",
+      "text_norm": "The payment method recorded on an order is one of bank, card or cash"
+    },
+    {
+      "unit_id": "US-03-AC06",
+      "parent_id": "US-03",
+      "kind": "ac",
+      "text_raw": "An order item exists only as part of the order it belongs to, and cannot be moved to another order; when an order is removed from the system, its order items are removed with it.",
+      "text_norm": "An order item exists only as part of the order it belongs to, and cannot be moved to another order; when an order is removed from the system, its order items are removed with it"
+    },
+    {
+      "unit_id": "US-04-AC01",
+      "parent_id": "US-04",
+      "kind": "ac",
+      "text_raw": "Given a customer who is not known to the system, When an order is submitted for that customer, Then the system rejects the submission and registers no order.",
+      "text_norm": "Given a customer who is not known to the system, When an order is submitted for that customer, Then the system rejects the submission and registers no order"
+    },
+    {
+      "unit_id": "US-04-AC02",
+      "parent_id": "US-04",
+      "kind": "ac",
+      "text_raw": "Given an order submission that contains no order item, When the order is submitted, Then the system rejects the submission and registers no order.",
+      "text_norm": "Given an order submission that contains no order item, When the order is submitted, Then the system rejects the submission and registers no order"
+    },
+    {
+      "unit_id": "US-04-AC03",
+      "parent_id": "US-04",
+      "kind": "ac",
+      "text_raw": "Given an order item that refers to a product that does not exist, When the order is submitted, Then the system rejects the submission and registers no order.",
+      "text_norm": "Given an order item that refers to a product that does not exist, When the order is submitted, Then the system rejects the submission and registers no order"
+    },
+    {
+      "unit_id": "US-05-AC01",
+      "parent_id": "US-05",
+      "kind": "ac",
+      "text_raw": "Given an order with one or more order items, When the order is registered, Then the system records a total amount for the order.",
+      "text_norm": "Given an order with one or more order items, When the order is registered, Then the system records a total amount for the order"
+    },
+    {
+      "unit_id": "US-05-AC02",
+      "parent_id": "US-05",
+      "kind": "ac",
+      "text_raw": "The total amount of an order equals the sum over its order items of quantity multiplied by unit price.",
+      "text_norm": "The total amount of an order equals the sum over its order items of quantity multiplied by unit price"
+    },
+    {
+      "unit_id": "US-05-AC03",
+      "parent_id": "US-05",
+      "kind": "ac",
+      "text_raw": "The total amount of an order is stored as a decimal number.",
+      "text_norm": "The total amount of an order is stored as a decimal number"
+    },
+    {
+      "unit_id": "US-06-AC01",
+      "parent_id": "US-06",
+      "kind": "ac",
+      "text_raw": "Given an order with the status submitted, When OrderStaff receives the order, Then the system sets its status to pending.",
+      "text_norm": "Given an order with the status submitted, When OrderStaff receives the order, Then the system sets its status to pending"
+    },
+    {
+      "unit_id": "US-06-AC02",
+      "parent_id": "US-06",
+      "kind": "ac",
+      "text_raw": "Given an order whose status is not submitted, When OrderStaff attempts to receive the order, Then the system rejects the request and leaves the status unchanged.",
+      "text_norm": "Given an order whose status is not submitted, When OrderStaff attempts to receive the order, Then the system rejects the request and leaves the status unchanged"
+    },
+    {
+      "unit_id": "US-06-AC03",
+      "parent_id": "US-06",
+      "kind": "ac",
+      "text_raw": "The status of an order is always one of submitted, pending, filled, shipped or closed.",
+      "text_norm": "The status of an order is always one of submitted, pending, filled, shipped or closed"
+    },
+    {
+      "unit_id": "US-06-AC04",
+      "parent_id": "US-06",
+      "kind": "ac",
+      "text_raw": "The status of an order changes only from submitted to pending, from pending to filled or to closed, from filled to shipped, and from shipped to closed.",
+      "text_norm": "The status of an order changes only from submitted to pending, from pending to filled or to closed, from filled to shipped, and from shipped to closed"
+    },
+    {
+      "unit_id": "US-07-AC01",
+      "parent_id": "US-07",
+      "kind": "ac",
+      "text_raw": "Given an order with the status pending, When OrderStaff marks the order as filled, Then the system sets its status to filled.",
+      "text_norm": "Given an order with the status pending, When OrderStaff marks the order as filled, Then the system sets its status to filled"
+    },
+    {
+      "unit_id": "US-07-AC02",
+      "parent_id": "US-07",
+      "kind": "ac",
+      "text_raw": "Given an order whose status is not pending, When OrderStaff attempts to mark the order as filled, Then the system rejects the request and leaves the status unchanged.",
+      "text_norm": "Given an order whose status is not pending, When OrderStaff attempts to mark the order as filled, Then the system rejects the request and leaves the status unchanged"
+    },
+    {
+      "unit_id": "US-07-AC03",
+      "parent_id": "US-07",
+      "kind": "ac",
+      "text_raw": "A filled order can next be set only to shipped.",
+      "text_norm": "A filled order can next be set only to shipped"
+    },
+    {
+      "unit_id": "US-08-AC01",
+      "parent_id": "US-08",
+      "kind": "ac",
+      "text_raw": "Given an order with the status pending, When OrderStaff declines the order, Then the system sets its status to closed.",
+      "text_norm": "Given an order with the status pending, When OrderStaff declines the order, Then the system sets its status to closed"
+    },
+    {
+      "unit_id": "US-08-AC02",
+      "parent_id": "US-08",
+      "kind": "ac",
+      "text_raw": "Given an order whose status is not pending, When OrderStaff attempts to decline the order, Then the system rejects the request and leaves the status unchanged.",
+      "text_norm": "Given an order whose status is not pending, When OrderStaff attempts to decline the order, Then the system rejects the request and leaves the status unchanged"
+    },
+    {
+      "unit_id": "US-08-AC03",
+      "parent_id": "US-08",
+      "kind": "ac",
+      "text_raw": "Given a declined order, When an invoice is requested for the order, Then the system rejects the request.",
+      "text_norm": "Given a declined order, When an invoice is requested for the order, Then the system rejects the request"
+    },
+    {
+      "unit_id": "US-09-AC01",
+      "parent_id": "US-09",
+      "kind": "ac",
+      "text_raw": "Given an order with the status filled, When OrderStaff marks the order as shipped, Then the system sets its status to shipped.",
+      "text_norm": "Given an order with the status filled, When OrderStaff marks the order as shipped, Then the system sets its status to shipped"
+    },
+    {
+      "unit_id": "US-09-AC02",
+      "parent_id": "US-09",
+      "kind": "ac",
+      "text_raw": "Given an order whose status is not filled, When OrderStaff attempts to mark the order as shipped, Then the system rejects the request and leaves the status unchanged.",
+      "text_norm": "Given an order whose status is not filled, When OrderStaff attempts to mark the order as shipped, Then the system rejects the request and leaves the status unchanged"
+    },
+    {
+      "unit_id": "US-09-AC03",
+      "parent_id": "US-09",
+      "kind": "ac",
+      "text_raw": "Given an order that is marked as shipped, When the system records the change, Then the status of its invoice and of any payment against that invoice remains unchanged.",
+      "text_norm": "Given an order that is marked as shipped, When the system records the change, Then the status of its invoice and of any payment against that invoice remains unchanged"
+    },
+    {
+      "unit_id": "US-10-AC01",
+      "parent_id": "US-10",
+      "kind": "ac",
+      "text_raw": "Given an order whose status is filled or shipped and that has no invoice, When the Accountant issues an invoice for the order, Then the system records an invoice with a date, a decimal amount, a payment method and the status issued.",
+      "text_norm": "Given an order whose status is filled or shipped and that has no invoice, When the Accountant issues an invoice for the order, Then the system records an invoice with a date, a decimal amount, a payment method and the status issued"
+    },
+    {
+      "unit_id": "US-10-AC02",
+      "parent_id": "US-10",
+      "kind": "ac",
+      "text_raw": "Given an order that already has an invoice, When the Accountant attempts to issue another invoice for the order, Then the system rejects the request.",
+      "text_norm": "Given an order that already has an invoice, When the Accountant attempts to issue another invoice for the order, Then the system rejects the request"
+    },
+    {
+      "unit_id": "US-10-AC03",
+      "parent_id": "US-10",
+      "kind": "ac",
+      "text_raw": "Given an order whose status is submitted, pending or closed, When the Accountant attempts to issue an invoice for the order, Then the system rejects the request.",
+      "text_norm": "Given an order whose status is submitted, pending or closed, When the Accountant attempts to issue an invoice for the order, Then the system rejects the request"
+    },
+    {
+      "unit_id": "US-10-AC04",
+      "parent_id": "US-10",
+      "kind": "ac",
+      "text_raw": "An order has at most one invoice, and every invoice belongs to exactly one order.",
+      "text_norm": "An order has at most one invoice, and every invoice belongs to exactly one order"
+    },
+    {
+      "unit_id": "US-10-AC05",
+      "parent_id": "US-10",
+      "kind": "ac",
+      "text_raw": "The status of an invoice is always either issued or paid.",
+      "text_norm": "The status of an invoice is always either issued or paid"
+    },
+    {
+      "unit_id": "US-10-AC06",
+      "parent_id": "US-10",
+      "kind": "ac",
+      "text_raw": "Once an order has been filled, invoicing and shipping proceed independently of each other: issuing an invoice does not require the order to have been shipped, and marking the order as shipped does not require an invoice to have been issued, so the two may happen in either order or at the same time.",
+      "text_norm": "Once an order has been filled, invoicing and shipping proceed independently of each other: issuing an invoice does not require the order to have been shipped, and marking the order as shipped does not require an invoice to have been issued, so the two may happen in either order or at the same time"
+    },
+    {
+      "unit_id": "US-11-AC01",
+      "parent_id": "US-11",
+      "kind": "ac",
+      "text_raw": "Given an invoice with the status issued, When the Customer submits a payment against the invoice with a date, an amount and a payment method, Then the system records the payment with the status pending.",
+      "text_norm": "Given an invoice with the status issued, When the Customer submits a payment against the invoice with a date, an amount and a payment method, Then the system records the payment with the status pending"
+    },
+    {
+      "unit_id": "US-11-AC02",
+      "parent_id": "US-11",
+      "kind": "ac",
+      "text_raw": "Every payment method recorded for an order, an invoice or a payment is one of bank, card or cash.",
+      "text_norm": "Every payment method recorded for an order, an invoice or a payment is one of bank, card or cash"
+    },
+    {
+      "unit_id": "US-11-AC03",
+      "parent_id": "US-11",
+      "kind": "ac",
+      "text_raw": "The amount of a payment is stored as a decimal number.",
+      "text_norm": "The amount of a payment is stored as a decimal number"
+    },
+    {
+      "unit_id": "US-11-AC04",
+      "parent_id": "US-11",
+      "kind": "ac",
+      "text_raw": "The status of a payment is always one of pending, completed or failed.",
+      "text_norm": "The status of a payment is always one of pending, completed or failed"
+    },
+    {
+      "unit_id": "US-11-AC05",
+      "parent_id": "US-11",
+      "kind": "ac",
+      "text_raw": "Given an invoice with the status paid, When the Customer attempts to submit a further payment against the invoice, Then the system rejects the request.",
+      "text_norm": "Given an invoice with the status paid, When the Customer attempts to submit a further payment against the invoice, Then the system rejects the request"
+    },
+    {
+      "unit_id": "US-11-AC06",
+      "parent_id": "US-11",
+      "kind": "ac",
+      "text_raw": "Every payment settles exactly one invoice, and a payment is recorded against an invoice rather than directly against an order.",
+      "text_norm": "Every payment settles exactly one invoice, and a payment is recorded against an invoice rather than directly against an order"
+    },
+    {
+      "unit_id": "US-12-AC01",
+      "parent_id": "US-12",
+      "kind": "ac",
+      "text_raw": "Given an invoice whose most recent payment has the status failed, When the Customer submits a new payment against the invoice, Then the system records a separate payment with the status pending.",
+      "text_norm": "Given an invoice whose most recent payment has the status failed, When the Customer submits a new payment against the invoice, Then the system records a separate payment with the status pending"
+    },
+    {
+      "unit_id": "US-12-AC02",
+      "parent_id": "US-12",
+      "kind": "ac",
+      "text_raw": "A failed payment keeps the status failed when a new payment is submitted against the same invoice.",
+      "text_norm": "A failed payment keeps the status failed when a new payment is submitted against the same invoice"
+    },
+    {
+      "unit_id": "US-12-AC03",
+      "parent_id": "US-12",
+      "kind": "ac",
+      "text_raw": "An invoice may have any number of payments.",
+      "text_norm": "An invoice may have any number of payments"
+    },
+    {
+      "unit_id": "US-13-AC01",
+      "parent_id": "US-13",
+      "kind": "ac",
+      "text_raw": "Given a payment with the status pending, When the Accountant confirms the payment, Then the system sets the status of the payment to completed.",
+      "text_norm": "Given a payment with the status pending, When the Accountant confirms the payment, Then the system sets the status of the payment to completed"
+    },
+    {
+      "unit_id": "US-13-AC02",
+      "parent_id": "US-13",
+      "kind": "ac",
+      "text_raw": "Given a pending payment against an issued invoice, When the Accountant confirms the payment, Then the system sets the status of the invoice to paid.",
+      "text_norm": "Given a pending payment against an issued invoice, When the Accountant confirms the payment, Then the system sets the status of the invoice to paid"
+    },
+    {
+      "unit_id": "US-13-AC03",
+      "parent_id": "US-13",
+      "kind": "ac",
+      "text_raw": "Given a payment whose status is completed or failed, When the Accountant attempts to confirm the payment, Then the system rejects the request and leaves the status unchanged.",
+      "text_norm": "Given a payment whose status is completed or failed, When the Accountant attempts to confirm the payment, Then the system rejects the request and leaves the status unchanged"
+    },
+    {
+      "unit_id": "US-13-AC04",
+      "parent_id": "US-13",
+      "kind": "ac",
+      "text_raw": "The status of an invoice changes only from issued to paid.",
+      "text_norm": "The status of an invoice changes only from issued to paid"
+    },
+    {
+      "unit_id": "US-13-AC05",
+      "parent_id": "US-13",
+      "kind": "ac",
+      "text_raw": "Confirming a payment does not change the status of the order billed by the invoice.",
+      "text_norm": "Confirming a payment does not change the status of the order billed by the invoice"
+    },
+    {
+      "unit_id": "US-14-AC01",
+      "parent_id": "US-14",
+      "kind": "ac",
+      "text_raw": "Given a payment with the status pending, When the Accountant rejects the payment, Then the system sets the status of the payment to failed.",
+      "text_norm": "Given a payment with the status pending, When the Accountant rejects the payment, Then the system sets the status of the payment to failed"
+    },
+    {
+      "unit_id": "US-14-AC02",
+      "parent_id": "US-14",
+      "kind": "ac",
+      "text_raw": "Given a payment with the status pending, When the Accountant rejects the payment, Then the status of its invoice and of its order remain unchanged.",
+      "text_norm": "Given a payment with the status pending, When the Accountant rejects the payment, Then the status of its invoice and of its order remain unchanged"
+    },
+    {
+      "unit_id": "US-14-AC03",
+      "parent_id": "US-14",
+      "kind": "ac",
+      "text_raw": "Given a payment whose status is completed or failed, When the Accountant attempts to reject the payment, Then the system rejects the request and leaves the status unchanged.",
+      "text_norm": "Given a payment whose status is completed or failed, When the Accountant attempts to reject the payment, Then the system rejects the request and leaves the status unchanged"
+    },
+    {
+      "unit_id": "US-14-AC04",
+      "parent_id": "US-14",
+      "kind": "ac",
+      "text_raw": "The status of a payment changes only from pending to completed or from pending to failed.",
+      "text_norm": "The status of a payment changes only from pending to completed or from pending to failed"
+    },
+    {
+      "unit_id": "US-15-AC01",
+      "parent_id": "US-15",
+      "kind": "ac",
+      "text_raw": "Given an order with the status shipped whose invoice has the status paid, When OrderStaff closes the order, Then the system sets its status to closed.",
+      "text_norm": "Given an order with the status shipped whose invoice has the status paid, When OrderStaff closes the order, Then the system sets its status to closed"
+    },
+    {
+      "unit_id": "US-15-AC02",
+      "parent_id": "US-15",
+      "kind": "ac",
+      "text_raw": "Given an order with the status shipped whose invoice does not have the status paid, When OrderStaff attempts to close the order, Then the system rejects the request and leaves the status unchanged.",
+      "text_norm": "Given an order with the status shipped whose invoice does not have the status paid, When OrderStaff attempts to close the order, Then the system rejects the request and leaves the status unchanged"
+    },
+    {
+      "unit_id": "US-15-AC03",
+      "parent_id": "US-15",
+      "kind": "ac",
+      "text_raw": "Given an order whose invoice has the status paid but whose status is not shipped, When OrderStaff attempts to close the order, Then the system rejects the request and leaves the status unchanged.",
+      "text_norm": "Given an order whose invoice has the status paid but whose status is not shipped, When OrderStaff attempts to close the order, Then the system rejects the request and leaves the status unchanged"
+    },
+    {
+      "unit_id": "US-15-AC04",
+      "parent_id": "US-15",
+      "kind": "ac",
+      "text_raw": "The status of a closed order cannot be changed.",
+      "text_norm": "The status of a closed order cannot be changed"
+    },
+    {
+      "unit_id": "US-15-AC05",
+      "parent_id": "US-15",
+      "kind": "ac",
+      "text_raw": "A filled order is closed only after both the shipping of the order and the settlement of its invoice have completed, whichever of the two finishes last.",
+      "text_norm": "A filled order is closed only after both the shipping of the order and the settlement of its invoice have completed, whichever of the two finishes last"
+    },
+    {
+      "unit_id": "NFR-01",
+      "parent_id": "NFR-01",
+      "kind": "nfr",
+      "text_raw": "The system shall register a submitted order containing up to 50 order items and respond within 2 seconds for at least 95% of submissions under normal operating conditions.",
+      "text_norm": "The system shall register a submitted order containing up to 50 order items and respond within 2 seconds for at least 95% of submissions under normal operating conditions"
+    },
+    {
+      "unit_id": "NFR-02",
+      "parent_id": "NFR-02",
+      "kind": "nfr",
+      "text_raw": "The system shall support at least 200 concurrent users and at least 20 order submissions per second under normal operating conditions while meeting the response time of NFR-01.",
+      "text_norm": "The system shall support at least 200 concurrent users and at least 20 order submissions per second under normal operating conditions while meeting the response time of NFR-01"
+    },
+    {
+      "unit_id": "NFR-03",
+      "parent_id": "NFR-03",
+      "kind": "nfr",
+      "text_raw": "The system shall authenticate every user before granting access to any customer, order, invoice or payment data, and shall reject 100% of unauthenticated requests.",
+      "text_norm": "The system shall authenticate every user before granting access to any customer, order, invoice or payment data, and shall reject 100% of unauthenticated requests"
+    },
+    {
+      "unit_id": "NFR-04",
+      "parent_id": "NFR-04",
+      "kind": "nfr",
+      "text_raw": "The system shall allow only users holding the Accountant role to confirm or reject a payment, and shall reject the same request from any other user.",
+      "text_norm": "The system shall allow only users holding the Accountant role to confirm or reject a payment, and shall reject the same request from any other user"
+    },
+    {
+      "unit_id": "NFR-05",
+      "parent_id": "NFR-05",
+      "kind": "nfr",
+      "text_raw": "The system shall encrypt customer personal data and bank account numbers in transit using TLS 1.2 or higher and at rest.",
+      "text_norm": "The system shall encrypt customer personal data and bank account numbers in transit using TLS 1.2 or higher and at rest"
+    },
+    {
+      "unit_id": "NFR-06",
+      "parent_id": "NFR-06",
+      "kind": "nfr",
+      "text_raw": "The system shall record the user and the time of every status change of an order, an invoice or a payment, and shall retain these records for at least 12 months.",
+      "text_norm": "The system shall record the user and the time of every status change of an order, an invoice or a payment, and shall retain these records for at least 12 months"
+    },
+    {
+      "unit_id": "NFR-07",
+      "parent_id": "NFR-07",
+      "kind": "nfr",
+      "text_raw": "The system shall be available for at least 99.5% of each calendar month, excluding scheduled maintenance announced at least 24 hours in advance.",
+      "text_norm": "The system shall be available for at least 99.5% of each calendar month, excluding scheduled maintenance announced at least 24 hours in advance"
+    },
+    {
+      "unit_id": "NFR-08",
+      "parent_id": "NFR-08",
+      "kind": "nfr",
+      "text_raw": "The system shall resume accepting requests within 15 minutes after a server failure without losing any order, invoice or payment recorded before the failure.",
+      "text_norm": "The system shall resume accepting requests within 15 minutes after a server failure without losing any order, invoice or payment recorded before the failure"
+    }
+  ],
+  "gen": [
+    {
+      "unit_id": "US-01-AC01",
+      "parent_id": "US-01",
+      "kind": "ac",
+      "text_raw": "Each customer record holds a name, an address and a phone number.",
+      "text_norm": "Each customer record holds a name, an address and a phone number"
+    },
+    {
+      "unit_id": "US-01-AC02",
+      "parent_id": "US-01",
+      "kind": "ac",
+      "text_raw": "A customer has at most one bank account, and the bank account is optional.",
+      "text_norm": "A customer has at most one bank account, and the bank account is optional"
+    },
+    {
+      "unit_id": "US-01-AC03",
+      "parent_id": "US-01",
+      "kind": "ac",
+      "text_raw": "Given a customer record in which the name, the address or the phone number is absent, When the record is saved, Then the system rejects the record and stores no customer.",
+      "text_norm": "Given a customer record in which the name, the address or the phone number is absent, When the record is saved, Then the system rejects the record and stores no customer"
+    },
+    {
+      "unit_id": "US-01-AC04",
+      "parent_id": "US-01",
+      "kind": "ac",
+      "text_raw": "Given a customer record with a name, an address and a phone number but no bank account, When the record is saved, Then the system stores the customer without a bank account.",
+      "text_norm": "Given a customer record with a name, an address and a phone number but no bank account, When the record is saved, Then the system stores the customer without a bank account"
+    },
+    {
+      "unit_id": "US-02-AC01",
+      "parent_id": "US-02",
+      "kind": "ac",
+      "text_raw": "Each product holds a name, a description, a price and an image.",
+      "text_norm": "Each product holds a name, a description, a price and an image"
+    },
+    {
+      "unit_id": "US-02-AC02",
+      "parent_id": "US-02",
+      "kind": "ac",
+      "text_raw": "The price of a product is a decimal number.",
+      "text_norm": "The price of a product is a decimal number"
+    },
+    {
+      "unit_id": "US-02-AC03",
+      "parent_id": "US-02",
+      "kind": "ac",
+      "text_raw": "Given a product record in which the name, the description, the price or the image is absent, When the record is saved, Then the system rejects the record and the product does not appear among the products on offer.",
+      "text_norm": "Given a product record in which the name, the description, the price or the image is absent, When the record is saved, Then the system rejects the record and the product does not appear among the products on offer"
+    },
+    {
+      "unit_id": "US-02-AC04",
+      "parent_id": "US-02",
+      "kind": "ac",
+      "text_raw": "A product may be referred to by any number of order items, including none.",
+      "text_norm": "A product may be referred to by any number of order items, including none"
+    },
+    {
+      "unit_id": "US-02-AC05",
+      "parent_id": "US-02",
+      "kind": "ac",
+      "text_raw": "Given a product that is referred to by order items of an order, When that order is removed, Then the product continues to exist.",
+      "text_norm": "Given a product that is referred to by order items of an order, When that order is removed, Then the product continues to exist"
+    },
+    {
+      "unit_id": "US-03-AC01",
+      "parent_id": "US-03",
+      "kind": "ac",
+      "text_raw": "Given a known customer, one or more order items each referring to an existing product, and a payment method, When the customer submits the order, Then the system registers an order with the submission date as its order date and the status submitted.",
+      "text_norm": "Given a known customer, one or more order items each referring to an existing product, and a payment method, When the customer submits the order, Then the system registers an order with the submission date as its order date and the status submitted"
+    },
+    {
+      "unit_id": "US-03-AC02",
+      "parent_id": "US-03",
+      "kind": "ac",
+      "text_raw": "Given an order submission that names a customer not known to the system, When the submission is made, Then the system rejects it and registers no order.",
+      "text_norm": "Given an order submission that names a customer not known to the system, When the submission is made, Then the system rejects it and registers no order"
+    },
+    {
+      "unit_id": "US-03-AC03",
+      "parent_id": "US-03",
+      "kind": "ac",
+      "text_raw": "Given an order submission that contains no order item, When the submission is made, Then the system rejects it and registers no order.",
+      "text_norm": "Given an order submission that contains no order item, When the submission is made, Then the system rejects it and registers no order"
+    },
+    {
+      "unit_id": "US-03-AC04",
+      "parent_id": "US-03",
+      "kind": "ac",
+      "text_raw": "Given an order submission in which an order item refers to a product that does not exist, When the submission is made, Then the system rejects it and registers no order.",
+      "text_norm": "Given an order submission in which an order item refers to a product that does not exist, When the submission is made, Then the system rejects it and registers no order"
+    },
+    {
+      "unit_id": "US-03-AC05",
+      "parent_id": "US-03",
+      "kind": "ac",
+      "text_raw": "The total amount of a registered order equals the sum over its order items of quantity multiplied by unit price.",
+      "text_norm": "The total amount of a registered order equals the sum over its order items of quantity multiplied by unit price"
+    },
+    {
+      "unit_id": "US-03-AC06",
+      "parent_id": "US-03",
+      "kind": "ac",
+      "text_raw": "Each order records an order date, a total amount, a status and a payment method, none of which may be absent.",
+      "text_norm": "Each order records an order date, a total amount, a status and a payment method, none of which may be absent"
+    },
+    {
+      "unit_id": "US-03-AC07",
+      "parent_id": "US-03",
+      "kind": "ac",
+      "text_raw": "Each order item records a quantity, a unit price and a reference to exactly one product, none of which may be absent, and belongs to exactly one order.",
+      "text_norm": "Each order item records a quantity, a unit price and a reference to exactly one product, none of which may be absent, and belongs to exactly one order"
+    },
+    {
+      "unit_id": "US-03-AC08",
+      "parent_id": "US-03",
+      "kind": "ac",
+      "text_raw": "An order item exists only as part of the order it belongs to, cannot be moved to another order, and is removed when that order is removed.",
+      "text_norm": "An order item exists only as part of the order it belongs to, cannot be moved to another order, and is removed when that order is removed"
+    },
+    {
+      "unit_id": "US-03-AC09",
+      "parent_id": "US-03",
+      "kind": "ac",
+      "text_raw": "Each order belongs to exactly one customer, and a customer may have any number of orders.",
+      "text_norm": "Each order belongs to exactly one customer, and a customer may have any number of orders"
+    },
+    {
+      "unit_id": "US-03-AC10",
+      "parent_id": "US-03",
+      "kind": "ac",
+      "text_raw": "The unit price of an order item and the total amount of an order are decimal numbers.",
+      "text_norm": "The unit price of an order item and the total amount of an order are decimal numbers"
+    },
+    {
+      "unit_id": "US-03-AC11",
+      "parent_id": "US-03",
+      "kind": "ac",
+      "text_raw": "The status of an order takes only the values submitted, pending, filled, shipped or closed.",
+      "text_norm": "The status of an order takes only the values submitted, pending, filled, shipped or closed"
+    },
+    {
+      "unit_id": "US-03-AC12",
+      "parent_id": "US-03",
+      "kind": "ac",
+      "text_raw": "The payment method of an order takes only the values bank, card or cash.",
+      "text_norm": "The payment method of an order takes only the values bank, card or cash"
+    },
+    {
+      "unit_id": "US-03-AC13",
+      "parent_id": "US-03",
+      "kind": "ac",
+      "text_raw": "A newly registered order has the status submitted, from which its status may change only to pending.",
+      "text_norm": "A newly registered order has the status submitted, from which its status may change only to pending"
+    },
+    {
+      "unit_id": "US-04-AC01",
+      "parent_id": "US-04",
+      "kind": "ac",
+      "text_raw": "Given an order whose status is filled or shipped and that has no invoice, When the accountant raises an invoice for it with a date, an amount and a payment method, Then the system records the invoice for that order with the status issued.",
+      "text_norm": "Given an order whose status is filled or shipped and that has no invoice, When the accountant raises an invoice for it with a date, an amount and a payment method, Then the system records the invoice for that order with the status issued"
+    },
+    {
+      "unit_id": "US-04-AC02",
+      "parent_id": "US-04",
+      "kind": "ac",
+      "text_raw": "Given an order that already has an invoice, When the accountant requests a further invoice for it, Then the system rejects the request and the order keeps its single invoice.",
+      "text_norm": "Given an order that already has an invoice, When the accountant requests a further invoice for it, Then the system rejects the request and the order keeps its single invoice"
+    },
+    {
+      "unit_id": "US-04-AC03",
+      "parent_id": "US-04",
+      "kind": "ac",
+      "text_raw": "Given an order whose status is submitted, pending or closed, When the accountant requests an invoice for it, Then the system rejects the request and records no invoice.",
+      "text_norm": "Given an order whose status is submitted, pending or closed, When the accountant requests an invoice for it, Then the system rejects the request and records no invoice"
+    },
+    {
+      "unit_id": "US-04-AC04",
+      "parent_id": "US-04",
+      "kind": "ac",
+      "text_raw": "Given an order that has been declined, When the accountant requests an invoice for it, Then the system rejects the request and records no invoice.",
+      "text_norm": "Given an order that has been declined, When the accountant requests an invoice for it, Then the system rejects the request and records no invoice"
+    },
+    {
+      "unit_id": "US-04-AC05",
+      "parent_id": "US-04",
+      "kind": "ac",
+      "text_raw": "Given an order whose status is filled and that has not been shipped, When the accountant raises an invoice for it, Then the system records the invoice without requiring the order to have been shipped.",
+      "text_norm": "Given an order whose status is filled and that has not been shipped, When the accountant raises an invoice for it, Then the system records the invoice without requiring the order to have been shipped"
+    },
+    {
+      "unit_id": "US-04-AC06",
+      "parent_id": "US-04",
+      "kind": "ac",
+      "text_raw": "Each invoice records a date, an amount, a status and a payment method, none of which may be absent.",
+      "text_norm": "Each invoice records a date, an amount, a status and a payment method, none of which may be absent"
+    },
+    {
+      "unit_id": "US-04-AC07",
+      "parent_id": "US-04",
+      "kind": "ac",
+      "text_raw": "An order has at most one invoice, and each invoice is associated with exactly one order.",
+      "text_norm": "An order has at most one invoice, and each invoice is associated with exactly one order"
+    },
+    {
+      "unit_id": "US-04-AC08",
+      "parent_id": "US-04",
+      "kind": "ac",
+      "text_raw": "The amount of an invoice is a decimal number.",
+      "text_norm": "The amount of an invoice is a decimal number"
+    },
+    {
+      "unit_id": "US-04-AC09",
+      "parent_id": "US-04",
+      "kind": "ac",
+      "text_raw": "The status of an invoice takes only the values issued or paid.",
+      "text_norm": "The status of an invoice takes only the values issued or paid"
+    },
+    {
+      "unit_id": "US-04-AC10",
+      "parent_id": "US-04",
+      "kind": "ac",
+      "text_raw": "The payment method of an invoice takes only the values bank, card or cash.",
+      "text_norm": "The payment method of an invoice takes only the values bank, card or cash"
+    },
+    {
+      "unit_id": "US-04-AC11",
+      "parent_id": "US-04",
+      "kind": "ac",
+      "text_raw": "A newly raised invoice has the status issued, from which its status may change only to paid.",
+      "text_norm": "A newly raised invoice has the status issued, from which its status may change only to paid"
+    },
+    {
+      "unit_id": "US-05-AC01",
+      "parent_id": "US-05",
+      "kind": "ac",
+      "text_raw": "Given an invoice whose status is issued, When the customer submits a payment against it with a date, an amount and a payment method, Then the system records the payment against that invoice with the status pending.",
+      "text_norm": "Given an invoice whose status is issued, When the customer submits a payment against it with a date, an amount and a payment method, Then the system records the payment against that invoice with the status pending"
+    },
+    {
+      "unit_id": "US-05-AC02",
+      "parent_id": "US-05",
+      "kind": "ac",
+      "text_raw": "Given an invoice whose status is paid, When the customer submits a payment against it, Then the system rejects the payment and records no payment.",
+      "text_norm": "Given an invoice whose status is paid, When the customer submits a payment against it, Then the system rejects the payment and records no payment"
+    },
+    {
+      "unit_id": "US-05-AC03",
+      "parent_id": "US-05",
+      "kind": "ac",
+      "text_raw": "Given an invoice whose earlier payment has the status failed, When the customer submits a further payment against it, Then the system records the further payment as a separate payment with the status pending and the earlier payment keeps the status failed.",
+      "text_norm": "Given an invoice whose earlier payment has the status failed, When the customer submits a further payment against it, Then the system records the further payment as a separate payment with the status pending and the earlier payment keeps the status failed"
+    },
+    {
+      "unit_id": "US-05-AC04",
+      "parent_id": "US-05",
+      "kind": "ac",
+      "text_raw": "Each payment records a date, an amount, a status and a payment method, none of which may be absent.",
+      "text_norm": "Each payment records a date, an amount, a status and a payment method, none of which may be absent"
+    },
+    {
+      "unit_id": "US-05-AC05",
+      "parent_id": "US-05",
+      "kind": "ac",
+      "text_raw": "An invoice may have any number of payments, and each payment is recorded against exactly one invoice and never directly against an order.",
+      "text_norm": "An invoice may have any number of payments, and each payment is recorded against exactly one invoice and never directly against an order"
+    },
+    {
+      "unit_id": "US-05-AC06",
+      "parent_id": "US-05",
+      "kind": "ac",
+      "text_raw": "The amount of a payment is a decimal number.",
+      "text_norm": "The amount of a payment is a decimal number"
+    },
+    {
+      "unit_id": "US-05-AC07",
+      "parent_id": "US-05",
+      "kind": "ac",
+      "text_raw": "The status of a payment takes only the values pending, completed or failed.",
+      "text_norm": "The status of a payment takes only the values pending, completed or failed"
+    },
+    {
+      "unit_id": "US-05-AC08",
+      "parent_id": "US-05",
+      "kind": "ac",
+      "text_raw": "The payment method of a payment takes only the values bank, card or cash.",
+      "text_norm": "The payment method of a payment takes only the values bank, card or cash"
+    },
+    {
+      "unit_id": "US-05-AC09",
+      "parent_id": "US-05",
+      "kind": "ac",
+      "text_raw": "A newly submitted payment has the status pending, from which its status may change only to completed or to failed.",
+      "text_norm": "A newly submitted payment has the status pending, from which its status may change only to completed or to failed"
+    },
+    {
+      "unit_id": "US-06-AC01",
+      "parent_id": "US-06",
+      "kind": "ac",
+      "text_raw": "Given an order whose status is submitted, When order staff receive it, Then the system sets its status to pending.",
+      "text_norm": "Given an order whose status is submitted, When order staff receive it, Then the system sets its status to pending"
+    },
+    {
+      "unit_id": "US-06-AC02",
+      "parent_id": "US-06",
+      "kind": "ac",
+      "text_raw": "Given an order whose status is not submitted, When order staff attempt to receive it, Then the system rejects the attempt and the status of the order is unchanged.",
+      "text_norm": "Given an order whose status is not submitted, When order staff attempt to receive it, Then the system rejects the attempt and the status of the order is unchanged"
+    },
+    {
+      "unit_id": "US-06-AC03",
+      "parent_id": "US-06",
+      "kind": "ac",
+      "text_raw": "Given an order whose status is closed, When order staff attempt to receive it, Then the system rejects the attempt and the order keeps the status closed.",
+      "text_norm": "Given an order whose status is closed, When order staff attempt to receive it, Then the system rejects the attempt and the order keeps the status closed"
+    },
+    {
+      "unit_id": "US-06-AC04",
+      "parent_id": "US-06",
+      "kind": "ac",
+      "text_raw": "Receiving an order changes its status only from submitted to pending.",
+      "text_norm": "Receiving an order changes its status only from submitted to pending"
+    },
+    {
+      "unit_id": "US-07-AC01",
+      "parent_id": "US-07",
+      "kind": "ac",
+      "text_raw": "Given an order whose status is pending, When order staff mark it as filled, Then the system sets its status to filled.",
+      "text_norm": "Given an order whose status is pending, When order staff mark it as filled, Then the system sets its status to filled"
+    },
+    {
+      "unit_id": "US-07-AC02",
+      "parent_id": "US-07",
+      "kind": "ac",
+      "text_raw": "Given an order whose status is not pending, When order staff attempt to mark it as filled, Then the system rejects the attempt and the status of the order is unchanged.",
+      "text_norm": "Given an order whose status is not pending, When order staff attempt to mark it as filled, Then the system rejects the attempt and the status of the order is unchanged"
+    },
+    {
+      "unit_id": "US-07-AC03",
+      "parent_id": "US-07",
+      "kind": "ac",
+      "text_raw": "Given an order whose status is closed, When order staff attempt to mark it as filled, Then the system rejects the attempt and the order keeps the status closed.",
+      "text_norm": "Given an order whose status is closed, When order staff attempt to mark it as filled, Then the system rejects the attempt and the order keeps the status closed"
+    },
+    {
+      "unit_id": "US-07-AC04",
+      "parent_id": "US-07",
+      "kind": "ac",
+      "text_raw": "Marking an order as filled changes its status only from pending to filled.",
+      "text_norm": "Marking an order as filled changes its status only from pending to filled"
+    },
+    {
+      "unit_id": "US-08-AC01",
+      "parent_id": "US-08",
+      "kind": "ac",
+      "text_raw": "Given an order whose status is pending, When order staff decline it, Then the system sets its status to closed.",
+      "text_norm": "Given an order whose status is pending, When order staff decline it, Then the system sets its status to closed"
+    },
+    {
+      "unit_id": "US-08-AC02",
+      "parent_id": "US-08",
+      "kind": "ac",
+      "text_raw": "Given an order whose status is not pending, When order staff attempt to decline it, Then the system rejects the attempt and the status of the order is unchanged.",
+      "text_norm": "Given an order whose status is not pending, When order staff attempt to decline it, Then the system rejects the attempt and the status of the order is unchanged"
+    },
+    {
+      "unit_id": "US-08-AC03",
+      "parent_id": "US-08",
+      "kind": "ac",
+      "text_raw": "Given an order whose status is closed, When order staff attempt to decline it, Then the system rejects the attempt and the order keeps the status closed.",
+      "text_norm": "Given an order whose status is closed, When order staff attempt to decline it, Then the system rejects the attempt and the order keeps the status closed"
+    },
+    {
+      "unit_id": "US-08-AC04",
+      "parent_id": "US-08",
+      "kind": "ac",
+      "text_raw": "Given an order that has been declined, When an accountant requests an invoice for it, Then the system rejects the request and the order remains without an invoice.",
+      "text_norm": "Given an order that has been declined, When an accountant requests an invoice for it, Then the system rejects the request and the order remains without an invoice"
+    },
+    {
+      "unit_id": "US-08-AC05",
+      "parent_id": "US-08",
+      "kind": "ac",
+      "text_raw": "Declining an order changes its status only from pending to closed.",
+      "text_norm": "Declining an order changes its status only from pending to closed"
+    },
+    {
+      "unit_id": "US-09-AC01",
+      "parent_id": "US-09",
+      "kind": "ac",
+      "text_raw": "Given an order whose status is filled, When order staff set it to shipped, Then the system sets its status to shipped.",
+      "text_norm": "Given an order whose status is filled, When order staff set it to shipped, Then the system sets its status to shipped"
+    },
+    {
+      "unit_id": "US-09-AC02",
+      "parent_id": "US-09",
+      "kind": "ac",
+      "text_raw": "Given an order whose status is not filled, When order staff attempt to set it to shipped, Then the system rejects the attempt and the status of the order is unchanged.",
+      "text_norm": "Given an order whose status is not filled, When order staff attempt to set it to shipped, Then the system rejects the attempt and the status of the order is unchanged"
+    },
+    {
+      "unit_id": "US-09-AC03",
+      "parent_id": "US-09",
+      "kind": "ac",
+      "text_raw": "Given an order that has an invoice with payments against it, When order staff set the order to shipped, Then the status of the invoice and the status of every payment against it are unchanged.",
+      "text_norm": "Given an order that has an invoice with payments against it, When order staff set the order to shipped, Then the status of the invoice and the status of every payment against it are unchanged"
+    },
+    {
+      "unit_id": "US-09-AC04",
+      "parent_id": "US-09",
+      "kind": "ac",
+      "text_raw": "Given an order whose status is filled and that has no invoice, When order staff set it to shipped, Then the system sets its status to shipped without requiring an invoice to have been raised.",
+      "text_norm": "Given an order whose status is filled and that has no invoice, When order staff set it to shipped, Then the system sets its status to shipped without requiring an invoice to have been raised"
+    },
+    {
+      "unit_id": "US-09-AC05",
+      "parent_id": "US-09",
+      "kind": "ac",
+      "text_raw": "Given an order whose status is closed, When order staff attempt to set it to shipped, Then the system rejects the attempt and the order keeps the status closed.",
+      "text_norm": "Given an order whose status is closed, When order staff attempt to set it to shipped, Then the system rejects the attempt and the order keeps the status closed"
+    },
+    {
+      "unit_id": "US-09-AC06",
+      "parent_id": "US-09",
+      "kind": "ac",
+      "text_raw": "Setting an order to shipped changes its status only from filled to shipped.",
+      "text_norm": "Setting an order to shipped changes its status only from filled to shipped"
+    },
+    {
+      "unit_id": "US-10-AC01",
+      "parent_id": "US-10",
+      "kind": "ac",
+      "text_raw": "Given a payment whose status is pending, When the accountant confirms it, Then the system sets its status to completed.",
+      "text_norm": "Given a payment whose status is pending, When the accountant confirms it, Then the system sets its status to completed"
+    },
+    {
+      "unit_id": "US-10-AC02",
+      "parent_id": "US-10",
+      "kind": "ac",
+      "text_raw": "Given a pending payment against an invoice whose status is issued, When the accountant confirms the payment, Then the system sets the status of that invoice to paid.",
+      "text_norm": "Given a pending payment against an invoice whose status is issued, When the accountant confirms the payment, Then the system sets the status of that invoice to paid"
+    },
+    {
+      "unit_id": "US-10-AC03",
+      "parent_id": "US-10",
+      "kind": "ac",
+      "text_raw": "Given a pending payment against an invoice whose status is already paid, When the accountant confirms the payment, Then the system sets the payment to completed and the invoice keeps the status paid.",
+      "text_norm": "Given a pending payment against an invoice whose status is already paid, When the accountant confirms the payment, Then the system sets the payment to completed and the invoice keeps the status paid"
+    },
+    {
+      "unit_id": "US-10-AC04",
+      "parent_id": "US-10",
+      "kind": "ac",
+      "text_raw": "Given a pending payment against an invoice that bills an order, When the accountant confirms the payment, Then the status of that order is unchanged.",
+      "text_norm": "Given a pending payment against an invoice that bills an order, When the accountant confirms the payment, Then the status of that order is unchanged"
+    },
+    {
+      "unit_id": "US-10-AC05",
+      "parent_id": "US-10",
+      "kind": "ac",
+      "text_raw": "Given a payment whose status is not pending, When the accountant attempts to confirm it, Then the system rejects the attempt and the status of the payment is unchanged.",
+      "text_norm": "Given a payment whose status is not pending, When the accountant attempts to confirm it, Then the system rejects the attempt and the status of the payment is unchanged"
+    },
+    {
+      "unit_id": "US-10-AC06",
+      "parent_id": "US-10",
+      "kind": "ac",
+      "text_raw": "Confirming a payment changes the status of the payment only from pending to completed and the status of its invoice only from issued to paid.",
+      "text_norm": "Confirming a payment changes the status of the payment only from pending to completed and the status of its invoice only from issued to paid"
+    },
+    {
+      "unit_id": "US-11-AC01",
+      "parent_id": "US-11",
+      "kind": "ac",
+      "text_raw": "Given a payment whose status is pending, When the accountant rejects it, Then the system sets its status to failed.",
+      "text_norm": "Given a payment whose status is pending, When the accountant rejects it, Then the system sets its status to failed"
+    },
+    {
+      "unit_id": "US-11-AC02",
+      "parent_id": "US-11",
+      "kind": "ac",
+      "text_raw": "Given a pending payment against an invoice that bills an order, When the accountant rejects the payment, Then the status of the invoice and the status of the order are unchanged.",
+      "text_norm": "Given a pending payment against an invoice that bills an order, When the accountant rejects the payment, Then the status of the invoice and the status of the order are unchanged"
+    },
+    {
+      "unit_id": "US-11-AC03",
+      "parent_id": "US-11",
+      "kind": "ac",
+      "text_raw": "Given a payment whose status is not pending, When the accountant attempts to reject it, Then the system rejects the attempt and the status of the payment is unchanged.",
+      "text_norm": "Given a payment whose status is not pending, When the accountant attempts to reject it, Then the system rejects the attempt and the status of the payment is unchanged"
+    },
+    {
+      "unit_id": "US-11-AC04",
+      "parent_id": "US-11",
+      "kind": "ac",
+      "text_raw": "Rejecting a payment changes its status only from pending to failed.",
+      "text_norm": "Rejecting a payment changes its status only from pending to failed"
+    },
+    {
+      "unit_id": "US-12-AC01",
+      "parent_id": "US-12",
+      "kind": "ac",
+      "text_raw": "Given an order whose status is shipped and whose invoice has the status paid, When order staff close it, Then the system sets its status to closed.",
+      "text_norm": "Given an order whose status is shipped and whose invoice has the status paid, When order staff close it, Then the system sets its status to closed"
+    },
+    {
+      "unit_id": "US-12-AC02",
+      "parent_id": "US-12",
+      "kind": "ac",
+      "text_raw": "Given an order whose status is shipped and that has no invoice or whose invoice does not have the status paid, When order staff attempt to close it, Then the system rejects the attempt and the status of the order is unchanged.",
+      "text_norm": "Given an order whose status is shipped and that has no invoice or whose invoice does not have the status paid, When order staff attempt to close it, Then the system rejects the attempt and the status of the order is unchanged"
+    },
+    {
+      "unit_id": "US-12-AC03",
+      "parent_id": "US-12",
+      "kind": "ac",
+      "text_raw": "Given an order whose invoice has the status paid and whose status is not shipped, When order staff attempt to close it, Then the system rejects the attempt and the status of the order is unchanged.",
+      "text_norm": "Given an order whose invoice has the status paid and whose status is not shipped, When order staff attempt to close it, Then the system rejects the attempt and the status of the order is unchanged"
+    },
+    {
+      "unit_id": "US-12-AC04",
+      "parent_id": "US-12",
+      "kind": "ac",
+      "text_raw": "A filled order is closed only after both its shipping and the settlement of its invoice have completed, whichever of the two finishes last.",
+      "text_norm": "A filled order is closed only after both its shipping and the settlement of its invoice have completed, whichever of the two finishes last"
+    },
+    {
+      "unit_id": "US-12-AC05",
+      "parent_id": "US-12",
+      "kind": "ac",
+      "text_raw": "Once an order has the status closed, its status never changes again.",
+      "text_norm": "Once an order has the status closed, its status never changes again"
+    },
+    {
+      "unit_id": "US-12-AC06",
+      "parent_id": "US-12",
+      "kind": "ac",
+      "text_raw": "Closing an order changes its status only from shipped to closed.",
+      "text_norm": "Closing an order changes its status only from shipped to closed"
+    },
+    {
+      "unit_id": "NFR-01",
+      "parent_id": "NFR-01",
+      "kind": "nfr",
+      "text_raw": "When a user submits an order containing up to 50 order items under normal operating conditions, the system shall register the order and respond within 2 seconds for at least 95% of submissions.",
+      "text_norm": "When a user submits an order containing up to 50 order items under normal operating conditions, the system shall register the order and respond within 2 seconds for at least 95% of submissions"
+    },
+    {
+      "unit_id": "NFR-02",
+      "parent_id": "NFR-02",
+      "kind": "nfr",
+      "text_raw": "Under normal operating conditions, the system shall support at least 200 concurrent users and at least 20 order submissions per second while meeting the response time stated in NFR-01.",
+      "text_norm": "Under normal operating conditions, the system shall support at least 200 concurrent users and at least 20 order submissions per second while meeting the response time stated in NFR-01"
+    },
+    {
+      "unit_id": "NFR-03",
+      "parent_id": "NFR-03",
+      "kind": "nfr",
+      "text_raw": "The system shall authenticate every user before granting access to any customer, order, invoice or payment data, and shall reject 100% of unauthenticated requests.",
+      "text_norm": "The system shall authenticate every user before granting access to any customer, order, invoice or payment data, and shall reject 100% of unauthenticated requests"
+    },
+    {
+      "unit_id": "NFR-04",
+      "parent_id": "NFR-04",
+      "kind": "nfr",
+      "text_raw": "The system shall allow only users holding the Accountant role to confirm or reject a payment, and shall reject 100% of such requests from users who do not hold that role.",
+      "text_norm": "The system shall allow only users holding the Accountant role to confirm or reject a payment, and shall reject 100% of such requests from users who do not hold that role"
+    },
+    {
+      "unit_id": "NFR-05",
+      "parent_id": "NFR-05",
+      "kind": "nfr",
+      "text_raw": "The system shall encrypt customer personal data and bank account numbers in transit using TLS 1.2 or higher and shall store them encrypted at rest.",
+      "text_norm": "The system shall encrypt customer personal data and bank account numbers in transit using TLS 1.2 or higher and shall store them encrypted at rest"
+    },
+    {
+      "unit_id": "NFR-06",
+      "parent_id": "NFR-06",
+      "kind": "nfr",
+      "text_raw": "The system shall record the user and the time of every status change of an order, an invoice and a payment, and shall retain each such record for at least 12 months.",
+      "text_norm": "The system shall record the user and the time of every status change of an order, an invoice and a payment, and shall retain each such record for at least 12 months"
+    },
+    {
+      "unit_id": "NFR-07",
+      "parent_id": "NFR-07",
+      "kind": "nfr",
+      "text_raw": "The system shall be available for at least 99.5% of each calendar month, excluding scheduled maintenance announced at least 24 hours in advance.",
+      "text_norm": "The system shall be available for at least 99.5% of each calendar month, excluding scheduled maintenance announced at least 24 hours in advance"
+    },
+    {
+      "unit_id": "NFR-08",
+      "parent_id": "NFR-08",
+      "kind": "nfr",
+      "text_raw": "When a server failure occurs, the system shall resume accepting requests within 15 minutes and shall lose none of the orders, invoices and payments recorded before the failure.",
+      "text_norm": "When a server failure occurs, the system shall resume accepting requests within 15 minutes and shall lose none of the orders, invoices and payments recorded before the failure"
+    }
+  ],
+  "violations": []
+}

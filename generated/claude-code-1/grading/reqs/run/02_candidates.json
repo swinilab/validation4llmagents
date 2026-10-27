@@ -1,0 +1,2150 @@
+[
+  {
+    "gold_id": "NFR-01",
+    "gen_id": "NFR-01",
+    "cosine": 0.9471,
+    "excluded": null
+  },
+  {
+    "gold_id": "NFR-01",
+    "gen_id": "US-03-AC01",
+    "cosine": 0.7146,
+    "excluded": "cross_kind"
+  },
+  {
+    "gold_id": "NFR-02",
+    "gen_id": "NFR-02",
+    "cosine": 0.9807,
+    "excluded": null
+  },
+  {
+    "gold_id": "NFR-02",
+    "gen_id": "NFR-01",
+    "cosine": 0.7535,
+    "excluded": null
+  },
+  {
+    "gold_id": "NFR-03",
+    "gen_id": "NFR-03",
+    "cosine": 1.0,
+    "excluded": null
+  },
+  {
+    "gold_id": "NFR-04",
+    "gen_id": "NFR-04",
+    "cosine": 0.9799,
+    "excluded": null
+  },
+  {
+    "gold_id": "NFR-05",
+    "gen_id": "NFR-05",
+    "cosine": 0.9813,
+    "excluded": null
+  },
+  {
+    "gold_id": "NFR-06",
+    "gen_id": "NFR-06",
+    "cosine": 0.9955,
+    "excluded": null
+  },
+  {
+    "gold_id": "NFR-07",
+    "gen_id": "NFR-07",
+    "cosine": 1.0,
+    "excluded": null
+  },
+  {
+    "gold_id": "NFR-08",
+    "gen_id": "NFR-08",
+    "cosine": 0.9314,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-01-AC01",
+    "gen_id": "US-01-AC01",
+    "cosine": 0.8295,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-01-AC01",
+    "gen_id": "US-01-AC04",
+    "cosine": 0.7248,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-01-AC02",
+    "gen_id": "US-01-AC04",
+    "cosine": 0.7956,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-01-AC03",
+    "gen_id": "US-01-AC02",
+    "cosine": 0.9282,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-01-AC04",
+    "gen_id": "US-01-AC03",
+    "cosine": 0.9056,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-02-AC01",
+    "gen_id": "US-02-AC01",
+    "cosine": 0.81,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-02-AC02",
+    "gen_id": "US-02-AC03",
+    "cosine": 0.881,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-02-AC03",
+    "gen_id": "US-02-AC02",
+    "cosine": 0.9397,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-02-AC03",
+    "gen_id": "US-03-AC10",
+    "cosine": 0.7161,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-02-AC04",
+    "gen_id": "US-02-AC04",
+    "cosine": 0.9058,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-02-AC04",
+    "gen_id": "US-03-AC07",
+    "cosine": 0.763,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-03-AC01",
+    "gen_id": "US-03-AC01",
+    "cosine": 0.9805,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-03-AC02",
+    "gen_id": "US-03-AC07",
+    "cosine": 0.9316,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-03-AC02",
+    "gen_id": "US-03-AC09",
+    "cosine": 0.7069,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-03-AC03",
+    "gen_id": "US-03-AC09",
+    "cosine": 1.0,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-03-AC03",
+    "gen_id": "US-03-AC07",
+    "cosine": 0.7182,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-03-AC04",
+    "gen_id": "US-03-AC10",
+    "cosine": 0.8942,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-03-AC04",
+    "gen_id": "US-02-AC02",
+    "cosine": 0.7345,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-03-AC05",
+    "gen_id": "US-03-AC12",
+    "cosine": 0.8542,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-03-AC05",
+    "gen_id": "US-05-AC08",
+    "cosine": 0.8154,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-03-AC05",
+    "gen_id": "US-04-AC10",
+    "cosine": 0.7849,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-03-AC06",
+    "gen_id": "US-03-AC08",
+    "cosine": 0.8512,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-04-AC01",
+    "gen_id": "US-03-AC02",
+    "cosine": 0.8727,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-04-AC02",
+    "gen_id": "US-03-AC03",
+    "cosine": 0.9932,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-04-AC02",
+    "gen_id": "US-03-AC04",
+    "cosine": 0.8479,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-04-AC02",
+    "gen_id": "US-06-AC02",
+    "cosine": 0.7164,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-04-AC02",
+    "gen_id": "US-03-AC02",
+    "cosine": 0.7021,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-04-AC03",
+    "gen_id": "US-03-AC04",
+    "cosine": 0.9702,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-04-AC03",
+    "gen_id": "US-03-AC03",
+    "cosine": 0.8386,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-05-AC01",
+    "gen_id": "US-03-AC05",
+    "cosine": 0.7519,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-05-AC02",
+    "gen_id": "US-03-AC05",
+    "cosine": 0.908,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-05-AC02",
+    "gen_id": "US-03-AC10",
+    "cosine": 0.7081,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-05-AC03",
+    "gen_id": "US-03-AC10",
+    "cosine": 0.79,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-05-AC03",
+    "gen_id": "US-05-AC06",
+    "cosine": 0.7752,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-05-AC03",
+    "gen_id": "US-04-AC08",
+    "cosine": 0.7328,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-06-AC01",
+    "gen_id": "US-06-AC01",
+    "cosine": 0.9026,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-06-AC01",
+    "gen_id": "US-07-AC01",
+    "cosine": 0.8256,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-06-AC01",
+    "gen_id": "US-08-AC01",
+    "cosine": 0.7936,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-06-AC01",
+    "gen_id": "US-03-AC13",
+    "cosine": 0.7653,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-06-AC01",
+    "gen_id": "US-09-AC01",
+    "cosine": 0.763,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-06-AC01",
+    "gen_id": "US-07-AC02",
+    "cosine": 0.7546,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-06-AC01",
+    "gen_id": "US-06-AC04",
+    "cosine": 0.7501,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-06-AC01",
+    "gen_id": "US-06-AC02",
+    "cosine": 0.7364,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-06-AC01",
+    "gen_id": "US-08-AC02",
+    "cosine": 0.711,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-06-AC01",
+    "gen_id": "US-12-AC01",
+    "cosine": 0.7033,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-06-AC02",
+    "gen_id": "US-06-AC02",
+    "cosine": 0.8412,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-06-AC02",
+    "gen_id": "US-07-AC02",
+    "cosine": 0.8109,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-06-AC02",
+    "gen_id": "US-08-AC02",
+    "cosine": 0.7765,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-06-AC02",
+    "gen_id": "US-06-AC01",
+    "cosine": 0.7661,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-06-AC02",
+    "gen_id": "US-08-AC01",
+    "cosine": 0.7514,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-06-AC02",
+    "gen_id": "US-07-AC03",
+    "cosine": 0.7289,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-06-AC02",
+    "gen_id": "US-09-AC02",
+    "cosine": 0.7203,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-06-AC02",
+    "gen_id": "US-06-AC03",
+    "cosine": 0.7141,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-06-AC02",
+    "gen_id": "US-06-AC04",
+    "cosine": 0.7077,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-06-AC02",
+    "gen_id": "US-07-AC01",
+    "cosine": 0.7007,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-06-AC03",
+    "gen_id": "US-03-AC11",
+    "cosine": 0.8339,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-06-AC03",
+    "gen_id": "US-03-AC13",
+    "cosine": 0.7299,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-06-AC03",
+    "gen_id": "US-12-AC06",
+    "cosine": 0.719,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-06-AC03",
+    "gen_id": "US-12-AC05",
+    "cosine": 0.7147,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-06-AC03",
+    "gen_id": "US-06-AC04",
+    "cosine": 0.7103,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-06-AC03",
+    "gen_id": "US-12-AC03",
+    "cosine": 0.7001,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-06-AC04",
+    "gen_id": "US-03-AC11",
+    "cosine": 0.8248,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-06-AC04",
+    "gen_id": "US-03-AC13",
+    "cosine": 0.7306,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-06-AC04",
+    "gen_id": "US-06-AC04",
+    "cosine": 0.7072,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-07-AC01",
+    "gen_id": "US-07-AC01",
+    "cosine": 0.9216,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-07-AC01",
+    "gen_id": "US-06-AC01",
+    "cosine": 0.832,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-07-AC01",
+    "gen_id": "US-07-AC02",
+    "cosine": 0.806,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-07-AC01",
+    "gen_id": "US-09-AC01",
+    "cosine": 0.8001,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-07-AC01",
+    "gen_id": "US-07-AC04",
+    "cosine": 0.7803,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-07-AC01",
+    "gen_id": "US-07-AC03",
+    "cosine": 0.7687,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-07-AC01",
+    "gen_id": "US-08-AC01",
+    "cosine": 0.7655,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-07-AC01",
+    "gen_id": "US-12-AC01",
+    "cosine": 0.7166,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-07-AC01",
+    "gen_id": "US-09-AC04",
+    "cosine": 0.7128,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-07-AC01",
+    "gen_id": "US-09-AC02",
+    "cosine": 0.7028,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-07-AC01",
+    "gen_id": "US-03-AC13",
+    "cosine": 0.7013,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-07-AC02",
+    "gen_id": "US-07-AC02",
+    "cosine": 0.8547,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-07-AC02",
+    "gen_id": "US-07-AC04",
+    "cosine": 0.7614,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-07-AC02",
+    "gen_id": "US-07-AC01",
+    "cosine": 0.7593,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-07-AC02",
+    "gen_id": "US-07-AC03",
+    "cosine": 0.7357,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-07-AC02",
+    "gen_id": "US-08-AC01",
+    "cosine": 0.7263,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-07-AC02",
+    "gen_id": "US-08-AC02",
+    "cosine": 0.7196,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-07-AC02",
+    "gen_id": "US-06-AC01",
+    "cosine": 0.7128,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-07-AC02",
+    "gen_id": "US-09-AC02",
+    "cosine": 0.7102,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-07-AC02",
+    "gen_id": "US-06-AC04",
+    "cosine": 0.7099,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-07-AC02",
+    "gen_id": "US-06-AC02",
+    "cosine": 0.7073,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-07-AC03",
+    "gen_id": "US-09-AC06",
+    "cosine": 0.7774,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-08-AC01",
+    "gen_id": "US-08-AC01",
+    "cosine": 0.9219,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-08-AC01",
+    "gen_id": "US-08-AC03",
+    "cosine": 0.7882,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-08-AC01",
+    "gen_id": "US-06-AC01",
+    "cosine": 0.7757,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-08-AC01",
+    "gen_id": "US-08-AC02",
+    "cosine": 0.764,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-08-AC01",
+    "gen_id": "US-06-AC03",
+    "cosine": 0.762,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-08-AC01",
+    "gen_id": "US-07-AC03",
+    "cosine": 0.7615,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-08-AC01",
+    "gen_id": "US-07-AC01",
+    "cosine": 0.7572,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-08-AC01",
+    "gen_id": "US-12-AC01",
+    "cosine": 0.754,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-08-AC01",
+    "gen_id": "US-12-AC03",
+    "cosine": 0.7259,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-08-AC01",
+    "gen_id": "US-07-AC02",
+    "cosine": 0.7246,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-08-AC01",
+    "gen_id": "US-12-AC05",
+    "cosine": 0.7245,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-08-AC01",
+    "gen_id": "US-12-AC02",
+    "cosine": 0.7194,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-08-AC01",
+    "gen_id": "US-08-AC05",
+    "cosine": 0.706,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-08-AC01",
+    "gen_id": "US-09-AC05",
+    "cosine": 0.706,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-08-AC02",
+    "gen_id": "US-08-AC02",
+    "cosine": 0.8486,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-08-AC02",
+    "gen_id": "US-08-AC01",
+    "cosine": 0.8082,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-08-AC02",
+    "gen_id": "US-07-AC02",
+    "cosine": 0.7777,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-08-AC02",
+    "gen_id": "US-06-AC02",
+    "cosine": 0.7354,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-08-AC02",
+    "gen_id": "US-08-AC05",
+    "cosine": 0.73,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-08-AC02",
+    "gen_id": "US-06-AC01",
+    "cosine": 0.7214,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-08-AC02",
+    "gen_id": "US-08-AC03",
+    "cosine": 0.7208,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-08-AC03",
+    "gen_id": "US-08-AC04",
+    "cosine": 0.8621,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-08-AC03",
+    "gen_id": "US-04-AC04",
+    "cosine": 0.8375,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-08-AC03",
+    "gen_id": "US-04-AC03",
+    "cosine": 0.7734,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-08-AC03",
+    "gen_id": "US-05-AC02",
+    "cosine": 0.7348,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-08-AC03",
+    "gen_id": "US-04-AC02",
+    "cosine": 0.731,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-09-AC01",
+    "gen_id": "US-09-AC01",
+    "cosine": 0.9306,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-09-AC01",
+    "gen_id": "US-09-AC04",
+    "cosine": 0.8218,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-09-AC01",
+    "gen_id": "US-07-AC01",
+    "cosine": 0.8157,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-09-AC01",
+    "gen_id": "US-09-AC02",
+    "cosine": 0.8083,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-09-AC01",
+    "gen_id": "US-06-AC01",
+    "cosine": 0.7842,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-09-AC01",
+    "gen_id": "US-09-AC05",
+    "cosine": 0.7702,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-09-AC01",
+    "gen_id": "US-09-AC06",
+    "cosine": 0.7564,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-09-AC01",
+    "gen_id": "US-12-AC01",
+    "cosine": 0.7477,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-09-AC02",
+    "gen_id": "US-09-AC02",
+    "cosine": 0.8724,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-09-AC02",
+    "gen_id": "US-07-AC02",
+    "cosine": 0.8111,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-09-AC02",
+    "gen_id": "US-09-AC01",
+    "cosine": 0.7929,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-09-AC02",
+    "gen_id": "US-09-AC05",
+    "cosine": 0.7863,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-09-AC02",
+    "gen_id": "US-07-AC01",
+    "cosine": 0.7453,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-09-AC02",
+    "gen_id": "US-09-AC04",
+    "cosine": 0.7395,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-09-AC02",
+    "gen_id": "US-06-AC02",
+    "cosine": 0.728,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-09-AC02",
+    "gen_id": "US-06-AC01",
+    "cosine": 0.7182,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-09-AC02",
+    "gen_id": "US-08-AC01",
+    "cosine": 0.7169,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-09-AC02",
+    "gen_id": "US-07-AC04",
+    "cosine": 0.7146,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-09-AC02",
+    "gen_id": "US-07-AC03",
+    "cosine": 0.7098,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-09-AC02",
+    "gen_id": "US-09-AC06",
+    "cosine": 0.7094,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-09-AC03",
+    "gen_id": "US-09-AC03",
+    "cosine": 0.8725,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-09-AC03",
+    "gen_id": "US-09-AC04",
+    "cosine": 0.7561,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-09-AC03",
+    "gen_id": "US-09-AC01",
+    "cosine": 0.7312,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC01",
+    "gen_id": "US-04-AC01",
+    "cosine": 0.9691,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC01",
+    "gen_id": "US-04-AC05",
+    "cosine": 0.8744,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC01",
+    "gen_id": "US-05-AC01",
+    "cosine": 0.8461,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC01",
+    "gen_id": "US-10-AC02",
+    "cosine": 0.8186,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC01",
+    "gen_id": "US-04-AC06",
+    "cosine": 0.8045,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC01",
+    "gen_id": "US-04-AC03",
+    "cosine": 0.7839,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC01",
+    "gen_id": "US-10-AC03",
+    "cosine": 0.7571,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC01",
+    "gen_id": "US-04-AC09",
+    "cosine": 0.715,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC01",
+    "gen_id": "NFR-06",
+    "cosine": 0.7122,
+    "excluded": "cross_kind"
+  },
+  {
+    "gold_id": "US-10-AC01",
+    "gen_id": "US-03-AC06",
+    "cosine": 0.7095,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC01",
+    "gen_id": "US-04-AC11",
+    "cosine": 0.7083,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC01",
+    "gen_id": "US-05-AC03",
+    "cosine": 0.7066,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC02",
+    "gen_id": "US-04-AC02",
+    "cosine": 0.9144,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC02",
+    "gen_id": "US-04-AC04",
+    "cosine": 0.8582,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC02",
+    "gen_id": "US-08-AC04",
+    "cosine": 0.8431,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC02",
+    "gen_id": "US-04-AC03",
+    "cosine": 0.8209,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC03",
+    "gen_id": "US-04-AC03",
+    "cosine": 0.9562,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC03",
+    "gen_id": "US-08-AC04",
+    "cosine": 0.8976,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC03",
+    "gen_id": "US-04-AC04",
+    "cosine": 0.8577,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC03",
+    "gen_id": "US-04-AC02",
+    "cosine": 0.8103,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC03",
+    "gen_id": "US-11-AC02",
+    "cosine": 0.7979,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC03",
+    "gen_id": "US-04-AC05",
+    "cosine": 0.7775,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC03",
+    "gen_id": "US-10-AC02",
+    "cosine": 0.7569,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC03",
+    "gen_id": "US-05-AC02",
+    "cosine": 0.7556,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC03",
+    "gen_id": "US-04-AC01",
+    "cosine": 0.7534,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC03",
+    "gen_id": "US-11-AC03",
+    "cosine": 0.7365,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC03",
+    "gen_id": "US-10-AC05",
+    "cosine": 0.7327,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC03",
+    "gen_id": "US-11-AC01",
+    "cosine": 0.7221,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC03",
+    "gen_id": "US-05-AC01",
+    "cosine": 0.7215,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC03",
+    "gen_id": "US-10-AC03",
+    "cosine": 0.7119,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC03",
+    "gen_id": "US-10-AC04",
+    "cosine": 0.7073,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC03",
+    "gen_id": "US-06-AC03",
+    "cosine": 0.7019,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC04",
+    "gen_id": "US-04-AC07",
+    "cosine": 0.9696,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC05",
+    "gen_id": "US-04-AC09",
+    "cosine": 0.8292,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC05",
+    "gen_id": "US-04-AC11",
+    "cosine": 0.7985,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC05",
+    "gen_id": "US-10-AC02",
+    "cosine": 0.7489,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC05",
+    "gen_id": "US-04-AC01",
+    "cosine": 0.7335,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC05",
+    "gen_id": "US-04-AC05",
+    "cosine": 0.7247,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC05",
+    "gen_id": "US-05-AC01",
+    "cosine": 0.7187,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC05",
+    "gen_id": "US-10-AC03",
+    "cosine": 0.7109,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-10-AC06",
+    "gen_id": "US-09-AC03",
+    "cosine": 0.7407,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC01",
+    "gen_id": "US-05-AC01",
+    "cosine": 0.9905,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC01",
+    "gen_id": "US-10-AC02",
+    "cosine": 0.8879,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC01",
+    "gen_id": "US-10-AC03",
+    "cosine": 0.8742,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC01",
+    "gen_id": "US-05-AC03",
+    "cosine": 0.86,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC01",
+    "gen_id": "US-04-AC01",
+    "cosine": 0.8336,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC01",
+    "gen_id": "US-05-AC02",
+    "cosine": 0.808,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC01",
+    "gen_id": "US-04-AC05",
+    "cosine": 0.7393,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC01",
+    "gen_id": "US-10-AC01",
+    "cosine": 0.7377,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC01",
+    "gen_id": "US-04-AC03",
+    "cosine": 0.7303,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC01",
+    "gen_id": "US-11-AC02",
+    "cosine": 0.7199,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC01",
+    "gen_id": "US-04-AC11",
+    "cosine": 0.7151,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC01",
+    "gen_id": "US-04-AC06",
+    "cosine": 0.7124,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC01",
+    "gen_id": "US-10-AC05",
+    "cosine": 0.7076,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC01",
+    "gen_id": "US-04-AC09",
+    "cosine": 0.7013,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC02",
+    "gen_id": "US-05-AC08",
+    "cosine": 0.8132,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC02",
+    "gen_id": "US-03-AC12",
+    "cosine": 0.8074,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC02",
+    "gen_id": "US-04-AC10",
+    "cosine": 0.8064,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC03",
+    "gen_id": "US-05-AC06",
+    "cosine": 0.9349,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC03",
+    "gen_id": "US-04-AC08",
+    "cosine": 0.7517,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC04",
+    "gen_id": "US-05-AC09",
+    "cosine": 0.8853,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC04",
+    "gen_id": "US-05-AC07",
+    "cosine": 0.8433,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC04",
+    "gen_id": "US-11-AC04",
+    "cosine": 0.7556,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC04",
+    "gen_id": "US-10-AC06",
+    "cosine": 0.7503,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC05",
+    "gen_id": "US-05-AC02",
+    "cosine": 0.8929,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC05",
+    "gen_id": "US-05-AC03",
+    "cosine": 0.8038,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC05",
+    "gen_id": "US-04-AC03",
+    "cosine": 0.7327,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC05",
+    "gen_id": "US-05-AC01",
+    "cosine": 0.7274,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC05",
+    "gen_id": "US-11-AC02",
+    "cosine": 0.7074,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC05",
+    "gen_id": "US-10-AC05",
+    "cosine": 0.7027,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC05",
+    "gen_id": "US-10-AC03",
+    "cosine": 0.7015,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC06",
+    "gen_id": "US-05-AC05",
+    "cosine": 0.8739,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-11-AC06",
+    "gen_id": "US-04-AC06",
+    "cosine": 0.7234,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-12-AC01",
+    "gen_id": "US-05-AC03",
+    "cosine": 0.9497,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-12-AC01",
+    "gen_id": "US-05-AC01",
+    "cosine": 0.8634,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-12-AC01",
+    "gen_id": "US-10-AC03",
+    "cosine": 0.8262,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-12-AC01",
+    "gen_id": "US-05-AC02",
+    "cosine": 0.8235,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-12-AC01",
+    "gen_id": "US-10-AC02",
+    "cosine": 0.8109,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-12-AC01",
+    "gen_id": "US-11-AC02",
+    "cosine": 0.735,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-12-AC01",
+    "gen_id": "US-11-AC01",
+    "cosine": 0.7329,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-12-AC01",
+    "gen_id": "US-10-AC01",
+    "cosine": 0.7215,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-12-AC01",
+    "gen_id": "US-10-AC04",
+    "cosine": 0.7194,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-12-AC01",
+    "gen_id": "US-04-AC01",
+    "cosine": 0.7113,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-12-AC01",
+    "gen_id": "US-05-AC09",
+    "cosine": 0.7092,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-12-AC02",
+    "gen_id": "US-05-AC03",
+    "cosine": 0.8631,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-12-AC02",
+    "gen_id": "US-05-AC02",
+    "cosine": 0.7428,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-12-AC02",
+    "gen_id": "US-05-AC07",
+    "cosine": 0.7292,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-12-AC02",
+    "gen_id": "US-05-AC09",
+    "cosine": 0.7241,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-12-AC02",
+    "gen_id": "US-11-AC04",
+    "cosine": 0.7185,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-12-AC03",
+    "gen_id": "US-05-AC05",
+    "cosine": 0.8648,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-12-AC03",
+    "gen_id": "US-04-AC06",
+    "cosine": 0.7756,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC01",
+    "gen_id": "US-10-AC01",
+    "cosine": 0.9715,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC01",
+    "gen_id": "US-10-AC02",
+    "cosine": 0.896,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC01",
+    "gen_id": "US-10-AC03",
+    "cosine": 0.8923,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC01",
+    "gen_id": "US-10-AC05",
+    "cosine": 0.8791,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC01",
+    "gen_id": "US-11-AC01",
+    "cosine": 0.8461,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC01",
+    "gen_id": "US-11-AC03",
+    "cosine": 0.8338,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC01",
+    "gen_id": "US-05-AC01",
+    "cosine": 0.7723,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC01",
+    "gen_id": "US-10-AC04",
+    "cosine": 0.741,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC01",
+    "gen_id": "US-11-AC02",
+    "cosine": 0.7212,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC01",
+    "gen_id": "US-05-AC03",
+    "cosine": 0.7142,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC01",
+    "gen_id": "US-05-AC09",
+    "cosine": 0.7011,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC02",
+    "gen_id": "US-10-AC02",
+    "cosine": 0.974,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC02",
+    "gen_id": "US-10-AC03",
+    "cosine": 0.9349,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC02",
+    "gen_id": "US-10-AC01",
+    "cosine": 0.8848,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC02",
+    "gen_id": "US-10-AC04",
+    "cosine": 0.8461,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC02",
+    "gen_id": "US-05-AC01",
+    "cosine": 0.8437,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC02",
+    "gen_id": "US-11-AC02",
+    "cosine": 0.8154,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC02",
+    "gen_id": "US-10-AC05",
+    "cosine": 0.786,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC02",
+    "gen_id": "US-05-AC02",
+    "cosine": 0.7801,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC02",
+    "gen_id": "US-11-AC01",
+    "cosine": 0.7777,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC02",
+    "gen_id": "US-04-AC01",
+    "cosine": 0.7714,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC02",
+    "gen_id": "US-04-AC03",
+    "cosine": 0.7701,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC02",
+    "gen_id": "US-04-AC05",
+    "cosine": 0.7594,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC02",
+    "gen_id": "US-05-AC03",
+    "cosine": 0.755,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC02",
+    "gen_id": "US-11-AC03",
+    "cosine": 0.7537,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC02",
+    "gen_id": "US-08-AC04",
+    "cosine": 0.7024,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC03",
+    "gen_id": "US-10-AC05",
+    "cosine": 0.9451,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC03",
+    "gen_id": "US-11-AC03",
+    "cosine": 0.9088,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC03",
+    "gen_id": "US-11-AC01",
+    "cosine": 0.9024,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC03",
+    "gen_id": "US-10-AC01",
+    "cosine": 0.8839,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC03",
+    "gen_id": "US-10-AC02",
+    "cosine": 0.7846,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC03",
+    "gen_id": "US-10-AC03",
+    "cosine": 0.7732,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC03",
+    "gen_id": "US-04-AC03",
+    "cosine": 0.7578,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC03",
+    "gen_id": "US-11-AC02",
+    "cosine": 0.7565,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC03",
+    "gen_id": "US-05-AC02",
+    "cosine": 0.7524,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC03",
+    "gen_id": "US-05-AC03",
+    "cosine": 0.7179,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC03",
+    "gen_id": "US-08-AC04",
+    "cosine": 0.7097,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC04",
+    "gen_id": "US-04-AC09",
+    "cosine": 0.8369,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC04",
+    "gen_id": "US-10-AC06",
+    "cosine": 0.7714,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC04",
+    "gen_id": "US-04-AC11",
+    "cosine": 0.766,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC04",
+    "gen_id": "US-09-AC03",
+    "cosine": 0.7346,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC04",
+    "gen_id": "US-10-AC04",
+    "cosine": 0.701,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC05",
+    "gen_id": "US-10-AC06",
+    "cosine": 0.8424,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC05",
+    "gen_id": "US-10-AC04",
+    "cosine": 0.8019,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-13-AC05",
+    "gen_id": "US-09-AC03",
+    "cosine": 0.7211,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC01",
+    "gen_id": "US-11-AC01",
+    "cosine": 0.9748,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC01",
+    "gen_id": "US-11-AC03",
+    "cosine": 0.8897,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC01",
+    "gen_id": "US-10-AC05",
+    "cosine": 0.8814,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC01",
+    "gen_id": "US-10-AC01",
+    "cosine": 0.8608,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC01",
+    "gen_id": "US-10-AC02",
+    "cosine": 0.7855,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC01",
+    "gen_id": "US-10-AC03",
+    "cosine": 0.7683,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC01",
+    "gen_id": "US-05-AC02",
+    "cosine": 0.7584,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC01",
+    "gen_id": "US-05-AC03",
+    "cosine": 0.7518,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC01",
+    "gen_id": "US-11-AC02",
+    "cosine": 0.7361,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC02",
+    "gen_id": "US-11-AC02",
+    "cosine": 0.9275,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC02",
+    "gen_id": "US-11-AC03",
+    "cosine": 0.8706,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC02",
+    "gen_id": "US-10-AC05",
+    "cosine": 0.8539,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC02",
+    "gen_id": "US-10-AC04",
+    "cosine": 0.8435,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC02",
+    "gen_id": "US-10-AC03",
+    "cosine": 0.8237,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC02",
+    "gen_id": "US-10-AC02",
+    "cosine": 0.8214,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC02",
+    "gen_id": "US-04-AC03",
+    "cosine": 0.7996,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC02",
+    "gen_id": "US-11-AC01",
+    "cosine": 0.7929,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC02",
+    "gen_id": "US-10-AC01",
+    "cosine": 0.7825,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC02",
+    "gen_id": "US-08-AC04",
+    "cosine": 0.7756,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC02",
+    "gen_id": "US-05-AC02",
+    "cosine": 0.7708,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC02",
+    "gen_id": "US-05-AC01",
+    "cosine": 0.7587,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC02",
+    "gen_id": "US-05-AC03",
+    "cosine": 0.7573,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC02",
+    "gen_id": "US-04-AC04",
+    "cosine": 0.7221,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC02",
+    "gen_id": "US-04-AC02",
+    "cosine": 0.7174,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC03",
+    "gen_id": "US-11-AC03",
+    "cosine": 0.9379,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC03",
+    "gen_id": "US-11-AC01",
+    "cosine": 0.9198,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC03",
+    "gen_id": "US-10-AC05",
+    "cosine": 0.9179,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC03",
+    "gen_id": "US-10-AC01",
+    "cosine": 0.8558,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC03",
+    "gen_id": "US-10-AC02",
+    "cosine": 0.7867,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC03",
+    "gen_id": "US-11-AC02",
+    "cosine": 0.7754,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC03",
+    "gen_id": "US-10-AC03",
+    "cosine": 0.7685,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC03",
+    "gen_id": "US-04-AC03",
+    "cosine": 0.7621,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC03",
+    "gen_id": "US-05-AC02",
+    "cosine": 0.7517,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC03",
+    "gen_id": "US-08-AC04",
+    "cosine": 0.7251,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC03",
+    "gen_id": "US-05-AC03",
+    "cosine": 0.7238,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC04",
+    "gen_id": "US-05-AC09",
+    "cosine": 0.8652,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC04",
+    "gen_id": "US-11-AC04",
+    "cosine": 0.8367,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC04",
+    "gen_id": "US-05-AC07",
+    "cosine": 0.827,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC04",
+    "gen_id": "US-10-AC06",
+    "cosine": 0.7967,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-14-AC04",
+    "gen_id": "US-06-AC04",
+    "cosine": 0.7305,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC01",
+    "gen_id": "US-12-AC01",
+    "cosine": 0.9416,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC01",
+    "gen_id": "US-12-AC03",
+    "cosine": 0.8228,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC01",
+    "gen_id": "US-12-AC02",
+    "cosine": 0.7945,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC01",
+    "gen_id": "US-09-AC01",
+    "cosine": 0.7699,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC01",
+    "gen_id": "US-08-AC01",
+    "cosine": 0.7686,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC01",
+    "gen_id": "US-09-AC04",
+    "cosine": 0.7682,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC01",
+    "gen_id": "US-07-AC01",
+    "cosine": 0.7385,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC01",
+    "gen_id": "US-06-AC01",
+    "cosine": 0.7279,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC01",
+    "gen_id": "US-09-AC05",
+    "cosine": 0.726,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC01",
+    "gen_id": "US-07-AC03",
+    "cosine": 0.7197,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC01",
+    "gen_id": "US-12-AC05",
+    "cosine": 0.7181,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC01",
+    "gen_id": "US-12-AC06",
+    "cosine": 0.7178,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC01",
+    "gen_id": "US-06-AC03",
+    "cosine": 0.7115,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC02",
+    "gen_id": "US-12-AC03",
+    "cosine": 0.9064,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC02",
+    "gen_id": "US-12-AC02",
+    "cosine": 0.8948,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC02",
+    "gen_id": "US-12-AC01",
+    "cosine": 0.8112,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC02",
+    "gen_id": "US-08-AC01",
+    "cosine": 0.7477,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC02",
+    "gen_id": "US-09-AC05",
+    "cosine": 0.7382,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC02",
+    "gen_id": "US-07-AC02",
+    "cosine": 0.7254,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC02",
+    "gen_id": "US-07-AC03",
+    "cosine": 0.7251,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC02",
+    "gen_id": "US-09-AC04",
+    "cosine": 0.724,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC02",
+    "gen_id": "US-09-AC02",
+    "cosine": 0.7193,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC02",
+    "gen_id": "US-06-AC03",
+    "cosine": 0.7098,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC03",
+    "gen_id": "US-12-AC03",
+    "cosine": 0.9189,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC03",
+    "gen_id": "US-12-AC02",
+    "cosine": 0.9034,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC03",
+    "gen_id": "US-12-AC01",
+    "cosine": 0.8144,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC03",
+    "gen_id": "US-08-AC01",
+    "cosine": 0.7636,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC03",
+    "gen_id": "US-07-AC03",
+    "cosine": 0.7457,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC03",
+    "gen_id": "US-09-AC05",
+    "cosine": 0.7455,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC03",
+    "gen_id": "US-07-AC02",
+    "cosine": 0.745,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC03",
+    "gen_id": "US-09-AC02",
+    "cosine": 0.7303,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC03",
+    "gen_id": "US-06-AC03",
+    "cosine": 0.7272,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC03",
+    "gen_id": "US-09-AC04",
+    "cosine": 0.7189,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC03",
+    "gen_id": "US-12-AC05",
+    "cosine": 0.7039,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC03",
+    "gen_id": "US-06-AC02",
+    "cosine": 0.7027,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC04",
+    "gen_id": "US-12-AC05",
+    "cosine": 0.7867,
+    "excluded": null
+  },
+  {
+    "gold_id": "US-15-AC05",
+    "gen_id": "US-12-AC04",
+    "cosine": 0.9911,
+    "excluded": null
+  }
+]

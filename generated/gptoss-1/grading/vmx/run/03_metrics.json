@@ -1,0 +1,71 @@
+{
+  "run_id": "gptoss-1",
+  "status": "final",
+  "coverage": {
+    "score": 1.0,
+    "covered": 20,
+    "total": 20
+  },
+  "integrity": {
+    "score": 0.967,
+    "resolved": 88,
+    "total": 91,
+    "by_column": {
+      "source": {
+        "resolved": 44,
+        "total": 44,
+        "score": 1.0
+      },
+      "structural": {
+        "resolved": 32,
+        "total": 33,
+        "score": 0.9697
+      },
+      "behavioral": {
+        "resolved": 12,
+        "total": 14,
+        "score": 0.8571
+      }
+    }
+  },
+  "diagnostics": {
+    "uncovered": [],
+    "broken_references": 3,
+    "duplicate_rows": [],
+    "rows_outside_requirements": []
+  },
+  "inputs": {
+    "domain_path": "C:\\Users\\Admin\\Documents\\validation4llmagents\\materials\\M1a.json",
+    "domain_ids": 58,
+    "requirements": {
+      "status": "read",
+      "count": 20
+    },
+    "vmx": {
+      "status": "read",
+      "rows": 20,
+      "schema": {
+        "header": [
+          "SRS-Req-ID",
+          "Domain-Req-ID",
+          "Structural-Elements",
+          "Behavorial-Elements"
+        ],
+        "missing_columns": [],
+        "unknown_columns": []
+      }
+    },
+    "structural": {
+      "status": "parsed",
+      "size": 34,
+      "validity": 0.9423,
+      "parse_error": null
+    },
+    "behavioral": {
+      "status": "parsed",
+      "size": 12,
+      "validity": 1.0,
+      "parse_error": null
+    }
+  }
+}

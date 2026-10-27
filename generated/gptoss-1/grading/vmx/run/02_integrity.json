@@ -1,0 +1,42 @@
+{
+  "score": 0.967,
+  "resolved": 88,
+  "total": 91,
+  "by_column": {
+    "source": {
+      "resolved": 44,
+      "total": 44,
+      "score": 1.0
+    },
+    "structural": {
+      "resolved": 32,
+      "total": 33,
+      "score": 0.9697
+    },
+    "behavioral": {
+      "resolved": 12,
+      "total": 14,
+      "score": 0.8571
+    }
+  },
+  "broken": [
+    {
+      "row": 2,
+      "id": "US-02",
+      "column": "behavioral",
+      "reference": "AddBankAccount"
+    },
+    {
+      "row": 4,
+      "id": "US-04",
+      "column": "structural",
+      "reference": "OrderItem.product"
+    },
+    {
+      "row": 8,
+      "id": "US-08",
+      "column": "behavioral",
+      "reference": "DeclineOrder"
+    }
+  ]
+}

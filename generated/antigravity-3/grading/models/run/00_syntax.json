@@ -1,0 +1,49 @@
+{
+  "structural": {
+    "validity": 1.0,
+    "accepted": 50,
+    "total": 50,
+    "parse_error": null,
+    "rejections": [],
+    "gate": "pass"
+  },
+  "behavioral": {
+    "validity": 0.875,
+    "accepted": 42,
+    "total": 48,
+    "parse_error": null,
+    "rejections": [
+      {
+        "line": 33,
+        "source": "repeat :Submit Payment;",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 40,
+        "source": "repeat while (Retry payment?) is ([resubmit])",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 41,
+        "source": "->[confirm];",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 46,
+        "source": "end fork",
+        "code": "unbalanced_block"
+      },
+      {
+        "line": 24,
+        "source": "fork",
+        "code": "unbalanced_block"
+      },
+      {
+        "line": 36,
+        "source": "if",
+        "code": "unbalanced_block"
+      }
+    ],
+    "gate": "fail"
+  }
+}

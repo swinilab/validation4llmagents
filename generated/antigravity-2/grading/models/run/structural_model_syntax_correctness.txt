@@ -1,0 +1,89 @@
+==================================================================================
+STRUCTURAL MODEL SYNTAX CORRECTNESS (structural.puml)
+==================================================================================
+Gate: pass  |  Syntax validity: 1.0 (50/50 declarations accepted)
+
+Line  Status  Kind          Source                                         Message
+----------------------------------------------------------------------------------
+   1  -                     @startuml structural                           -
+   2  -                                                                    -
+   3  PASS    enum          enum OrderStatus {                             -
+   4  PASS    literal       submitted                                      -
+   5  PASS    literal       pending                                        -
+   6  PASS    literal       filled                                         -
+   7  PASS    literal       shipped                                        -
+   8  PASS    literal       closed                                         -
+   9  -                     }                                              -
+  10  -                                                                    -
+  11  PASS    enum          enum InvoiceStatus {                           -
+  12  PASS    literal       issued                                         -
+  13  PASS    literal       paid                                           -
+  14  -                     }                                              -
+  15  -                                                                    -
+  16  PASS    enum          enum PaymentStatus {                           -
+  17  PASS    literal       pending                                        -
+  18  PASS    literal       completed                                      -
+  19  PASS    literal       failed                                         -
+  20  -                     }                                              -
+  21  -                                                                    -
+  22  PASS    enum          enum PaymentMethod {                           -
+  23  PASS    literal       bank                                           -
+  24  PASS    literal       card                                           -
+  25  PASS    literal       cash                                           -
+  26  -                     }                                              -
+  27  -                                                                    -
+  28  PASS    class         class Customer {                               -
+  29  PASS    attribute     +name: String                                  -
+  30  PASS    attribute     +address: String                               -
+  31  PASS    attribute     +phoneNumber: String                           -
+  32  PASS    attribute     +bankAccount: String                           -
+  33  -                     }                                              -
+  34  -                                                                    -
+  35  PASS    class         class Product {                                -
+  36  PASS    attribute     +name: String                                  -
+  37  PASS    attribute     +description: String                           -
+  38  PASS    attribute     +price: Decimal                                -
+  39  PASS    attribute     +image: String                                 -
+  40  -                     }                                              -
+  41  -                                                                    -
+  42  PASS    class         class Order {                                  -
+  43  PASS    attribute     +orderDate: Date                               -
+  44  PASS    attribute     +totalAmount: Decimal                          -
+  45  PASS    attribute     +status: OrderStatus                           -
+  46  PASS    attribute     +paymentMethod: PaymentMethod                  -
+  47  -                     }                                              -
+  48  -                                                                    -
+  49  PASS    class         class OrderItem {                              -
+  50  PASS    attribute     +quantity: Integer                             -
+  51  PASS    attribute     +unitPrice: Decimal                            -
+  52  -                     }                                              -
+  53  -                                                                    -
+  54  PASS    class         class Invoice {                                -
+  55  PASS    attribute     +date: Date                                    -
+  56  PASS    attribute     +amount: Decimal                               -
+  57  PASS    attribute     +status: InvoiceStatus                         -
+  58  PASS    attribute     +paymentMethod: PaymentMethod                  -
+  59  -                     }                                              -
+  60  -                                                                    -
+  61  PASS    class         class Payment {                                -
+  62  PASS    attribute     +date: Date                                    -
+  63  PASS    attribute     +amount: Decimal                               -
+  64  PASS    attribute     +status: PaymentStatus                         -
+  65  PASS    attribute     +paymentMethod: PaymentMethod                  -
+  66  -                     }                                              -
+  67  -                                                                    -
+  68  PASS    relationship  Customer "1" -- "0..*" Order : places >        -
+  69  PASS    relationship  Order "1" *-- "1..*" OrderItem : contains >    -
+  70  PASS    relationship  OrderItem "0..*" -- "1" Product : refers to >  -
+  71  PASS    relationship  Order "1" -- "0..1" Invoice : billed by >      -
+  72  PASS    relationship  Invoice "1" -- "0..*" Payment : settled by >   -
+  73  -                                                                    -
+  74  -                     @enduml                                        -
+----------------------------------------------------------------------------------
+
+Rejected declarations (0):
+  none
+
+Format violations (0):
+  none
+==================================================================================

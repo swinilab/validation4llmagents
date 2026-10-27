@@ -1,0 +1,35 @@
+{
+  "run_id": "gptoss-3",
+  "submission_dir": "C:\\Users\\Admin\\Documents\\validation4llmagents\\generated\\gptoss-3\\sdk_ChatDev_v1_20261027130045_20261027130045\\code_workspace",
+  "domain_path": "C:\\Users\\Admin\\Documents\\validation4llmagents\\materials\\M1a.json",
+  "rules": {
+    "submission_files": {
+      "requirements": "requirements.json",
+      "vmx": "VMX.csv",
+      "structural": "structural.puml",
+      "behavioral": "behavioral.puml"
+    },
+    "columns": {
+      "id": "SRS-Req-ID",
+      "source": "Domain-Req-ID",
+      "structural": "Structural-Elements",
+      "behavioral": "Behavorial-Elements"
+    },
+    "separator": ";",
+    "completeness": {
+      "US-": [
+        "source",
+        "structural"
+      ],
+      "NFR-": [
+        "source"
+      ]
+    },
+    "domain_sections": [
+      "FR_INPUT",
+      "NFR_INPUT"
+    ]
+  },
+  "started_at": "2026-10-27T15:39:44+00:00",
+  "finished_at": "2026-10-27T15:39:44+00:00"
+}

@@ -1,0 +1,118 @@
+{
+  "behavioral/action": {
+    "gold": [
+      "ACT:Make an Order",
+      "ACT:Receive order",
+      "ACT:Fill Order",
+      "ACT:Ship Order",
+      "ACT:Send Invoice",
+      "ACT:Make Payment",
+      "ACT:Reject Payment",
+      "ACT:Accept Payment",
+      "ACT:Close Order"
+    ],
+    "gen": [
+      "ACT:Register customer record",
+      "ACT:Browse product catalogue",
+      "ACT:Submit order",
+      "ACT:Receive order",
+      "ACT:Mark order filled",
+      "ACT:Decline order",
+      "ACT:Ship order",
+      "ACT:Raise invoice",
+      "ACT:Submit payment",
+      "ACT:Confirm payment",
+      "ACT:Reject payment",
+      "ACT:Close order"
+    ],
+    "embedded": true
+  },
+  "behavioral/object_node": {
+    "gold": [
+      "OBJ:Order[submitted]",
+      "OBJ:Order[pending]",
+      "OBJ:Order[filled]",
+      "OBJ:Order[shipped]",
+      "OBJ:Invoice[issued]",
+      "OBJ:Payment[pending]",
+      "OBJ:Payment[failed]",
+      "OBJ:Payment[completed]",
+      "OBJ:Invoice[paid]",
+      "OBJ:Order[closed]"
+    ],
+    "gen": [
+      "OBJ:Order[submitted]",
+      "OBJ:Order[pending]",
+      "OBJ:Order[filled]",
+      "OBJ:Order[closed]",
+      "OBJ:Order[shipped]",
+      "OBJ:Invoice[issued]",
+      "OBJ:Payment[pending]",
+      "OBJ:Payment[completed]",
+      "OBJ:Invoice[paid]",
+      "OBJ:Payment[failed]"
+    ],
+    "embedded": true
+  },
+  "behavioral/swimlane": {
+    "gold": [
+      "LANE:Make an Order",
+      "LANE:Receive order",
+      "LANE:Fill Order",
+      "LANE:Ship Order",
+      "LANE:Send Invoice",
+      "LANE:Make Payment",
+      "LANE:Reject Payment",
+      "LANE:Accept Payment",
+      "LANE:Close Order"
+    ],
+    "gen": [
+      "LANE:Register customer record",
+      "LANE:Browse product catalogue",
+      "LANE:Submit order",
+      "LANE:Receive order",
+      "LANE:Mark order filled",
+      "LANE:Decline order",
+      "LANE:Ship order",
+      "LANE:Raise invoice",
+      "LANE:Submit payment",
+      "LANE:Confirm payment",
+      "LANE:Reject payment",
+      "LANE:Close order"
+    ],
+    "embedded": false
+  },
+  "behavioral/transition": {
+    "gold": [
+      "T:Make an Order->Receive order",
+      "T:Receive order->Close Order",
+      "T:Receive order->Fill Order",
+      "T:Fill Order->Send Invoice",
+      "T:Fill Order->Ship Order",
+      "T:Ship Order->Close Order",
+      "T:Send Invoice->Make Payment",
+      "T:Make Payment->Accept Payment",
+      "T:Make Payment->Reject Payment",
+      "T:Reject Payment->Make Payment",
+      "T:Accept Payment->Close Order"
+    ],
+    "gen": [
+      "T:Register customer record->Browse product catalogue",
+      "T:Browse product catalogue->Submit order",
+      "T:Submit order->Receive order",
+      "T:Receive order->Decline order",
+      "T:Receive order->Mark order filled",
+      "T:Mark order filled->Raise invoice",
+      "T:Mark order filled->Ship order",
+      "T:Ship order->Close order",
+      "T:Raise invoice->Submit payment",
+      "T:Submit payment->Reject payment",
+      "T:Submit payment->Confirm payment",
+      "T:Confirm payment->Close order",
+      "T:Confirm payment->Submit payment",
+      "T:Reject payment->Close order",
+      "T:Reject payment->Submit payment"
+    ],
+    "embedded": false
+  }
+}

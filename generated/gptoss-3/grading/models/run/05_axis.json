@@ -1,0 +1,20 @@
+{
+  "records": [],
+  "pending_type": 0,
+  "pending_guard": 0,
+  "pending_total": 0,
+  "unresolved_type": 0,
+  "unresolved_guard": 0,
+  "stale_ledger_rows": {
+    "type": [],
+    "guard": []
+  },
+  "manual_resolved": {
+    "type": {},
+    "guard": {}
+  },
+  "review_files": {
+    "type": "generated\\gptoss-3\\grading\\models\\review\\type_ledger.csv",
+    "guard": "generated\\gptoss-3\\grading\\models\\review\\guard_ledger.csv"
+  }
+}

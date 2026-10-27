@@ -1,0 +1,60 @@
+===================================================================
+BEHAVIORAL MODEL SYNTAX CORRECTNESS (behavioral.puml)
+===================================================================
+Gate: pass  |  Syntax validity: 1.0 (42/42 declarations accepted)
+
+Line  Status  Kind          Source                          Message
+-------------------------------------------------------------------
+   1  -                     @startuml behavioral            -
+   2  PASS    swimlane      |Customer|                      -
+   3  PASS    initial       start                           -
+   4  PASS    action        :Submit Order;                  -
+   5  PASS    object_node   :Order [submitted];             -
+   6  -                                                     -
+   7  PASS    swimlane      |OrderStaff|                    -
+   8  PASS    action        :Receive Order;                 -
+   9  PASS    object_node   :Order [pending];               -
+  10  PASS    decision      if () then ([order accepted])   -
+  11  PASS    action        :Fill Order;                    -
+  12  PASS    object_node   :Order [filled];                -
+  13  PASS    fork          fork                            -
+  14  PASS    action        :Ship Order;                    -
+  15  PASS    object_node   :Order [shipped];               -
+  16  PASS    fork          fork again                      -
+  17  PASS    swimlane      |Accountant|                    -
+  18  PASS    action        :Raise Invoice;                 -
+  19  PASS    object_node   :Invoice [issued];              -
+  20  PASS    swimlane      |Customer|                      -
+  21  PASS    merge         repeat                          -
+  22  PASS    action        :Submit Payment;                -
+  23  PASS    object_node   :Payment [pending];             -
+  24  PASS    swimlane      |Accountant|                    -
+  25  PASS    decision      if () then ([payment valid])    -
+  26  PASS    action        :Confirm Payment;               -
+  27  PASS    object_node   :Payment [completed];           -
+  28  PASS    object_node   :Invoice [paid];                -
+  29  PASS    break         break                           -
+  30  PASS    decision      else ([payment invalid])        -
+  31  PASS    action        :Reject Payment;                -
+  32  PASS    object_node   :Payment [failed];              -
+  33  PASS    merge         endif                           -
+  34  PASS    decision      repeat while ([retry payment])  -
+  35  PASS    join          end fork                        -
+  36  PASS    swimlane      |OrderStaff|                    -
+  37  PASS    action        :Close Order;                   -
+  38  PASS    object_node   :Order [closed];                -
+  39  PASS    final         stop                            -
+  40  PASS    decision      else ([order declined])         -
+  41  PASS    action        :Decline Order;                 -
+  42  PASS    object_node   :Order [closed];                -
+  43  PASS    final         stop                            -
+  44  PASS    merge         endif                           -
+  45  -                     @enduml                         -
+-------------------------------------------------------------------
+
+Rejected declarations (0):
+  none
+
+Format violations (0):
+  none
+===================================================================

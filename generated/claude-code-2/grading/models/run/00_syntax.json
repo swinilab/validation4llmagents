@@ -1,0 +1,24 @@
+{
+  "structural": {
+    "validity": 0.9808,
+    "accepted": 51,
+    "total": 52,
+    "parse_error": null,
+    "rejections": [
+      {
+        "line": 62,
+        "source": "OrderItem \"0..*\" --> \"1\" Product : refers to",
+        "code": "malformed_edge"
+      }
+    ],
+    "gate": "fail"
+  },
+  "behavioral": {
+    "validity": 1.0,
+    "accepted": 53,
+    "total": 53,
+    "parse_error": null,
+    "rejections": [],
+    "gate": "pass"
+  }
+}

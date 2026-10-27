@@ -1,0 +1,18 @@
+{
+  "structural": {
+    "validity": 1.0,
+    "accepted": 50,
+    "total": 50,
+    "parse_error": null,
+    "rejections": [],
+    "gate": "pass"
+  },
+  "behavioral": {
+    "validity": 1.0,
+    "accepted": 42,
+    "total": 42,
+    "parse_error": null,
+    "rejections": [],
+    "gate": "pass"
+  }
+}

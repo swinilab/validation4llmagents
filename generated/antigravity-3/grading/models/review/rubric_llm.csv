@@ -1,0 +1,8 @@
+element_id,kind,label,traceable,consistent,rationale,judge_model,timestamp
+A:Order.paymentMethod,attribute,paymentMethod: PaymentMethod,,,,,
+A:Payment.paymentMethod,attribute,paymentMethod: PaymentMethod,,,,,
+R:Customer--Order,relationship,,,,,,
+R:Invoice--Payment,relationship,,,,,,
+R:Order--Invoice,relationship,,,,,,
+R:Order--OrderItem,relationship,,,,,,
+R:OrderItem--Product,relationship,,,,,,

@@ -1,0 +1,6 @@
+=====================================================
+BEHAVIORAL MODEL SYNTAX CORRECTNESS (behavioral.puml)
+=====================================================
+Gate: missing
+behavioral.puml was not found: nothing to check.
+=====================================================
