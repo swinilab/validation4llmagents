@@ -1,0 +1,477 @@
+{
+  "workflow_id": "sdk_ChatDev_v1_20261027130045",
+  "total_usage": {
+    "input_tokens": 250056,
+    "output_tokens": 26273,
+    "total_tokens": 276329
+  },
+  "node_usages": {
+    "Programmer Coding": {
+      "input_tokens": 92726,
+      "output_tokens": 10513,
+      "total_tokens": 103239
+    },
+    "Programmer Code Complete": {
+      "input_tokens": 14100,
+      "output_tokens": 223,
+      "total_tokens": 14323
+    },
+    "Code Reviewer": {
+      "input_tokens": 13470,
+      "output_tokens": 176,
+      "total_tokens": 13646
+    },
+    "Programmer Test Error Summary": {
+      "input_tokens": 6487,
+      "output_tokens": 279,
+      "total_tokens": 6766
+    },
+    "Programmer Test Modification": {
+      "input_tokens": 73745,
+      "output_tokens": 9496,
+      "total_tokens": 83241
+    },
+    "Software Test Engineer": {
+      "input_tokens": 6956,
+      "output_tokens": 269,
+      "total_tokens": 7225
+    },
+    "Chief Product Officer": {
+      "input_tokens": 35855,
+      "output_tokens": 4769,
+      "total_tokens": 40624
+    },
+    "Chief Executive Officer": {
+      "input_tokens": 6717,
+      "output_tokens": 548,
+      "total_tokens": 7265
+    }
+  },
+  "model_usages": {
+    "gpt-oss:120b": {
+      "input_tokens": 250056,
+      "output_tokens": 26273,
+      "total_tokens": 276329
+    }
+  },
+  "node_execution_counts": {
+    "Programmer Coding": 7,
+    "Programmer Code Complete": 2,
+    "Code Reviewer": 2,
+    "Programmer Test Error Summary": 1,
+    "Programmer Test Modification": 6,
+    "Software Test Engineer": 1,
+    "Chief Product Officer": 4,
+    "Chief Executive Officer": 1
+  },
+  "call_history": [
+    {
+      "node_id": "Programmer Coding",
+      "model_name": "gpt-oss:120b",
+      "input_tokens": 6796,
+      "output_tokens": 5368,
+      "total_tokens": 12164,
+      "metadata": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "input_tokens": 6796,
+        "output_tokens": 5368,
+        "total_tokens": 12164
+      },
+      "timestamp": "2026-10-27T13:01:01.073651",
+      "execution_number": 1,
+      "provider": "openai"
+    },
+    {
+      "node_id": "Programmer Coding",
+      "model_name": "gpt-oss:120b",
+      "input_tokens": 12249,
+      "output_tokens": 364,
+      "total_tokens": 12613,
+      "metadata": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "input_tokens": 12249,
+        "output_tokens": 364,
+        "total_tokens": 12613
+      },
+      "timestamp": "2026-10-27T13:01:03.563562",
+      "execution_number": 2,
+      "provider": "openai"
+    },
+    {
+      "node_id": "Programmer Coding",
+      "model_name": "gpt-oss:120b",
+      "input_tokens": 12652,
+      "output_tokens": 373,
+      "total_tokens": 13025,
+      "metadata": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "input_tokens": 12652,
+        "output_tokens": 373,
+        "total_tokens": 13025
+      },
+      "timestamp": "2026-10-27T13:01:05.002126",
+      "execution_number": 3,
+      "provider": "openai"
+    },
+    {
+      "node_id": "Programmer Coding",
+      "model_name": "gpt-oss:120b",
+      "input_tokens": 13110,
+      "output_tokens": 375,
+      "total_tokens": 13485,
+      "metadata": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "input_tokens": 13110,
+        "output_tokens": 375,
+        "total_tokens": 13485
+      },
+      "timestamp": "2026-10-27T13:01:06.744580",
+      "execution_number": 4,
+      "provider": "openai"
+    },
+    {
+      "node_id": "Programmer Coding",
+      "model_name": "gpt-oss:120b",
+      "input_tokens": 13557,
+      "output_tokens": 3212,
+      "total_tokens": 16769,
+      "metadata": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "input_tokens": 13557,
+        "output_tokens": 3212,
+        "total_tokens": 16769
+      },
+      "timestamp": "2026-10-27T13:01:17.287652",
+      "execution_number": 5,
+      "provider": "openai"
+    },
+    {
+      "node_id": "Programmer Coding",
+      "model_name": "gpt-oss:120b",
+      "input_tokens": 16837,
+      "output_tokens": 618,
+      "total_tokens": 17455,
+      "metadata": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "input_tokens": 16837,
+        "output_tokens": 618,
+        "total_tokens": 17455
+      },
+      "timestamp": "2026-10-27T13:01:20.013103",
+      "execution_number": 6,
+      "provider": "openai"
+    },
+    {
+      "node_id": "Programmer Coding",
+      "model_name": "gpt-oss:120b",
+      "input_tokens": 17525,
+      "output_tokens": 203,
+      "total_tokens": 17728,
+      "metadata": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "input_tokens": 17525,
+        "output_tokens": 203,
+        "total_tokens": 17728
+      },
+      "timestamp": "2026-10-27T13:01:21.403022",
+      "execution_number": 7,
+      "provider": "openai"
+    },
+    {
+      "node_id": "Programmer Code Complete",
+      "model_name": "gpt-oss:120b",
+      "input_tokens": 6681,
+      "output_tokens": 139,
+      "total_tokens": 6820,
+      "metadata": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "input_tokens": 6681,
+        "output_tokens": 139,
+        "total_tokens": 6820
+      },
+      "timestamp": "2026-10-27T13:01:22.690384",
+      "execution_number": 1,
+      "provider": "openai"
+    },
+    {
+      "node_id": "Programmer Code Complete",
+      "model_name": "gpt-oss:120b",
+      "input_tokens": 7419,
+      "output_tokens": 84,
+      "total_tokens": 7503,
+      "metadata": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "input_tokens": 7419,
+        "output_tokens": 84,
+        "total_tokens": 7503
+      },
+      "timestamp": "2026-10-27T13:01:23.754405",
+      "execution_number": 2,
+      "provider": "openai"
+    },
+    {
+      "node_id": "Code Reviewer",
+      "model_name": "gpt-oss:120b",
+      "input_tokens": 6402,
+      "output_tokens": 67,
+      "total_tokens": 6469,
+      "metadata": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "input_tokens": 6402,
+        "output_tokens": 67,
+        "total_tokens": 6469
+      },
+      "timestamp": "2026-10-27T13:01:24.717431",
+      "execution_number": 1,
+      "provider": "openai"
+    },
+    {
+      "node_id": "Code Reviewer",
+      "model_name": "gpt-oss:120b",
+      "input_tokens": 7068,
+      "output_tokens": 109,
+      "total_tokens": 7177,
+      "metadata": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "input_tokens": 7068,
+        "output_tokens": 109,
+        "total_tokens": 7177
+      },
+      "timestamp": "2026-10-27T13:01:25.892942",
+      "execution_number": 2,
+      "provider": "openai"
+    },
+    {
+      "node_id": "Programmer Test Error Summary",
+      "model_name": "gpt-oss:120b",
+      "input_tokens": 6487,
+      "output_tokens": 279,
+      "total_tokens": 6766,
+      "metadata": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "input_tokens": 6487,
+        "output_tokens": 279,
+        "total_tokens": 6766
+      },
+      "timestamp": "2026-10-27T13:01:27.532909",
+      "execution_number": 1,
+      "provider": "openai"
+    },
+    {
+      "node_id": "Programmer Test Modification",
+      "model_name": "gpt-oss:120b",
+      "input_tokens": 6748,
+      "output_tokens": 4209,
+      "total_tokens": 10957,
+      "metadata": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "input_tokens": 6748,
+        "output_tokens": 4209,
+        "total_tokens": 10957
+      },
+      "timestamp": "2026-10-27T13:01:42.648595",
+      "execution_number": 1,
+      "provider": "openai"
+    },
+    {
+      "node_id": "Programmer Test Modification",
+      "model_name": "gpt-oss:120b",
+      "input_tokens": 11020,
+      "output_tokens": 488,
+      "total_tokens": 11508,
+      "metadata": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "input_tokens": 11020,
+        "output_tokens": 488,
+        "total_tokens": 11508
+      },
+      "timestamp": "2026-10-27T13:01:44.778647",
+      "execution_number": 2,
+      "provider": "openai"
+    },
+    {
+      "node_id": "Programmer Test Modification",
+      "model_name": "gpt-oss:120b",
+      "input_tokens": 11603,
+      "output_tokens": 409,
+      "total_tokens": 12012,
+      "metadata": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "input_tokens": 11603,
+        "output_tokens": 409,
+        "total_tokens": 12012
+      },
+      "timestamp": "2026-10-27T13:01:46.636991",
+      "execution_number": 3,
+      "provider": "openai"
+    },
+    {
+      "node_id": "Programmer Test Modification",
+      "model_name": "gpt-oss:120b",
+      "input_tokens": 12091,
+      "output_tokens": 3626,
+      "total_tokens": 15717,
+      "metadata": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "input_tokens": 12091,
+        "output_tokens": 3626,
+        "total_tokens": 15717
+      },
+      "timestamp": "2026-10-27T13:01:55.262602",
+      "execution_number": 4,
+      "provider": "openai"
+    },
+    {
+      "node_id": "Programmer Test Modification",
+      "model_name": "gpt-oss:120b",
+      "input_tokens": 15793,
+      "output_tokens": 619,
+      "total_tokens": 16412,
+      "metadata": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "input_tokens": 15793,
+        "output_tokens": 619,
+        "total_tokens": 16412
+      },
+      "timestamp": "2026-10-27T13:01:57.637186",
+      "execution_number": 5,
+      "provider": "openai"
+    },
+    {
+      "node_id": "Programmer Test Modification",
+      "model_name": "gpt-oss:120b",
+      "input_tokens": 16490,
+      "output_tokens": 145,
+      "total_tokens": 16635,
+      "metadata": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "input_tokens": 16490,
+        "output_tokens": 145,
+        "total_tokens": 16635
+      },
+      "timestamp": "2026-10-27T13:01:58.730167",
+      "execution_number": 6,
+      "provider": "openai"
+    },
+    {
+      "node_id": "Software Test Engineer",
+      "model_name": "gpt-oss:120b",
+      "input_tokens": 6956,
+      "output_tokens": 269,
+      "total_tokens": 7225,
+      "metadata": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "input_tokens": 6956,
+        "output_tokens": 269,
+        "total_tokens": 7225
+      },
+      "timestamp": "2026-10-27T13:02:00.284898",
+      "execution_number": 1,
+      "provider": "openai"
+    },
+    {
+      "node_id": "Chief Product Officer",
+      "model_name": "gpt-oss:120b",
+      "input_tokens": 6586,
+      "output_tokens": 181,
+      "total_tokens": 6767,
+      "metadata": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "input_tokens": 6586,
+        "output_tokens": 181,
+        "total_tokens": 6767
+      },
+      "timestamp": "2026-10-27T13:02:01.401666",
+      "execution_number": 1,
+      "provider": "openai"
+    },
+    {
+      "node_id": "Chief Product Officer",
+      "model_name": "gpt-oss:120b",
+      "input_tokens": 7366,
+      "output_tokens": 2342,
+      "total_tokens": 9708,
+      "metadata": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "input_tokens": 7366,
+        "output_tokens": 2342,
+        "total_tokens": 9708
+      },
+      "timestamp": "2026-10-27T13:02:09.313150",
+      "execution_number": 2,
+      "provider": "openai"
+    },
+    {
+      "node_id": "Chief Product Officer",
+      "model_name": "gpt-oss:120b",
+      "input_tokens": 9795,
+      "output_tokens": 2182,
+      "total_tokens": 11977,
+      "metadata": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "input_tokens": 9795,
+        "output_tokens": 2182,
+        "total_tokens": 11977
+      },
+      "timestamp": "2026-10-27T13:02:13.825423",
+      "execution_number": 3,
+      "provider": "openai"
+    },
+    {
+      "node_id": "Chief Product Officer",
+      "model_name": "gpt-oss:120b",
+      "input_tokens": 12108,
+      "output_tokens": 64,
+      "total_tokens": 12172,
+      "metadata": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "input_tokens": 12108,
+        "output_tokens": 64,
+        "total_tokens": 12172
+      },
+      "timestamp": "2026-10-27T13:02:14.706813",
+      "execution_number": 4,
+      "provider": "openai"
+    },
+    {
+      "node_id": "Chief Executive Officer",
+      "model_name": "gpt-oss:120b",
+      "input_tokens": 6717,
+      "output_tokens": 548,
+      "total_tokens": 7265,
+      "metadata": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "input_tokens": 6717,
+        "output_tokens": 548,
+        "total_tokens": 7265
+      },
+      "timestamp": "2026-10-27T13:02:16.889636",
+      "execution_number": 1,
+      "provider": "openai"
+    }
+  ]
+}

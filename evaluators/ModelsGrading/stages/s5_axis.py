@@ -100,6 +100,10 @@ def run(elements: dict, match: dict, rules: dict, config: dict, diagrams,
         "pending_type": 0 if on_pending == "provisional" else pending_type,
         "pending_guard": 0 if on_pending == "provisional" else pending_guard,
         "pending_total": 0 if on_pending == "provisional" else pending_total,
+        # What is still open whatever the mode: provisional mode resolves these
+        # pairs with `manual_default`, which does not make them reviewed.
+        "unresolved_type": pending_type,
+        "unresolved_guard": pending_guard,
         "stale_ledger_rows": {"type": stale_type, "guard": stale_guard},
         "manual_resolved": resolved,
         "review_files": {"type": str(type_path), "guard": str(guard_path)},

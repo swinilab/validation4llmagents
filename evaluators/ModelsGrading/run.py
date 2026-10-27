@@ -245,12 +245,16 @@ def grade(submission_dir: str | Path, out_dir: str | Path, *,
         # --- S7 metrics ----------------------------------------------------
         metrics = s8_metrics.run(elements, axis["records"], syntax, rubric,
                                  config, diagrams)
-        pending = (axis["pending_type"] + axis["pending_guard"]
-                   + rubric["pending_rubric"])
+        # Provisional mode zeroes the `pending_*` counts so the run does not halt,
+        # but the pairs it defaulted are still unreviewed: the metrics are final
+        # only when nothing is unresolved, whatever the mode.
+        unresolved = (axis["unresolved_type"] + axis["unresolved_guard"]
+                      + rubric["unresolved"])
         payload: dict[str, Any] = {
             "run_id": run_id,
             "primary_threshold": config["threshold_models"],
-            "status": "final" if pending == 0 else "provisional",
+            "status": "final" if unresolved == 0 else "provisional",
+            "unresolved": unresolved,
             "pending_type": axis["pending_type"],
             "pending_guard": axis["pending_guard"],
             "pending_rubric": rubric["pending_rubric"],

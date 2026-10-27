@@ -11,7 +11,7 @@ from __future__ import annotations
 import re
 
 from .ir import Declaration, Element, ParseResult, Rejection, Violation
-from .normalize import normalize_label, normalize_type, split_type_annotation
+from .normalize import normalize_label, normalize_type, split_attribute
 
 # Lines that carry no element and are ignored outright (§5.2 last paragraph).
 _IGNORED_DIRECTIVES = (
@@ -256,7 +256,7 @@ def _emit_elements(result: ParseResult, classes: dict[str, int],
                 Declaration(lineno, raw, "method", accepted=True))
             continue
 
-        head, type_raw = split_type_annotation(raw)
+        head, type_raw = split_attribute(raw)
         name = normalize_label(head, rules)
         if not name:
             result.violations.append(

@@ -119,6 +119,10 @@ def run(elements: dict, candidates: list[dict], config: dict,
         class_map: dict[str, str] = {}
         enum_map: dict[str, str] = {}
         action_map: dict[str, str] = {}
+        # gold action name -> cosine of the pair it matched. Swimlanes and
+        # transitions are built from action pairs and inherit their cosine, so
+        # the per-threshold filter in S7 treats them like any other pair.
+        action_cosine: dict[str, float] = {}
         excluded_extra: list[dict] = []
 
         for kind in MATCH_ORDER[diagram]:
@@ -146,15 +150,16 @@ def run(elements: dict, candidates: list[dict], config: dict,
                         enum_map[gold_by_id[pair["gold_id"]]["name"]] = \
                             gen_by_id[pair["gen_id"]]["name"]
                     elif kind == "action":
-                        action_map[gold_by_id[pair["gold_id"]]["label_norm"]] = \
-                            gen_by_id[pair["gen_id"]]["label_norm"]
+                        gold_action = gold_by_id[pair["gold_id"]]["label_norm"]
+                        action_map[gold_action] = gen_by_id[pair["gen_id"]]["label_norm"]
+                        action_cosine[gold_action] = pair["cosine"]
                 continue
 
             # Matched by construction (§7.3).
             if kind == "swimlane":
-                assigned.extend(_match_swimlanes(block, action_map))
+                assigned.extend(_match_swimlanes(block, action_map, action_cosine))
             elif kind == "transition":
-                assigned.extend(_match_transitions(block, action_map))
+                assigned.extend(_match_transitions(block, action_map, action_cosine))
 
         out[diagram] = {
             "assigned": assigned,
@@ -205,9 +210,10 @@ def _filter_owner(pairs: list[dict], gold_by_id: dict, gen_by_id: dict,
     return kept, dropped
 
 
-def _match_swimlanes(block: dict, action_map: dict[str, str]) -> list[dict]:
+def _match_swimlanes(block: dict, action_map: dict[str, str],
+                     action_cosine: dict[str, float]) -> list[dict]:
     """A gold swimlane matches the gen swimlane of the gen action its gold
-    action matched (§7.3)."""
+    action matched (§7.3). It carries the cosine of that action pair."""
     gold_lanes = {e["action"]: e for e in block["gold"] if e["kind"] == "swimlane"}
     gen_lanes = {e["action"]: e for e in block["gen"] if e["kind"] == "swimlane"}
     out: list[dict] = []
@@ -221,14 +227,17 @@ def _match_swimlanes(block: dict, action_map: dict[str, str]) -> list[dict]:
         out.append({
             "diagram": "behavioral", "kind": "swimlane", "stage": "swimlane",
             "gold_id": gold_lane["element_id"], "gen_id": gen_lane["element_id"],
-            "cosine": None, "excluded": None, "by_construction": True,
+            "cosine": action_cosine[gold_action], "excluded": None,
+            "by_construction": True,
         })
     return out
 
 
-def _match_transitions(block: dict, action_map: dict[str, str]) -> list[dict]:
+def _match_transitions(block: dict, action_map: dict[str, str],
+                       action_cosine: dict[str, float]) -> list[dict]:
     """A gold transition matches the gen transition whose endpoints are the gen
-    actions its gold endpoints matched (§7.3)."""
+    actions its gold endpoints matched (§7.3). It carries the lower of the two
+    endpoint cosines, so it passes a threshold only when both endpoints do."""
     gen_by_pair = {
         (e["source"], e["target"]): e
         for e in block["gen"] if e["kind"] == "transition"
@@ -246,6 +255,8 @@ def _match_transitions(block: dict, action_map: dict[str, str]) -> list[dict]:
         out.append({
             "diagram": "behavioral", "kind": "transition", "stage": "transition",
             "gold_id": gold["element_id"], "gen_id": gen["element_id"],
-            "cosine": None, "excluded": None, "by_construction": True,
+            "cosine": min(action_cosine[gold["source"]],
+                          action_cosine[gold["target"]]),
+            "excluded": None, "by_construction": True,
         })
     return out

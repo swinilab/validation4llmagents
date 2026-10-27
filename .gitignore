@@ -9,7 +9,6 @@ pipeline/reports/
 stage1/artifact/
 stage1/reports/
 /reports/
-generated/*
 !generated/.gitkeep
 logs/
 .env
@@ -24,3 +23,4 @@ m2-model-grading-spec.md
 *:Zone.Identifier
 .grading-tmp/
 config.yaml
+materials/prompt-full.md

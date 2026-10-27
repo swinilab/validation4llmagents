@@ -1,0 +1,63 @@
+{
+  "kept": [
+    "US-01-AC01",
+    "US-01-AC02",
+    "US-01-AC03",
+    "US-02-AC01",
+    "US-02-AC02",
+    "US-02-AC03",
+    "US-03-AC01",
+    "US-03-AC02",
+    "US-03-AC03",
+    "US-04-AC01",
+    "US-04-AC02",
+    "US-04-AC03",
+    "US-04-AC04",
+    "US-04-AC05",
+    "US-05-AC01",
+    "US-05-AC02",
+    "US-05-AC03",
+    "US-05-AC04",
+    "US-05-AC05",
+    "US-05-AC06",
+    "US-05-AC07",
+    "US-05-AC08",
+    "US-06-AC01",
+    "US-06-AC02",
+    "US-06-AC03",
+    "US-07-AC01",
+    "US-07-AC02",
+    "US-07-AC03",
+    "US-08-AC01",
+    "US-08-AC02",
+    "US-08-AC03",
+    "US-09-AC01",
+    "US-09-AC03",
+    "US-10-AC01",
+    "US-10-AC02",
+    "US-10-AC03",
+    "US-10-AC04",
+    "NFR-01",
+    "NFR-02",
+    "NFR-03",
+    "NFR-04",
+    "NFR-05",
+    "NFR-06",
+    "NFR-07",
+    "NFR-08"
+  ],
+  "redundant": [
+    {
+      "gen_id": "US-10-AC05",
+      "cluster_rep": "US-04-AC05"
+    },
+    {
+      "gen_id": "US-06-AC04",
+      "cluster_rep": "US-04-AC05"
+    },
+    {
+      "gen_id": "US-09-AC02",
+      "cluster_rep": "US-05-AC07"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+================================================================================
+PIPELINE EVALUATION REPORT — 2026-10-27 00:57:22
+Run ID: gptoss | Target: generated/RUN_20261026_GPTOSS120B
+================================================================================
+
+PHASE 1: GENERATION
+--------------------------------------------------------------------------------
+LLM         : standalone
+Reasoning   : standard
+Agent       : ChatDev
+SRS Package : generated/RUN_20261026_GPTOSS120B/sdk_ChatDev_v1_20261026155201_20261026155201/code_workspace
+
+OVERVIEW
+--------------------------------------------------------------------------------
+Embedding model : sentence-transformers/all-mpnet-base-v2 (revision: unpinned)
+Judge model     : gemma4:cloud
+
+PHASE 2: GRADING
+--------------------------------------------------------------------------------
+✅ Requirements Grading (RequirementsGrading): status=provisional
+  [REQUIREMENTS t=0.70]   recall=0.214 | precision=0.356 | f1=0.267 | matched_gold=15/70
+  [REQUIREMENTS t=0.75] * recall=0.171 | precision=0.956 | f1=0.291 | matched_gold=12/70
+  [REQUIREMENTS t=0.80]   recall=0.171 | precision=0.267 | f1=0.209 | matched_gold=12/70
+  [REQUIREMENTS t=0.85]   recall=0.129 | precision=0.200 | f1=0.157 | matched_gold=9/70
+  (* = primary threshold)
+  [UNITS] generated after dedup=45 | rubric_pass=30 | pending polarity=2 rubric=0 | manual_default=not_covered
+  [DIAGNOSTICS] axis_rejections={'polarity': 12, 'identifier': 82, 'numeric': 1} | cross_us_matches=4 | cross_kind_would_cover=0 | dedup_removed=3
+  Results: generated/RUN_20261026_GPTOSS120B/grading/reqs
+
+FINAL VERDICT
+--------------------------------------------------------------------------------
+✅ RESULT: PASS — Every selected grading module completed
+================================================================================

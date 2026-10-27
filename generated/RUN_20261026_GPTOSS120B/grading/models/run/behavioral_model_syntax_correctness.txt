@@ -1,0 +1,88 @@
+==============================================================================================================
+BEHAVIORAL MODEL SYNTAX CORRECTNESS (behavioral.puml)
+==============================================================================================================
+Gate: pass  |  Syntax validity: 1.0 (52/52 declarations accepted)
+
+Line  Status  Kind          Source                                                                     Message
+--------------------------------------------------------------------------------------------------------------
+   1  -                     @startuml behavioral                                                       -
+   2  -                     skinparam participantMargin 20                                             -
+   3  -                                                                                                -
+   4  PASS    swimlane      |Customer|                                                                 -
+   5  PASS    initial       start                                                                      -
+   6  PASS    action        :SubmitOrder;                                                              -
+   7  PASS    decision      if (order valid?) then (yes)                                               -
+   8  PASS    object_node   :CreateOrder [submitted];                                                  -
+   9  PASS    decision      else (no)                                                                  -
+  10  PASS    final         stop                                                                       -
+  11  PASS    merge         endif                                                                      -
+  12  -                                                                                                -
+  13  PASS    swimlane      |OrderStaff|                                                               -
+  14  PASS    decision      if (order status == submitted) then (receive)                              -
+  15  PASS    action        :ReceiveOrder;                                                             -
+  16  PASS    object_node   :SetOrderStatus [pending];                                                 -
+  17  PASS    decision      else (reject)                                                              -
+  18  -                     note right: REJECT if not submitted                                        -
+  19  PASS    merge         endif                                                                      -
+  20  -                                                                                                -
+  21  PASS    decision      if (order status == pending) then (fill)                                   -
+  22  PASS    action        :MarkFilled;                                                               -
+  23  PASS    object_node   :SetOrderStatus [filled];                                                  -
+  24  PASS    decision      else (reject)                                                              -
+  25  -                     note right: REJECT if not pending                                          -
+  26  PASS    merge         endif                                                                      -
+  27  -                                                                                                -
+  28  PASS    decision      if (order status == filled) then (ship)                                    -
+  29  PASS    action        :ShipOrder;                                                                -
+  30  PASS    object_node   :SetOrderStatus [shipped];                                                 -
+  31  PASS    decision      else (reject)                                                              -
+  32  -                     note right: REJECT if not filled                                           -
+  33  PASS    merge         endif                                                                      -
+  34  -                                                                                                -
+  35  PASS    decision      if (order status == shipped && invoice status == paid) then (close)        -
+  36  PASS    action        :CloseOrder;                                                               -
+  37  PASS    object_node   :SetOrderStatus [closed];                                                  -
+  38  PASS    decision      else (reject)                                                              -
+  39  -                     note right: REJECT if conditions not met                                   -
+  40  PASS    merge         endif                                                                      -
+  41  -                                                                                                -
+  42  PASS    swimlane      |Accountant|                                                               -
+  43  PASS    decision      if (order status in {filled, shipped} && no invoice) then (raise invoice)  -
+  44  PASS    action        :RaiseInvoice;                                                             -
+  45  PASS    object_node   :CreateInvoice [issued];                                                   -
+  46  PASS    decision      else (reject)                                                              -
+  47  -                     note right: REJECT per rules                                               -
+  48  PASS    merge         endif                                                                      -
+  49  -                                                                                                -
+  50  PASS    decision      if (invoice status == issued) then (submit payment)                        -
+  51  PASS    action        :SubmitPayment;                                                            -
+  52  PASS    object_node   :CreatePayment [pending];                                                  -
+  53  PASS    decision      else (reject)                                                              -
+  54  -                     note right: REJECT if invoice paid                                         -
+  55  PASS    merge         endif                                                                      -
+  56  -                                                                                                -
+  57  PASS    decision      if (payment status == pending) then (confirm payment)                      -
+  58  PASS    action        :ConfirmPayment;                                                           -
+  59  PASS    object_node   :SetPaymentStatus [completed];                                             -
+  60  PASS    object_node   :SetInvoiceStatus [paid];                                                  -
+  61  PASS    decision      else (reject)                                                              -
+  62  -                     note right: REJECT if not pending                                          -
+  63  PASS    merge         endif                                                                      -
+  64  -                                                                                                -
+  65  PASS    decision      if (payment status == pending) then (reject payment)                       -
+  66  PASS    action        :RejectPayment;                                                            -
+  67  PASS    object_node   :SetPaymentStatus [failed];                                                -
+  68  PASS    decision      else (reject)                                                              -
+  69  -                     note right: REJECT if not pending                                          -
+  70  PASS    merge         endif                                                                      -
+  71  -                                                                                                -
+  72  PASS    final         stop                                                                       -
+  73  -                     @enduml                                                                    -
+--------------------------------------------------------------------------------------------------------------
+
+Rejected declarations (0):
+  none
+
+Format violations (0):
+  none
+==============================================================================================================

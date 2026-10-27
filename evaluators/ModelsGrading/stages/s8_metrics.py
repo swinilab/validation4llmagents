@@ -29,9 +29,9 @@ def _passing(axis_records: list[dict], diagram: str, threshold: float) -> list[d
         if record["diagram"] != diagram or record["verdict"] != "PASS":
             continue
         cosine = record.get("cosine")
-        # A by-construction pair carries no cosine (§7.3): it inherits the
-        # threshold decision of the action pair it was built from, which is
-        # itself filtered here, so including it is correct.
+        # A by-construction pair (swimlane, transition) carries the cosine of the
+        # action pair(s) it was built from (S4), so it is filtered exactly when
+        # they are. A record without a cosine is never filtered.
         if cosine is not None and cosine < threshold:
             continue
         out.append(record)

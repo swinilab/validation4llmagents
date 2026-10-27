@@ -1,0 +1,83 @@
+@startuml structural
+
+' Enumerations
+enum OrderStatus {
+    submitted
+    pending
+    filled
+    shipped
+    closed
+}
+
+enum InvoiceStatus {
+    issued
+    paid
+}
+
+enum PaymentStatus {
+    pending
+    completed
+    failed
+}
+
+enum PaymentMethod {
+    bank
+    card
+    cash
+}
+
+' Domain classes
+class Customer {
+    +String name
+    +String address
+    +String phoneNumber
+    +BankAccount? bankAccount
+}
+
+class BankAccount {
+    +String accountNumber
+    +String bankName
+    +String routingNumber
+}
+
+class Product {
+    +String name
+    +String description
+    +Decimal price
+    +String imageUrl
+}
+
+class Order {
+    +Date orderDate
+    +Decimal totalAmount
+    +OrderStatus status
+    +PaymentMethod paymentMethod
+}
+
+class OrderItem {
+    +int quantity
+    +Decimal unitPrice
+}
+
+class Invoice {
+    +Date date
+    +Decimal amount
+    +InvoiceStatus status
+    +PaymentMethod paymentMethod
+}
+
+class Payment {
+    +Date date
+    +Decimal amount
+    +PaymentStatus status
+    +PaymentMethod paymentMethod
+}
+
+' Relationships
+Customer "1" -- "*" Order : places >
+Order "1" -- "*" OrderItem : contains >
+OrderItem "*" -- "1" Product : refers to >
+Order "1" -- "0..1" Invoice : has >
+Invoice "1" -- "*" Payment : records >
+
+@enduml

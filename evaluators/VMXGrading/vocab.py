@@ -15,7 +15,7 @@ import re
 from pathlib import Path
 
 from ..ModelsGrading.parser import parse_behavioral, parse_structural
-from ..ModelsGrading.parser.normalize import split_type_annotation
+from ..ModelsGrading.parser.normalize import split_attribute
 
 _STEREOTYPE = re.compile(r"<<[^>]*>>")
 _VISIBILITY = re.compile(r"^[+\-#~]\s*")
@@ -28,7 +28,7 @@ def attribute_name(label_raw: str) -> str | None:
     its last word. Visibility marks and stereotypes are not part of the name.
     """
     text = _VISIBILITY.sub("", _STEREOTYPE.sub(" ", label_raw).strip())
-    head, _ = split_type_annotation(text)
+    head, _ = split_attribute(text)
     words = head.split()
     return words[-1] if words else None
 

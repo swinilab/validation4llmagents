@@ -12,6 +12,9 @@ import re
 _STEREOTYPE = re.compile(r"<<[^>]*>>")
 _VISIBILITY = re.compile(r"^[+\-#~]\s*")
 _TRAILING_TYPE = re.compile(r"\s*:\s*(?P<type>[^:]*)$")
+_MODIFIER = re.compile(r"\{[^}]*\}")                 # {static}, {readOnly}
+_DEFAULT_VALUE = re.compile(r"\s*=.*$")              # `= 0`
+_MULTIPLICITY_SUFFIX = re.compile(r"\s*(\[[^\]]*\])\s*$")
 
 
 def split_type_annotation(label: str) -> tuple[str, str | None]:
@@ -31,6 +34,34 @@ def split_type_annotation(label: str) -> tuple[str, str | None]:
         # `: ` with nothing either side is not an annotation; leave the label be.
         return label.strip(), None
     return head, type_raw
+
+
+def split_attribute(label: str) -> tuple[str, str | None]:
+    """Split an attribute declaration into `(name_part, type_raw)` (§5.4 step 2).
+
+    Both PlantUML spellings are read: `name : Type [0..1]` (type last) and the
+    type-first `+Type name` / `Type? name [0..1]`. In the type-first form the last
+    word is the name and everything before it is the type, so the attribute is
+    named and typed the same way whichever spelling the submission uses. A single
+    word carries no type.
+    """
+    head, type_raw = split_type_annotation(label)
+    if type_raw is not None:
+        return head, type_raw
+
+    text = _VISIBILITY.sub("", _STEREOTYPE.sub(" ", label).strip())
+    text = _MODIFIER.sub(" ", text)
+    text = _DEFAULT_VALUE.sub("", text)
+    multiplicity = _MULTIPLICITY_SUFFIX.search(text)
+    if multiplicity:
+        text = text[: multiplicity.start()]
+    words = text.split()
+    if len(words) < 2:
+        return head, None
+    type_name = " ".join(words[:-1])
+    if multiplicity:
+        type_name += " " + multiplicity.group(1)
+    return words[-1], type_name
 
 
 def normalize_label(label_raw: str, rules: dict) -> str:

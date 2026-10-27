@@ -1,0 +1,499 @@
+{
+  "version": "1.1",
+  "updated": "2026-10-21",
+  "requirements": [
+    {
+      "id": "US-01",
+      "type": "functional",
+      "statement": "As a Customer, I want to register my personal details (name, address, phone) and optionally a bank account, so that the system can identify me for future orders.",
+      "acceptance_criteria": [
+        {
+          "id": "US-01-AC01",
+          "format": "condition",
+          "text": "Name, address and phone are mandatory strings; bank account is optional."
+        },
+        {
+          "id": "US-01-AC02",
+          "format": "condition",
+          "text": "Bank account numbers are stored encrypted at rest."
+        },
+        {
+          "id": "US-01-AC03",
+          "format": "given_when_then",
+          "text": "Given a new customer record with all mandatory fields, when the record is saved, then the system assigns a unique Customer-ID."
+        }
+      ]
+    },
+    {
+      "id": "US-02",
+      "type": "functional",
+      "statement": "As a Customer, I want to browse the product catalog, so that I can decide what to buy.",
+      "acceptance_criteria": [
+        {
+          "id": "US-02-AC01",
+          "format": "condition",
+          "text": "Each product has a name, description, price (decimal) and image URL."
+        },
+        {
+          "id": "US-02-AC02",
+          "format": "condition",
+          "text": "Price values are stored with two decimal places."
+        },
+        {
+          "id": "US-02-AC03",
+          "format": "given_when_then",
+          "text": "Given a request for the product list, when the system returns the list, then every product includes all four attributes."
+        }
+      ]
+    },
+    {
+      "id": "US-03",
+      "type": "functional",
+      "statement": "As a Customer, I want to submit an order that contains at least one order item, each referencing an existing product, and select a payment method, so that my purchase request can be processed.",
+      "acceptance_criteria": [
+        {
+          "id": "US-03-AC01",
+          "format": "given_when_then",
+          "text": "Given a known Customer-ID, at least one order item and a valid payment method, when the order is submitted, then an Order is created with status submitted and the current date as order-date."
+        },
+        {
+          "id": "US-03-AC02",
+          "format": "condition",
+          "text": "Payment method must be one of {bank, card, cash}."
+        },
+        {
+          "id": "US-03-AC03",
+          "format": "given_when_then",
+          "text": "Given an unknown Customer-ID, when an order is submitted, then the system rejects the submission and no Order is created."
+        }
+      ]
+    },
+    {
+      "id": "US-04",
+      "type": "functional",
+      "statement": "As a Customer, I want the system to calculate the total amount of my order automatically, so that I know how much I will be charged.",
+      "acceptance_criteria": [
+        {
+          "id": "US-04-AC01",
+          "format": "condition",
+          "text": "Order total = Σ (order-item.quantity × order-item.unit-price)."
+        },
+        {
+          "id": "US-04-AC02",
+          "format": "given_when_then",
+          "text": "Given a successfully created Order, when the total is queried, then the returned total equals the calculated sum."
+        },
+        {
+          "id": "US-04-AC03",
+          "format": "condition",
+          "text": "Unit price is stored as a decimal."
+        }
+      ]
+    },
+    {
+      "id": "US-05",
+      "type": "functional",
+      "statement": "As an OrderStaff, I want to receive a submitted order, so that it can move to the pending state for further processing.",
+      "acceptance_criteria": [
+        {
+          "id": "US-05-AC01",
+          "format": "given_when_then",
+          "text": "Given an Order with status submitted, when OrderStaff clicks Receive, then the Order status becomes pending."
+        },
+        {
+          "id": "US-05-AC02",
+          "format": "condition",
+          "text": "The status transition submitted → pending is the only allowed transition from submitted."
+        },
+        {
+          "id": "US-05-AC03",
+          "format": "given_when_then",
+          "text": "Given an Order whose status is filled, when OrderStaff attempts to receive it, then the system rejects the request and leaves the status unchanged."
+        }
+      ]
+    },
+    {
+      "id": "US-06",
+      "type": "functional",
+      "statement": "As an OrderStaff, I want to mark a pending order as filled, so that the items can be prepared for shipping.",
+      "acceptance_criteria": [
+        {
+          "id": "US-06-AC01",
+          "format": "given_when_then",
+          "text": "Given an Order with status pending, when OrderStaff selects Mark as Filled, then the Order status becomes filled."
+        },
+        {
+          "id": "US-06-AC02",
+          "format": "condition",
+          "text": "No transition is allowed from pending to any status other than filled or closed."
+        },
+        {
+          "id": "US-06-AC03",
+          "format": "given_when_then",
+          "text": "Given an Order with status submitted, when OrderStaff attempts to fill it, then the request is rejected and the status stays submitted."
+        }
+      ]
+    },
+    {
+      "id": "US-07",
+      "type": "functional",
+      "statement": "As an OrderStaff, I want to decline a pending order, so that the order is closed without further processing.",
+      "acceptance_criteria": [
+        {
+          "id": "US-07-AC01",
+          "format": "given_when_then",
+          "text": "Given an Order with status pending, when OrderStaff selects Decline, then the Order status becomes closed."
+        },
+        {
+          "id": "US-07-AC02",
+          "format": "condition",
+          "text": "Decline is only permitted from pending."
+        },
+        {
+          "id": "US-07-AC03",
+          "format": "given_when_then",
+          "text": "Given an Order with status filled, when OrderStaff attempts to decline, then the system rejects the request."
+        }
+      ]
+    },
+    {
+      "id": "US-08",
+      "type": "functional",
+      "statement": "As an OrderStaff, I want to ship a filled order, so that the customer receives the goods.",
+      "acceptance_criteria": [
+        {
+          "id": "US-08-AC01",
+          "format": "given_when_then",
+          "text": "Given an Order with status filled, when OrderStaff selects Ship, then the Order status becomes shipped."
+        },
+        {
+          "id": "US-08-AC02",
+          "format": "condition",
+          "text": "Transition filled → shipped is the only allowed transition from filled."
+        },
+        {
+          "id": "US-08-AC03",
+          "format": "given_when_then",
+          "text": "Given an Order with status pending, when OrderStaff attempts to ship, then the request is rejected and the status remains pending."
+        }
+      ]
+    },
+    {
+      "id": "US-09",
+      "type": "functional",
+      "statement": "As an Accountant, I want to raise an invoice for a filled or shipped order that has no invoice yet, so that the customer can be billed.",
+      "acceptance_criteria": [
+        {
+          "id": "US-09-AC01",
+          "format": "given_when_then",
+          "text": "Given an Order with status filled or shipped and no existing Invoice, when Accountant creates an Invoice (date, amount, payment method), then an Invoice with status issued is linked to the Order."
+        },
+        {
+          "id": "US-09-AC02",
+          "format": "condition",
+          "text": "Only one Invoice may exist per Order."
+        },
+        {
+          "id": "US-09-AC03",
+          "format": "given_when_then",
+          "text": "Given an Order whose status is submitted, pending or closed, when Accountant tries to raise an Invoice, then the request is rejected."
+        }
+      ]
+    },
+    {
+      "id": "US-10",
+      "type": "functional",
+      "statement": "As an Accountant, I want to record a payment against an issued invoice, so that the invoice can be settled.",
+      "acceptance_criteria": [
+        {
+          "id": "US-10-AC01",
+          "format": "given_when_then",
+          "text": "Given an Invoice with status issued, when a Customer submits a Payment (date, amount, payment method), then a Payment record with status pending is created and linked to the Invoice."
+        },
+        {
+          "id": "US-10-AC02",
+          "format": "condition",
+          "text": "Payment method must be one of {bank, card, cash}."
+        },
+        {
+          "id": "US-10-AC03",
+          "format": "given_when_then",
+          "text": "Given an Invoice with status paid, when a Payment is submitted, then the system rejects the submission."
+        }
+      ]
+    },
+    {
+      "id": "US-11",
+      "type": "functional",
+      "statement": "As an Accountant, I want to confirm a pending payment, so that the related invoice becomes paid.",
+      "acceptance_criteria": [
+        {
+          "id": "US-11-AC01",
+          "format": "given_when_then",
+          "text": "Given a Payment with status pending, when Accountant marks it completed, then the Payment status becomes completed and the linked Invoice status becomes paid."
+        },
+        {
+          "id": "US-11-AC02",
+          "format": "condition",
+          "text": "Payment status may only change from pending to completed or failed."
+        },
+        {
+          "id": "US-11-AC03",
+          "format": "given_when_then",
+          "text": "Given a Payment whose status is failed, when Accountant attempts to confirm it, then the request is rejected and the status stays failed."
+        }
+      ]
+    },
+    {
+      "id": "US-12",
+      "type": "functional",
+      "statement": "As an Accountant, I want to reject a pending payment, so that the customer can try again.",
+      "acceptance_criteria": [
+        {
+          "id": "US-12-AC01",
+          "format": "given_when_then",
+          "text": "Given a Payment with status pending, when Accountant marks it failed, then the Payment status becomes failed; the Invoice status remains unchanged."
+        },
+        {
+          "id": "US-12-AC02",
+          "format": "condition",
+          "text": "Only payments in pending may be rejected."
+        },
+        {
+          "id": "US-12-AC03",
+          "format": "given_when_then",
+          "text": "Given a Payment with status completed, when Accountant attempts to reject it, then the request is rejected."
+        }
+      ]
+    },
+    {
+      "id": "US-13",
+      "type": "functional",
+      "statement": "As an OrderStaff, I want to close a shipped order whose invoice is paid, so that the order lifecycle ends.",
+      "acceptance_criteria": [
+        {
+          "id": "US-13-AC01",
+          "format": "given_when_then",
+          "text": "Given an Order with status shipped and a linked Invoice with status paid, when OrderStaff selects Close, then the Order status becomes closed."
+        },
+        {
+          "id": "US-13-AC02",
+          "format": "condition",
+          "text": "Closing is only allowed from shipped when the Invoice is paid."
+        },
+        {
+          "id": "US-13-AC03",
+          "format": "given_when_then",
+          "text": "Given a shipped Order whose Invoice is not paid, when OrderStaff attempts to close, then the request is rejected and the status stays shipped."
+        }
+      ]
+    },
+    {
+      "id": "US-14",
+      "type": "functional",
+      "statement": "As a Customer, OrderStaff, or Accountant, I want the system to enforce mandatory attributes and allowed value sets, so that data integrity is guaranteed.",
+      "acceptance_criteria": [
+        {
+          "id": "US-14-AC01",
+          "format": "condition",
+          "text": "All attributes except Customer.bankAccount are mandatory."
+        },
+        {
+          "id": "US-14-AC02",
+          "format": "condition",
+          "text": "Order.status ∈ {submitted, pending, filled, shipped, closed}."
+        },
+        {
+          "id": "US-14-AC03",
+          "format": "condition",
+          "text": "Invoice.status ∈ {issued, paid}."
+        },
+        {
+          "id": "US-14-AC04",
+          "format": "condition",
+          "text": "Payment.status ∈ {pending, completed, failed}."
+        }
+      ]
+    },
+    {
+      "id": "US-15",
+      "type": "functional",
+      "statement": "As a Customer, I want all monetary values to be stored as decimals, so that calculations are exact.",
+      "acceptance_criteria": [
+        {
+          "id": "US-15-AC01",
+          "format": "condition",
+          "text": "Product.price, OrderItem.unitPrice, Order.totalAmount, Invoice.amount, Payment.amount are of type decimal(12,2)."
+        },
+        {
+          "id": "US-15-AC02",
+          "format": "given_when_then",
+          "text": "Given any monetary input, when it is persisted, then the stored value retains two fractional digits."
+        },
+        {
+          "id": "US-15-AC03",
+          "format": "condition",
+          "text": "No monetary field may be null."
+        }
+      ]
+    },
+    {
+      "id": "US-16",
+      "type": "functional",
+      "statement": "As a System, I want to record every status change together with user and timestamp, so that an audit trail is available for at least 12 months.",
+      "acceptance_criteria": [
+        {
+          "id": "US-16-AC01",
+          "format": "condition",
+          "text": "Every status transition creates an audit record (entity, oldStatus, newStatus, userId, timestamp)."
+        },
+        {
+          "id": "US-16-AC02",
+          "format": "given_when_then",
+          "text": "Given a status change, when the audit log is queried, then the record appears with correct user and time."
+        },
+        {
+          "id": "US-16-AC03",
+          "format": "condition",
+          "text": "Audit records are retained for a minimum of 12 months."
+        }
+      ]
+    },
+    {
+      "id": "US-17",
+      "type": "functional",
+      "statement": "As a System, I want to prevent any modification of a closed order, so that its final state is immutable.",
+      "acceptance_criteria": [
+        {
+          "id": "US-17-AC01",
+          "format": "condition",
+          "text": "No status transition is allowed from closed."
+        },
+        {
+          "id": "US-17-AC02",
+          "format": "given_when_then",
+          "text": "Given a closed Order, when any staff attempts to change its status, then the request is rejected."
+        },
+        {
+          "id": "US-17-AC03",
+          "format": "condition",
+          "text": "The Order entity becomes read‑only after reaching closed."
+        }
+      ]
+    },
+    {
+      "id": "US-18",
+      "type": "functional",
+      "statement": "As a System, I want to enforce authentication for every request, so that only authorised users can access data.",
+      "acceptance_criteria": [
+        {
+          "id": "US-18-AC01",
+          "format": "condition",
+          "text": "Every API call must contain a valid authentication token."
+        },
+        {
+          "id": "US-18-AC02",
+          "format": "given_when_then",
+          "text": "Given a request without a token, when the request reaches the server, then the system returns HTTP 401 Unauthorized."
+        },
+        {
+          "id": "US-18-AC03",
+          "format": "condition",
+          "text": "Unauthenticated requests are logged and rejected 100 % of the time."
+        }
+      ]
+    },
+    {
+      "id": "US-19",
+      "type": "functional",
+      "statement": "As a System, I want to restrict payment‑related actions to the Accountant role, so that only authorised staff can confirm or reject payments.",
+      "acceptance_criteria": [
+        {
+          "id": "US-19-AC01",
+          "format": "condition",
+          "text": "Only users with role Accountant may invoke the Confirm Payment or Reject Payment actions."
+        },
+        {
+          "id": "US-19-AC02",
+          "format": "given_when_then",
+          "text": "Given a non‑Accountant user attempting to confirm a payment, when the request is processed, then the system returns HTTP 403 Forbidden."
+        },
+        {
+          "id": "US-19-AC03",
+          "format": "condition",
+          "text": "All attempts by unauthorized roles are logged."
+        }
+      ]
+    },
+    {
+      "id": "US-20",
+      "type": "functional",
+      "statement": "As a System, I want to support the performance, security and availability requirements, so that the OMS meets the service‑level expectations.",
+      "acceptance_criteria": [
+        {
+          "id": "US-20-AC01",
+          "format": "condition",
+          "text": "The system shall handle at least 200 concurrent users and at least 20 order submissions per second."
+        },
+        {
+          "id": "US-20-AC02",
+          "format": "condition",
+          "text": "95 % of order submissions with ≤ 50 items shall complete within 2 seconds."
+        },
+        {
+          "id": "US-20-AC03",
+          "format": "condition",
+          "text": "Availability shall be ≥ 99.5 % per calendar month, with scheduled maintenance announced ≥ 24 h in advance."
+        }
+      ]
+    },
+    {
+      "id": "NFR-01",
+      "type": "performance",
+      "statement": "When a user submits an order containing up to 50 order items under normal operating conditions, the system shall register the order and respond within 2 seconds for at least 95 % of submissions.",
+      "acceptance_criteria": []
+    },
+    {
+      "id": "NFR-02",
+      "type": "performance",
+      "statement": "Under normal operating conditions, the system shall support at least 200 concurrent users and at least 20 order submissions per second while meeting the response time of NFR-01.",
+      "acceptance_criteria": []
+    },
+    {
+      "id": "NFR-03",
+      "type": "security",
+      "statement": "The system shall authenticate every user before granting access to any customer, order, invoice or payment data, and shall reject 100 % of unauthenticated requests.",
+      "acceptance_criteria": []
+    },
+    {
+      "id": "NFR-04",
+      "type": "security",
+      "statement": "The system shall allow only users holding the accountant role to confirm or reject a payment, and shall reject the same request from any other user.",
+      "acceptance_criteria": []
+    },
+    {
+      "id": "NFR-05",
+      "type": "security",
+      "statement": "The system shall protect customer personal data and bank account numbers by encrypting them in transit with TLS 1.2 or higher and at rest.",
+      "acceptance_criteria": []
+    },
+    {
+      "id": "NFR-06",
+      "type": "security",
+      "statement": "The system shall record the user and the time of every status change of an order, an invoice and a payment, and shall retain these records for at least 12 months.",
+      "acceptance_criteria": []
+    },
+    {
+      "id": "NFR-07",
+      "type": "availability",
+      "statement": "When a server failure occurs, the system shall resume accepting requests within 15 minutes without losing any order, invoice or payment recorded before the failure.",
+      "acceptance_criteria": []
+    },
+    {
+      "id": "NFR-08",
+      "type": "availability",
+      "statement": "The system shall be available for at least 99.5 % of each calendar month, excluding scheduled maintenance announced at least 24 hours in advance.",
+      "acceptance_criteria": []
+    }
+  ]
+}

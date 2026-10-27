@@ -1,0 +1,73 @@
+@startuml behavioral
+skinparam participantMargin 20
+
+|Customer|
+start
+:SubmitOrder;
+if (order valid?) then (yes)
+  :CreateOrder [submitted];
+else (no)
+  stop
+endif
+
+|OrderStaff|
+if (order status == submitted) then (receive)
+  :ReceiveOrder;
+  :SetOrderStatus [pending];
+else (reject)
+  note right: REJECT if not submitted
+endif
+
+if (order status == pending) then (fill)
+  :MarkFilled;
+  :SetOrderStatus [filled];
+else (reject)
+  note right: REJECT if not pending
+endif
+
+if (order status == filled) then (ship)
+  :ShipOrder;
+  :SetOrderStatus [shipped];
+else (reject)
+  note right: REJECT if not filled
+endif
+
+if (order status == shipped && invoice status == paid) then (close)
+  :CloseOrder;
+  :SetOrderStatus [closed];
+else (reject)
+  note right: REJECT if conditions not met
+endif
+
+|Accountant|
+if (order status in {filled, shipped} && no invoice) then (raise invoice)
+  :RaiseInvoice;
+  :CreateInvoice [issued];
+else (reject)
+  note right: REJECT per rules
+endif
+
+if (invoice status == issued) then (submit payment)
+  :SubmitPayment;
+  :CreatePayment [pending];
+else (reject)
+  note right: REJECT if invoice paid
+endif
+
+if (payment status == pending) then (confirm payment)
+  :ConfirmPayment;
+  :SetPaymentStatus [completed];
+  :SetInvoiceStatus [paid];
+else (reject)
+  note right: REJECT if not pending
+endif
+
+if (payment status == pending) then (reject payment)
+  :RejectPayment;
+  :SetPaymentStatus [failed];
+else (reject)
+  note right: REJECT if not pending
+endif
+
+stop
+@enduml

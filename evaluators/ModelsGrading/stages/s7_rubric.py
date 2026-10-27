@@ -65,8 +65,8 @@ def unmatched_gen(elements: dict, axis_records: list[dict], threshold: float,
         if record["verdict"] != "PASS":
             continue
         cosine = record.get("cosine")
-        # A by-construction pair (swimlane, transition) carries no cosine: it
-        # inherits the threshold decision of the action pair it was built from.
+        # A by-construction pair (swimlane, transition) carries the cosine of the
+        # action pair(s) it was built from, so it is filtered exactly when they are.
         if cosine is not None and cosine < threshold:
             continue
         passing.add((record["diagram"], record["gen_id"]))
@@ -187,7 +187,8 @@ def run(elements: dict, axis_records: list[dict], config: dict, diagrams,
     if not unmatched:
         ledgers.write_rubric_llm(llm_path, [])
         return {"unmatched": [], "rubric_pass": 0, "pending_rubric": 0,
-                "kappa": None, "judged": [], "rubric_source": "none"}
+                "unresolved": 0, "kappa": None, "judged": [],
+                "rubric_source": "none"}
 
     domain = domain_path.read_text(encoding="utf-8") if domain_path.is_file() else ""
     gold_summary = _gold_summary(elements, diagrams)
@@ -260,6 +261,9 @@ def run(elements: dict, axis_records: list[dict], config: dict, diagrams,
         if traceable and consistent:
             rubric_pass += 1
 
+    # Still open whatever the mode: the metrics are final only without it.
+    unresolved = pending_rubric + unscored
+
     if on_pending == "provisional":
         # §7.6: in provisional mode, unmatched elements are all treated as
         # failing, which keeps Precision a lower bound.
@@ -271,6 +275,7 @@ def run(elements: dict, axis_records: list[dict], config: dict, diagrams,
         "unmatched_detail": unmatched,
         "rubric_pass": rubric_pass,
         "pending_rubric": pending_rubric + (0 if on_pending == "provisional" else unscored),
+        "unresolved": unresolved,
         "kappa": kappa, "kappa_n": n, "kappa_pool": config["kappa_pool"],
         # §7.6: κ >= kappa_accept lets the judge's labels stand. None while no
         # κ exists (no judge, or the human sample is not filled in yet).

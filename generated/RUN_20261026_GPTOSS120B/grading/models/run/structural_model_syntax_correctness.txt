@@ -1,0 +1,122 @@
+===============================================================================
+STRUCTURAL MODEL SYNTAX CORRECTNESS (structural.puml)
+===============================================================================
+Gate: pass  |  Syntax validity: 1.0 (54/54 declarations accepted)
+
+Line  Status  Kind          Source                                      Message
+-------------------------------------------------------------------------------
+   1  -                     @startuml structural                        -
+   2  -                                                                 -
+   3  -                     ' Enumerations                              -
+   4  PASS    enum          enum OrderStatus {                          -
+   5  PASS    literal       submitted                                   -
+   6  PASS    literal       pending                                     -
+   7  PASS    literal       filled                                      -
+   8  PASS    literal       shipped                                     -
+   9  PASS    literal       closed                                      -
+  10  -                     }                                           -
+  11  -                                                                 -
+  12  PASS    enum          enum InvoiceStatus {                        -
+  13  PASS    literal       issued                                      -
+  14  PASS    literal       paid                                        -
+  15  -                     }                                           -
+  16  -                                                                 -
+  17  PASS    enum          enum PaymentStatus {                        -
+  18  PASS    literal       pending                                     -
+  19  PASS    literal       completed                                   -
+  20  PASS    literal       failed                                      -
+  21  -                     }                                           -
+  22  -                                                                 -
+  23  PASS    enum          enum PaymentMethod {                        -
+  24  PASS    literal       bank                                        -
+  25  PASS    literal       card                                        -
+  26  PASS    literal       cash                                        -
+  27  -                     }                                           -
+  28  -                                                                 -
+  29  -                     ' Domain classes                            -
+  30  PASS    class         class Customer {                            -
+  31  PASS    attribute     +String name                                attribute_no_type: Customer.String name carries no type
+  32  PASS    attribute     +String address                             attribute_no_type: Customer.String address carries no type
+  33  PASS    attribute     +String phoneNumber                         attribute_no_type: Customer.String phoneNumber carries no type
+  34  PASS    attribute     +BankAccount? bankAccount                   attribute_no_type: Customer.BankAccount? bankAccount carries no type
+  35  -                     }                                           -
+  36  -                                                                 -
+  37  PASS    class         class BankAccount {                         -
+  38  PASS    attribute     +String accountNumber                       attribute_no_type: BankAccount.String accountNumber carries no type
+  39  PASS    attribute     +String bankName                            attribute_no_type: BankAccount.String bankName carries no type
+  40  PASS    attribute     +String routingNumber                       attribute_no_type: BankAccount.String routingNumber carries no type
+  41  -                     }                                           -
+  42  -                                                                 -
+  43  PASS    class         class Product {                             -
+  44  PASS    attribute     +String name                                attribute_no_type: Product.String name carries no type
+  45  PASS    attribute     +String description                         attribute_no_type: Product.String description carries no type
+  46  PASS    attribute     +Decimal price                              attribute_no_type: Product.Decimal price carries no type
+  47  PASS    attribute     +String imageUrl                            attribute_no_type: Product.String imageUrl carries no type
+  48  -                     }                                           -
+  49  -                                                                 -
+  50  PASS    class         class Order {                               -
+  51  PASS    attribute     +Date orderDate                             attribute_no_type: Order.Date orderDate carries no type
+  52  PASS    attribute     +Decimal totalAmount                        attribute_no_type: Order.Decimal totalAmount carries no type
+  53  PASS    attribute     +OrderStatus status                         attribute_no_type: Order.OrderStatus status carries no type
+  54  PASS    attribute     +PaymentMethod paymentMethod                attribute_no_type: Order.PaymentMethod paymentMethod carries no type
+  55  -                     }                                           -
+  56  -                                                                 -
+  57  PASS    class         class OrderItem {                           -
+  58  PASS    attribute     +int quantity                               attribute_no_type: OrderItem.int quantity carries no type
+  59  PASS    attribute     +Decimal unitPrice                          attribute_no_type: OrderItem.Decimal unitPrice carries no type
+  60  -                     }                                           -
+  61  -                                                                 -
+  62  PASS    class         class Invoice {                             -
+  63  PASS    attribute     +Date date                                  attribute_no_type: Invoice.Date date carries no type
+  64  PASS    attribute     +Decimal amount                             attribute_no_type: Invoice.Decimal amount carries no type
+  65  PASS    attribute     +InvoiceStatus status                       attribute_no_type: Invoice.InvoiceStatus status carries no type
+  66  PASS    attribute     +PaymentMethod paymentMethod                attribute_no_type: Invoice.PaymentMethod paymentMethod carries no type
+  67  -                     }                                           -
+  68  -                                                                 -
+  69  PASS    class         class Payment {                             -
+  70  PASS    attribute     +Date date                                  attribute_no_type: Payment.Date date carries no type
+  71  PASS    attribute     +Decimal amount                             attribute_no_type: Payment.Decimal amount carries no type
+  72  PASS    attribute     +PaymentStatus status                       attribute_no_type: Payment.PaymentStatus status carries no type
+  73  PASS    attribute     +PaymentMethod paymentMethod                attribute_no_type: Payment.PaymentMethod paymentMethod carries no type
+  74  -                     }                                           -
+  75  -                                                                 -
+  76  -                     ' Relationships                             -
+  77  PASS    relationship  Customer "1" -- "*" Order : places >        -
+  78  PASS    relationship  Order "1" -- "*" OrderItem : contains >     -
+  79  PASS    relationship  OrderItem "*" -- "1" Product : refers to >  -
+  80  PASS    relationship  Order "1" -- "0..1" Invoice : has >         -
+  81  PASS    relationship  Invoice "1" -- "*" Payment : records >      -
+  82  -                                                                 -
+  83  -                     @enduml                                     -
+-------------------------------------------------------------------------------
+
+Rejected declarations (0):
+  none
+
+Format violations (25):
+  line 31: attribute_no_type: Customer.String name carries no type
+  line 32: attribute_no_type: Customer.String address carries no type
+  line 33: attribute_no_type: Customer.String phoneNumber carries no type
+  line 34: attribute_no_type: Customer.BankAccount? bankAccount carries no type
+  line 38: attribute_no_type: BankAccount.String accountNumber carries no type
+  line 39: attribute_no_type: BankAccount.String bankName carries no type
+  line 40: attribute_no_type: BankAccount.String routingNumber carries no type
+  line 44: attribute_no_type: Product.String name carries no type
+  line 45: attribute_no_type: Product.String description carries no type
+  line 46: attribute_no_type: Product.Decimal price carries no type
+  line 47: attribute_no_type: Product.String imageUrl carries no type
+  line 51: attribute_no_type: Order.Date orderDate carries no type
+  line 52: attribute_no_type: Order.Decimal totalAmount carries no type
+  line 53: attribute_no_type: Order.OrderStatus status carries no type
+  line 54: attribute_no_type: Order.PaymentMethod paymentMethod carries no type
+  line 58: attribute_no_type: OrderItem.int quantity carries no type
+  line 59: attribute_no_type: OrderItem.Decimal unitPrice carries no type
+  line 63: attribute_no_type: Invoice.Date date carries no type
+  line 64: attribute_no_type: Invoice.Decimal amount carries no type
+  line 65: attribute_no_type: Invoice.InvoiceStatus status carries no type
+  line 66: attribute_no_type: Invoice.PaymentMethod paymentMethod carries no type
+  line 70: attribute_no_type: Payment.Date date carries no type
+  line 71: attribute_no_type: Payment.Decimal amount carries no type
+  line 72: attribute_no_type: Payment.PaymentStatus status carries no type
+  line 73: attribute_no_type: Payment.PaymentMethod paymentMethod carries no type
+===============================================================================
