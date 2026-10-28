@@ -1,4 +1,4 @@
 gold_id,gen_id,gold_guard,gen_guard,path_detail,verdict,reviewer,timestamp,note
-T:Make Payment->Accept Payment,T:Submit payment->Confirm payment,authorized,received,gold=['authorized'] gen=['received'] (gen guard outside every alias set),FAIL,vuhuy,26/10/2026,Problem with implications of path(flow is ok but it's assumed that the payment is only received/not received - passive and not that it's reject-able or not
-T:Make Payment->Reject Payment,T:Submit payment->Reject payment,declined,not received,gold=['declined'] gen=['not received'] (gen guard outside every alias set),FAIL,vuhuy,26/10/2026,Problem with implications of path(flow is ok but it's assumed that the payment is only received/not received - passive and not that it's reject-able or not
-T:Reject Payment->Make Payment,T:Reject payment->Submit payment,,failed]) not ([completed,gold=<empty> gen=['failed]) not ([completed'],FAIL,vuhuy,26/10/2026,flow is ok while path is comprehensible but not traceble
+T:Make Payment->Accept Payment,T:Submit payment->Confirm payment,authorized,received,gold=['authorized'] gen=['received'] (gen guard outside every alias set),FAIL,vuhuy,26/10/2026,
+T:Make Payment->Reject Payment,T:Submit payment->Reject payment,declined,not received,gold=['declined'] gen=['not received'] (gen guard outside every alias set),FAIL,vuhuy,26/10/2026,
+T:Reject Payment->Make Payment,T:Reject payment->Submit payment,,failed]) not ([completed,gold=<empty> gen=['failed]) not ([completed'],FAIL,vuhuy,26/10/2026,

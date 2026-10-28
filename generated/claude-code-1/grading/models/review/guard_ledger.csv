@@ -1,4 +1,4 @@
 gold_id,gen_id,gold_guard,gen_guard,path_detail,verdict,reviewer,timestamp,note
-T:Make Payment->Accept Payment,T:Submit payment->Confirm payment,authorized,yes,gold=['authorized'] gen=['yes'] (gen guard outside every alias set),PASS,vuhuy,27/10/2026, path saved my brain from overthinking implications so acceptable (just enough)
+T:Make Payment->Accept Payment,T:Submit payment->Confirm payment,authorized,yes,gold=['authorized'] gen=['yes'] (gen guard outside every alias set),PASS,vuhuy,27/10/2026,
 T:Make Payment->Reject Payment,T:Submit payment->Reject payment,declined,no,gold=['declined'] gen=['no'] (gen guard outside every alias set),PASS,vuhuy,27/10/2026,
-T:Reject Payment->Make Payment,T:Reject payment->Submit payment,,yes]) not ([no,gold=<empty> gen=['yes]) not ([no'],FAIL,vuhuy,27/10/2026, freaking ass malformed path_detail merged with gen_guard so I assume gold=<empty> gen=['yes'] 
+T:Reject Payment->Make Payment,T:Reject payment->Submit payment,,yes]) not ([no,gold=<empty> gen=['yes]) not ([no'],FAIL,vuhuy,27/10/2026,
