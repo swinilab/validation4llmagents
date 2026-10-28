@@ -1,31 +1,31 @@
 gen_id,gen_text,traceable,consistent,reviewer,timestamp
-US-01-AC03,"The system shall treat the customer name, address and phone number as mandatory attributes, and shall treat the bank account as optional.",,,,
-US-01-AC04,"Given a customer profile submission missing any mandatory attribute, When the customer attempts to save the profile, Then the system shall reject the customer record and register no customer.",,,,
-US-01-AC05,"Given valid customer details including name, address, phone number and an optional bank account, When the customer submits the profile, Then the system shall record the customer profile.",,,,
-US-02-AC03,"The system shall treat name, description, price and image as mandatory attributes for every product, and shall reject a product record in which a mandatory attribute is absent.",,,,
-US-02-AC05,"Given products stored in the system, When a customer browses the product catalog, Then the system shall display the name, description, decimal price and image of each available product.",,,,
-US-03-AC03,"The system shall keep an order item in existence only as part of the order it belongs to, shall not allow an order item to be moved to another order, and shall remove the order items of an order when that order is removed.",,,,
-US-03-AC06,"Given an order submission where the customer is not known to the system, When the customer submits the order, Then the system shall reject the order submission and register no order.",,,,
-US-03-AC07,"Given an order submission that contains no order item, When the customer submits the order, Then the system shall reject the order submission and register no order.",,,,
-US-03-AC08,"Given an order submission where any order item refers to a product that does not exist, When the customer submits the order, Then the system shall reject the order submission and register no order.",,,,
-US-03-AC10,"The system shall restrict the status of an order to submitted, pending, filled, shipped or closed.",,,,
-US-04-AC02,"Given an order whose status is not submitted, When order staff attempts to receive the order, Then the system shall reject the attempt and leave the status of the order unchanged.",,,,
-US-05-AC01,"Given an order whose status is pending, When order staff marks the order as filled, Then the system shall set the status of the order to filled.",,,,
-US-05-AC03,The system shall change the status of an order from pending only to filled or to closed.,,,,
-US-06-AC01,"Given an order whose status is pending, When order staff declines the order, Then the system shall set the status of the order to closed.",,,,
-US-06-AC04,The system shall not change the status of an order whose status is closed.,,,,
-US-07-AC01,"Given an order whose status is filled, When order staff sets the status of the order to shipped, Then the system shall set the status of the order to shipped.",,,,
-US-07-AC02,"Given an order whose status is not filled, When order staff attempts to set the order to shipped, Then the system shall reject the attempt and leave the status of the order unchanged.",,,,
-US-07-AC03,"Given an order being set to shipped, When the status of the order changes to shipped, Then the system shall leave the status of an invoice and of any payment against that invoice unchanged.",,,,
-US-08-AC01,"The system shall record each invoice with a date, an amount, a status and a payment method.",,,,
-US-08-AC03,"Given an order whose status is filled or shipped and that has no invoice, When an accountant raises an invoice for that order, Then the system shall record an invoice for the order with a date, an amount, a payment method and the status issued.",,,,
-US-08-AC05,"Given an order whose status is submitted, pending or closed, When an accountant requests to raise an invoice for that order, Then the system shall reject the request.",,,,
-US-08-AC06,"The system shall let invoicing and shipping proceed independently of each other once an order has been filled, so that raising an invoice does not require the order to have been shipped.",,,,
-US-09-AC03,"Given an invoice whose status is issued, When a customer submits a payment against that invoice with a date, an amount and a payment method, Then the system shall record the payment against that invoice with the status pending.",,,,
-US-09-AC04,"Given an invoice whose status is paid, When a customer submits a payment against that invoice, Then the system shall reject the payment.",,,,
-US-09-AC05,"Given an invoice whose earlier payment has the status failed, When a customer submits a further payment against that invoice, Then the system shall record it as a separate payment with the status pending, and shall keep the failed payment at the status failed.",,,,
-US-10-AC02,"Given an accountant confirms a pending payment against an invoice whose status is issued, When the confirmation occurs, Then the system shall set the status of that invoice to paid.",,,,
-US-11-AC03,The system shall change the status of a payment only from pending to completed or to failed.,,,,
-US-12-AC01,"Given an order whose status is shipped and whose invoice has the status paid, When order staff closes the order, Then the system shall set the status of the order to closed.",,,,
-US-12-AC03,"Given an order whose invoice has the status paid but whose order status is not shipped, When order staff attempts to close the order, Then the system shall reject the attempt and leave the status of the order unchanged.",,,,
-US-12-AC04,"The system shall close a filled order only after both the shipping of the order and the settlement of its invoice have completed, whichever of the two finishes last.",,,,
+US-01-AC03,"The system shall treat the customer name, address and phone number as mandatory attributes, and shall treat the bank account as optional.",yes,yes,Le Anh Duc,2026-10-28
+US-01-AC04,"Given a customer profile submission missing any mandatory attribute, When the customer attempts to save the profile, Then the system shall reject the customer record and register no customer.",yes,yes,Le Anh Duc,2026-10-28
+US-01-AC05,"Given valid customer details including name, address, phone number and an optional bank account, When the customer submits the profile, Then the system shall record the customer profile.",yes,yes,Le Anh Duc,2026-10-28
+US-02-AC03,"The system shall treat name, description, price and image as mandatory attributes for every product, and shall reject a product record in which a mandatory attribute is absent.",yes,yes,Le Anh Duc,2026-10-28
+US-02-AC05,"Given products stored in the system, When a customer browses the product catalog, Then the system shall display the name, description, decimal price and image of each available product.",yes,no,Le Anh Duc,2026-10-28
+US-03-AC03,"The system shall keep an order item in existence only as part of the order it belongs to, shall not allow an order item to be moved to another order, and shall remove the order items of an order when that order is removed.",yes,yes,Le Anh Duc,2026-10-28
+US-03-AC06,"Given an order submission where the customer is not known to the system, When the customer submits the order, Then the system shall reject the order submission and register no order.",yes,yes,Le Anh Duc,2026-10-28
+US-03-AC07,"Given an order submission that contains no order item, When the customer submits the order, Then the system shall reject the order submission and register no order.",yes,yes,Le Anh Duc,2026-10-28
+US-03-AC08,"Given an order submission where any order item refers to a product that does not exist, When the customer submits the order, Then the system shall reject the order submission and register no order.",yes,yes,Le Anh Duc,2026-10-28
+US-03-AC10,"The system shall restrict the status of an order to submitted, pending, filled, shipped or closed.",yes,yes,Le Anh Duc,2026-10-28
+US-04-AC02,"Given an order whose status is not submitted, When order staff attempts to receive the order, Then the system shall reject the attempt and leave the status of the order unchanged.",yes,yes,Le Anh Duc,2026-10-28
+US-05-AC01,"Given an order whose status is pending, When order staff marks the order as filled, Then the system shall set the status of the order to filled.",yes,yes,Le Anh Duc,2026-10-28
+US-05-AC03,The system shall change the status of an order from pending only to filled or to closed.,yes,yes,Le Anh Duc,2026-10-28
+US-06-AC01,"Given an order whose status is pending, When order staff declines the order, Then the system shall set the status of the order to closed.",yes,yes,Le Anh Duc,2026-10-28
+US-06-AC04,The system shall not change the status of an order whose status is closed.,yes,yes,Le Anh Duc,2026-10-28
+US-07-AC01,"Given an order whose status is filled, When order staff sets the status of the order to shipped, Then the system shall set the status of the order to shipped.",yes,yes,Le Anh Duc,2026-10-28
+US-07-AC02,"Given an order whose status is not filled, When order staff attempts to set the order to shipped, Then the system shall reject the attempt and leave the status of the order unchanged.",yes,yes,Le Anh Duc,2026-10-28
+US-07-AC03,"Given an order being set to shipped, When the status of the order changes to shipped, Then the system shall leave the status of an invoice and of any payment against that invoice unchanged.",yes,yes,Le Anh Duc,2026-10-28
+US-08-AC01,"The system shall record each invoice with a date, an amount, a status and a payment method.",yes,yes,Le Anh Duc,2026-10-28
+US-08-AC03,"Given an order whose status is filled or shipped and that has no invoice, When an accountant raises an invoice for that order, Then the system shall record an invoice for the order with a date, an amount, a payment method and the status issued.",yes,yes,Le Anh Duc,2026-10-28
+US-08-AC05,"Given an order whose status is submitted, pending or closed, When an accountant requests to raise an invoice for that order, Then the system shall reject the request.",yes,yes,Le Anh Duc,2026-10-28
+US-08-AC06,"The system shall let invoicing and shipping proceed independently of each other once an order has been filled, so that raising an invoice does not require the order to have been shipped.",yes,yes,Le Anh Duc,2026-10-28
+US-09-AC03,"Given an invoice whose status is issued, When a customer submits a payment against that invoice with a date, an amount and a payment method, Then the system shall record the payment against that invoice with the status pending.",yes,yes,Le Anh Duc,2026-10-28
+US-09-AC04,"Given an invoice whose status is paid, When a customer submits a payment against that invoice, Then the system shall reject the payment.",yes,yes,Le Anh Duc,2026-10-28
+US-09-AC05,"Given an invoice whose earlier payment has the status failed, When a customer submits a further payment against that invoice, Then the system shall record it as a separate payment with the status pending, and shall keep the failed payment at the status failed.",yes,yes,Le Anh Duc,2026-10-28
+US-10-AC02,"Given an accountant confirms a pending payment against an invoice whose status is issued, When the confirmation occurs, Then the system shall set the status of that invoice to paid.",yes,yes,Le Anh Duc,2026-10-28
+US-11-AC03,The system shall change the status of a payment only from pending to completed or to failed.,yes,yes,Le Anh Duc,2026-10-28
+US-12-AC01,"Given an order whose status is shipped and whose invoice has the status paid, When order staff closes the order, Then the system shall set the status of the order to closed.",yes,yes,Le Anh Duc,2026-10-28
+US-12-AC03,"Given an order whose invoice has the status paid but whose order status is not shipped, When order staff attempts to close the order, Then the system shall reject the attempt and leave the status of the order unchanged.",yes,yes,Le Anh Duc,2026-10-28
+US-12-AC04,"The system shall close a filled order only after both the shipping of the order and the settlement of its invoice have completed, whichever of the two finishes last.",yes,yes,Le Anh Duc,2026-10-28

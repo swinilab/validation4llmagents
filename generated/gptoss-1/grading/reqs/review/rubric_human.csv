@@ -1,31 +1,31 @@
 gen_id,gen_text,traceable,consistent,reviewer,timestamp
-NFR-01,The system shall register an order containing up to 50 order items and respond within 2 seconds for at least 95% of submissions.,,,,
-NFR-04,The system shall allow only users holding the accountant role to confirm or reject a payment and shall reject the same request from any other user.,,,,
-US-01-AC01,"All of name, address and phone must be provided and non‑empty.",,,,
-US-01-AC03,"Given a registration request, when the data passes validation, then the system stores the customer and returns a success response.",,,,
-US-02-AC01,A bank account may be associated with a customer at most once.,,,,
-US-02-AC03,The bank‑account field is optional; the customer record remains valid without it.,,,,
-US-03-AC01,"Each product must have name, description, price and image URL; all are mandatory.",,,,
-US-03-AC03,"Given a request to view the catalog, when the request is authenticated, then the system returns the list of products with the required attributes.",,,,
-US-04-AC01,"Given a known customer, when the customer submits an order with at least one order item referencing existing products and a valid payment method, then the system creates an order with status submitted, order date = submission date, and total amount = Σ(quantity × unitPrice).",,,,
-US-04-AC02,"Given an unknown customer, when the customer attempts to submit an order, then the system rejects the submission and no order is recorded.",,,,
-US-04-AC03,An order must contain at least one order item; otherwise the submission is rejected.,,,,
-US-04-AC04,All referenced products must exist; otherwise the submission is rejected.,,,,
-US-05-AC01,"Given an order with status submitted, when OrderStaff receives the order, then the system changes the status to pending.",,,,
-US-06-AC01,"Given a pending order, when OrderStaff marks it as filled, then the system changes the status to filled.",,,,
-US-06-AC02,The status transition pending → filled is allowed; any other transition is rejected.,,,,
-US-06-AC03,"When an order becomes filled, its order items remain attached (composition).",,,,
-US-07-AC01,"Given a filled order, when OrderStaff ships the order, then the system changes the status to shipped.",,,,
-US-07-AC02,The status transition filled → shipped is allowed; any other transition is rejected.,,,,
-US-07-AC03,Shipping does not alter the status of any associated invoice or payment.,,,,
-US-08-AC01,"Given a pending order, when OrderStaff declines it, then the system changes the status to closed.",,,,
-US-08-AC02,The status transition pending → closed is allowed; any other transition is rejected.,,,,
-US-09-AC01,"Given a shipped order whose linked invoice has status paid, when OrderStaff closes the order, then the system changes the order status to closed.",,,,
-US-09-AC02,The system rejects an attempt to close a shipped order whose invoice is not paid.,,,,
-US-10-AC01,"Given a filled (or shipped) order with no invoice, when Accountant raises an invoice with date, amount, payment method and status issued, then the system creates the invoice linked to the order.",,,,
-US-11-AC01,"Given an issued invoice, when a Customer submits a payment with date, amount and payment method, then the system creates a payment with status pending linked to the invoice.",,,,
-US-11-AC02,Payments cannot be submitted against an invoice whose status is paid.,,,,
-US-12-AC01,"Given a pending payment, when Accountant confirms it, then the system changes the payment status to completed and sets the linked invoice status to paid.",,,,
-US-12-AC03,Confirming a payment does not alter the status of the associated order.,,,,
-US-13-AC01,"Given a pending payment, when Accountant rejects it, then the system changes the payment status to failed and leaves the invoice and order statuses unchanged.",,,,
-US-13-AC03,"After a payment is failed, further payments may be submitted (see US‑11).",,,,
+NFR-01,The system shall register an order containing up to 50 order items and respond within 2 seconds for at least 95% of submissions.,yes,yes,Le Anh Duc,2026-10-28
+NFR-04,The system shall allow only users holding the accountant role to confirm or reject a payment and shall reject the same request from any other user.,yes,yes,Le Anh Duc,2026-10-28
+US-01-AC01,"All of name, address and phone must be provided and non‑empty.",yes,yes,Le Anh Duc,2026-10-28
+US-01-AC03,"Given a registration request, when the data passes validation, then the system stores the customer and returns a success response.",yes,no,Le Anh Duc,2026-10-28
+US-02-AC01,A bank account may be associated with a customer at most once.,yes,yes,Le Anh Duc,2026-10-28
+US-02-AC03,The bank‑account field is optional; the customer record remains valid without it.,yes,yes,Le Anh Duc,2026-10-28
+US-03-AC01,"Each product must have name, description, price and image URL; all are mandatory.",yes,yes,Le Anh Duc,2026-10-28
+US-03-AC03,"Given a request to view the catalog, when the request is authenticated, then the system returns the list of products with the required attributes.",yes,no,Le Anh Duc,2026-10-28
+US-04-AC01,"Given a known customer, when the customer submits an order with at least one order item referencing existing products and a valid payment method, then the system creates an order with status submitted, order date = submission date, and total amount = Σ(quantity × unitPrice).",yes,yes,Le Anh Duc,2026-10-28
+US-04-AC02,"Given an unknown customer, when the customer attempts to submit an order, then the system rejects the submission and no order is recorded.",yes,yes,Le Anh Duc,2026-10-28
+US-04-AC03,An order must contain at least one order item; otherwise the submission is rejected.,yes,yes,Le Anh Duc,2026-10-28
+US-04-AC04,All referenced products must exist; otherwise the submission is rejected.,yes,yes,Le Anh Duc,2026-10-28
+US-05-AC01,"Given an order with status submitted, when OrderStaff receives the order, then the system changes the status to pending.",yes,yes,Le Anh Duc,2026-10-28
+US-06-AC01,"Given a pending order, when OrderStaff marks it as filled, then the system changes the status to filled.",yes,yes,Le Anh Duc,2026-10-28
+US-06-AC02,The status transition pending → filled is allowed; any other transition is rejected.,yes,no,Le Anh Duc,2026-10-28
+US-06-AC03,"When an order becomes filled, its order items remain attached (composition).",yes,no,Le Anh Duc,2026-10-28
+US-07-AC01,"Given a filled order, when OrderStaff ships the order, then the system changes the status to shipped.",yes,yes,Le Anh Duc,2026-10-28
+US-07-AC02,The status transition filled → shipped is allowed; any other transition is rejected.,yes,no,Le Anh Duc,2026-10-28
+US-07-AC03,Shipping does not alter the status of any associated invoice or payment.,yes,yes,Le Anh Duc,2026-10-28
+US-08-AC01,"Given a pending order, when OrderStaff declines it, then the system changes the status to closed.",yes,yes,Le Anh Duc,2026-10-28
+US-08-AC02,The status transition pending → closed is allowed; any other transition is rejected.,yes,no,Le Anh Duc,2026-10-28
+US-09-AC01,"Given a shipped order whose linked invoice has status paid, when OrderStaff closes the order, then the system changes the order status to closed.",yes,yes,Le Anh Duc,2026-10-28
+US-09-AC02,The system rejects an attempt to close a shipped order whose invoice is not paid.,yes,yes,Le Anh Duc,2026-10-28
+US-10-AC01,"Given a filled (or shipped) order with no invoice, when Accountant raises an invoice with date, amount, payment method and status issued, then the system creates the invoice linked to the order.",yes,yes,Le Anh Duc,2026-10-28
+US-11-AC01,"Given an issued invoice, when a Customer submits a payment with date, amount and payment method, then the system creates a payment with status pending linked to the invoice.",yes,yes,Le Anh Duc,2026-10-28
+US-11-AC02,Payments cannot be submitted against an invoice whose status is paid.,yes,yes,Le Anh Duc,2026-10-28
+US-12-AC01,"Given a pending payment, when Accountant confirms it, then the system changes the payment status to completed and sets the linked invoice status to paid.",yes,yes,Le Anh Duc,2026-10-28
+US-12-AC03,Confirming a payment does not alter the status of the associated order.,yes,yes,Le Anh Duc,2026-10-28
+US-13-AC01,"Given a pending payment, when Accountant rejects it, then the system changes the payment status to failed and leaves the invoice and order statuses unchanged.",yes,yes,Le Anh Duc,2026-10-28
+US-13-AC03,"After a payment is failed, further payments may be submitted (see US‑11).",yes,yes,Le Anh Duc,2026-10-28

@@ -1,8 +1,8 @@
 element_id,kind,label,traceable,consistent,reviewer,timestamp
-A:Order.paymentMethod,attribute,paymentMethod: PaymentMethod,,,,
-A:Payment.paymentMethod,attribute,paymentMethod: PaymentMethod,,,,
-R:Customer--Order,relationship,,,,,
-R:Invoice--Payment,relationship,,,,,
-R:Order--Invoice,relationship,,,,,
-R:Order--OrderItem,relationship,,,,,
-R:OrderItem--Product,relationship,,,,,
+A:Order.paymentMethod,attribute,paymentMethod: PaymentMethod,yes,yes,Le Anh Duc,2026-10-28
+A:Payment.paymentMethod,attribute,paymentMethod: PaymentMethod,yes,yes,Le Anh Duc,2026-10-28
+R:Customer--Order,relationship,,yes,yes,Le Anh Duc,2026-10-28
+R:Invoice--Payment,relationship,,yes,yes,Le Anh Duc,2026-10-28
+R:Order--Invoice,relationship,,yes,yes,Le Anh Duc,2026-10-28
+R:Order--OrderItem,relationship,,yes,yes,Le Anh Duc,2026-10-28
+R:OrderItem--Product,relationship,,yes,yes,Le Anh Duc,2026-10-28

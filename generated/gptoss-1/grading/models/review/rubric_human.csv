@@ -1,31 +1,31 @@
 element_id,kind,label,traceable,consistent,reviewer,timestamp
-ACT:CloseOrder,action,CloseOrder,,,,
-ACT:ConfirmPayment,action,ConfirmPayment,,,,
-ACT:FillOrder,action,FillOrder,,,,
-ACT:MarkOrderPending,action,MarkOrderPending,,,,
-ACT:RaiseInvoice,action,RaiseInvoice,,,,
-ACT:RejectPayment,action,RejectPayment,,,,
-ACT:ShipOrder,action,ShipOrder,,,,
-ACT:SubmitOrder,action,SubmitOrder,,,,
-ACT:SubmitPayment,action,SubmitPayment,,,,
-LANE:BrowseProducts,swimlane,Customer,,,,
-LANE:CloseOrder,swimlane,OrderStaff,,,,
-LANE:FillOrder,swimlane,OrderStaff,,,,
-LANE:MarkOrderPending,swimlane,OrderStaff,,,,
-LANE:ReceiveOrder,swimlane,OrderStaff,,,,
-LANE:RegisterCustomer,swimlane,Customer,,,,
-LANE:ShipOrder,swimlane,OrderStaff,,,,
-LANE:SubmitOrder,swimlane,Customer,,,,
-OBJ:Invoice[issued],object_node,Invoice [issued],,,,
-OBJ:Invoice[paid],object_node,Invoice [paid],,,,
-OBJ:Order[closed],object_node,Order [closed],,,,
-OBJ:Order[shipped],object_node,Order [shipped],,,,
-OBJ:Payment[failed],object_node,Payment [failed],,,,
-OBJ:Payment[pending],object_node,Payment [pending],,,,
-T:BrowseProducts->SubmitOrder,transition,BrowseProducts->SubmitOrder,,,,
-T:CloseOrder->RaiseInvoice,transition,CloseOrder->RaiseInvoice,,,,
-T:ConfirmPayment->RejectPayment,transition,ConfirmPayment->RejectPayment,,,,
-T:FillOrder->RaiseInvoice,transition,FillOrder->RaiseInvoice,,,,
-T:MarkOrderPending->FillOrder,transition,MarkOrderPending->FillOrder,,,,
-T:RaiseInvoice->SubmitPayment,transition,RaiseInvoice->SubmitPayment,,,,
-T:SubmitOrder->ReceiveOrder,transition,SubmitOrder->ReceiveOrder,,,,
+ACT:CloseOrder,action,CloseOrder,yes,yes,Le Anh Duc,2026-10-28
+ACT:ConfirmPayment,action,ConfirmPayment,yes,yes,Le Anh Duc,2026-10-28
+ACT:FillOrder,action,FillOrder,yes,yes,Le Anh Duc,2026-10-28
+ACT:MarkOrderPending,action,MarkOrderPending,yes,yes,Le Anh Duc,2026-10-28
+ACT:RaiseInvoice,action,RaiseInvoice,yes,yes,Le Anh Duc,2026-10-28
+ACT:RejectPayment,action,RejectPayment,yes,yes,Le Anh Duc,2026-10-28
+ACT:ShipOrder,action,ShipOrder,yes,yes,Le Anh Duc,2026-10-28
+ACT:SubmitOrder,action,SubmitOrder,yes,yes,Le Anh Duc,2026-10-28
+ACT:SubmitPayment,action,SubmitPayment,yes,yes,Le Anh Duc,2026-10-28
+LANE:BrowseProducts,swimlane,Customer,yes,no,Le Anh Duc,2026-10-28
+LANE:CloseOrder,swimlane,OrderStaff,yes,yes,Le Anh Duc,2026-10-28
+LANE:FillOrder,swimlane,OrderStaff,yes,yes,Le Anh Duc,2026-10-28
+LANE:MarkOrderPending,swimlane,OrderStaff,yes,yes,Le Anh Duc,2026-10-28
+LANE:ReceiveOrder,swimlane,OrderStaff,yes,yes,Le Anh Duc,2026-10-28
+LANE:RegisterCustomer,swimlane,Customer,yes,no,Le Anh Duc,2026-10-28
+LANE:ShipOrder,swimlane,OrderStaff,yes,yes,Le Anh Duc,2026-10-28
+LANE:SubmitOrder,swimlane,Customer,yes,yes,Le Anh Duc,2026-10-28
+OBJ:Invoice[issued],object_node,Invoice [issued],yes,yes,Le Anh Duc,2026-10-28
+OBJ:Invoice[paid],object_node,Invoice [paid],yes,yes,Le Anh Duc,2026-10-28
+OBJ:Order[closed],object_node,Order [closed],yes,yes,Le Anh Duc,2026-10-28
+OBJ:Order[shipped],object_node,Order [shipped],yes,yes,Le Anh Duc,2026-10-28
+OBJ:Payment[failed],object_node,Payment [failed],yes,yes,Le Anh Duc,2026-10-28
+OBJ:Payment[pending],object_node,Payment [pending],yes,yes,Le Anh Duc,2026-10-28
+T:BrowseProducts->SubmitOrder,transition,BrowseProducts->SubmitOrder,yes,no,Le Anh Duc,2026-10-28
+T:CloseOrder->RaiseInvoice,transition,CloseOrder->RaiseInvoice,yes,no,Le Anh Duc,2026-10-28
+T:ConfirmPayment->RejectPayment,transition,ConfirmPayment->RejectPayment,yes,no,Le Anh Duc,2026-10-28
+T:FillOrder->RaiseInvoice,transition,FillOrder->RaiseInvoice,yes,yes,Le Anh Duc,2026-10-28
+T:MarkOrderPending->FillOrder,transition,MarkOrderPending->FillOrder,yes,yes,Le Anh Duc,2026-10-28
+T:RaiseInvoice->SubmitPayment,transition,RaiseInvoice->SubmitPayment,yes,yes,Le Anh Duc,2026-10-28
+T:SubmitOrder->ReceiveOrder,transition,SubmitOrder->ReceiveOrder,yes,yes,Le Anh Duc,2026-10-28

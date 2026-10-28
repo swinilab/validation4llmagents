@@ -1,21 +1,21 @@
 element_id,kind,label,traceable,consistent,reviewer,timestamp
-A:Order.paymentMethod,attribute,+paymentMethod: PaymentMethod,,,,
-A:Payment.paymentMethod,attribute,+paymentMethod: PaymentMethod,,,,
-ACT:Decline Order,action,Decline Order,,,,
-ACT:Raise Invoice,action,Raise Invoice,,,,
-ACT:Receive Order,action,Receive Order,,,,
-ACT:Submit Order,action,Submit Order,,,,
-LANE:Decline Order,swimlane,OrderStaff,,,,
-LANE:Raise Invoice,swimlane,Accountant,,,,
-LANE:Receive Order,swimlane,OrderStaff,,,,
-LANE:Submit Order,swimlane,Customer,,,,
-R:Order--OrderItem,relationship,contains >,,,,
-T:Confirm Payment->Submit Payment,transition,Confirm Payment->Submit Payment,,,,
-T:Fill Order->Raise Invoice,transition,Fill Order->Raise Invoice,,,,
-T:Raise Invoice->Submit Payment,transition,Raise Invoice->Submit Payment,,,,
-T:Receive Order->Decline Order,transition,Receive Order->Decline Order,,,,
-T:Receive Order->Fill Order,transition,Receive Order->Fill Order,,,,
-T:Reject Payment->Close Order,transition,Reject Payment->Close Order,,,,
-T:Submit Order->Receive Order,transition,Submit Order->Receive Order,,,,
-T:Submit Payment->Confirm Payment,transition,Submit Payment->Confirm Payment,,,,
-T:Submit Payment->Reject Payment,transition,Submit Payment->Reject Payment,,,,
+A:Order.paymentMethod,attribute,+paymentMethod: PaymentMethod,yes,yes,Le Anh Duc,2026-10-28
+A:Payment.paymentMethod,attribute,+paymentMethod: PaymentMethod,yes,yes,Le Anh Duc,2026-10-28
+ACT:Decline Order,action,Decline Order,yes,yes,Le Anh Duc,2026-10-28
+ACT:Raise Invoice,action,Raise Invoice,yes,yes,Le Anh Duc,2026-10-28
+ACT:Receive Order,action,Receive Order,yes,yes,Le Anh Duc,2026-10-28
+ACT:Submit Order,action,Submit Order,yes,yes,Le Anh Duc,2026-10-28
+LANE:Decline Order,swimlane,OrderStaff,yes,yes,Le Anh Duc,2026-10-28
+LANE:Raise Invoice,swimlane,Accountant,yes,yes,Le Anh Duc,2026-10-28
+LANE:Receive Order,swimlane,OrderStaff,yes,yes,Le Anh Duc,2026-10-28
+LANE:Submit Order,swimlane,Customer,yes,yes,Le Anh Duc,2026-10-28
+R:Order--OrderItem,relationship,contains >,yes,yes,Le Anh Duc,2026-10-28
+T:Confirm Payment->Submit Payment,transition,Confirm Payment->Submit Payment,no,no,Le Anh Duc,2026-10-28
+T:Fill Order->Raise Invoice,transition,Fill Order->Raise Invoice,yes,yes,Le Anh Duc,2026-10-28
+T:Raise Invoice->Submit Payment,transition,Raise Invoice->Submit Payment,yes,yes,Le Anh Duc,2026-10-28
+T:Receive Order->Decline Order,transition,Receive Order->Decline Order,yes,yes,Le Anh Duc,2026-10-28
+T:Receive Order->Fill Order,transition,Receive Order->Fill Order,yes,yes,Le Anh Duc,2026-10-28
+T:Reject Payment->Close Order,transition,Reject Payment->Close Order,yes,no,Le Anh Duc,2026-10-28
+T:Submit Order->Receive Order,transition,Submit Order->Receive Order,yes,yes,Le Anh Duc,2026-10-28
+T:Submit Payment->Confirm Payment,transition,Submit Payment->Confirm Payment,yes,yes,Le Anh Duc,2026-10-28
+T:Submit Payment->Reject Payment,transition,Submit Payment->Reject Payment,yes,yes,Le Anh Duc,2026-10-28

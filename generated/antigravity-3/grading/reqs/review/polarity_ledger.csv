@@ -1,2 +1,2 @@
 gold_id,gen_id,cosine,gold_text,gen_text,verdict,reviewer,timestamp,note
-US-13-AC05,US-08-AC03,0.7538,Confirming a payment does not change the status of the order billed by the invoice.,"When a payment against an invoice is confirmed, the system shall leave the status of the order billed by that invoice unchanged.",,,,
+US-13-AC05,US-08-AC03,0.7538,Confirming a payment does not change the status of the order billed by the invoice.,"When a payment against an invoice is confirmed, the system shall leave the status of the order billed by that invoice unchanged.",PASS,Le Anh Duc,2026-10-28,Preserves the unchanged-order-status requirement
