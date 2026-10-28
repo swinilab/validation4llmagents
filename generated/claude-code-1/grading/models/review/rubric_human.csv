@@ -1,25 +1,25 @@
 element_id,kind,label,traceable,consistent,reviewer,timestamp
-ACT:Browse products,action,Browse products,,,,
-ACT:Decline order,action,Decline order,,,,
-ACT:Maintain customer profile,action,Maintain customer profile,,,,
-ACT:Raise invoice,action,Raise invoice,,,,
-ACT:Receive order,action,Receive order,,,,
-ACT:Submit order,action,Submit order,,,,
-LANE:Browse products,swimlane,Customer,,,,
-LANE:Decline order,swimlane,OrderStaff,,,,
-LANE:Maintain customer profile,swimlane,Customer,,,,
-LANE:Raise invoice,swimlane,Accountant,,,,
-LANE:Receive order,swimlane,OrderStaff,,,,
-LANE:Submit order,swimlane,Customer,,,,
-T:Browse products->Submit order,transition,Browse products->Submit order,,,,
-T:Confirm payment->Submit payment,transition,Confirm payment->Submit payment,,,,
-T:Fill order->Raise invoice,transition,Fill order->Raise invoice,,,,
-T:Maintain customer profile->Browse products,transition,Maintain customer profile->Browse products,,,,
-T:Raise invoice->Submit payment,transition,Raise invoice->Submit payment,,,,
-T:Receive order->Decline order,transition,Receive order->Decline order,,,,
-T:Receive order->Fill order,transition,Receive order->Fill order,,,,
-T:Reject payment->Close order,transition,Reject payment->Close order,,,,
-T:Reject payment->Submit payment,transition,Reject payment->Submit payment,,,,
-T:Submit order->Receive order,transition,Submit order->Receive order,,,,
-T:Submit payment->Confirm payment,transition,Submit payment->Confirm payment,,,,
-T:Submit payment->Reject payment,transition,Submit payment->Reject payment,,,,
+ACT:Browse products,action,Browse products,yes,yes,vuhuy,27/10/2026
+ACT:Decline order,action,Decline order,yes,yes,vuhuy,27/10/2026
+ACT:Maintain customer profile,action,Maintain customer profile,,,vuhuy,27/10/2026
+ACT:Raise invoice,action,Raise invoice,yes,yes,vuhuy,27/10/2026
+ACT:Receive order,action,Receive order,yes,yes,vuhuy,27/10/2026
+ACT:Submit order,action,Submit order,yes,yes,vuhuy,27/10/2026
+LANE:Browse products,swimlane,Customer,yes,yes,vuhuy,27/10/2026
+LANE:Decline order,swimlane,OrderStaff,yes,yes,vuhuy,27/10/2026
+LANE:Maintain customer profile,swimlane,Customer,no,yes,vuhuy,27/10/2026
+LANE:Raise invoice,swimlane,Accountant,yes,yes,vuhuy,27/10/2026
+LANE:Receive order,swimlane,OrderStaff,yes,yes,vuhuy,27/10/2026
+LANE:Submit order,swimlane,Customer,yes,yes,vuhuy,27/10/2026
+T:Browse products->Submit order,transition,Browse products->Submit order,yes,yes,vuhuy,27/10/2026
+T:Confirm payment->Submit payment,transition,Confirm payment->Submit payment,no,no,vuhuy,27/10/2026
+T:Fill order->Raise invoice,transition,Fill order->Raise invoice,yes,yes,vuhuy,27/10/2026
+T:Maintain customer profile->Browse products,transition,Maintain customer profile->Browse products,no,yes,vuhuy,27/10/2026
+T:Raise invoice->Submit payment,transition,Raise invoice->Submit payment,yes,yes,vuhuy,27/10/2026
+T:Receive order->Decline order,transition,Receive order->Decline order,yes,yes,vuhuy,27/10/2026
+T:Receive order->Fill order,transition,Receive order->Fill order,yes,yes,vuhuy,27/10/2026
+T:Reject payment->Close order,transition,Reject payment->Close order,no,no,vuhuy,27/10/2026
+T:Reject payment->Submit payment,transition,Reject payment->Submit payment,yes,yes,vuhuy,27/10/2026
+T:Submit order->Receive order,transition,Submit order->Receive order,yes,yes,vuhuy,27/10/2026
+T:Submit payment->Confirm payment,transition,Submit payment->Confirm payment,yes,yes,vuhuy,27/10/2026
+T:Submit payment->Reject payment,transition,Submit payment->Reject payment,yes,yes,vuhuy,27/10/2026
