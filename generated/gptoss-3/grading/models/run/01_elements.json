@@ -1,0 +1,3266 @@
+{
+  "structural": {
+    "gold": [
+      {
+        "element_id": "C:Customer",
+        "kind": "class",
+        "label_raw": "Customer",
+        "label_norm": "Customer",
+        "line": 31,
+        "name": "Customer"
+      },
+      {
+        "element_id": "C:Product",
+        "kind": "class",
+        "label_raw": "Product",
+        "label_norm": "Product",
+        "line": 38,
+        "name": "Product"
+      },
+      {
+        "element_id": "C:Order",
+        "kind": "class",
+        "label_raw": "Order",
+        "label_norm": "Order",
+        "line": 45,
+        "name": "Order"
+      },
+      {
+        "element_id": "C:OrderItem",
+        "kind": "class",
+        "label_raw": "OrderItem",
+        "label_norm": "OrderItem",
+        "line": 52,
+        "name": "OrderItem"
+      },
+      {
+        "element_id": "C:Invoice",
+        "kind": "class",
+        "label_raw": "Invoice",
+        "label_norm": "Invoice",
+        "line": 57,
+        "name": "Invoice"
+      },
+      {
+        "element_id": "C:Payment",
+        "kind": "class",
+        "label_raw": "Payment",
+        "label_norm": "Payment",
+        "line": 64,
+        "name": "Payment"
+      },
+      {
+        "element_id": "E:OrderStatus",
+        "kind": "enum",
+        "label_raw": "OrderStatus",
+        "label_norm": "OrderStatus",
+        "line": 6,
+        "name": "OrderStatus",
+        "literals": [
+          "closed",
+          "filled",
+          "pending",
+          "shipped",
+          "submitted"
+        ]
+      },
+      {
+        "element_id": "E:InvoiceStatus",
+        "kind": "enum",
+        "label_raw": "InvoiceStatus",
+        "label_norm": "InvoiceStatus",
+        "line": 14,
+        "name": "InvoiceStatus",
+        "literals": [
+          "issued",
+          "paid"
+        ]
+      },
+      {
+        "element_id": "E:PaymentStatus",
+        "kind": "enum",
+        "label_raw": "PaymentStatus",
+        "label_norm": "PaymentStatus",
+        "line": 19,
+        "name": "PaymentStatus",
+        "literals": [
+          "completed",
+          "failed",
+          "pending"
+        ]
+      },
+      {
+        "element_id": "E:PaymentMethod",
+        "kind": "enum",
+        "label_raw": "PaymentMethod",
+        "label_norm": "PaymentMethod",
+        "line": 25,
+        "name": "PaymentMethod",
+        "literals": [
+          "bank",
+          "card",
+          "cash"
+        ]
+      },
+      {
+        "element_id": "L:OrderStatus.submitted",
+        "kind": "literal",
+        "label_raw": "submitted",
+        "label_norm": "submitted",
+        "line": 7,
+        "owner": "OrderStatus",
+        "name": "submitted"
+      },
+      {
+        "element_id": "L:OrderStatus.pending",
+        "kind": "literal",
+        "label_raw": "pending",
+        "label_norm": "pending",
+        "line": 8,
+        "owner": "OrderStatus",
+        "name": "pending"
+      },
+      {
+        "element_id": "L:OrderStatus.filled",
+        "kind": "literal",
+        "label_raw": "filled",
+        "label_norm": "filled",
+        "line": 9,
+        "owner": "OrderStatus",
+        "name": "filled"
+      },
+      {
+        "element_id": "L:OrderStatus.shipped",
+        "kind": "literal",
+        "label_raw": "shipped",
+        "label_norm": "shipped",
+        "line": 10,
+        "owner": "OrderStatus",
+        "name": "shipped"
+      },
+      {
+        "element_id": "L:OrderStatus.closed",
+        "kind": "literal",
+        "label_raw": "closed",
+        "label_norm": "closed",
+        "line": 11,
+        "owner": "OrderStatus",
+        "name": "closed"
+      },
+      {
+        "element_id": "L:InvoiceStatus.issued",
+        "kind": "literal",
+        "label_raw": "issued",
+        "label_norm": "issued",
+        "line": 15,
+        "owner": "InvoiceStatus",
+        "name": "issued"
+      },
+      {
+        "element_id": "L:InvoiceStatus.paid",
+        "kind": "literal",
+        "label_raw": "paid",
+        "label_norm": "paid",
+        "line": 16,
+        "owner": "InvoiceStatus",
+        "name": "paid"
+      },
+      {
+        "element_id": "L:PaymentStatus.pending",
+        "kind": "literal",
+        "label_raw": "pending",
+        "label_norm": "pending",
+        "line": 20,
+        "owner": "PaymentStatus",
+        "name": "pending"
+      },
+      {
+        "element_id": "L:PaymentStatus.completed",
+        "kind": "literal",
+        "label_raw": "completed",
+        "label_norm": "completed",
+        "line": 21,
+        "owner": "PaymentStatus",
+        "name": "completed"
+      },
+      {
+        "element_id": "L:PaymentStatus.failed",
+        "kind": "literal",
+        "label_raw": "failed",
+        "label_norm": "failed",
+        "line": 22,
+        "owner": "PaymentStatus",
+        "name": "failed"
+      },
+      {
+        "element_id": "L:PaymentMethod.bank",
+        "kind": "literal",
+        "label_raw": "bank",
+        "label_norm": "bank",
+        "line": 26,
+        "owner": "PaymentMethod",
+        "name": "bank"
+      },
+      {
+        "element_id": "L:PaymentMethod.card",
+        "kind": "literal",
+        "label_raw": "card",
+        "label_norm": "card",
+        "line": 27,
+        "owner": "PaymentMethod",
+        "name": "card"
+      },
+      {
+        "element_id": "L:PaymentMethod.cash",
+        "kind": "literal",
+        "label_raw": "cash",
+        "label_norm": "cash",
+        "line": 28,
+        "owner": "PaymentMethod",
+        "name": "cash"
+      },
+      {
+        "element_id": "A:Customer.name",
+        "kind": "attribute",
+        "label_raw": "name : String",
+        "label_norm": "Customer name",
+        "line": 32,
+        "owner": "Customer",
+        "name": "name",
+        "type_raw": "String",
+        "type_norm": "String"
+      },
+      {
+        "element_id": "A:Customer.address",
+        "kind": "attribute",
+        "label_raw": "address : String",
+        "label_norm": "Customer address",
+        "line": 33,
+        "owner": "Customer",
+        "name": "address",
+        "type_raw": "String",
+        "type_norm": "String"
+      },
+      {
+        "element_id": "A:Customer.phone",
+        "kind": "attribute",
+        "label_raw": "phone : String",
+        "label_norm": "Customer phone",
+        "line": 34,
+        "owner": "Customer",
+        "name": "phone",
+        "type_raw": "String",
+        "type_norm": "String"
+      },
+      {
+        "element_id": "A:Customer.bankAccount",
+        "kind": "attribute",
+        "label_raw": "bankAccount : String [0..1]",
+        "label_norm": "Customer bankAccount",
+        "line": 35,
+        "owner": "Customer",
+        "name": "bankAccount",
+        "type_raw": "String [0..1]",
+        "type_norm": "String"
+      },
+      {
+        "element_id": "A:Product.name",
+        "kind": "attribute",
+        "label_raw": "name : String",
+        "label_norm": "Product name",
+        "line": 39,
+        "owner": "Product",
+        "name": "name",
+        "type_raw": "String",
+        "type_norm": "String"
+      },
+      {
+        "element_id": "A:Product.description",
+        "kind": "attribute",
+        "label_raw": "description : String",
+        "label_norm": "Product description",
+        "line": 40,
+        "owner": "Product",
+        "name": "description",
+        "type_raw": "String",
+        "type_norm": "String"
+      },
+      {
+        "element_id": "A:Product.price",
+        "kind": "attribute",
+        "label_raw": "price : Decimal",
+        "label_norm": "Product price",
+        "line": 41,
+        "owner": "Product",
+        "name": "price",
+        "type_raw": "Decimal",
+        "type_norm": "Decimal"
+      },
+      {
+        "element_id": "A:Product.image",
+        "kind": "attribute",
+        "label_raw": "image : String",
+        "label_norm": "Product image",
+        "line": 42,
+        "owner": "Product",
+        "name": "image",
+        "type_raw": "String",
+        "type_norm": "String"
+      },
+      {
+        "element_id": "A:Order.orderDate",
+        "kind": "attribute",
+        "label_raw": "orderDate : Date",
+        "label_norm": "Order orderDate",
+        "line": 46,
+        "owner": "Order",
+        "name": "orderDate",
+        "type_raw": "Date",
+        "type_norm": "Date"
+      },
+      {
+        "element_id": "A:Order.totalAmount",
+        "kind": "attribute",
+        "label_raw": "totalAmount : Decimal",
+        "label_norm": "Order totalAmount",
+        "line": 47,
+        "owner": "Order",
+        "name": "totalAmount",
+        "type_raw": "Decimal",
+        "type_norm": "Decimal"
+      },
+      {
+        "element_id": "A:Order.status",
+        "kind": "attribute",
+        "label_raw": "status : OrderStatus",
+        "label_norm": "Order status",
+        "line": 48,
+        "owner": "Order",
+        "name": "status",
+        "type_raw": "OrderStatus",
+        "type_norm": "OrderStatus"
+      },
+      {
+        "element_id": "A:Order.method",
+        "kind": "attribute",
+        "label_raw": "method : PaymentMethod",
+        "label_norm": "Order method",
+        "line": 49,
+        "owner": "Order",
+        "name": "method",
+        "type_raw": "PaymentMethod",
+        "type_norm": "PaymentMethod"
+      },
+      {
+        "element_id": "A:OrderItem.quantity",
+        "kind": "attribute",
+        "label_raw": "quantity : Integer",
+        "label_norm": "OrderItem quantity",
+        "line": 53,
+        "owner": "OrderItem",
+        "name": "quantity",
+        "type_raw": "Integer",
+        "type_norm": "Integer"
+      },
+      {
+        "element_id": "A:OrderItem.unitPrice",
+        "kind": "attribute",
+        "label_raw": "unitPrice : Decimal",
+        "label_norm": "OrderItem unitPrice",
+        "line": 54,
+        "owner": "OrderItem",
+        "name": "unitPrice",
+        "type_raw": "Decimal",
+        "type_norm": "Decimal"
+      },
+      {
+        "element_id": "A:Invoice.date",
+        "kind": "attribute",
+        "label_raw": "date : Date",
+        "label_norm": "Invoice date",
+        "line": 58,
+        "owner": "Invoice",
+        "name": "date",
+        "type_raw": "Date",
+        "type_norm": "Date"
+      },
+      {
+        "element_id": "A:Invoice.amount",
+        "kind": "attribute",
+        "label_raw": "amount : Decimal",
+        "label_norm": "Invoice amount",
+        "line": 59,
+        "owner": "Invoice",
+        "name": "amount",
+        "type_raw": "Decimal",
+        "type_norm": "Decimal"
+      },
+      {
+        "element_id": "A:Invoice.status",
+        "kind": "attribute",
+        "label_raw": "status : InvoiceStatus",
+        "label_norm": "Invoice status",
+        "line": 60,
+        "owner": "Invoice",
+        "name": "status",
+        "type_raw": "InvoiceStatus",
+        "type_norm": "InvoiceStatus"
+      },
+      {
+        "element_id": "A:Invoice.method",
+        "kind": "attribute",
+        "label_raw": "method : PaymentMethod",
+        "label_norm": "Invoice method",
+        "line": 61,
+        "owner": "Invoice",
+        "name": "method",
+        "type_raw": "PaymentMethod",
+        "type_norm": "PaymentMethod"
+      },
+      {
+        "element_id": "A:Payment.date",
+        "kind": "attribute",
+        "label_raw": "date : Date",
+        "label_norm": "Payment date",
+        "line": 65,
+        "owner": "Payment",
+        "name": "date",
+        "type_raw": "Date",
+        "type_norm": "Date"
+      },
+      {
+        "element_id": "A:Payment.amount",
+        "kind": "attribute",
+        "label_raw": "amount : Decimal",
+        "label_norm": "Payment amount",
+        "line": 66,
+        "owner": "Payment",
+        "name": "amount",
+        "type_raw": "Decimal",
+        "type_norm": "Decimal"
+      },
+      {
+        "element_id": "A:Payment.status",
+        "kind": "attribute",
+        "label_raw": "status : PaymentStatus",
+        "label_norm": "Payment status",
+        "line": 67,
+        "owner": "Payment",
+        "name": "status",
+        "type_raw": "PaymentStatus",
+        "type_norm": "PaymentStatus"
+      },
+      {
+        "element_id": "A:Payment.method",
+        "kind": "attribute",
+        "label_raw": "method : PaymentMethod",
+        "label_norm": "Payment method",
+        "line": 68,
+        "owner": "Payment",
+        "name": "method",
+        "type_raw": "PaymentMethod",
+        "type_norm": "PaymentMethod"
+      },
+      {
+        "element_id": "R:Customer--Order",
+        "kind": "relationship",
+        "label_raw": "places",
+        "label_norm": "places",
+        "line": 71,
+        "source": "Customer",
+        "target": "Order",
+        "rel_type": "association",
+        "mult_source": "1",
+        "mult_target": "0..*",
+        "directed": false
+      },
+      {
+        "element_id": "R:Order--OrderItem",
+        "kind": "relationship",
+        "label_raw": "consists of",
+        "label_norm": "consists of",
+        "line": 72,
+        "source": "Order",
+        "target": "OrderItem",
+        "rel_type": "composition",
+        "mult_source": "1",
+        "mult_target": "1..*",
+        "directed": false
+      },
+      {
+        "element_id": "R:Order--Invoice",
+        "kind": "relationship",
+        "label_raw": "billed by",
+        "label_norm": "billed by",
+        "line": 73,
+        "source": "Order",
+        "target": "Invoice",
+        "rel_type": "association",
+        "mult_source": "1",
+        "mult_target": "0..1",
+        "directed": false
+      },
+      {
+        "element_id": "R:OrderItem--Product",
+        "kind": "relationship",
+        "label_raw": "refers to",
+        "label_norm": "refers to",
+        "line": 74,
+        "source": "OrderItem",
+        "target": "Product",
+        "rel_type": "association",
+        "mult_source": "0..*",
+        "mult_target": "1",
+        "directed": false
+      },
+      {
+        "element_id": "R:Invoice--Payment",
+        "kind": "relationship",
+        "label_raw": "settled by",
+        "label_norm": "settled by",
+        "line": 75,
+        "source": "Invoice",
+        "target": "Payment",
+        "rel_type": "association",
+        "mult_source": "1",
+        "mult_target": "0..*",
+        "directed": false
+      }
+    ],
+    "gen": [
+      {
+        "element_id": "C:Customer",
+        "kind": "class",
+        "label_raw": "Customer",
+        "label_norm": "Customer",
+        "line": 29,
+        "name": "Customer"
+      },
+      {
+        "element_id": "C:BankAccount",
+        "kind": "class",
+        "label_raw": "BankAccount",
+        "label_norm": "BankAccount",
+        "line": 37,
+        "name": "BankAccount"
+      },
+      {
+        "element_id": "C:Product",
+        "kind": "class",
+        "label_raw": "Product",
+        "label_norm": "Product",
+        "line": 42,
+        "name": "Product"
+      },
+      {
+        "element_id": "C:Order",
+        "kind": "class",
+        "label_raw": "Order",
+        "label_norm": "Order",
+        "line": 50,
+        "name": "Order"
+      },
+      {
+        "element_id": "C:OrderItem",
+        "kind": "class",
+        "label_raw": "OrderItem",
+        "label_norm": "OrderItem",
+        "line": 58,
+        "name": "OrderItem"
+      },
+      {
+        "element_id": "C:Invoice",
+        "kind": "class",
+        "label_raw": "Invoice",
+        "label_norm": "Invoice",
+        "line": 63,
+        "name": "Invoice"
+      },
+      {
+        "element_id": "C:Payment",
+        "kind": "class",
+        "label_raw": "Payment",
+        "label_norm": "Payment",
+        "line": 71,
+        "name": "Payment"
+      },
+      {
+        "element_id": "E:OrderStatus",
+        "kind": "enum",
+        "label_raw": "OrderStatus",
+        "label_norm": "OrderStatus",
+        "line": 3,
+        "name": "OrderStatus",
+        "literals": [
+          "closed",
+          "filled",
+          "pending",
+          "shipped",
+          "submitted"
+        ]
+      },
+      {
+        "element_id": "E:InvoiceStatus",
+        "kind": "enum",
+        "label_raw": "InvoiceStatus",
+        "label_norm": "InvoiceStatus",
+        "line": 11,
+        "name": "InvoiceStatus",
+        "literals": [
+          "issued",
+          "paid"
+        ]
+      },
+      {
+        "element_id": "E:PaymentStatus",
+        "kind": "enum",
+        "label_raw": "PaymentStatus",
+        "label_norm": "PaymentStatus",
+        "line": 16,
+        "name": "PaymentStatus",
+        "literals": [
+          "completed",
+          "failed",
+          "pending"
+        ]
+      },
+      {
+        "element_id": "E:PaymentMethod",
+        "kind": "enum",
+        "label_raw": "PaymentMethod",
+        "label_norm": "PaymentMethod",
+        "line": 22,
+        "name": "PaymentMethod",
+        "literals": [
+          "bank",
+          "card",
+          "cash"
+        ]
+      },
+      {
+        "element_id": "L:OrderStatus.submitted",
+        "kind": "literal",
+        "label_raw": "submitted",
+        "label_norm": "submitted",
+        "line": 4,
+        "owner": "OrderStatus",
+        "name": "submitted"
+      },
+      {
+        "element_id": "L:OrderStatus.pending",
+        "kind": "literal",
+        "label_raw": "pending",
+        "label_norm": "pending",
+        "line": 5,
+        "owner": "OrderStatus",
+        "name": "pending"
+      },
+      {
+        "element_id": "L:OrderStatus.filled",
+        "kind": "literal",
+        "label_raw": "filled",
+        "label_norm": "filled",
+        "line": 6,
+        "owner": "OrderStatus",
+        "name": "filled"
+      },
+      {
+        "element_id": "L:OrderStatus.shipped",
+        "kind": "literal",
+        "label_raw": "shipped",
+        "label_norm": "shipped",
+        "line": 7,
+        "owner": "OrderStatus",
+        "name": "shipped"
+      },
+      {
+        "element_id": "L:OrderStatus.closed",
+        "kind": "literal",
+        "label_raw": "closed",
+        "label_norm": "closed",
+        "line": 8,
+        "owner": "OrderStatus",
+        "name": "closed"
+      },
+      {
+        "element_id": "L:InvoiceStatus.issued",
+        "kind": "literal",
+        "label_raw": "issued",
+        "label_norm": "issued",
+        "line": 12,
+        "owner": "InvoiceStatus",
+        "name": "issued"
+      },
+      {
+        "element_id": "L:InvoiceStatus.paid",
+        "kind": "literal",
+        "label_raw": "paid",
+        "label_norm": "paid",
+        "line": 13,
+        "owner": "InvoiceStatus",
+        "name": "paid"
+      },
+      {
+        "element_id": "L:PaymentStatus.pending",
+        "kind": "literal",
+        "label_raw": "pending",
+        "label_norm": "pending",
+        "line": 17,
+        "owner": "PaymentStatus",
+        "name": "pending"
+      },
+      {
+        "element_id": "L:PaymentStatus.completed",
+        "kind": "literal",
+        "label_raw": "completed",
+        "label_norm": "completed",
+        "line": 18,
+        "owner": "PaymentStatus",
+        "name": "completed"
+      },
+      {
+        "element_id": "L:PaymentStatus.failed",
+        "kind": "literal",
+        "label_raw": "failed",
+        "label_norm": "failed",
+        "line": 19,
+        "owner": "PaymentStatus",
+        "name": "failed"
+      },
+      {
+        "element_id": "L:PaymentMethod.bank",
+        "kind": "literal",
+        "label_raw": "bank",
+        "label_norm": "bank",
+        "line": 23,
+        "owner": "PaymentMethod",
+        "name": "bank"
+      },
+      {
+        "element_id": "L:PaymentMethod.card",
+        "kind": "literal",
+        "label_raw": "card",
+        "label_norm": "card",
+        "line": 24,
+        "owner": "PaymentMethod",
+        "name": "card"
+      },
+      {
+        "element_id": "L:PaymentMethod.cash",
+        "kind": "literal",
+        "label_raw": "cash",
+        "label_norm": "cash",
+        "line": 25,
+        "owner": "PaymentMethod",
+        "name": "cash"
+      },
+      {
+        "element_id": "A:Customer.id",
+        "kind": "attribute",
+        "label_raw": "+id: UUID",
+        "label_norm": "Customer id",
+        "line": 30,
+        "owner": "Customer",
+        "name": "id",
+        "type_raw": "UUID",
+        "type_norm": "UUID"
+      },
+      {
+        "element_id": "A:Customer.name",
+        "kind": "attribute",
+        "label_raw": "+name: String",
+        "label_norm": "Customer name",
+        "line": 31,
+        "owner": "Customer",
+        "name": "name",
+        "type_raw": "String",
+        "type_norm": "String"
+      },
+      {
+        "element_id": "A:Customer.address",
+        "kind": "attribute",
+        "label_raw": "+address: String",
+        "label_norm": "Customer address",
+        "line": 32,
+        "owner": "Customer",
+        "name": "address",
+        "type_raw": "String",
+        "type_norm": "String"
+      },
+      {
+        "element_id": "A:Customer.phone",
+        "kind": "attribute",
+        "label_raw": "+phone: String",
+        "label_norm": "Customer phone",
+        "line": 33,
+        "owner": "Customer",
+        "name": "phone",
+        "type_raw": "String",
+        "type_norm": "String"
+      },
+      {
+        "element_id": "A:Customer.bankAccount",
+        "kind": "attribute",
+        "label_raw": "+bankAccount: BankAccount [0..1]",
+        "label_norm": "Customer bankAccount",
+        "line": 34,
+        "owner": "Customer",
+        "name": "bankAccount",
+        "type_raw": "BankAccount [0..1]",
+        "type_norm": "BankAccount"
+      },
+      {
+        "element_id": "A:BankAccount.accountNumber",
+        "kind": "attribute",
+        "label_raw": "+accountNumber: String",
+        "label_norm": "BankAccount accountNumber",
+        "line": 38,
+        "owner": "BankAccount",
+        "name": "accountNumber",
+        "type_raw": "String",
+        "type_norm": "String"
+      },
+      {
+        "element_id": "A:BankAccount.bankName",
+        "kind": "attribute",
+        "label_raw": "+bankName: String",
+        "label_norm": "BankAccount bankName",
+        "line": 39,
+        "owner": "BankAccount",
+        "name": "bankName",
+        "type_raw": "String",
+        "type_norm": "String"
+      },
+      {
+        "element_id": "A:Product.id",
+        "kind": "attribute",
+        "label_raw": "+id: UUID",
+        "label_norm": "Product id",
+        "line": 43,
+        "owner": "Product",
+        "name": "id",
+        "type_raw": "UUID",
+        "type_norm": "UUID"
+      },
+      {
+        "element_id": "A:Product.name",
+        "kind": "attribute",
+        "label_raw": "+name: String",
+        "label_norm": "Product name",
+        "line": 44,
+        "owner": "Product",
+        "name": "name",
+        "type_raw": "String",
+        "type_norm": "String"
+      },
+      {
+        "element_id": "A:Product.description",
+        "kind": "attribute",
+        "label_raw": "+description: String",
+        "label_norm": "Product description",
+        "line": 45,
+        "owner": "Product",
+        "name": "description",
+        "type_raw": "String",
+        "type_norm": "String"
+      },
+      {
+        "element_id": "A:Product.price",
+        "kind": "attribute",
+        "label_raw": "+price: Decimal",
+        "label_norm": "Product price",
+        "line": 46,
+        "owner": "Product",
+        "name": "price",
+        "type_raw": "Decimal",
+        "type_norm": "Decimal"
+      },
+      {
+        "element_id": "A:Product.imageUrl",
+        "kind": "attribute",
+        "label_raw": "+imageUrl: String",
+        "label_norm": "Product imageUrl",
+        "line": 47,
+        "owner": "Product",
+        "name": "imageUrl",
+        "type_raw": "String",
+        "type_norm": "String"
+      },
+      {
+        "element_id": "A:Order.id",
+        "kind": "attribute",
+        "label_raw": "+id: UUID",
+        "label_norm": "Order id",
+        "line": 51,
+        "owner": "Order",
+        "name": "id",
+        "type_raw": "UUID",
+        "type_norm": "UUID"
+      },
+      {
+        "element_id": "A:Order.orderDate",
+        "kind": "attribute",
+        "label_raw": "+orderDate: Date",
+        "label_norm": "Order orderDate",
+        "line": 52,
+        "owner": "Order",
+        "name": "orderDate",
+        "type_raw": "Date",
+        "type_norm": "Date"
+      },
+      {
+        "element_id": "A:Order.totalAmount",
+        "kind": "attribute",
+        "label_raw": "+totalAmount: Decimal",
+        "label_norm": "Order totalAmount",
+        "line": 53,
+        "owner": "Order",
+        "name": "totalAmount",
+        "type_raw": "Decimal",
+        "type_norm": "Decimal"
+      },
+      {
+        "element_id": "A:Order.status",
+        "kind": "attribute",
+        "label_raw": "+status: OrderStatus",
+        "label_norm": "Order status",
+        "line": 54,
+        "owner": "Order",
+        "name": "status",
+        "type_raw": "OrderStatus",
+        "type_norm": "OrderStatus"
+      },
+      {
+        "element_id": "A:Order.paymentMethod",
+        "kind": "attribute",
+        "label_raw": "+paymentMethod: PaymentMethod",
+        "label_norm": "Order paymentMethod",
+        "line": 55,
+        "owner": "Order",
+        "name": "paymentMethod",
+        "type_raw": "PaymentMethod",
+        "type_norm": "PaymentMethod"
+      },
+      {
+        "element_id": "A:OrderItem.quantity",
+        "kind": "attribute",
+        "label_raw": "+quantity: Integer",
+        "label_norm": "OrderItem quantity",
+        "line": 59,
+        "owner": "OrderItem",
+        "name": "quantity",
+        "type_raw": "Integer",
+        "type_norm": "Integer"
+      },
+      {
+        "element_id": "A:OrderItem.unitPrice",
+        "kind": "attribute",
+        "label_raw": "+unitPrice: Decimal",
+        "label_norm": "OrderItem unitPrice",
+        "line": 60,
+        "owner": "OrderItem",
+        "name": "unitPrice",
+        "type_raw": "Decimal",
+        "type_norm": "Decimal"
+      },
+      {
+        "element_id": "A:Invoice.id",
+        "kind": "attribute",
+        "label_raw": "+id: UUID",
+        "label_norm": "Invoice id",
+        "line": 64,
+        "owner": "Invoice",
+        "name": "id",
+        "type_raw": "UUID",
+        "type_norm": "UUID"
+      },
+      {
+        "element_id": "A:Invoice.date",
+        "kind": "attribute",
+        "label_raw": "+date: Date",
+        "label_norm": "Invoice date",
+        "line": 65,
+        "owner": "Invoice",
+        "name": "date",
+        "type_raw": "Date",
+        "type_norm": "Date"
+      },
+      {
+        "element_id": "A:Invoice.amount",
+        "kind": "attribute",
+        "label_raw": "+amount: Decimal",
+        "label_norm": "Invoice amount",
+        "line": 66,
+        "owner": "Invoice",
+        "name": "amount",
+        "type_raw": "Decimal",
+        "type_norm": "Decimal"
+      },
+      {
+        "element_id": "A:Invoice.status",
+        "kind": "attribute",
+        "label_raw": "+status: InvoiceStatus",
+        "label_norm": "Invoice status",
+        "line": 67,
+        "owner": "Invoice",
+        "name": "status",
+        "type_raw": "InvoiceStatus",
+        "type_norm": "InvoiceStatus"
+      },
+      {
+        "element_id": "A:Invoice.paymentMethod",
+        "kind": "attribute",
+        "label_raw": "+paymentMethod: PaymentMethod",
+        "label_norm": "Invoice paymentMethod",
+        "line": 68,
+        "owner": "Invoice",
+        "name": "paymentMethod",
+        "type_raw": "PaymentMethod",
+        "type_norm": "PaymentMethod"
+      },
+      {
+        "element_id": "A:Payment.id",
+        "kind": "attribute",
+        "label_raw": "+id: UUID",
+        "label_norm": "Payment id",
+        "line": 72,
+        "owner": "Payment",
+        "name": "id",
+        "type_raw": "UUID",
+        "type_norm": "UUID"
+      },
+      {
+        "element_id": "A:Payment.date",
+        "kind": "attribute",
+        "label_raw": "+date: Date",
+        "label_norm": "Payment date",
+        "line": 73,
+        "owner": "Payment",
+        "name": "date",
+        "type_raw": "Date",
+        "type_norm": "Date"
+      },
+      {
+        "element_id": "A:Payment.amount",
+        "kind": "attribute",
+        "label_raw": "+amount: Decimal",
+        "label_norm": "Payment amount",
+        "line": 74,
+        "owner": "Payment",
+        "name": "amount",
+        "type_raw": "Decimal",
+        "type_norm": "Decimal"
+      },
+      {
+        "element_id": "A:Payment.status",
+        "kind": "attribute",
+        "label_raw": "+status: PaymentStatus",
+        "label_norm": "Payment status",
+        "line": 75,
+        "owner": "Payment",
+        "name": "status",
+        "type_raw": "PaymentStatus",
+        "type_norm": "PaymentStatus"
+      },
+      {
+        "element_id": "A:Payment.paymentMethod",
+        "kind": "attribute",
+        "label_raw": "+paymentMethod: PaymentMethod",
+        "label_norm": "Payment paymentMethod",
+        "line": 76,
+        "owner": "Payment",
+        "name": "paymentMethod",
+        "type_raw": "PaymentMethod",
+        "type_norm": "PaymentMethod"
+      },
+      {
+        "element_id": "R:Customer--Order",
+        "kind": "relationship",
+        "label_raw": "places >",
+        "label_norm": "places >",
+        "line": 80,
+        "source": "Customer",
+        "target": "Order",
+        "rel_type": "association",
+        "mult_source": "1",
+        "mult_target": "*",
+        "directed": false
+      },
+      {
+        "element_id": "R:Order--OrderItem",
+        "kind": "relationship",
+        "label_raw": "contains >",
+        "label_norm": "contains >",
+        "line": 81,
+        "source": "Order",
+        "target": "OrderItem",
+        "rel_type": "composition",
+        "mult_source": "1",
+        "mult_target": "*",
+        "directed": false
+      },
+      {
+        "element_id": "R:Order--Invoice",
+        "kind": "relationship",
+        "label_raw": "billed by >",
+        "label_norm": "billed by >",
+        "line": 83,
+        "source": "Order",
+        "target": "Invoice",
+        "rel_type": "aggregation",
+        "mult_source": "1",
+        "mult_target": "0..1",
+        "directed": false
+      },
+      {
+        "element_id": "R:Invoice--Payment",
+        "kind": "relationship",
+        "label_raw": "records >",
+        "label_norm": "records >",
+        "line": 84,
+        "source": "Invoice",
+        "target": "Payment",
+        "rel_type": "composition",
+        "mult_source": "1",
+        "mult_target": "*",
+        "directed": false
+      },
+      {
+        "element_id": "R:Customer--BankAccount",
+        "kind": "relationship",
+        "label_raw": "has >",
+        "label_norm": "has >",
+        "line": 85,
+        "source": "Customer",
+        "target": "BankAccount",
+        "rel_type": "aggregation",
+        "mult_source": "1",
+        "mult_target": "0..1",
+        "directed": false
+      }
+    ],
+    "dropped": [],
+    "violations": [
+      {
+        "code": "unknown_rel_arrow",
+        "detail": "arrow '-->' is in no rel_type_map entry",
+        "line": 82
+      },
+      {
+        "code": "duplicate_declaration",
+        "detail": "enum OrderStatus declared more than once",
+        "line": 88
+      },
+      {
+        "code": "duplicate_declaration",
+        "detail": "enum InvoiceStatus declared more than once",
+        "line": 96
+      },
+      {
+        "code": "duplicate_declaration",
+        "detail": "enum PaymentStatus declared more than once",
+        "line": 101
+      },
+      {
+        "code": "duplicate_declaration",
+        "detail": "enum PaymentMethod declared more than once",
+        "line": 107
+      },
+      {
+        "code": "duplicate_declaration",
+        "detail": "class Customer declared more than once",
+        "line": 113
+      },
+      {
+        "code": "duplicate_declaration",
+        "detail": "class Product declared more than once",
+        "line": 120
+      },
+      {
+        "code": "duplicate_declaration",
+        "detail": "class Order declared more than once",
+        "line": 127
+      },
+      {
+        "code": "duplicate_declaration",
+        "detail": "class OrderItem declared more than once",
+        "line": 134
+      },
+      {
+        "code": "duplicate_declaration",
+        "detail": "class Invoice declared more than once",
+        "line": 139
+      },
+      {
+        "code": "duplicate_declaration",
+        "detail": "class Payment declared more than once",
+        "line": 146
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "relationship R:Customer--Order also declared at line 153; collapsed into the occurrence at line 80",
+        "element_id": "R:Customer--Order",
+        "line": 153
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "relationship R:Order--OrderItem also declared at line 154; collapsed into the occurrence at line 81",
+        "element_id": "R:Order--OrderItem",
+        "line": 154
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "relationship R:Order--Invoice also declared at line 156; collapsed into the occurrence at line 83",
+        "element_id": "R:Order--Invoice",
+        "line": 156
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "relationship R:Invoice--Payment also declared at line 157; collapsed into the occurrence at line 84",
+        "element_id": "R:Invoice--Payment",
+        "line": 157
+      }
+    ],
+    "collapsed": {
+      "gold": [],
+      "gen": [
+        {
+          "element_id": "R:Customer--Order",
+          "kind": "relationship",
+          "kept_line": 80,
+          "collapsed_line": 153
+        },
+        {
+          "element_id": "R:Order--OrderItem",
+          "kind": "relationship",
+          "kept_line": 81,
+          "collapsed_line": 154
+        },
+        {
+          "element_id": "R:Order--Invoice",
+          "kind": "relationship",
+          "kept_line": 83,
+          "collapsed_line": 156
+        },
+        {
+          "element_id": "R:Invoice--Payment",
+          "kind": "relationship",
+          "kept_line": 84,
+          "collapsed_line": 157
+        }
+      ]
+    }
+  },
+  "behavioral": {
+    "gold": [
+      {
+        "element_id": "ACT:Make an Order",
+        "kind": "action",
+        "label_raw": "Make an Order",
+        "label_norm": "Make an Order",
+        "line": 15,
+        "lane": "Customer",
+        "node_id": 1
+      },
+      {
+        "element_id": "LANE:Make an Order",
+        "kind": "swimlane",
+        "label_raw": "Customer",
+        "label_norm": "Customer",
+        "line": 15,
+        "action": "Make an Order",
+        "lane": "Customer",
+        "node_id": 1
+      },
+      {
+        "element_id": "OBJ:Order[submitted]",
+        "kind": "object_node",
+        "label_raw": "Order [submitted]",
+        "label_norm": "Order",
+        "line": 16,
+        "entity": "Order",
+        "status": "submitted",
+        "node_id": 2
+      },
+      {
+        "element_id": "ACT:Receive order",
+        "kind": "action",
+        "label_raw": "Receive order",
+        "label_norm": "Receive order",
+        "line": 19,
+        "lane": "OrderStaff",
+        "node_id": 3
+      },
+      {
+        "element_id": "LANE:Receive order",
+        "kind": "swimlane",
+        "label_raw": "OrderStaff",
+        "label_norm": "OrderStaff",
+        "line": 19,
+        "action": "Receive order",
+        "lane": "OrderStaff",
+        "node_id": 3
+      },
+      {
+        "element_id": "OBJ:Order[pending]",
+        "kind": "object_node",
+        "label_raw": "Order [pending]",
+        "label_norm": "Order",
+        "line": 20,
+        "entity": "Order",
+        "status": "pending",
+        "node_id": 4
+      },
+      {
+        "element_id": "ACT:Fill Order",
+        "kind": "action",
+        "label_raw": "Fill Order",
+        "label_norm": "Fill Order",
+        "line": 22,
+        "lane": "OrderStaff",
+        "node_id": 6
+      },
+      {
+        "element_id": "LANE:Fill Order",
+        "kind": "swimlane",
+        "label_raw": "OrderStaff",
+        "label_norm": "OrderStaff",
+        "line": 22,
+        "action": "Fill Order",
+        "lane": "OrderStaff",
+        "node_id": 6
+      },
+      {
+        "element_id": "OBJ:Order[filled]",
+        "kind": "object_node",
+        "label_raw": "Order [filled]",
+        "label_norm": "Order",
+        "line": 23,
+        "entity": "Order",
+        "status": "filled",
+        "node_id": 7
+      },
+      {
+        "element_id": "ACT:Ship Order",
+        "kind": "action",
+        "label_raw": "Ship Order",
+        "label_norm": "Ship Order",
+        "line": 25,
+        "lane": "OrderStaff",
+        "node_id": 9
+      },
+      {
+        "element_id": "LANE:Ship Order",
+        "kind": "swimlane",
+        "label_raw": "OrderStaff",
+        "label_norm": "OrderStaff",
+        "line": 25,
+        "action": "Ship Order",
+        "lane": "OrderStaff",
+        "node_id": 9
+      },
+      {
+        "element_id": "OBJ:Order[shipped]",
+        "kind": "object_node",
+        "label_raw": "Order [shipped]",
+        "label_norm": "Order",
+        "line": 26,
+        "entity": "Order",
+        "status": "shipped",
+        "node_id": 10
+      },
+      {
+        "element_id": "ACT:Send Invoice",
+        "kind": "action",
+        "label_raw": "Send Invoice",
+        "label_norm": "Send Invoice",
+        "line": 29,
+        "lane": "Accountant",
+        "node_id": 11
+      },
+      {
+        "element_id": "LANE:Send Invoice",
+        "kind": "swimlane",
+        "label_raw": "Accountant",
+        "label_norm": "Accountant",
+        "line": 29,
+        "action": "Send Invoice",
+        "lane": "Accountant",
+        "node_id": 11
+      },
+      {
+        "element_id": "OBJ:Invoice[issued]",
+        "kind": "object_node",
+        "label_raw": "Invoice [issued]",
+        "label_norm": "Invoice",
+        "line": 30,
+        "entity": "Invoice",
+        "status": "issued",
+        "node_id": 12
+      },
+      {
+        "element_id": "ACT:Make Payment",
+        "kind": "action",
+        "label_raw": "Make Payment",
+        "label_norm": "Make Payment",
+        "line": 32,
+        "lane": "Customer",
+        "node_id": 13
+      },
+      {
+        "element_id": "LANE:Make Payment",
+        "kind": "swimlane",
+        "label_raw": "Customer",
+        "label_norm": "Customer",
+        "line": 32,
+        "action": "Make Payment",
+        "lane": "Customer",
+        "node_id": 13
+      },
+      {
+        "element_id": "OBJ:Payment[pending]",
+        "kind": "object_node",
+        "label_raw": "Payment [pending]",
+        "label_norm": "Payment",
+        "line": 33,
+        "entity": "Payment",
+        "status": "pending",
+        "node_id": 14
+      },
+      {
+        "element_id": "ACT:Reject Payment",
+        "kind": "action",
+        "label_raw": "Reject Payment",
+        "label_norm": "Reject Payment",
+        "line": 36,
+        "lane": "Accountant",
+        "node_id": 16
+      },
+      {
+        "element_id": "LANE:Reject Payment",
+        "kind": "swimlane",
+        "label_raw": "Accountant",
+        "label_norm": "Accountant",
+        "line": 36,
+        "action": "Reject Payment",
+        "lane": "Accountant",
+        "node_id": 16
+      },
+      {
+        "element_id": "OBJ:Payment[failed]",
+        "kind": "object_node",
+        "label_raw": "Payment [failed]",
+        "label_norm": "Payment",
+        "line": 37,
+        "entity": "Payment",
+        "status": "failed",
+        "node_id": 17
+      },
+      {
+        "element_id": "ACT:Accept Payment",
+        "kind": "action",
+        "label_raw": "Accept Payment",
+        "label_norm": "Accept Payment",
+        "line": 43,
+        "lane": "Accountant",
+        "node_id": 20
+      },
+      {
+        "element_id": "LANE:Accept Payment",
+        "kind": "swimlane",
+        "label_raw": "Accountant",
+        "label_norm": "Accountant",
+        "line": 43,
+        "action": "Accept Payment",
+        "lane": "Accountant",
+        "node_id": 20
+      },
+      {
+        "element_id": "OBJ:Payment[completed]",
+        "kind": "object_node",
+        "label_raw": "Payment [completed]",
+        "label_norm": "Payment",
+        "line": 45,
+        "entity": "Payment",
+        "status": "completed",
+        "node_id": 22
+      },
+      {
+        "element_id": "OBJ:Invoice[paid]",
+        "kind": "object_node",
+        "label_raw": "Invoice [paid]",
+        "label_norm": "Invoice",
+        "line": 48,
+        "entity": "Invoice",
+        "status": "paid",
+        "node_id": 23
+      },
+      {
+        "element_id": "ACT:Close Order",
+        "kind": "action",
+        "label_raw": "Close Order",
+        "label_norm": "Close Order",
+        "line": 54,
+        "lane": "OrderStaff",
+        "node_id": 27
+      },
+      {
+        "element_id": "LANE:Close Order",
+        "kind": "swimlane",
+        "label_raw": "OrderStaff",
+        "label_norm": "OrderStaff",
+        "line": 54,
+        "action": "Close Order",
+        "lane": "OrderStaff",
+        "node_id": 27
+      },
+      {
+        "element_id": "OBJ:Order[closed]",
+        "kind": "object_node",
+        "label_raw": "Order [closed]",
+        "label_norm": "Order",
+        "line": 56,
+        "entity": "Order",
+        "status": "closed",
+        "node_id": 29
+      },
+      {
+        "element_id": "T:Make an Order->Receive order",
+        "kind": "transition",
+        "label_raw": "Make an Order->Receive order",
+        "label_norm": "Make an Order Receive order",
+        "source": "Make an Order",
+        "target": "Receive order",
+        "guard": []
+      },
+      {
+        "element_id": "T:Receive order->Close Order",
+        "kind": "transition",
+        "label_raw": "Receive order->Close Order",
+        "label_norm": "Receive order Close Order",
+        "source": "Receive order",
+        "target": "Close Order",
+        "guard": [
+          "declined"
+        ]
+      },
+      {
+        "element_id": "T:Receive order->Fill Order",
+        "kind": "transition",
+        "label_raw": "Receive order->Fill Order",
+        "label_norm": "Receive order Fill Order",
+        "source": "Receive order",
+        "target": "Fill Order",
+        "guard": [
+          "accepted"
+        ]
+      },
+      {
+        "element_id": "T:Fill Order->Send Invoice",
+        "kind": "transition",
+        "label_raw": "Fill Order->Send Invoice",
+        "label_norm": "Fill Order Send Invoice",
+        "source": "Fill Order",
+        "target": "Send Invoice",
+        "guard": []
+      },
+      {
+        "element_id": "T:Fill Order->Ship Order",
+        "kind": "transition",
+        "label_raw": "Fill Order->Ship Order",
+        "label_norm": "Fill Order Ship Order",
+        "source": "Fill Order",
+        "target": "Ship Order",
+        "guard": []
+      },
+      {
+        "element_id": "T:Ship Order->Close Order",
+        "kind": "transition",
+        "label_raw": "Ship Order->Close Order",
+        "label_norm": "Ship Order Close Order",
+        "source": "Ship Order",
+        "target": "Close Order",
+        "guard": []
+      },
+      {
+        "element_id": "T:Send Invoice->Make Payment",
+        "kind": "transition",
+        "label_raw": "Send Invoice->Make Payment",
+        "label_norm": "Send Invoice Make Payment",
+        "source": "Send Invoice",
+        "target": "Make Payment",
+        "guard": []
+      },
+      {
+        "element_id": "T:Make Payment->Accept Payment",
+        "kind": "transition",
+        "label_raw": "Make Payment->Accept Payment",
+        "label_norm": "Make Payment Accept Payment",
+        "source": "Make Payment",
+        "target": "Accept Payment",
+        "guard": [
+          "authorized"
+        ]
+      },
+      {
+        "element_id": "T:Make Payment->Reject Payment",
+        "kind": "transition",
+        "label_raw": "Make Payment->Reject Payment",
+        "label_norm": "Make Payment Reject Payment",
+        "source": "Make Payment",
+        "target": "Reject Payment",
+        "guard": [
+          "declined"
+        ]
+      },
+      {
+        "element_id": "T:Reject Payment->Make Payment",
+        "kind": "transition",
+        "label_raw": "Reject Payment->Make Payment",
+        "label_norm": "Reject Payment Make Payment",
+        "source": "Reject Payment",
+        "target": "Make Payment",
+        "guard": []
+      },
+      {
+        "element_id": "T:Accept Payment->Close Order",
+        "kind": "transition",
+        "label_raw": "Accept Payment->Close Order",
+        "label_norm": "Accept Payment Close Order",
+        "source": "Accept Payment",
+        "target": "Close Order",
+        "guard": []
+      }
+    ],
+    "gen": [
+      {
+        "element_id": "ACT:Submit Order",
+        "kind": "action",
+        "label_raw": "Submit Order",
+        "label_norm": "Submit Order",
+        "line": 4,
+        "lane": "Customer",
+        "node_id": 1
+      },
+      {
+        "element_id": "LANE:Submit Order",
+        "kind": "swimlane",
+        "label_raw": "Customer",
+        "label_norm": "Customer",
+        "line": 4,
+        "action": "Submit Order",
+        "lane": "Customer",
+        "node_id": 1
+      },
+      {
+        "element_id": "OBJ:Create Order[submitted]",
+        "kind": "object_node",
+        "label_raw": "Create Order [submitted]",
+        "label_norm": "Create Order",
+        "line": 6,
+        "entity": "Create Order",
+        "status": "submitted",
+        "node_id": 3
+      },
+      {
+        "element_id": "ACT:Receive Order",
+        "kind": "action",
+        "label_raw": "Receive Order",
+        "label_norm": "Receive Order",
+        "line": 12,
+        "lane": "OrderStaff",
+        "node_id": 7
+      },
+      {
+        "element_id": "LANE:Receive Order",
+        "kind": "swimlane",
+        "label_raw": "OrderStaff",
+        "label_norm": "OrderStaff",
+        "line": 12,
+        "action": "Receive Order",
+        "lane": "OrderStaff",
+        "node_id": 7
+      },
+      {
+        "element_id": "OBJ:Update Order[pending]",
+        "kind": "object_node",
+        "label_raw": "Update Order [pending]",
+        "label_norm": "Update Order",
+        "line": 13,
+        "entity": "Update Order",
+        "status": "pending",
+        "node_id": 8
+      },
+      {
+        "element_id": "ACT:Fill Order",
+        "kind": "action",
+        "label_raw": "Fill Order",
+        "label_norm": "Fill Order",
+        "line": 18,
+        "lane": "OrderStaff",
+        "node_id": 12
+      },
+      {
+        "element_id": "LANE:Fill Order",
+        "kind": "swimlane",
+        "label_raw": "OrderStaff",
+        "label_norm": "OrderStaff",
+        "line": 18,
+        "action": "Fill Order",
+        "lane": "OrderStaff",
+        "node_id": 12
+      },
+      {
+        "element_id": "OBJ:Update Order[filled]",
+        "kind": "object_node",
+        "label_raw": "Update Order [filled]",
+        "label_norm": "Update Order",
+        "line": 19,
+        "entity": "Update Order",
+        "status": "filled",
+        "node_id": 13
+      },
+      {
+        "element_id": "ACT:Decline Order",
+        "kind": "action",
+        "label_raw": "Decline Order",
+        "label_norm": "Decline Order",
+        "line": 24,
+        "lane": "OrderStaff",
+        "node_id": 17
+      },
+      {
+        "element_id": "LANE:Decline Order",
+        "kind": "swimlane",
+        "label_raw": "OrderStaff",
+        "label_norm": "OrderStaff",
+        "line": 24,
+        "action": "Decline Order",
+        "lane": "OrderStaff",
+        "node_id": 17
+      },
+      {
+        "element_id": "OBJ:Update Order[closed]",
+        "kind": "object_node",
+        "label_raw": "Update Order [closed]",
+        "label_norm": "Update Order",
+        "line": 25,
+        "entity": "Update Order",
+        "status": "closed",
+        "node_id": 18
+      },
+      {
+        "element_id": "ACT:Ship Order",
+        "kind": "action",
+        "label_raw": "Ship Order",
+        "label_norm": "Ship Order",
+        "line": 29,
+        "lane": "OrderStaff",
+        "node_id": 21
+      },
+      {
+        "element_id": "LANE:Ship Order",
+        "kind": "swimlane",
+        "label_raw": "OrderStaff",
+        "label_norm": "OrderStaff",
+        "line": 29,
+        "action": "Ship Order",
+        "lane": "OrderStaff",
+        "node_id": 21
+      },
+      {
+        "element_id": "OBJ:Update Order[shipped]",
+        "kind": "object_node",
+        "label_raw": "Update Order [shipped]",
+        "label_norm": "Update Order",
+        "line": 30,
+        "entity": "Update Order",
+        "status": "shipped",
+        "node_id": 22
+      },
+      {
+        "element_id": "ACT:Create Invoice",
+        "kind": "action",
+        "label_raw": "Create Invoice",
+        "label_norm": "Create Invoice",
+        "line": 35,
+        "lane": "Accountant",
+        "node_id": 25
+      },
+      {
+        "element_id": "LANE:Create Invoice",
+        "kind": "swimlane",
+        "label_raw": "Accountant",
+        "label_norm": "Accountant",
+        "line": 35,
+        "action": "Create Invoice",
+        "lane": "Accountant",
+        "node_id": 25
+      },
+      {
+        "element_id": "ACT:Link Invoice to Order",
+        "kind": "action",
+        "label_raw": "Link Invoice to Order",
+        "label_norm": "Link Invoice to Order",
+        "line": 36,
+        "lane": "Accountant",
+        "node_id": 26
+      },
+      {
+        "element_id": "LANE:Link Invoice to Order",
+        "kind": "swimlane",
+        "label_raw": "Accountant",
+        "label_norm": "Accountant",
+        "line": 36,
+        "action": "Link Invoice to Order",
+        "lane": "Accountant",
+        "node_id": 26
+      },
+      {
+        "element_id": "OBJ:Set Invoice[issued]",
+        "kind": "object_node",
+        "label_raw": "Set Invoice [issued]",
+        "label_norm": "Set Invoice",
+        "line": 37,
+        "entity": "Set Invoice",
+        "status": "issued",
+        "node_id": 27
+      },
+      {
+        "element_id": "OBJ:Create Payment[pending]",
+        "kind": "object_node",
+        "label_raw": "Create Payment [pending]",
+        "label_norm": "Create Payment",
+        "line": 41,
+        "entity": "Create Payment",
+        "status": "pending",
+        "node_id": 30
+      },
+      {
+        "element_id": "OBJ:Set Payment[completed]",
+        "kind": "object_node",
+        "label_raw": "Set Payment [completed]",
+        "label_norm": "Set Payment",
+        "line": 45,
+        "entity": "Set Payment",
+        "status": "completed",
+        "node_id": 33
+      },
+      {
+        "element_id": "OBJ:Set Invoice[paid]",
+        "kind": "object_node",
+        "label_raw": "Set Invoice [paid]",
+        "label_norm": "Set Invoice",
+        "line": 46,
+        "entity": "Set Invoice",
+        "status": "paid",
+        "node_id": 34
+      },
+      {
+        "element_id": "OBJ:Set Payment[failed]",
+        "kind": "object_node",
+        "label_raw": "Set Payment [failed]",
+        "label_norm": "Set Payment",
+        "line": 50,
+        "entity": "Set Payment",
+        "status": "failed",
+        "node_id": 37
+      },
+      {
+        "element_id": "ACT:Close Order",
+        "kind": "action",
+        "label_raw": "Close Order",
+        "label_norm": "Close Order",
+        "line": 55,
+        "lane": "OrderStaff",
+        "node_id": 40
+      },
+      {
+        "element_id": "LANE:Close Order",
+        "kind": "swimlane",
+        "label_raw": "OrderStaff",
+        "label_norm": "OrderStaff",
+        "line": 55,
+        "action": "Close Order",
+        "lane": "OrderStaff",
+        "node_id": 40
+      },
+      {
+        "element_id": "OBJ:Set Order[closed]",
+        "kind": "object_node",
+        "label_raw": "Set Order [closed]",
+        "label_norm": "Set Order",
+        "line": 56,
+        "entity": "Set Order",
+        "status": "closed",
+        "node_id": 41
+      },
+      {
+        "element_id": "OBJ:Create Invoice[issued]",
+        "kind": "object_node",
+        "label_raw": "Create Invoice [issued]",
+        "label_norm": "Create Invoice",
+        "line": 88,
+        "entity": "Create Invoice",
+        "status": "issued",
+        "node_id": 61
+      },
+      {
+        "element_id": "ACT:Submit Payment",
+        "kind": "action",
+        "label_raw": "Submit Payment",
+        "label_norm": "Submit Payment",
+        "line": 91,
+        "lane": "Accountant",
+        "node_id": 64
+      },
+      {
+        "element_id": "LANE:Submit Payment",
+        "kind": "swimlane",
+        "label_raw": "Accountant",
+        "label_norm": "Accountant",
+        "line": 91,
+        "action": "Submit Payment",
+        "lane": "Accountant",
+        "node_id": 64
+      },
+      {
+        "element_id": "ACT:Confirm Payment",
+        "kind": "action",
+        "label_raw": "Confirm Payment",
+        "label_norm": "Confirm Payment",
+        "line": 95,
+        "lane": "Accountant",
+        "node_id": 68
+      },
+      {
+        "element_id": "LANE:Confirm Payment",
+        "kind": "swimlane",
+        "label_raw": "Accountant",
+        "label_norm": "Accountant",
+        "line": 95,
+        "action": "Confirm Payment",
+        "lane": "Accountant",
+        "node_id": 68
+      },
+      {
+        "element_id": "OBJ:Update Payment[completed]",
+        "kind": "object_node",
+        "label_raw": "Update Payment [completed]",
+        "label_norm": "Update Payment",
+        "line": 96,
+        "entity": "Update Payment",
+        "status": "completed",
+        "node_id": 69
+      },
+      {
+        "element_id": "OBJ:Update Invoice[paid]",
+        "kind": "object_node",
+        "label_raw": "Update Invoice [paid]",
+        "label_norm": "Update Invoice",
+        "line": 97,
+        "entity": "Update Invoice",
+        "status": "paid",
+        "node_id": 70
+      },
+      {
+        "element_id": "ACT:Reject Payment",
+        "kind": "action",
+        "label_raw": "Reject Payment",
+        "label_norm": "Reject Payment",
+        "line": 99,
+        "lane": "Accountant",
+        "node_id": 71
+      },
+      {
+        "element_id": "LANE:Reject Payment",
+        "kind": "swimlane",
+        "label_raw": "Accountant",
+        "label_norm": "Accountant",
+        "line": 99,
+        "action": "Reject Payment",
+        "lane": "Accountant",
+        "node_id": 71
+      },
+      {
+        "element_id": "OBJ:Update Payment[failed]",
+        "kind": "object_node",
+        "label_raw": "Update Payment [failed]",
+        "label_norm": "Update Payment",
+        "line": 100,
+        "entity": "Update Payment",
+        "status": "failed",
+        "node_id": 72
+      },
+      {
+        "element_id": "T:Submit Order->Receive Order",
+        "kind": "transition",
+        "label_raw": "Submit Order->Receive Order",
+        "label_norm": "Submit Order Receive Order",
+        "source": "Submit Order",
+        "target": "Receive Order",
+        "guard": [
+          "yes"
+        ]
+      },
+      {
+        "element_id": "T:Receive Order->Fill Order",
+        "kind": "transition",
+        "label_raw": "Receive Order->Fill Order",
+        "label_norm": "Receive Order Fill Order",
+        "source": "Receive Order",
+        "target": "Fill Order",
+        "guard": [
+          "yes"
+        ]
+      },
+      {
+        "element_id": "T:Fill Order->Close Order",
+        "kind": "transition",
+        "label_raw": "Fill Order->Close Order",
+        "label_norm": "Fill Order Close Order",
+        "source": "Fill Order",
+        "target": "Close Order",
+        "guard": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "element_id": "T:Fill Order->Create Invoice",
+        "kind": "transition",
+        "label_raw": "Fill Order->Create Invoice",
+        "label_norm": "Fill Order Create Invoice",
+        "source": "Fill Order",
+        "target": "Create Invoice",
+        "guard": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "element_id": "T:Fill Order->Ship Order",
+        "kind": "transition",
+        "label_raw": "Fill Order->Ship Order",
+        "label_norm": "Fill Order Ship Order",
+        "source": "Fill Order",
+        "target": "Ship Order",
+        "guard": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "element_id": "T:Fill Order->Decline Order",
+        "kind": "transition",
+        "label_raw": "Fill Order->Decline Order",
+        "label_norm": "Fill Order Decline Order",
+        "source": "Fill Order",
+        "target": "Decline Order",
+        "guard": [
+          "yes"
+        ]
+      },
+      {
+        "element_id": "T:Decline Order->Close Order",
+        "kind": "transition",
+        "label_raw": "Decline Order->Close Order",
+        "label_norm": "Decline Order Close Order",
+        "source": "Decline Order",
+        "target": "Close Order",
+        "guard": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "element_id": "T:Decline Order->Create Invoice",
+        "kind": "transition",
+        "label_raw": "Decline Order->Create Invoice",
+        "label_norm": "Decline Order Create Invoice",
+        "source": "Decline Order",
+        "target": "Create Invoice",
+        "guard": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "element_id": "T:Decline Order->Ship Order",
+        "kind": "transition",
+        "label_raw": "Decline Order->Ship Order",
+        "label_norm": "Decline Order Ship Order",
+        "source": "Decline Order",
+        "target": "Ship Order",
+        "guard": [
+          "yes"
+        ]
+      },
+      {
+        "element_id": "T:Ship Order->Close Order",
+        "kind": "transition",
+        "label_raw": "Ship Order->Close Order",
+        "label_norm": "Ship Order Close Order",
+        "source": "Ship Order",
+        "target": "Close Order",
+        "guard": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "element_id": "T:Ship Order->Create Invoice",
+        "kind": "transition",
+        "label_raw": "Ship Order->Create Invoice",
+        "label_norm": "Ship Order Create Invoice",
+        "source": "Ship Order",
+        "target": "Create Invoice",
+        "guard": [
+          "yes"
+        ]
+      },
+      {
+        "element_id": "T:Create Invoice->Link Invoice to Order",
+        "kind": "transition",
+        "label_raw": "Create Invoice->Link Invoice to Order",
+        "label_norm": "Create Invoice Link Invoice to Order",
+        "source": "Create Invoice",
+        "target": "Link Invoice to Order",
+        "guard": []
+      },
+      {
+        "element_id": "T:Link Invoice to Order->Close Order",
+        "kind": "transition",
+        "label_raw": "Link Invoice to Order->Close Order",
+        "label_norm": "Link Invoice to Order Close Order",
+        "source": "Link Invoice to Order",
+        "target": "Close Order",
+        "guard": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "element_id": "T:Submit Order->Close Order",
+        "kind": "transition",
+        "label_raw": "Submit Order->Close Order",
+        "label_norm": "Submit Order Close Order",
+        "source": "Submit Order",
+        "target": "Close Order",
+        "guard": [
+          "close order",
+          "yes"
+        ]
+      },
+      {
+        "element_id": "T:Submit Order->Reject Payment",
+        "kind": "transition",
+        "label_raw": "Submit Order->Reject Payment",
+        "label_norm": "Submit Order Reject Payment",
+        "source": "Submit Order",
+        "target": "Reject Payment",
+        "guard": [
+          "reject payment",
+          "yes"
+        ]
+      },
+      {
+        "element_id": "T:Submit Order->Confirm Payment",
+        "kind": "transition",
+        "label_raw": "Submit Order->Confirm Payment",
+        "label_norm": "Submit Order Confirm Payment",
+        "source": "Submit Order",
+        "target": "Confirm Payment",
+        "guard": [
+          "confirm payment",
+          "yes"
+        ]
+      },
+      {
+        "element_id": "T:Submit Order->Submit Payment",
+        "kind": "transition",
+        "label_raw": "Submit Order->Submit Payment",
+        "label_norm": "Submit Order Submit Payment",
+        "source": "Submit Order",
+        "target": "Submit Payment",
+        "guard": [
+          "submit payment",
+          "yes"
+        ]
+      },
+      {
+        "element_id": "T:Submit Order->Ship Order",
+        "kind": "transition",
+        "label_raw": "Submit Order->Ship Order",
+        "label_norm": "Submit Order Ship Order",
+        "source": "Submit Order",
+        "target": "Ship Order",
+        "guard": [
+          "ship",
+          "yes"
+        ]
+      },
+      {
+        "element_id": "T:Submit Order->Decline Order",
+        "kind": "transition",
+        "label_raw": "Submit Order->Decline Order",
+        "label_norm": "Submit Order Decline Order",
+        "source": "Submit Order",
+        "target": "Decline Order",
+        "guard": [
+          "decline",
+          "yes"
+        ]
+      },
+      {
+        "element_id": "T:Submit Order->Fill Order",
+        "kind": "transition",
+        "label_raw": "Submit Order->Fill Order",
+        "label_norm": "Submit Order Fill Order",
+        "source": "Submit Order",
+        "target": "Fill Order",
+        "guard": [
+          "fill",
+          "yes"
+        ]
+      },
+      {
+        "element_id": "T:Receive Order->Close Order",
+        "kind": "transition",
+        "label_raw": "Receive Order->Close Order",
+        "label_norm": "Receive Order Close Order",
+        "source": "Receive Order",
+        "target": "Close Order",
+        "guard": [
+          "close order"
+        ]
+      },
+      {
+        "element_id": "T:Receive Order->Reject Payment",
+        "kind": "transition",
+        "label_raw": "Receive Order->Reject Payment",
+        "label_norm": "Receive Order Reject Payment",
+        "source": "Receive Order",
+        "target": "Reject Payment",
+        "guard": [
+          "reject payment"
+        ]
+      },
+      {
+        "element_id": "T:Receive Order->Confirm Payment",
+        "kind": "transition",
+        "label_raw": "Receive Order->Confirm Payment",
+        "label_norm": "Receive Order Confirm Payment",
+        "source": "Receive Order",
+        "target": "Confirm Payment",
+        "guard": [
+          "confirm payment"
+        ]
+      },
+      {
+        "element_id": "T:Receive Order->Submit Payment",
+        "kind": "transition",
+        "label_raw": "Receive Order->Submit Payment",
+        "label_norm": "Receive Order Submit Payment",
+        "source": "Receive Order",
+        "target": "Submit Payment",
+        "guard": [
+          "submit payment"
+        ]
+      },
+      {
+        "element_id": "T:Fill Order->Reject Payment",
+        "kind": "transition",
+        "label_raw": "Fill Order->Reject Payment",
+        "label_norm": "Fill Order Reject Payment",
+        "source": "Fill Order",
+        "target": "Reject Payment",
+        "guard": [
+          "reject payment"
+        ]
+      },
+      {
+        "element_id": "T:Fill Order->Confirm Payment",
+        "kind": "transition",
+        "label_raw": "Fill Order->Confirm Payment",
+        "label_norm": "Fill Order Confirm Payment",
+        "source": "Fill Order",
+        "target": "Confirm Payment",
+        "guard": [
+          "confirm payment"
+        ]
+      },
+      {
+        "element_id": "T:Fill Order->Submit Payment",
+        "kind": "transition",
+        "label_raw": "Fill Order->Submit Payment",
+        "label_norm": "Fill Order Submit Payment",
+        "source": "Fill Order",
+        "target": "Submit Payment",
+        "guard": [
+          "submit payment"
+        ]
+      },
+      {
+        "element_id": "T:Decline Order->Reject Payment",
+        "kind": "transition",
+        "label_raw": "Decline Order->Reject Payment",
+        "label_norm": "Decline Order Reject Payment",
+        "source": "Decline Order",
+        "target": "Reject Payment",
+        "guard": [
+          "reject payment"
+        ]
+      },
+      {
+        "element_id": "T:Decline Order->Confirm Payment",
+        "kind": "transition",
+        "label_raw": "Decline Order->Confirm Payment",
+        "label_norm": "Decline Order Confirm Payment",
+        "source": "Decline Order",
+        "target": "Confirm Payment",
+        "guard": [
+          "confirm payment"
+        ]
+      },
+      {
+        "element_id": "T:Decline Order->Submit Payment",
+        "kind": "transition",
+        "label_raw": "Decline Order->Submit Payment",
+        "label_norm": "Decline Order Submit Payment",
+        "source": "Decline Order",
+        "target": "Submit Payment",
+        "guard": [
+          "submit payment"
+        ]
+      },
+      {
+        "element_id": "T:Ship Order->Reject Payment",
+        "kind": "transition",
+        "label_raw": "Ship Order->Reject Payment",
+        "label_norm": "Ship Order Reject Payment",
+        "source": "Ship Order",
+        "target": "Reject Payment",
+        "guard": [
+          "reject payment"
+        ]
+      },
+      {
+        "element_id": "T:Ship Order->Confirm Payment",
+        "kind": "transition",
+        "label_raw": "Ship Order->Confirm Payment",
+        "label_norm": "Ship Order Confirm Payment",
+        "source": "Ship Order",
+        "target": "Confirm Payment",
+        "guard": [
+          "confirm payment"
+        ]
+      },
+      {
+        "element_id": "T:Ship Order->Submit Payment",
+        "kind": "transition",
+        "label_raw": "Ship Order->Submit Payment",
+        "label_norm": "Ship Order Submit Payment",
+        "source": "Ship Order",
+        "target": "Submit Payment",
+        "guard": [
+          "submit payment"
+        ]
+      },
+      {
+        "element_id": "T:Submit Payment->Close Order",
+        "kind": "transition",
+        "label_raw": "Submit Payment->Close Order",
+        "label_norm": "Submit Payment Close Order",
+        "source": "Submit Payment",
+        "target": "Close Order",
+        "guard": [
+          "close order"
+        ]
+      },
+      {
+        "element_id": "T:Submit Payment->Reject Payment",
+        "kind": "transition",
+        "label_raw": "Submit Payment->Reject Payment",
+        "label_norm": "Submit Payment Reject Payment",
+        "source": "Submit Payment",
+        "target": "Reject Payment",
+        "guard": [
+          "reject payment"
+        ]
+      },
+      {
+        "element_id": "T:Submit Payment->Confirm Payment",
+        "kind": "transition",
+        "label_raw": "Submit Payment->Confirm Payment",
+        "label_norm": "Submit Payment Confirm Payment",
+        "source": "Submit Payment",
+        "target": "Confirm Payment",
+        "guard": [
+          "confirm payment"
+        ]
+      },
+      {
+        "element_id": "T:Confirm Payment->Close Order",
+        "kind": "transition",
+        "label_raw": "Confirm Payment->Close Order",
+        "label_norm": "Confirm Payment Close Order",
+        "source": "Confirm Payment",
+        "target": "Close Order",
+        "guard": [
+          "close order"
+        ]
+      },
+      {
+        "element_id": "T:Reject Payment->Close Order",
+        "kind": "transition",
+        "label_raw": "Reject Payment->Close Order",
+        "label_norm": "Reject Payment Close Order",
+        "source": "Reject Payment",
+        "target": "Close Order",
+        "guard": [
+          "close order"
+        ]
+      }
+    ],
+    "dropped": [],
+    "violations": [
+      {
+        "code": "duplicate_label",
+        "detail": "action ACT:Submit Order also declared at line 64; collapsed into the occurrence at line 4",
+        "element_id": "ACT:Submit Order",
+        "line": 64
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "swimlane LANE:Submit Order also declared at line 64; collapsed into the occurrence at line 4",
+        "element_id": "LANE:Submit Order",
+        "line": 64
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "object_node OBJ:Create Order[submitted] also declared at line 66; collapsed into the occurrence at line 6",
+        "element_id": "OBJ:Create Order[submitted]",
+        "line": 66
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "action ACT:Receive Order also declared at line 73; collapsed into the occurrence at line 12",
+        "element_id": "ACT:Receive Order",
+        "line": 73
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "swimlane LANE:Receive Order also declared at line 73; collapsed into the occurrence at line 12",
+        "element_id": "LANE:Receive Order",
+        "line": 73
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "object_node OBJ:Update Order[pending] also declared at line 74; collapsed into the occurrence at line 13",
+        "element_id": "OBJ:Update Order[pending]",
+        "line": 74
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "action ACT:Fill Order also declared at line 76; collapsed into the occurrence at line 18",
+        "element_id": "ACT:Fill Order",
+        "line": 76
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "swimlane LANE:Fill Order also declared at line 76; collapsed into the occurrence at line 18",
+        "element_id": "LANE:Fill Order",
+        "line": 76
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "object_node OBJ:Update Order[filled] also declared at line 77; collapsed into the occurrence at line 19",
+        "element_id": "OBJ:Update Order[filled]",
+        "line": 77
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "action ACT:Decline Order also declared at line 79; collapsed into the occurrence at line 24",
+        "element_id": "ACT:Decline Order",
+        "line": 79
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "swimlane LANE:Decline Order also declared at line 79; collapsed into the occurrence at line 24",
+        "element_id": "LANE:Decline Order",
+        "line": 79
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "object_node OBJ:Update Order[closed] also declared at line 80; collapsed into the occurrence at line 25",
+        "element_id": "OBJ:Update Order[closed]",
+        "line": 80
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "action ACT:Ship Order also declared at line 82; collapsed into the occurrence at line 29",
+        "element_id": "ACT:Ship Order",
+        "line": 82
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "swimlane LANE:Ship Order also declared at line 82; collapsed into the occurrence at line 29",
+        "element_id": "LANE:Ship Order",
+        "line": 82
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "object_node OBJ:Update Order[shipped] also declared at line 83; collapsed into the occurrence at line 30",
+        "element_id": "OBJ:Update Order[shipped]",
+        "line": 83
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "object_node OBJ:Create Payment[pending] also declared at line 92; collapsed into the occurrence at line 41",
+        "element_id": "OBJ:Create Payment[pending]",
+        "line": 92
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "action ACT:Close Order also declared at line 105; collapsed into the occurrence at line 55",
+        "element_id": "ACT:Close Order",
+        "line": 105
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "swimlane LANE:Close Order also declared at line 105; collapsed into the occurrence at line 55",
+        "element_id": "LANE:Close Order",
+        "line": 105
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "object_node OBJ:Update Order[closed] also declared at line 106; collapsed into the occurrence at line 25",
+        "element_id": "OBJ:Update Order[closed]",
+        "line": 106
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Fill Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Fill Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Fill Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Fill Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Fill Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Fill Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Fill Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Fill Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Fill Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Fill Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Fill Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Fill Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Fill Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Fill Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Decline Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Decline Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Decline Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Decline Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Decline Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Decline Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Decline Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Decline Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Decline Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Decline Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Decline Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Decline Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Decline Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Decline Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Ship Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Ship Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Ship Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Ship Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Ship Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Ship Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Ship Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Ship Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Ship Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Ship Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Ship Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Ship Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Ship Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Ship Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Link Invoice to Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Link Invoice to Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Link Invoice to Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Link Invoice to Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Link Invoice to Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Link Invoice to Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Link Invoice to Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Link Invoice to Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Link Invoice to Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Link Invoice to Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Link Invoice to Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Link Invoice to Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Link Invoice to Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Link Invoice to Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Submit Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Submit Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Submit Order->Reject Payment also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Submit Order->Reject Payment"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Submit Order->Confirm Payment also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Submit Order->Confirm Payment"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Submit Order->Submit Payment also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Submit Order->Submit Payment"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Submit Order->Receive Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Submit Order->Receive Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Receive Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Receive Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Receive Order->Reject Payment also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Receive Order->Reject Payment"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Receive Order->Confirm Payment also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Receive Order->Confirm Payment"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Receive Order->Submit Payment also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Receive Order->Submit Payment"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Fill Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Fill Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Fill Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Fill Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Fill Order->Reject Payment also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Fill Order->Reject Payment"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Fill Order->Confirm Payment also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Fill Order->Confirm Payment"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Fill Order->Submit Payment also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Fill Order->Submit Payment"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Decline Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Decline Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Decline Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Decline Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Decline Order->Reject Payment also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Decline Order->Reject Payment"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Decline Order->Confirm Payment also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Decline Order->Confirm Payment"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Decline Order->Submit Payment also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Decline Order->Submit Payment"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Ship Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Ship Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Ship Order->Close Order also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Ship Order->Close Order"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Ship Order->Reject Payment also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Ship Order->Reject Payment"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Ship Order->Confirm Payment also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Ship Order->Confirm Payment"
+      },
+      {
+        "code": "duplicate_label",
+        "detail": "transition T:Ship Order->Submit Payment also declared at line None; collapsed into the occurrence at line None",
+        "element_id": "T:Ship Order->Submit Payment"
+      }
+    ],
+    "collapsed": {
+      "gold": [
+        {
+          "element_id": "ACT:Make Payment",
+          "kind": "action",
+          "kept_line": 32,
+          "collapsed_line": 39
+        },
+        {
+          "element_id": "LANE:Make Payment",
+          "kind": "swimlane",
+          "kept_line": 32,
+          "collapsed_line": 39
+        },
+        {
+          "element_id": "OBJ:Payment[pending]",
+          "kind": "object_node",
+          "kept_line": 33,
+          "collapsed_line": 40
+        },
+        {
+          "element_id": "T:Make Payment->Accept Payment",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Make Payment->Reject Payment",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        }
+      ],
+      "gen": [
+        {
+          "element_id": "ACT:Submit Order",
+          "kind": "action",
+          "kept_line": 4,
+          "collapsed_line": 64
+        },
+        {
+          "element_id": "LANE:Submit Order",
+          "kind": "swimlane",
+          "kept_line": 4,
+          "collapsed_line": 64
+        },
+        {
+          "element_id": "OBJ:Create Order[submitted]",
+          "kind": "object_node",
+          "kept_line": 6,
+          "collapsed_line": 66
+        },
+        {
+          "element_id": "ACT:Receive Order",
+          "kind": "action",
+          "kept_line": 12,
+          "collapsed_line": 73
+        },
+        {
+          "element_id": "LANE:Receive Order",
+          "kind": "swimlane",
+          "kept_line": 12,
+          "collapsed_line": 73
+        },
+        {
+          "element_id": "OBJ:Update Order[pending]",
+          "kind": "object_node",
+          "kept_line": 13,
+          "collapsed_line": 74
+        },
+        {
+          "element_id": "ACT:Fill Order",
+          "kind": "action",
+          "kept_line": 18,
+          "collapsed_line": 76
+        },
+        {
+          "element_id": "LANE:Fill Order",
+          "kind": "swimlane",
+          "kept_line": 18,
+          "collapsed_line": 76
+        },
+        {
+          "element_id": "OBJ:Update Order[filled]",
+          "kind": "object_node",
+          "kept_line": 19,
+          "collapsed_line": 77
+        },
+        {
+          "element_id": "ACT:Decline Order",
+          "kind": "action",
+          "kept_line": 24,
+          "collapsed_line": 79
+        },
+        {
+          "element_id": "LANE:Decline Order",
+          "kind": "swimlane",
+          "kept_line": 24,
+          "collapsed_line": 79
+        },
+        {
+          "element_id": "OBJ:Update Order[closed]",
+          "kind": "object_node",
+          "kept_line": 25,
+          "collapsed_line": 80
+        },
+        {
+          "element_id": "ACT:Ship Order",
+          "kind": "action",
+          "kept_line": 29,
+          "collapsed_line": 82
+        },
+        {
+          "element_id": "LANE:Ship Order",
+          "kind": "swimlane",
+          "kept_line": 29,
+          "collapsed_line": 82
+        },
+        {
+          "element_id": "OBJ:Update Order[shipped]",
+          "kind": "object_node",
+          "kept_line": 30,
+          "collapsed_line": 83
+        },
+        {
+          "element_id": "OBJ:Create Payment[pending]",
+          "kind": "object_node",
+          "kept_line": 41,
+          "collapsed_line": 92
+        },
+        {
+          "element_id": "ACT:Close Order",
+          "kind": "action",
+          "kept_line": 55,
+          "collapsed_line": 105
+        },
+        {
+          "element_id": "LANE:Close Order",
+          "kind": "swimlane",
+          "kept_line": 55,
+          "collapsed_line": 105
+        },
+        {
+          "element_id": "OBJ:Update Order[closed]",
+          "kind": "object_node",
+          "kept_line": 25,
+          "collapsed_line": 106
+        },
+        {
+          "element_id": "T:Fill Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Fill Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Fill Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Fill Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Fill Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Fill Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Fill Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Decline Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Decline Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Decline Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Decline Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Decline Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Decline Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Decline Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Ship Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Ship Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Ship Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Ship Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Ship Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Ship Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Ship Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Link Invoice to Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Link Invoice to Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Link Invoice to Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Link Invoice to Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Link Invoice to Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Link Invoice to Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Link Invoice to Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Submit Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Submit Order->Reject Payment",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Submit Order->Confirm Payment",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Submit Order->Submit Payment",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Submit Order->Receive Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Receive Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Receive Order->Reject Payment",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Receive Order->Confirm Payment",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Receive Order->Submit Payment",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Fill Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Fill Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Fill Order->Reject Payment",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Fill Order->Confirm Payment",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Fill Order->Submit Payment",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Decline Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Decline Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Decline Order->Reject Payment",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Decline Order->Confirm Payment",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Decline Order->Submit Payment",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Ship Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Ship Order->Close Order",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Ship Order->Reject Payment",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Ship Order->Confirm Payment",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        },
+        {
+          "element_id": "T:Ship Order->Submit Payment",
+          "kind": "transition",
+          "kept_line": null,
+          "collapsed_line": null
+        }
+      ]
+    }
+  }
+}

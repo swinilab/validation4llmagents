@@ -1,0 +1,59 @@
+{
+  "structural": {
+    "validity": 1.0,
+    "accepted": 50,
+    "total": 50,
+    "parse_error": null,
+    "rejections": [],
+    "plantuml": {
+      "accepted": true,
+      "error": null
+    },
+    "gate": "pass",
+    "gate_mode": "plantuml"
+  },
+  "behavioral": {
+    "validity": 0.875,
+    "accepted": 42,
+    "total": 48,
+    "parse_error": null,
+    "rejections": [
+      {
+        "line": 33,
+        "source": "repeat :Submit Payment;",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 40,
+        "source": "repeat while (Retry payment?) is ([resubmit])",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 41,
+        "source": "->[confirm];",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 46,
+        "source": "end fork",
+        "code": "unbalanced_block"
+      },
+      {
+        "line": 24,
+        "source": "fork",
+        "code": "unbalanced_block"
+      },
+      {
+        "line": 36,
+        "source": "if",
+        "code": "unbalanced_block"
+      }
+    ],
+    "plantuml": {
+      "accepted": false,
+      "error": "39 Cannot find repeat (Assumed diagram type: activity)"
+    },
+    "gate": "fail",
+    "gate_mode": "plantuml"
+  }
+}

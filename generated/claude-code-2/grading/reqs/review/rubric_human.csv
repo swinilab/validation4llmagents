@@ -1,0 +1,40 @@
+gen_id,gen_text,traceable,consistent,reviewer,timestamp
+US-01-AC01,"A customer record holds a name, an address and a phone number, and each of these attributes is mandatory.",yes,yes,vuhuy,27/10/2026
+US-01-AC06,"Given a customer who already has a bank account, When a second bank account is added for that customer, Then the system rejects the addition and the customer keeps exactly one bank account.",yes,yes,vuhuy,27/10/2026
+US-01-AC07,"A customer may have any number of orders, including none.",yes,yes,vuhuy,27/10/2026
+US-02-AC01,"A product record holds a name, a description, a price and an image, and each of these attributes is mandatory.",yes,yes,vuhuy,27/10/2026
+US-03-AC01,"Given a known customer, one or more order items each referring to an existing product, and a payment method, When the customer submits the order, Then the system registers an order with the submission date as its order date and the status submitted.",yes,yes,vuhuy,27/10/2026
+US-03-AC03,"Given an order submission that contains no order item, When the submission is made, Then the system rejects the submission and registers no order.",yes,yes,vuhuy,27/10/2026
+US-03-AC04,"Given an order submission in which any order item refers to a product that does not exist, When the submission is made, Then the system rejects the submission and registers no order.",yes,yes,vuhuy,27/10/2026
+US-03-AC06,"An order records an order date, a total amount, a status and a payment method, and each of these attributes is mandatory.",yes,yes,vuhuy,27/10/2026
+US-03-AC16,"A newly registered order has the status submitted, from which the only permitted status change is to pending.",yes,yes,vuhuy,27/10/2026
+US-04-AC01,"Given an order whose status is filled or shipped and that has no invoice, When the accountant raises an invoice with a date, an amount and a payment method, Then the system records the invoice against that order with the status issued.",yes,yes,vuhuy,27/10/2026
+US-04-AC03,"Given an order whose status is submitted, pending or closed, When the accountant requests an invoice for that order, Then the system rejects the request and records no invoice.",yes,yes,vuhuy,27/10/2026
+US-04-AC06,"An invoice records a date, an amount, a status and a payment method, and each of these attributes is mandatory.",yes,yes,vuhuy,27/10/2026
+US-05-AC01,"Given an invoice whose status is issued, When the customer submits a payment against it with a date, an amount and a payment method, Then the system records the payment against that invoice with the status pending.",yes,yes,vuhuy,27/10/2026
+US-05-AC02,"Given an invoice whose status is paid, When the customer submits a payment against it, Then the system rejects the payment and records no payment.",yes,yes,vuhuy,27/10/2026
+US-05-AC03,"Given an invoice whose earlier payment has the status failed, When the customer submits a further payment against that invoice, Then the system records the further payment as a separate payment with the status pending and keeps the earlier payment at the status failed.",yes,yes,vuhuy,27/10/2026
+US-05-AC04,"A payment records a date, an amount, a status and a payment method, and each of these attributes is mandatory.",yes,yes,vuhuy,27/10/2026
+US-05-AC06,A payment is recorded against an invoice and never directly against an order.,yes,yes,vuhuy,27/10/2026
+US-05-AC10,"A newly submitted payment has the status pending, from which the only permitted status changes are to completed or to failed.",yes,yes,vuhuy,27/10/2026
+US-06-AC01,"Given an order whose status is submitted, When order staff receive the order, Then the system sets the status of the order to pending.",yes,yes,vuhuy,27/10/2026
+US-06-AC02,"Given an order whose status is not submitted, When order staff attempt to receive the order, Then the system rejects the attempt and leaves the status of the order unchanged.",yes,yes,vuhuy,27/10/2026
+US-06-AC04,Receiving never changes the status of an order whose status is closed.,yes,yes,vuhuy,27/10/2026
+US-07-AC02,"Given an order whose status is not pending, When order staff attempt to mark the order as filled, Then the system rejects the attempt and leaves the status of the order unchanged.",yes,yes,vuhuy,27/10/2026
+US-08-AC01,"Given an order whose status is pending, When order staff decline the order, Then the system sets the status of the order to closed.",yes,yes,vuhuy,27/10/2026
+US-08-AC02,"Given an order whose status is not pending, When order staff attempt to decline the order, Then the system rejects the attempt and leaves the status of the order unchanged.",yes,yes,vuhuy,27/10/2026
+US-08-AC04,Declining an order changes its status only from pending to closed.,yes,yes,vuhuy,27/10/2026
+US-08-AC05,A declined order keeps the status closed and its status is never changed again.,yes,yes,vuhuy,27/10/2026
+US-09-AC04,"Given an order whose status is filled and that has no invoice, When order staff set the order to shipped, Then the system sets the status of the order to shipped without requiring an invoice to have been raised.",yes,yes,vuhuy,27/10/2026
+US-10-AC06,Confirming a payment changes the status of its invoice only from issued to paid.,yes,yes,vuhuy,27/10/2026
+US-12-AC03,"Given an order whose invoice has the status paid and whose status is not shipped, When order staff attempt to close the order, Then the system rejects the attempt and leaves the status of the order unchanged.",yes,yes,vuhuy,27/10/2026
+US-12-AC05,Closing an order changes its status only from shipped to closed.,yes,yes,vuhuy,27/10/2026
+US-04-AC02,"Given an order that already has an invoice, When the accountant requests a further invoice for that order, Then the system rejects the request and records no further invoice.",yes,yes,vuhuy,27/10/2026
+US-04-AC08,The amount of an invoice is a decimal number.,yes,yes,vuhuy,27/10/2026
+US-05-AC05,"An invoice may have any number of payments, including none, and each payment is recorded against exactly one invoice.",yes,yes,vuhuy,27/10/2026
+US-06-AC03,Receiving an order changes its status only from submitted to pending.,yes,yes,vuhuy,27/10/2026
+US-07-AC01,"Given an order whose status is pending, When order staff mark the order as filled, Then the system sets the status of the order to filled.",yes,yes,vuhuy,27/10/2026
+US-07-AC03,Marking an order as filled changes its status only from pending to filled.,yes,yes,vuhuy,27/10/2026
+US-09-AC02,"Given an order whose status is not filled, When order staff attempt to set the order to shipped, Then the system rejects the attempt and leaves the status of the order unchanged.",yes,yes,vuhuy,27/10/2026
+US-09-AC06,Shipping never changes the status of an order whose status is closed.,yes,yes,vuhuy,27/10/2026
+US-10-AC05,Confirming a payment changes the status of the payment only from pending to completed.,yes,yes,vuhuy,27/10/2026

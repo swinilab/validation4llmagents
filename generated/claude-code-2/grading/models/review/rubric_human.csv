@@ -1,0 +1,32 @@
+element_id,kind,label,traceable,consistent,reviewer,timestamp
+ACT:Browse product catalogue,action,Browse product catalogue,yes,yes,vuhuy,27/10/2026
+ACT:Decline order,action,Decline order,yes,yes,vuhuy,27/10/2026
+ACT:Raise invoice,action,Raise invoice,yes,yes,vuhuy,27/10/2026
+ACT:Receive order,action,Receive order,yes,yes,vuhuy,27/10/2026
+ACT:Register customer record,action,Register customer record,no,yes,vuhuy,27/10/2026
+ACT:Submit order,action,Submit order,yes,yes,vuhuy,27/10/2026
+LANE:Browse product catalogue,swimlane,Customer,yes,yes,vuhuy,27/10/2026
+LANE:Decline order,swimlane,OrderStaff,yes,yes,vuhuy,27/10/2026
+LANE:Raise invoice,swimlane,Accountant,yes,yes,vuhuy,27/10/2026
+LANE:Receive order,swimlane,OrderStaff,yes,yes,vuhuy,27/10/2026
+LANE:Register customer record,swimlane,Customer,no,yes,vuhuy,27/10/2026
+LANE:Submit order,swimlane,Customer,yes,yes,vuhuy,27/10/2026
+T:Browse product catalogue->Submit order,transition,Browse product catalogue->Submit order,yes,yes,vuhuy,27/10/2026
+T:Confirm payment->Submit payment,transition,Confirm payment->Submit payment,yes,yes,vuhuy,27/10/2026
+T:Mark order filled->Raise invoice,transition,Mark order filled->Raise invoice,yes,yes,vuhuy,27/10/2026
+T:Raise invoice->Submit payment,transition,Raise invoice->Submit payment,yes,yes,vuhuy,27/10/2026
+T:Receive order->Decline order,transition,Receive order->Decline order,yes,yes,vuhuy,27/10/2026
+T:Receive order->Mark order filled,transition,Receive order->Mark order filled,yes,yes,vuhuy,27/10/2026
+T:Register customer record->Browse product catalogue,transition,Register customer record->Browse product catalogue,no,yes,vuhuy,27/10/2026
+T:Reject payment->Close order,transition,Reject payment->Close order,no,no,vuhuy,27/10/2026
+T:Reject payment->Submit payment,transition,Reject payment->Submit payment,yes,yes,vuhuy,27/10/2026
+T:Submit order->Receive order,transition,Submit order->Receive order,yes,yes,vuhuy,27/10/2026
+T:Submit payment->Confirm payment,transition,Submit payment->Confirm payment,yes,yes,vuhuy,27/10/2026
+T:Submit payment->Reject payment,transition,Submit payment->Reject payment,yes,yes,vuhuy,27/10/2026
+A:BankAccount.accountNumber,attribute,accountNumber : String,yes,yes,vuhuy,27/10/2026
+A:Order.paymentMethod,attribute,paymentMethod : PaymentMethod,yes,yes,vuhuy,27/10/2026
+A:Payment.paymentMethod,attribute,paymentMethod : PaymentMethod,yes,yes,vuhuy,27/10/2026
+A:Product.image,attribute,image : Blob,yes,yes,vuhuy,27/10/2026
+C:BankAccount,class,BankAccount,yes,yes,vuhuy,27/10/2026
+R:Customer--BankAccount,relationship,holds,yes,yes,vuhuy,27/10/2026
+R:Order--OrderItem,relationship,contains,yes,yes,vuhuy,27/10/2026

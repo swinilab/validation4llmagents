@@ -1,0 +1,1498 @@
+[
+  {
+    "gold_id": "NFR-01",
+    "gen_id": "NFR-01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['submitted']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "NFR-01",
+    "gen_id": "NFR-02",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['submitted']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "NFR-02",
+    "gen_id": "NFR-02",
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": null,
+    "source": "rule"
+  },
+  {
+    "gold_id": "NFR-02",
+    "gen_id": "NFR-01",
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": null,
+    "source": "rule"
+  },
+  {
+    "gold_id": "NFR-03",
+    "gen_id": "NFR-03",
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": null,
+    "source": "rule"
+  },
+  {
+    "gold_id": "NFR-04",
+    "gen_id": "NFR-04",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['Accountant']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "NFR-05",
+    "gen_id": "NFR-05",
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": null,
+    "source": "rule"
+  },
+  {
+    "gold_id": "NFR-06",
+    "gen_id": "NFR-06",
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": null,
+    "source": "rule"
+  },
+  {
+    "gold_id": "NFR-07",
+    "gen_id": "NFR-08",
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": null,
+    "source": "rule"
+  },
+  {
+    "gold_id": "NFR-08",
+    "gen_id": "NFR-07",
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": null,
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-02-AC01",
+    "gen_id": "US-02-AC01",
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
+  },
+  {
+    "gold_id": "US-02-AC03",
+    "gen_id": "US-04-AC03",
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": null,
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-02-AC03",
+    "gen_id": "US-02-AC02",
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": null,
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-03-AC01",
+    "gen_id": "US-03-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "polarity",
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
+  },
+  {
+    "gold_id": "US-03-AC04",
+    "gen_id": "US-04-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['order']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-03-AC04",
+    "gen_id": "US-15-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['order']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-03-AC04",
+    "gen_id": "US-02-AC02",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['order']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-03-AC05",
+    "gen_id": "US-03-AC02",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['order']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-03-AC05",
+    "gen_id": "US-10-AC02",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['order']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-04-AC01",
+    "gen_id": "US-03-AC03",
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": null,
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-05-AC02",
+    "gen_id": "US-04-AC01",
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": null,
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-06-AC01",
+    "gen_id": "US-05-AC01",
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
+  },
+  {
+    "gold_id": "US-06-AC01",
+    "gen_id": "US-05-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "polarity",
+    "detail": "gold=accept gen=reject",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-06-AC01",
+    "gen_id": "US-06-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['submitted']; extra=['filled']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-06-AC01",
+    "gen_id": "US-06-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['pending']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-06-AC01",
+    "gen_id": "US-07-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "polarity",
+    "detail": "gold=accept gen=reject",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-06-AC01",
+    "gen_id": "US-08-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['submitted']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-06-AC01",
+    "gen_id": "US-07-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['submitted']; extra=['closed']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-06-AC01",
+    "gen_id": "US-08-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['pending', 'submitted']; extra=['filled', 'shipped']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-06-AC01",
+    "gen_id": "US-13-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['pending', 'submitted']; extra=['invoice', 'paid', 'shipped']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-06-AC02",
+    "gen_id": "US-05-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['submitted']; extra=['filled']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-06-AC02",
+    "gen_id": "US-06-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "polarity",
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
+  },
+  {
+    "gold_id": "US-06-AC02",
+    "gen_id": "US-07-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['submitted']; extra=['filled']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-06-AC02",
+    "gen_id": "US-08-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['submitted']; extra=['pending']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-06-AC02",
+    "gen_id": "US-05-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: extra=['pending']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-06-AC02",
+    "gen_id": "US-07-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['submitted']; extra=['closed', 'pending']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-06-AC02",
+    "gen_id": "US-13-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['submitted']; extra=['invoice', 'paid', 'shipped']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-06-AC02",
+    "gen_id": "US-06-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['submitted']; extra=['filled', 'pending']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-06-AC03",
+    "gen_id": "US-14-AC02",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['order']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-06-AC04",
+    "gen_id": "US-14-AC02",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2a transitions: gold=[('filled', 'shipped'), ('pending', 'filled'), ('shipped', 'closed'), ('submitted', 'pending')] gen=[]",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-07-AC01",
+    "gen_id": "US-06-AC01",
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
+  },
+  {
+    "gold_id": "US-07-AC01",
+    "gen_id": "US-05-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "polarity",
+    "detail": "gold=accept gen=reject",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-07-AC01",
+    "gen_id": "US-05-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['filled']; extra=['submitted']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-07-AC01",
+    "gen_id": "US-08-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['pending']; extra=['shipped']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-07-AC01",
+    "gen_id": "US-07-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "polarity",
+    "detail": "gold=accept gen=reject",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-07-AC01",
+    "gen_id": "US-06-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['filled', 'pending']; extra=['submitted']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-07-AC01",
+    "gen_id": "US-07-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['filled']; extra=['closed']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-07-AC01",
+    "gen_id": "US-08-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['filled']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-07-AC01",
+    "gen_id": "US-13-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['filled', 'pending']; extra=['closed', 'invoice', 'paid', 'shipped']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-07-AC02",
+    "gen_id": "US-05-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['pending']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-07-AC02",
+    "gen_id": "US-07-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['pending']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-07-AC02",
+    "gen_id": "US-06-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['filled', 'pending']; extra=['submitted']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-07-AC02",
+    "gen_id": "US-06-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "polarity",
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
+  },
+  {
+    "gold_id": "US-07-AC02",
+    "gen_id": "US-08-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['filled']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-07-AC02",
+    "gen_id": "US-05-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['filled']; extra=['submitted']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-07-AC02",
+    "gen_id": "US-07-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['filled']; extra=['closed']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-07-AC02",
+    "gen_id": "US-13-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['filled', 'pending']; extra=['invoice', 'paid', 'shipped']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-08-AC01",
+    "gen_id": "US-07-AC01",
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
+  },
+  {
+    "gold_id": "US-08-AC01",
+    "gen_id": "US-07-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "polarity",
+    "detail": "gold=accept gen=reject",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-08-AC01",
+    "gen_id": "US-05-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "polarity",
+    "detail": "gold=accept gen=reject",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-08-AC01",
+    "gen_id": "US-05-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['closed']; extra=['submitted']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-08-AC01",
+    "gen_id": "US-13-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['closed', 'pending']; extra=['invoice', 'paid', 'shipped']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-08-AC01",
+    "gen_id": "US-06-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['closed']; extra=['filled']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-08-AC01",
+    "gen_id": "US-06-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['closed', 'pending']; extra=['submitted']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-08-AC01",
+    "gen_id": "US-08-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['closed']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-08-AC01",
+    "gen_id": "US-13-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['pending']; extra=['invoice', 'paid', 'shipped']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-08-AC01",
+    "gen_id": "US-08-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['closed', 'pending']; extra=['filled', 'shipped']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-08-AC02",
+    "gen_id": "US-07-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['pending']; extra=['filled']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-08-AC02",
+    "gen_id": "US-05-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['pending']; extra=['filled']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-08-AC02",
+    "gen_id": "US-07-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: extra=['closed']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-08-AC02",
+    "gen_id": "US-08-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "polarity",
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
+  },
+  {
+    "gold_id": "US-08-AC02",
+    "gen_id": "US-06-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['pending']; extra=['submitted']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-08-AC02",
+    "gen_id": "US-05-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: extra=['submitted']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-08-AC02",
+    "gen_id": "US-13-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['pending']; extra=['invoice', 'paid', 'shipped']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-08-AC02",
+    "gen_id": "US-06-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: extra=['filled']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-08-AC03",
+    "gen_id": "US-09-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: extra=['Accountant', 'closed', 'pending', 'submitted']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-08-AC03",
+    "gen_id": "US-10-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['order']; extra=['paid', 'payment', 'submitted']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-09-AC01",
+    "gen_id": "US-08-AC01",
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
+  },
+  {
+    "gold_id": "US-09-AC01",
+    "gen_id": "US-06-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['shipped']; extra=['pending']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-09-AC01",
+    "gen_id": "US-05-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "polarity",
+    "detail": "gold=accept gen=reject",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-09-AC01",
+    "gen_id": "US-05-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['filled', 'shipped']; extra=['pending', 'submitted']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-09-AC01",
+    "gen_id": "US-08-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['filled', 'shipped']; extra=['pending']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-09-AC01",
+    "gen_id": "US-13-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['filled']; extra=['invoice', 'paid']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-09-AC01",
+    "gen_id": "US-13-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['filled']; extra=['closed', 'invoice', 'paid']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-09-AC02",
+    "gen_id": "US-08-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['filled', 'shipped']; extra=['pending']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-09-AC02",
+    "gen_id": "US-05-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['shipped']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-09-AC02",
+    "gen_id": "US-07-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['shipped']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-09-AC02",
+    "gen_id": "US-13-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['filled']; extra=['invoice', 'paid']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-09-AC02",
+    "gen_id": "US-06-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['filled', 'shipped']; extra=['submitted']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-09-AC02",
+    "gen_id": "US-08-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "polarity",
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
+  },
+  {
+    "gold_id": "US-09-AC02",
+    "gen_id": "US-06-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['shipped']; extra=['pending']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-09-AC02",
+    "gen_id": "US-05-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['filled', 'shipped']; extra=['pending', 'submitted']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-09-AC02",
+    "gen_id": "US-07-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['filled', 'shipped']; extra=['closed', 'pending']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-10-AC01",
+    "gen_id": "US-09-AC01",
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
+  },
+  {
+    "gold_id": "US-10-AC01",
+    "gen_id": "US-10-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['Accountant', 'filled', 'order', 'shipped']; extra=['Customer', 'pending']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-10-AC02",
+    "gen_id": "US-09-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: extra=['closed', 'pending', 'submitted']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-10-AC02",
+    "gen_id": "US-09-AC02",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['Accountant']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-10-AC03",
+    "gen_id": "US-09-AC03",
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
+  },
+  {
+    "gold_id": "US-10-AC03",
+    "gen_id": "US-10-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['Accountant', 'closed', 'order', 'pending']; extra=['paid', 'payment']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-10-AC03",
+    "gen_id": "US-12-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['closed', 'invoice', 'order', 'pending', 'submitted']; extra=['completed', 'payment']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-10-AC03",
+    "gen_id": "US-11-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['closed', 'invoice', 'order', 'pending', 'submitted']; extra=['failed', 'payment']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-10-AC05",
+    "gen_id": "US-14-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['invoice']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-10-AC05",
+    "gen_id": "US-09-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['paid']; extra=['Accountant', 'filled', 'order', 'payment', 'shipped']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-11-AC01",
+    "gen_id": "US-10-AC01",
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": null,
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-11-AC01",
+    "gen_id": "US-11-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['Customer', 'issued']; extra=['Accountant', 'completed', 'paid']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-11-AC01",
+    "gen_id": "US-10-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "polarity",
+    "detail": "gold=accept gen=reject",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-11-AC01",
+    "gen_id": "US-12-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "polarity",
+    "detail": "gold=accept gen=reject",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-11-AC01",
+    "gen_id": "US-09-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['Customer', 'pending']; extra=['Accountant', 'filled', 'order', 'shipped']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-11-AC02",
+    "gen_id": "US-03-AC02",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['invoice', 'order']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-11-AC02",
+    "gen_id": "US-10-AC02",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['invoice', 'order']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-11-AC04",
+    "gen_id": "US-11-AC02",
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": null,
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-11-AC04",
+    "gen_id": "US-14-AC04",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['payment']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-11-AC04",
+    "gen_id": "US-12-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['completed']; extra=['Accountant', 'invoice']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-11-AC05",
+    "gen_id": "US-10-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['Customer']; extra=['submitted']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-11-AC05",
+    "gen_id": "US-12-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['Customer', 'paid']; extra=['Accountant', 'failed', 'pending']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-11-AC05",
+    "gen_id": "US-09-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['Customer', 'paid', 'payment']; extra=['Accountant', 'closed', 'order', 'pending', 'submitted']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-11-AC05",
+    "gen_id": "US-11-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['Customer', 'invoice', 'paid']; extra=['Accountant', 'failed']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-11-AC05",
+    "gen_id": "US-12-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['Customer', 'invoice', 'paid']; extra=['Accountant', 'completed']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-11-AC05",
+    "gen_id": "US-13-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['Customer', 'payment']; extra=['OrderStaff', 'order', 'shipped']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-12-AC01",
+    "gen_id": "US-10-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['failed']; extra=['issued']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-12-AC01",
+    "gen_id": "US-12-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "polarity",
+    "detail": "gold=accept gen=reject",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-12-AC01",
+    "gen_id": "US-10-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "polarity",
+    "detail": "gold=accept gen=reject",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-12-AC01",
+    "gen_id": "US-11-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['Customer', 'failed']; extra=['Accountant', 'completed', 'paid']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-12-AC02",
+    "gen_id": "US-12-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['submitted']; extra=['Accountant', 'pending']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-12-AC02",
+    "gen_id": "US-10-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['failed']; extra=['paid']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-12-AC02",
+    "gen_id": "US-11-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['invoice', 'submitted']; extra=['Accountant']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-13-AC01",
+    "gen_id": "US-11-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: extra=['invoice', 'paid']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-13-AC01",
+    "gen_id": "US-11-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['completed', 'pending']; extra=['failed']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-13-AC01",
+    "gen_id": "US-12-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "polarity",
+    "detail": "gold=accept gen=reject",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-13-AC01",
+    "gen_id": "US-12-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "polarity",
+    "detail": "gold=accept gen=reject",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-13-AC02",
+    "gen_id": "US-11-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['issued']; extra=['completed']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-13-AC02",
+    "gen_id": "US-12-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "polarity",
+    "detail": "gold=accept gen=reject",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-13-AC02",
+    "gen_id": "US-10-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "polarity",
+    "detail": "gold=accept gen=reject",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-13-AC02",
+    "gen_id": "US-10-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['Accountant', 'paid']; extra=['Customer']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-13-AC03",
+    "gen_id": "US-11-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['completed']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-13-AC03",
+    "gen_id": "US-12-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['failed']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-13-AC03",
+    "gen_id": "US-12-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['completed']; extra=['invoice', 'pending']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-13-AC03",
+    "gen_id": "US-10-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['Accountant', 'completed', 'failed']; extra=['invoice', 'paid', 'submitted']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-13-AC03",
+    "gen_id": "US-11-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['failed']; extra=['invoice', 'paid', 'pending']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-13-AC04",
+    "gen_id": "US-14-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2a transitions: gold=[('issued', 'paid')] gen=[]",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-13-AC04",
+    "gen_id": "US-12-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2a transitions: gold=[('issued', 'paid')] gen=[]",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-13-AC05",
+    "gen_id": "US-12-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['order']; extra=['Accountant', 'failed', 'pending']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-14-AC01",
+    "gen_id": "US-11-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['pending']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-14-AC01",
+    "gen_id": "US-12-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: extra=['invoice']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-14-AC01",
+    "gen_id": "US-12-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['failed', 'pending']; extra=['completed']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-14-AC01",
+    "gen_id": "US-10-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['Accountant', 'failed', 'pending']; extra=['invoice', 'paid', 'submitted']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-14-AC01",
+    "gen_id": "US-11-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['failed']; extra=['completed', 'invoice', 'paid']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-14-AC02",
+    "gen_id": "US-11-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['order']; extra=['completed', 'paid']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-14-AC02",
+    "gen_id": "US-12-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['order']; extra=['failed']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-14-AC02",
+    "gen_id": "US-11-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['invoice', 'order', 'pending']; extra=['failed']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-14-AC02",
+    "gen_id": "US-09-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['payment']; extra=['closed', 'submitted']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-14-AC02",
+    "gen_id": "US-12-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['invoice', 'order', 'pending']; extra=['completed']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-14-AC02",
+    "gen_id": "US-10-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['Accountant', 'order', 'pending']; extra=['paid', 'submitted']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-14-AC03",
+    "gen_id": "US-11-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['completed']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-14-AC03",
+    "gen_id": "US-12-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['failed']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-14-AC03",
+    "gen_id": "US-10-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['Accountant', 'completed', 'failed']; extra=['invoice', 'paid', 'submitted']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-14-AC03",
+    "gen_id": "US-12-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['completed']; extra=['invoice', 'pending']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-14-AC04",
+    "gen_id": "US-11-AC02",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2a transitions: gold=[('pending', 'completed'), ('pending', 'failed')] gen=[('pending', 'completed')]",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-14-AC04",
+    "gen_id": "US-12-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2a transitions: gold=[('pending', 'completed'), ('pending', 'failed')] gen=[]",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-15-AC01",
+    "gen_id": "US-13-AC01",
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
+  },
+  {
+    "gold_id": "US-15-AC01",
+    "gen_id": "US-13-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['closed']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-15-AC01",
+    "gen_id": "US-08-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['closed', 'invoice', 'paid']; extra=['filled']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-15-AC01",
+    "gen_id": "US-06-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['closed', 'invoice', 'paid', 'shipped']; extra=['filled', 'pending']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-15-AC01",
+    "gen_id": "US-07-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['invoice', 'paid', 'shipped']; extra=['pending']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-15-AC01",
+    "gen_id": "US-05-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "polarity",
+    "detail": "gold=accept gen=reject",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-15-AC01",
+    "gen_id": "US-05-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['closed', 'invoice', 'paid', 'shipped']; extra=['pending', 'submitted']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-15-AC02",
+    "gen_id": "US-13-AC03",
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
+  },
+  {
+    "gold_id": "US-15-AC02",
+    "gen_id": "US-13-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: extra=['closed']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-15-AC02",
+    "gen_id": "US-05-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['invoice', 'paid', 'shipped']; extra=['filled']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-15-AC02",
+    "gen_id": "US-08-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['invoice', 'paid', 'shipped']; extra=['pending']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-15-AC02",
+    "gen_id": "US-07-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['invoice', 'paid', 'shipped']; extra=['closed', 'pending']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-15-AC02",
+    "gen_id": "US-07-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['invoice', 'paid', 'shipped']; extra=['filled']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-15-AC02",
+    "gen_id": "US-06-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['invoice', 'paid', 'shipped']; extra=['submitted']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-15-AC02",
+    "gen_id": "US-05-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['invoice', 'paid', 'shipped']; extra=['pending', 'submitted']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-15-AC02",
+    "gen_id": "US-06-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['invoice', 'paid', 'shipped']; extra=['filled', 'pending']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-15-AC02",
+    "gen_id": "US-08-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['invoice', 'paid']; extra=['filled']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-15-AC03",
+    "gen_id": "US-13-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "polarity",
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
+  },
+  {
+    "gold_id": "US-15-AC03",
+    "gen_id": "US-13-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: extra=['closed']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-15-AC03",
+    "gen_id": "US-05-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['invoice', 'paid', 'shipped']; extra=['filled']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-15-AC03",
+    "gen_id": "US-08-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['invoice', 'paid', 'shipped']; extra=['pending']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-15-AC03",
+    "gen_id": "US-07-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['invoice', 'paid', 'shipped']; extra=['closed', 'pending']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-15-AC03",
+    "gen_id": "US-07-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['invoice', 'paid', 'shipped']; extra=['filled']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-15-AC03",
+    "gen_id": "US-06-AC03",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['invoice', 'paid', 'shipped']; extra=['submitted']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-15-AC03",
+    "gen_id": "US-05-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['invoice', 'paid', 'shipped']; extra=['pending', 'submitted']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-15-AC03",
+    "gen_id": "US-06-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['invoice', 'paid', 'shipped']; extra=['filled', 'pending']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-15-AC03",
+    "gen_id": "US-08-AC01",
+    "verdict": "FAIL",
+    "failed_axis": "identifier",
+    "detail": "subcheck=2b tokens: missing=['invoice', 'paid']; extra=['filled']",
+    "source": "rule"
+  },
+  {
+    "gold_id": "US-15-AC04",
+    "gen_id": "US-17-AC03",
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
+  }
+]

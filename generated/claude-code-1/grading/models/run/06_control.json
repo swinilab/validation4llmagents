@@ -1,0 +1,16 @@
+{
+  "item_1": "pass",
+  "item_2": "fail",
+  "item_3": "pass",
+  "item_4": "pass",
+  "item_5": "pass",
+  "item_6": "pass",
+  "details": {
+    "item_1": "1 initial, 3 final",
+    "item_2": "1 unguarded edge(s): ['line 44 -> node 33']",
+    "item_3": "1 fork(s) paired with 1 join(s)",
+    "item_4": "back edge present, body ['Close order', 'Confirm payment', 'Reject payment', 'Submit payment'], 1 guarded exit(s)",
+    "item_5": "10 action(s) followed by an object node",
+    "item_6": "all 12 action(s) sit in a whitelisted lane"
+  }
+}

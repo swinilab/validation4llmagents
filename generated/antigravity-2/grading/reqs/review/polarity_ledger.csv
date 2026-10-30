@@ -1,0 +1,5 @@
+gold_id,gen_id,cosine,gold_text,gen_text,verdict,reviewer,timestamp,note
+US-15-AC04,US-02-AC03,0.835,The status of a closed order cannot be changed.,The system shall not change the status of an order whose status is closed.,PASS,Le Anh Duc,28/10/2026,Same closed-order immutability rule
+US-15-AC04,US-03-AC04,0.835,The status of a closed order cannot be changed.,The system shall not change the status of an order whose status is closed.,PASS,Le Anh Duc,28/10/2026,Same closed-order immutability rule
+US-15-AC04,US-04-AC04,0.835,The status of a closed order cannot be changed.,The system shall not change the status of an order whose status is closed.,PASS,Le Anh Duc,28/10/2026,Same closed-order immutability rule
+US-15-AC04,US-10-AC05,0.835,The status of a closed order cannot be changed.,The system shall not change the status of an order whose status is closed.,PASS,Le Anh Duc,28/10/2026,Same closed-order immutability rule

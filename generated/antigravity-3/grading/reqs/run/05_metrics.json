@@ -1,0 +1,81 @@
+{
+  "run_id": "antigravity-3",
+  "primary_threshold": 0.75,
+  "status": "final",
+  "s_size": 46,
+  "gold_total": 70,
+  "rubric_pass": 32,
+  "pending_polarity": 0,
+  "pending_rubric": 0,
+  "judge_model": "deepseek-v4.1-flash:cloud",
+  "kappa": 1.0,
+  "kappa_n": 31,
+  "kappa_accept": 0.6,
+  "kappa_accepted": true,
+  "manual_default": null,
+  "sweep": [
+    {
+      "threshold": 0.7,
+      "recall": 0.2286,
+      "precision": 0.3478,
+      "f1": 0.2759,
+      "matched_gold": 16,
+      "matched_gen": 16
+    },
+    {
+      "threshold": 0.75,
+      "recall": 0.1857,
+      "precision": 1.0,
+      "f1": 0.3132,
+      "matched_gold": 13,
+      "matched_gen": 14
+    },
+    {
+      "threshold": 0.8,
+      "recall": 0.1286,
+      "precision": 0.1957,
+      "f1": 0.1552,
+      "matched_gold": 9,
+      "matched_gen": 9
+    },
+    {
+      "threshold": 0.85,
+      "recall": 0.1,
+      "precision": 0.1522,
+      "f1": 0.1207,
+      "matched_gold": 7,
+      "matched_gen": 7
+    }
+  ],
+  "diagnostics": {
+    "cross_us_matches": 7,
+    "cross_kind_would_cover": 0,
+    "axis_rejections": {
+      "polarity": 27,
+      "identifier": 83,
+      "numeric": 0
+    },
+    "dedup_removed": 7,
+    "manual_resolved": {
+      "PASS": 1,
+      "FAIL": 0
+    },
+    "ac_per_story": {
+      "US-01": 10,
+      "US-02": 3,
+      "US-03": 3,
+      "US-04": 4,
+      "US-05": 4,
+      "US-06": 5,
+      "US-07": 4,
+      "US-08": 4,
+      "US-09": 3,
+      "US-10": 5
+    },
+    "ac_length": {
+      "mean_gen_tokens": 30.8,
+      "mean_gold_tokens": 22.3
+    },
+    "format_violations": {}
+  }
+}

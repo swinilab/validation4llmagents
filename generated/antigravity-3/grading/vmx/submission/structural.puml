@@ -1,0 +1,74 @@
+@startuml structural
+
+enum OrderStatus {
+  submitted
+  pending
+  filled
+  shipped
+  closed
+}
+
+enum InvoiceStatus {
+  issued
+  paid
+}
+
+enum PaymentStatus {
+  pending
+  completed
+  failed
+}
+
+enum PaymentMethod {
+  bank
+  card
+  cash
+}
+
+class Customer {
+  name: String
+  address: String
+  phoneNumber: String
+  bankAccount: String
+}
+
+class Product {
+  name: String
+  description: String
+  price: Decimal
+  image: String
+}
+
+class Order {
+  orderDate: Date
+  totalAmount: Decimal
+  status: OrderStatus
+  paymentMethod: PaymentMethod
+}
+
+class OrderItem {
+  quantity: Integer
+  unitPrice: Decimal
+}
+
+class Invoice {
+  date: Date
+  amount: Decimal
+  status: InvoiceStatus
+  paymentMethod: PaymentMethod
+}
+
+class Payment {
+  date: Date
+  amount: Decimal
+  status: PaymentStatus
+  paymentMethod: PaymentMethod
+}
+
+Customer "1" -- "0..*" Order
+Order "1" *-- "1..*" OrderItem
+OrderItem "0..*" -- "1" Product
+Order "1" -- "0..1" Invoice
+Invoice "1" -- "0..*" Payment
+
+@enduml

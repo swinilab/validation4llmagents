@@ -1,0 +1,43 @@
+gen_id,gen_text,traceable,consistent,reviewer,timestamp
+US-01-AC01,"Name, address and phone are mandatory strings; bank account is optional.",yes,yes,Nguyen Duc Manh,28/10/2026
+US-01-AC03,"Given a new customer record with all mandatory fields, when the record is saved, then the system assigns a unique Customer-ID.",no,yes,Nguyen Duc Manh,28/10/2026
+US-02-AC01,"Each product has a name, description, price (decimal) and image URL.",yes,yes,Nguyen Duc Manh,28/10/2026
+US-02-AC03,"Given a request for the product list, when the system returns the list, then every product includes all four attributes.",yes,yes,Nguyen Duc Manh,28/10/2026
+US-04-AC01,Order total = Σ (order-item.quantity × order-item.unit-price).,yes,yes,Nguyen Duc Manh,28/10/2026
+US-05-AC01,"Given an Order with status submitted, when OrderStaff clicks Receive, then the Order status becomes pending.",yes,yes,Nguyen Duc Manh,28/10/2026
+US-05-AC02,The status transition submitted → pending is the only allowed transition from submitted.,yes,yes,Nguyen Duc Manh,28/10/2026
+US-05-AC03,"Given an Order whose status is filled, when OrderStaff attempts to receive it, then the system rejects the request and leaves the status unchanged.",yes,yes,Nguyen Duc Manh,28/10/2026
+US-06-AC01,"Given an Order with status pending, when OrderStaff selects Mark as Filled, then the Order status becomes filled.",yes,yes,Nguyen Duc Manh,28/10/2026
+US-07-AC01,"Given an Order with status pending, when OrderStaff selects Decline, then the Order status becomes closed.",yes,yes,Nguyen Duc Manh,28/10/2026
+US-08-AC02,Transition filled → shipped is the only allowed transition from filled.,yes,yes,Nguyen Duc Manh,28/10/2026
+US-08-AC03,"Given an Order with status pending, when OrderStaff attempts to ship, then the request is rejected and the status remains pending.",yes,yes,Nguyen Duc Manh,28/10/2026
+US-09-AC02,Only one Invoice may exist per Order.,yes,yes,Nguyen Duc Manh,28/10/2026
+US-09-AC03,"Given an Order whose status is submitted, pending or closed, when Accountant tries to raise an Invoice, then the request is rejected.",yes,yes,Nguyen Duc Manh,28/10/2026
+US-11-AC03,"Given a Payment whose status is failed, when Accountant attempts to confirm it, then the request is rejected and the status stays failed.",yes,yes,Nguyen Duc Manh,28/10/2026
+US-12-AC01,"Given a Payment with status pending, when Accountant marks it failed, then the Payment status becomes failed; the Invoice status remains unchanged.",yes,yes,Nguyen Duc Manh,28/10/2026
+US-13-AC01,"Given an Order with status shipped and a linked Invoice with status paid, when OrderStaff selects Close, then the Order status becomes closed.",yes,yes,Nguyen Duc Manh,28/10/2026
+US-13-AC03,"Given a shipped Order whose Invoice is not paid, when OrderStaff attempts to close, then the request is rejected and the status stays shipped.",yes,yes,Nguyen Duc Manh,28/10/2026
+US-14-AC02,"Order.status ∈ {submitted, pending, filled, shipped, closed}.",yes,yes,Nguyen Duc Manh,28/10/2026
+US-14-AC03,"Invoice.status ∈ {issued, paid}.",yes,yes,Nguyen Duc Manh,28/10/2026
+US-14-AC04,"Payment.status ∈ {pending, completed, failed}.",yes,yes,Nguyen Duc Manh,28/10/2026
+US-15-AC01,"Product.price, OrderItem.unitPrice, Order.totalAmount, Invoice.amount, Payment.amount are of type decimal(12,2).",yes,yes,Nguyen Duc Manh,28/10/2026
+US-15-AC03,No monetary field may be null.,yes,yes,Nguyen Duc Manh,28/10/2026
+US-16-AC01,"Every status transition creates an audit record (entity, oldStatus, newStatus, userId, timestamp).",yes,yes,Nguyen Duc Manh,28/10/2026
+US-17-AC01,No status transition is allowed from closed.,yes,yes,Nguyen Duc Manh,28/10/2026
+US-17-AC02,"Given a closed Order, when any staff attempts to change its status, then the request is rejected.",yes,yes,Nguyen Duc Manh,28/10/2026
+US-18-AC03,Unauthenticated requests are logged and rejected 100 % of the time.,no,yes,Nguyen Duc Manh,28/10/2026
+US-19-AC01,Only users with role Accountant may invoke the Confirm Payment or Reject Payment actions.,yes,yes,Nguyen Duc Manh,28/10/2026
+US-20-AC02,95 % of order submissions with ≤ 50 items shall complete within 2 seconds.,yes,yes,Nguyen Duc Manh,28/10/2026
+US-20-AC03,"Availability shall be ≥ 99.5 % per calendar month, with scheduled maintenance announced ≥ 24 h in advance.",yes,yes,Nguyen Duc Manh,28/10/2026
+US-01-AC02,Bank account numbers are stored encrypted at rest.,yes,yes,Nguyen Duc Manh,28/10/2026
+US-03-AC01,"Given a known Customer-ID, at least one order item and a valid payment method, when the order is submitted, then an Order is created with status submitted and the current date as order-date.",yes,yes,Nguyen Duc Manh,28/10/2026
+US-04-AC02,"Given a successfully created Order, when the total is queried, then the returned total equals the calculated sum.",yes,yes,Nguyen Duc Manh,28/10/2026
+US-06-AC02,No transition is allowed from pending to any status other than filled or closed.,yes,yes,Nguyen Duc Manh,28/10/2026
+US-07-AC02,Decline is only permitted from pending.,yes,yes,Nguyen Duc Manh,28/10/2026
+US-10-AC03,"Given an Invoice with status paid, when a Payment is submitted, then the system rejects the submission.",yes,yes,Nguyen Duc Manh,28/10/2026
+US-13-AC02,Closing is only allowed from shipped when the Invoice is paid.,yes,yes,Nguyen Duc Manh,28/10/2026
+US-14-AC01,All attributes except Customer.bankAccount are mandatory.,yes,yes,Nguyen Duc Manh,28/10/2026
+US-15-AC02,"Given any monetary input, when it is persisted, then the stored value retains two fractional digits.",no,no,Nguyen Duc Manh,28/10/2026
+US-17-AC03,The Order entity becomes read‑only after reaching closed.,yes,no,Nguyen Duc Manh,28/10/2026
+US-18-AC01,Every API call must contain a valid authentication token.,yes,yes,Nguyen Duc Manh,28/10/2026
+US-19-AC02,"Given a non‑Accountant user attempting to confirm a payment, when the request is processed, then the system returns HTTP 403 Forbidden.",yes,yes,Nguyen Duc Manh,28/10/2026

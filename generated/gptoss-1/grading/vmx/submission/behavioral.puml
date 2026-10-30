@@ -1,0 +1,53 @@
+@startuml behavioral
+
+' Swimlanes
+|Customer|
+start
+:RegisterCustomer;
+note right: US-01
+:BrowseProducts;
+note right: US-03
+:SubmitOrder;
+note right: US-04
+partition OrderProcessing {
+    |OrderStaff|
+    :ReceiveOrder;
+    note right: US-05
+    :MarkOrderPending;
+    note right: US-05
+    :FillOrder;
+    note right: US-06
+    fork
+        :ShipOrder;
+        note right: US-07
+    fork again
+        :RaiseInvoice;
+        note right: US-10
+    end fork
+    :CloseOrder;
+    note right: US-09
+}
+|Accountant|
+:RaiseInvoice;
+note right: US-10
+:SubmitPayment;
+note right: US-11
+:ConfirmPayment;
+note right: US-12
+:RejectPayment;
+note right: US-13
+stop
+
+' Object nodes showing status changes
+:Order [submitted];
+:Order [pending];
+:Order [filled];
+:Order [shipped];
+:Order [closed];
+:Invoice [issued];
+:Invoice [paid];
+:Payment [pending];
+:Payment [completed];
+:Payment [failed];
+
+@enduml

@@ -1,0 +1,21 @@
+element_id,kind,label,traceable,consistent,reviewer,timestamp
+A:Order.paymentMethod,attribute,+paymentMethod: PaymentMethod,yes,yes,Le Anh Duc,28/10/2026
+A:Payment.paymentMethod,attribute,+paymentMethod: PaymentMethod,yes,yes,Le Anh Duc,28/10/2026
+ACT:Decline Order,action,Decline Order,yes,yes,Le Anh Duc,28/10/2026
+ACT:Raise Invoice,action,Raise Invoice,yes,yes,Le Anh Duc,28/10/2026
+ACT:Receive Order,action,Receive Order,yes,yes,Le Anh Duc,28/10/2026
+ACT:Submit Order,action,Submit Order,yes,yes,Le Anh Duc,28/10/2026
+LANE:Decline Order,swimlane,OrderStaff,yes,yes,Le Anh Duc,28/10/2026
+LANE:Raise Invoice,swimlane,Accountant,yes,yes,Le Anh Duc,28/10/2026
+LANE:Receive Order,swimlane,OrderStaff,yes,yes,Le Anh Duc,28/10/2026
+LANE:Submit Order,swimlane,Customer,yes,yes,Le Anh Duc,28/10/2026
+R:Order--OrderItem,relationship,contains >,yes,yes,Le Anh Duc,28/10/2026
+T:Confirm Payment->Submit Payment,transition,Confirm Payment->Submit Payment,no,no,Le Anh Duc,28/10/2026
+T:Fill Order->Raise Invoice,transition,Fill Order->Raise Invoice,yes,yes,Le Anh Duc,28/10/2026
+T:Raise Invoice->Submit Payment,transition,Raise Invoice->Submit Payment,yes,yes,Le Anh Duc,28/10/2026
+T:Receive Order->Decline Order,transition,Receive Order->Decline Order,yes,yes,Le Anh Duc,28/10/2026
+T:Receive Order->Fill Order,transition,Receive Order->Fill Order,yes,yes,Le Anh Duc,28/10/2026
+T:Reject Payment->Close Order,transition,Reject Payment->Close Order,yes,no,Le Anh Duc,28/10/2026
+T:Submit Order->Receive Order,transition,Submit Order->Receive Order,yes,yes,Le Anh Duc,28/10/2026
+T:Submit Payment->Confirm Payment,transition,Submit Payment->Confirm Payment,yes,yes,Le Anh Duc,28/10/2026
+T:Submit Payment->Reject Payment,transition,Submit Payment->Reject Payment,yes,yes,Le Anh Duc,28/10/2026

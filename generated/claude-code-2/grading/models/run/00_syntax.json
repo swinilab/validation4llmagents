@@ -1,0 +1,34 @@
+{
+  "structural": {
+    "validity": 0.9808,
+    "accepted": 51,
+    "total": 52,
+    "parse_error": null,
+    "rejections": [
+      {
+        "line": 62,
+        "source": "OrderItem \"0..*\" --> \"1\" Product : refers to",
+        "code": "malformed_edge"
+      }
+    ],
+    "plantuml": {
+      "accepted": true,
+      "error": null
+    },
+    "gate": "pass",
+    "gate_mode": "plantuml"
+  },
+  "behavioral": {
+    "validity": 1.0,
+    "accepted": 53,
+    "total": 53,
+    "parse_error": null,
+    "rejections": [],
+    "plantuml": {
+      "accepted": true,
+      "error": null
+    },
+    "gate": "pass",
+    "gate_mode": "plantuml"
+  }
+}

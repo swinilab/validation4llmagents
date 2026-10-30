@@ -1,0 +1,230 @@
+{
+  "run_id": "gptoss-1",
+  "primary_threshold": 0.75,
+  "status": "final",
+  "unresolved": 0,
+  "pending_type": 0,
+  "pending_guard": 0,
+  "pending_rubric": 0,
+  "manual_default": null,
+  "kappa": 0.5272,
+  "kappa_n": 33,
+  "kappa_pool": "per_section",
+  "kappa_accept": 0.6,
+  "kappa_accepted": false,
+  "kappa_role": "observation",
+  "control": {
+    "item_1": "pass",
+    "item_2": "pass",
+    "item_3": "pass",
+    "item_4": "fail",
+    "item_5": "fail",
+    "item_6": "pass"
+  },
+  "diagnostics": {
+    "threshold": 0.75,
+    "gate_blocked": {},
+    "rule_rejections": {
+      "swimlane": 1
+    },
+    "prerequisite_blocked": {
+      "structural/attribute": 1,
+      "structural/literal": 2
+    },
+    "label_collapsed": {
+      "structural": {
+        "gold": [],
+        "gen": []
+      },
+      "behavioral": {
+        "gold": [
+          {
+            "element_id": "ACT:Make Payment",
+            "kind": "action",
+            "kept_line": 32,
+            "collapsed_line": 39
+          },
+          {
+            "element_id": "LANE:Make Payment",
+            "kind": "swimlane",
+            "kept_line": 32,
+            "collapsed_line": 39
+          },
+          {
+            "element_id": "OBJ:Payment[pending]",
+            "kind": "object_node",
+            "kept_line": 33,
+            "collapsed_line": 40
+          },
+          {
+            "element_id": "T:Make Payment->Accept Payment",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Make Payment->Reject Payment",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          }
+        ],
+        "gen": [
+          {
+            "element_id": "ACT:RaiseInvoice",
+            "kind": "action",
+            "kept_line": 24,
+            "collapsed_line": 31
+          },
+          {
+            "element_id": "LANE:RaiseInvoice",
+            "kind": "swimlane",
+            "kept_line": 24,
+            "collapsed_line": 31
+          }
+        ]
+      }
+    },
+    "dropped_arrows": {
+      "structural": [],
+      "behavioral": []
+    },
+    "cross_kind_near_miss": [],
+    "manual_resolved": {
+      "type": {
+        "PASS": 1
+      },
+      "guard": {}
+    },
+    "elements_per_kind": {
+      "structural": {
+        "gen": {
+          "class": 7,
+          "enum": 4,
+          "literal": 13,
+          "attribute": 23,
+          "relationship": 2
+        },
+        "gold": {
+          "class": 6,
+          "enum": 4,
+          "literal": 13,
+          "attribute": 22,
+          "relationship": 5
+        }
+      },
+      "behavioral": {
+        "gen": {
+          "action": 12,
+          "swimlane": 12,
+          "object_node": 10,
+          "transition": 13
+        },
+        "gold": {
+          "action": 9,
+          "swimlane": 9,
+          "object_node": 10,
+          "transition": 11
+        }
+      }
+    },
+    "format_violations": {
+      "duplicate_label": 2,
+      "orphan_node": 10,
+      "unknown_rel_arrow": 3
+    },
+    "excluded_candidates": {},
+    "stale_ledger_rows": {
+      "type": [],
+      "guard": []
+    }
+  },
+  "structural": {
+    "syntax_validity": 0.9423,
+    "gate": "pass",
+    "n_gen": 49,
+    "gold_total": 50,
+    "rubric_pass": 7,
+    "sweep": [
+      {
+        "threshold": 0.7,
+        "recall": 0.86,
+        "precision": 1.0204,
+        "f1": 0.9334,
+        "matched_gold": 43,
+        "matched_gen": 43
+      },
+      {
+        "threshold": 0.75,
+        "recall": 0.84,
+        "precision": 1.0,
+        "f1": 0.913,
+        "matched_gold": 42,
+        "matched_gen": 42
+      },
+      {
+        "threshold": 0.8,
+        "recall": 0.82,
+        "precision": 0.9796,
+        "f1": 0.8927,
+        "matched_gold": 41,
+        "matched_gen": 41
+      },
+      {
+        "threshold": 0.85,
+        "recall": 0.82,
+        "precision": 0.9796,
+        "f1": 0.8927,
+        "matched_gold": 41,
+        "matched_gen": 41
+      }
+    ],
+    "recall": 0.84,
+    "precision": 1.0,
+    "f1": 0.913
+  },
+  "behavioral": {
+    "syntax_validity": 1.0,
+    "gate": "pass",
+    "n_gen": 47,
+    "gold_total": 39,
+    "rubric_pass": 22,
+    "sweep": [
+      {
+        "threshold": 0.7,
+        "recall": 0.5897,
+        "precision": 0.9574,
+        "f1": 0.7299,
+        "matched_gold": 23,
+        "matched_gen": 23
+      },
+      {
+        "threshold": 0.75,
+        "recall": 0.4872,
+        "precision": 0.8723,
+        "f1": 0.6252,
+        "matched_gold": 19,
+        "matched_gen": 19
+      },
+      {
+        "threshold": 0.8,
+        "recall": 0.359,
+        "precision": 0.766,
+        "f1": 0.4888,
+        "matched_gold": 14,
+        "matched_gen": 14
+      },
+      {
+        "threshold": 0.85,
+        "recall": 0.359,
+        "precision": 0.766,
+        "f1": 0.4888,
+        "matched_gold": 14,
+        "matched_gen": 14
+      }
+    ],
+    "recall": 0.4872,
+    "precision": 0.8723,
+    "f1": 0.6252
+  }
+}

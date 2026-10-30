@@ -1,0 +1,29 @@
+element_id,kind,label,traceable,consistent,reviewer,timestamp
+ACT:Browse products,action,Browse products,yes,yes,vuhuy,27/10/2026
+ACT:Decline order,action,Decline order,yes,yes,vuhuy,27/10/2026
+ACT:Maintain customer profile,action,Maintain customer profile,no,yes,vuhuy,27/10/2026
+ACT:Raise invoice,action,Raise invoice,yes,yes,vuhuy,27/10/2026
+ACT:Receive order,action,Receive order,yes,yes,vuhuy,27/10/2026
+ACT:Submit order,action,Submit order,yes,yes,vuhuy,27/10/2026
+LANE:Browse products,swimlane,Customer,yes,yes,vuhuy,27/10/2026
+LANE:Decline order,swimlane,OrderStaff,yes,yes,vuhuy,27/10/2026
+LANE:Maintain customer profile,swimlane,Customer,no,yes,vuhuy,27/10/2026
+LANE:Raise invoice,swimlane,Accountant,yes,yes,vuhuy,27/10/2026
+LANE:Receive order,swimlane,OrderStaff,yes,yes,vuhuy,27/10/2026
+LANE:Submit order,swimlane,Customer,yes,yes,vuhuy,27/10/2026
+T:Browse products->Submit order,transition,Browse products->Submit order,yes,yes,vuhuy,27/10/2026
+T:Confirm payment->Submit payment,transition,Confirm payment->Submit payment,no,no,vuhuy,27/10/2026
+T:Fill order->Raise invoice,transition,Fill order->Raise invoice,yes,yes,vuhuy,27/10/2026
+T:Maintain customer profile->Browse products,transition,Maintain customer profile->Browse products,no,yes,vuhuy,27/10/2026
+T:Raise invoice->Submit payment,transition,Raise invoice->Submit payment,yes,yes,vuhuy,27/10/2026
+T:Receive order->Decline order,transition,Receive order->Decline order,yes,yes,vuhuy,27/10/2026
+T:Receive order->Fill order,transition,Receive order->Fill order,yes,yes,vuhuy,27/10/2026
+T:Reject payment->Close order,transition,Reject payment->Close order,no,no,vuhuy,27/10/2026
+T:Reject payment->Submit payment,transition,Reject payment->Submit payment,yes,yes,vuhuy,27/10/2026
+T:Submit order->Receive order,transition,Submit order->Receive order,yes,yes,vuhuy,27/10/2026
+T:Submit payment->Confirm payment,transition,Submit payment->Confirm payment,yes,yes,vuhuy,27/10/2026
+T:Submit payment->Reject payment,transition,Submit payment->Reject payment,yes,yes,vuhuy,27/10/2026
+A:Order.paymentMethod,attribute,paymentMethod : PaymentMethod,yes,yes,vuhuy,27/10/2026
+A:Payment.paymentMethod,attribute,paymentMethod : PaymentMethod,yes,yes,vuhuy,27/10/2026
+A:Product.image,attribute,image : Byte[],yes,yes,vuhuy,27/10/2026
+R:Order--OrderItem,relationship,contains,yes,yes,vuhuy,27/10/2026

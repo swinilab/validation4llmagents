@@ -1,0 +1,83 @@
+{
+  "run_id": "claude-code-3",
+  "primary_threshold": 0.75,
+  "status": "final",
+  "s_size": 78,
+  "gold_total": 70,
+  "rubric_pass": 47,
+  "pending_polarity": 0,
+  "pending_rubric": 0,
+  "judge_model": "deepseek-v4.1-flash:cloud",
+  "kappa": 0.0,
+  "kappa_n": 30,
+  "kappa_accept": 0.6,
+  "kappa_accepted": false,
+  "manual_default": null,
+  "sweep": [
+    {
+      "threshold": 0.7,
+      "recall": 0.4571,
+      "precision": 0.4103,
+      "f1": 0.4324,
+      "matched_gold": 32,
+      "matched_gen": 32
+    },
+    {
+      "threshold": 0.75,
+      "recall": 0.4429,
+      "precision": 0.9872,
+      "f1": 0.6115,
+      "matched_gold": 31,
+      "matched_gen": 30
+    },
+    {
+      "threshold": 0.8,
+      "recall": 0.3857,
+      "precision": 0.3333,
+      "f1": 0.3576,
+      "matched_gold": 27,
+      "matched_gen": 26
+    },
+    {
+      "threshold": 0.85,
+      "recall": 0.3286,
+      "precision": 0.2949,
+      "f1": 0.3108,
+      "matched_gold": 23,
+      "matched_gen": 23
+    }
+  ],
+  "diagnostics": {
+    "cross_us_matches": 14,
+    "cross_kind_would_cover": 0,
+    "axis_rejections": {
+      "polarity": 45,
+      "identifier": 144,
+      "numeric": 0
+    },
+    "dedup_removed": 21,
+    "manual_resolved": {
+      "PASS": 1,
+      "FAIL": 4
+    },
+    "ac_per_story": {
+      "US-01": 6,
+      "US-02": 6,
+      "US-03": 14,
+      "US-04": 12,
+      "US-05": 9,
+      "US-06": 5,
+      "US-07": 5,
+      "US-08": 6,
+      "US-09": 8,
+      "US-10": 8,
+      "US-11": 5,
+      "US-12": 7
+    },
+    "ac_length": {
+      "mean_gen_tokens": 22.9,
+      "mean_gold_tokens": 22.3
+    },
+    "format_violations": {}
+  }
+}

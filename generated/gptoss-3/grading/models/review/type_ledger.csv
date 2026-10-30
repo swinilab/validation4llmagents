@@ -1,0 +1,2 @@
+gold_id,gen_id,gold_type,gen_type,cosine,verdict,reviewer,timestamp,note
+A:Customer.bankAccount,A:Customer.bankAccount,String,BankAccount,1.0,PASS,Nguyen Nhat Lam,29/10/2026,

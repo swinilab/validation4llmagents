@@ -1,0 +1,220 @@
+{
+  "run_id": "antigravity-3",
+  "submission_dir": "generated/antigravity-3/grading/models/submission",
+  "gold_paths": {
+    "structural": "materials/G2-structural-model.puml",
+    "behavioral": "materials/G3-behavioral-model.puml"
+  },
+  "domain_path": "materials/M1a.json",
+  "diagrams": [
+    "structural",
+    "behavioral"
+  ],
+  "embedding_model": "sentence-transformers/all-mpnet-base-v2",
+  "embedding_revision": null,
+  "sentence_transformers_version": "6.2.0",
+  "pooling": "mean",
+  "normalized": true,
+  "parser_version": "1.0.0",
+  "supported_constructs": [
+    "class",
+    "abstract class",
+    "interface",
+    "enum",
+    "attribute",
+    "method",
+    "association",
+    "aggregation",
+    "composition",
+    "generalization",
+    "realization",
+    "dependency",
+    "hide",
+    "skinparam",
+    "title",
+    "note",
+    "start",
+    "stop",
+    "end",
+    "activity",
+    "object node",
+    "swimlane",
+    "if/elseif/else/endif",
+    "while/endwhile",
+    "repeat/repeat while",
+    "fork/fork again/end fork",
+    "split/split again/end split",
+    "detach",
+    "kill",
+    "label/goto",
+    "partition",
+    "group",
+    "style",
+    "arrow label",
+    "backward",
+    "break"
+  ],
+  "unsupported_constructs": [
+    "state diagram syntax",
+    "sequence diagram syntax",
+    "component/deployment diagram syntax",
+    "json/yaml/wbs/mindmap diagrams",
+    "preprocessor directives (!define, !include, !if)",
+    "sprite/inline image declarations",
+    "swimlane alias with colour-only redefinition"
+  ],
+  "on_pending": "provisional",
+  "config": {
+    "judge_model": "deepseek-v4.1-flash:cloud",
+    "judge_max_attempts": 3,
+    "kappa_pool": "per_section",
+    "judge_temperature": 0,
+    "normalize_embeddings": true,
+    "manual_default": "not_covered",
+    "embedding_model": "sentence-transformers/all-mpnet-base-v2",
+    "pooling": "mean",
+    "threshold_models": 0.75,
+    "kappa_sample_size": 30,
+    "judge_api_base": "https://ollama.com/v1",
+    "kappa_accept": 0.6,
+    "random_seed": 20261024,
+    "sweep_models": [
+      0.7,
+      0.75,
+      0.8,
+      0.85
+    ],
+    "syntax_gate": "plantuml",
+    "embedding_revision": null,
+    "plantuml": {
+      "jar": "tools/plantuml.jar",
+      "java_cmd": "java",
+      "timeout_seconds": 60
+    }
+  },
+  "rules": {
+    "status_sets": {
+      "order": [
+        "submitted",
+        "pending",
+        "filled",
+        "shipped",
+        "closed"
+      ],
+      "invoice": [
+        "issued",
+        "paid"
+      ],
+      "payment": [
+        "pending",
+        "completed",
+        "failed"
+      ]
+    },
+    "payment_methods": [
+      "bank",
+      "card",
+      "cash"
+    ],
+    "roles": [
+      "Customer",
+      "OrderStaff",
+      "Accountant"
+    ],
+    "roles_case_sensitive": true,
+    "type_table": {
+      "Decimal": {
+        "accept": [
+          "BigDecimal",
+          "Numeric",
+          "Money"
+        ],
+        "warn": [
+          "Float",
+          "Double"
+        ],
+        "fail": [
+          "String",
+          "Integer"
+        ]
+      },
+      "Integer": {
+        "accept": [
+          "Int",
+          "Long"
+        ],
+        "warn": [],
+        "fail": [
+          "String",
+          "Decimal"
+        ]
+      },
+      "Date": {
+        "accept": [
+          "DateTime",
+          "LocalDate"
+        ],
+        "warn": [
+          "Timestamp"
+        ],
+        "fail": [
+          "String"
+        ]
+      },
+      "String": {
+        "accept": [
+          "Text",
+          "VarChar"
+        ],
+        "warn": [],
+        "fail": [
+          "Integer",
+          "Decimal",
+          "Float"
+        ]
+      }
+    },
+    "type_unlisted": "manual",
+    "rel_type_map": {
+      "*--": "composition",
+      "o--": "aggregation",
+      "--": "association",
+      "<|--": "generalization",
+      "<|..": "realization"
+    },
+    "drop_arrows": [
+      "..>"
+    ],
+    "guard_aliases": {
+      "accepted": [
+        "accepted",
+        "approved",
+        "valid",
+        "ok"
+      ],
+      "declined": [
+        "declined",
+        "rejected",
+        "invalid",
+        "refused"
+      ],
+      "authorized": [
+        "authorized",
+        "authorised",
+        "successful"
+      ]
+    },
+    "normalization": {
+      "strip_stereotypes": true,
+      "strip_visibility": true,
+      "collapse_separators": [
+        "_",
+        "-"
+      ],
+      "lowercase": false
+    }
+  },
+  "code_commit": "f461a1c39f52055c68a112263cf43f4fdb6ca685",
+  "started_at": "2026-10-29T15:35:53+00:00",
+  "finished_at": "2026-10-29T15:36:03+00:00"
+}

@@ -1,0 +1,55 @@
+element_id,kind,label,traceable,consistent,reviewer,timestamp
+ACT:Create Invoice,action,Create Invoice,yes,yes,Nguyen Nhat Lam,29/10/2026
+ACT:Fill Order,action,Fill Order,yes,yes,Nguyen Nhat Lam,29/10/2026
+ACT:Reject Payment,action,Reject Payment,yes,yes,Nguyen Nhat Lam,29/10/2026
+ACT:Submit Order,action,Submit Order,yes,yes,Nguyen Nhat Lam,29/10/2026
+ACT:Submit Payment,action,Submit Payment,yes,yes,Nguyen Nhat Lam,29/10/2026
+LANE:Close Order,swimlane,OrderStaff,yes,yes,Nguyen Nhat Lam,29/10/2026
+LANE:Link Invoice to Order,swimlane,Accountant,yes,yes,Nguyen Nhat Lam,29/10/2026
+LANE:Receive Order,swimlane,OrderStaff,yes,yes,Nguyen Nhat Lam,29/10/2026
+LANE:Reject Payment,swimlane,Accountant,yes,yes,Nguyen Nhat Lam,29/10/2026
+LANE:Submit Payment,swimlane,Accountant,yes,no,Nguyen Nhat Lam,29/10/2026
+OBJ:Create Invoice[issued],object_node,Create Invoice [issued],yes,yes,Nguyen Nhat Lam,29/10/2026
+OBJ:Create Order[submitted],object_node,Create Order [submitted],yes,yes,Nguyen Nhat Lam,29/10/2026
+OBJ:Create Payment[pending],object_node,Create Payment [pending],yes,yes,Nguyen Nhat Lam,29/10/2026
+OBJ:Set Invoice[issued],object_node,Set Invoice [issued],yes,yes,Nguyen Nhat Lam,29/10/2026
+OBJ:Set Invoice[paid],object_node,Set Invoice [paid],yes,yes,Nguyen Nhat Lam,29/10/2026
+OBJ:Set Order[closed],object_node,Set Order [closed],yes,yes,Nguyen Nhat Lam,29/10/2026
+OBJ:Update Invoice[paid],object_node,Update Invoice [paid],yes,yes,Nguyen Nhat Lam,29/10/2026
+OBJ:Update Order[closed],object_node,Update Order [closed],yes,yes,Nguyen Nhat Lam,29/10/2026
+OBJ:Update Order[filled],object_node,Update Order [filled],yes,yes,Nguyen Nhat Lam,29/10/2026
+T:Confirm Payment->Close Order,transition,Confirm Payment->Close Order,yes,yes,Nguyen Nhat Lam,29/10/2026
+T:Decline Order->Close Order,transition,Decline Order->Close Order,yes,no,Nguyen Nhat Lam,29/10/2026
+T:Decline Order->Ship Order,transition,Decline Order->Ship Order,yes,no,Nguyen Nhat Lam,29/10/2026
+T:Decline Order->Submit Payment,transition,Decline Order->Submit Payment,yes,no,Nguyen Nhat Lam,29/10/2026
+T:Fill Order->Decline Order,transition,Fill Order->Decline Order,yes,no,Nguyen Nhat Lam,29/10/2026
+T:Receive Order->Close Order,transition,Receive Order->Close Order,yes,no,Nguyen Nhat Lam,29/10/2026
+T:Submit Order->Close Order,transition,Submit Order->Close Order,yes,no,Nguyen Nhat Lam,29/10/2026
+T:Submit Order->Confirm Payment,transition,Submit Order->Confirm Payment,yes,no,Nguyen Nhat Lam,29/10/2026
+T:Submit Order->Fill Order,transition,Submit Order->Fill Order,yes,no,Nguyen Nhat Lam,29/10/2026
+T:Submit Order->Reject Payment,transition,Submit Order->Reject Payment,yes,no,Nguyen Nhat Lam,29/10/2026
+T:Submit Order->Submit Payment,transition,Submit Order->Submit Payment,yes,no,Nguyen Nhat Lam,29/10/2026
+A:Order.id,attribute,+id: UUID,no,yes,Nguyen Nhat Lam,29/10/2026
+A:Order.paymentMethod,attribute,+paymentMethod: PaymentMethod,yes,yes,Nguyen Nhat Lam,29/10/2026
+A:Payment.paymentMethod,attribute,+paymentMethod: PaymentMethod,yes,yes,Nguyen Nhat Lam,29/10/2026
+A:Product.imageUrl,attribute,+imageUrl: String,yes,yes,Nguyen Nhat Lam,29/10/2026
+ACT:Receive Order,action,Receive Order,yes,yes,Nguyen Nhat Lam,29/10/2026
+LANE:Decline Order,swimlane,OrderStaff,yes,yes,Nguyen Nhat Lam,29/10/2026
+LANE:Submit Order,swimlane,Customer,yes,yes,Nguyen Nhat Lam,29/10/2026
+OBJ:Update Order[pending],object_node,Update Order [pending],yes,yes,Nguyen Nhat Lam,29/10/2026
+OBJ:Update Order[shipped],object_node,Update Order [shipped],yes,yes,Nguyen Nhat Lam,29/10/2026
+R:Customer--BankAccount,relationship,has >,yes,yes,Nguyen Nhat Lam,29/10/2026
+R:Order--OrderItem,relationship,contains >,yes,yes,Nguyen Nhat Lam,29/10/2026
+T:Create Invoice->Link Invoice to Order,transition,Create Invoice->Link Invoice to Order,yes,yes,Nguyen Nhat Lam,29/10/2026
+T:Decline Order->Confirm Payment,transition,Decline Order->Confirm Payment,yes,no,Nguyen Nhat Lam,29/10/2026
+T:Decline Order->Create Invoice,transition,Decline Order->Create Invoice,yes,no,Nguyen Nhat Lam,29/10/2026
+T:Fill Order->Confirm Payment,transition,Fill Order->Confirm Payment,yes,no,Nguyen Nhat Lam,29/10/2026
+T:Fill Order->Create Invoice,transition,Fill Order->Create Invoice,yes,yes,Nguyen Nhat Lam,29/10/2026
+T:Receive Order->Fill Order,transition,Receive Order->Fill Order,yes,yes,Nguyen Nhat Lam,29/10/2026
+T:Ship Order->Close Order,transition,Ship Order->Close Order,yes,no,Nguyen Nhat Lam,29/10/2026
+T:Ship Order->Confirm Payment,transition,Ship Order->Confirm Payment,yes,no,Nguyen Nhat Lam,29/10/2026
+A:Payment.id,attribute,+id: UUID,no,yes,Nguyen Nhat Lam,29/10/2026
+A:Product.id,attribute,+id: UUID,no,yes,Nguyen Nhat Lam,29/10/2026
+C:BankAccount,class,BankAccount,yes,yes,Nguyen Nhat Lam,29/10/2026
+R:Customer--Order,relationship,places >,yes,yes,Nguyen Nhat Lam,29/10/2026
+T:Decline Order->Reject Payment,transition,Decline Order->Reject Payment,yes,no,Nguyen Nhat Lam,29/10/2026

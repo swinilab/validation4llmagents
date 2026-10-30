@@ -1,0 +1,79 @@
+{
+  "score": 1.0,
+  "covered": 18,
+  "total": 18,
+  "requirements": [
+    {
+      "id": "US-01",
+      "outcome": "covered"
+    },
+    {
+      "id": "US-02",
+      "outcome": "covered"
+    },
+    {
+      "id": "US-03",
+      "outcome": "covered"
+    },
+    {
+      "id": "US-04",
+      "outcome": "covered"
+    },
+    {
+      "id": "US-05",
+      "outcome": "covered"
+    },
+    {
+      "id": "US-06",
+      "outcome": "covered"
+    },
+    {
+      "id": "US-07",
+      "outcome": "covered"
+    },
+    {
+      "id": "US-08",
+      "outcome": "covered"
+    },
+    {
+      "id": "US-09",
+      "outcome": "covered"
+    },
+    {
+      "id": "US-10",
+      "outcome": "covered"
+    },
+    {
+      "id": "NFR-01",
+      "outcome": "covered"
+    },
+    {
+      "id": "NFR-02",
+      "outcome": "covered"
+    },
+    {
+      "id": "NFR-03",
+      "outcome": "covered"
+    },
+    {
+      "id": "NFR-04",
+      "outcome": "covered"
+    },
+    {
+      "id": "NFR-05",
+      "outcome": "covered"
+    },
+    {
+      "id": "NFR-06",
+      "outcome": "covered"
+    },
+    {
+      "id": "NFR-07",
+      "outcome": "covered"
+    },
+    {
+      "id": "NFR-08",
+      "outcome": "covered"
+    }
+  ]
+}

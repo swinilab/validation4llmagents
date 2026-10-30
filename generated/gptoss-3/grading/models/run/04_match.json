@@ -1,0 +1,783 @@
+{
+  "structural": {
+    "assigned": [
+      {
+        "diagram": "structural",
+        "kind": "class",
+        "gold_id": "C:Customer",
+        "gen_id": "C:Customer",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "class"
+      },
+      {
+        "diagram": "structural",
+        "kind": "class",
+        "gold_id": "C:Invoice",
+        "gen_id": "C:Invoice",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "class"
+      },
+      {
+        "diagram": "structural",
+        "kind": "class",
+        "gold_id": "C:Order",
+        "gen_id": "C:Order",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "class"
+      },
+      {
+        "diagram": "structural",
+        "kind": "class",
+        "gold_id": "C:OrderItem",
+        "gen_id": "C:OrderItem",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "class"
+      },
+      {
+        "diagram": "structural",
+        "kind": "class",
+        "gold_id": "C:Payment",
+        "gen_id": "C:Payment",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "class"
+      },
+      {
+        "diagram": "structural",
+        "kind": "class",
+        "gold_id": "C:Product",
+        "gen_id": "C:Product",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "class"
+      },
+      {
+        "diagram": "structural",
+        "kind": "enum",
+        "gold_id": "E:InvoiceStatus",
+        "gen_id": "E:InvoiceStatus",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "enum"
+      },
+      {
+        "diagram": "structural",
+        "kind": "enum",
+        "gold_id": "E:OrderStatus",
+        "gen_id": "E:OrderStatus",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "enum"
+      },
+      {
+        "diagram": "structural",
+        "kind": "enum",
+        "gold_id": "E:PaymentMethod",
+        "gen_id": "E:PaymentMethod",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "enum"
+      },
+      {
+        "diagram": "structural",
+        "kind": "enum",
+        "gold_id": "E:PaymentStatus",
+        "gen_id": "E:PaymentStatus",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "enum"
+      },
+      {
+        "diagram": "structural",
+        "kind": "attribute",
+        "gold_id": "A:Customer.address",
+        "gen_id": "A:Customer.address",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "attribute"
+      },
+      {
+        "diagram": "structural",
+        "kind": "attribute",
+        "gold_id": "A:Customer.bankAccount",
+        "gen_id": "A:Customer.bankAccount",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "attribute"
+      },
+      {
+        "diagram": "structural",
+        "kind": "attribute",
+        "gold_id": "A:Customer.name",
+        "gen_id": "A:Customer.name",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "attribute"
+      },
+      {
+        "diagram": "structural",
+        "kind": "attribute",
+        "gold_id": "A:Customer.phone",
+        "gen_id": "A:Customer.phone",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "attribute"
+      },
+      {
+        "diagram": "structural",
+        "kind": "attribute",
+        "gold_id": "A:Invoice.amount",
+        "gen_id": "A:Invoice.amount",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "attribute"
+      },
+      {
+        "diagram": "structural",
+        "kind": "attribute",
+        "gold_id": "A:Invoice.date",
+        "gen_id": "A:Invoice.date",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "attribute"
+      },
+      {
+        "diagram": "structural",
+        "kind": "attribute",
+        "gold_id": "A:Invoice.method",
+        "gen_id": "A:Invoice.paymentMethod",
+        "cosine": 0.7807,
+        "excluded": null,
+        "stage": "attribute"
+      },
+      {
+        "diagram": "structural",
+        "kind": "attribute",
+        "gold_id": "A:Invoice.status",
+        "gen_id": "A:Invoice.status",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "attribute"
+      },
+      {
+        "diagram": "structural",
+        "kind": "attribute",
+        "gold_id": "A:Order.orderDate",
+        "gen_id": "A:Order.orderDate",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "attribute"
+      },
+      {
+        "diagram": "structural",
+        "kind": "attribute",
+        "gold_id": "A:Order.status",
+        "gen_id": "A:Order.status",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "attribute"
+      },
+      {
+        "diagram": "structural",
+        "kind": "attribute",
+        "gold_id": "A:Order.totalAmount",
+        "gen_id": "A:Order.totalAmount",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "attribute"
+      },
+      {
+        "diagram": "structural",
+        "kind": "attribute",
+        "gold_id": "A:OrderItem.quantity",
+        "gen_id": "A:OrderItem.quantity",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "attribute"
+      },
+      {
+        "diagram": "structural",
+        "kind": "attribute",
+        "gold_id": "A:OrderItem.unitPrice",
+        "gen_id": "A:OrderItem.unitPrice",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "attribute"
+      },
+      {
+        "diagram": "structural",
+        "kind": "attribute",
+        "gold_id": "A:Payment.amount",
+        "gen_id": "A:Payment.amount",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "attribute"
+      },
+      {
+        "diagram": "structural",
+        "kind": "attribute",
+        "gold_id": "A:Payment.date",
+        "gen_id": "A:Payment.date",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "attribute"
+      },
+      {
+        "diagram": "structural",
+        "kind": "attribute",
+        "gold_id": "A:Payment.status",
+        "gen_id": "A:Payment.status",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "attribute"
+      },
+      {
+        "diagram": "structural",
+        "kind": "attribute",
+        "gold_id": "A:Product.description",
+        "gen_id": "A:Product.description",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "attribute"
+      },
+      {
+        "diagram": "structural",
+        "kind": "attribute",
+        "gold_id": "A:Product.image",
+        "gen_id": "A:Product.imageUrl",
+        "cosine": 0.7297,
+        "excluded": null,
+        "stage": "attribute"
+      },
+      {
+        "diagram": "structural",
+        "kind": "attribute",
+        "gold_id": "A:Product.name",
+        "gen_id": "A:Product.name",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "attribute"
+      },
+      {
+        "diagram": "structural",
+        "kind": "attribute",
+        "gold_id": "A:Product.price",
+        "gen_id": "A:Product.price",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "attribute"
+      },
+      {
+        "diagram": "structural",
+        "kind": "literal",
+        "gold_id": "L:InvoiceStatus.issued",
+        "gen_id": "L:InvoiceStatus.issued",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "literal"
+      },
+      {
+        "diagram": "structural",
+        "kind": "literal",
+        "gold_id": "L:InvoiceStatus.paid",
+        "gen_id": "L:InvoiceStatus.paid",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "literal"
+      },
+      {
+        "diagram": "structural",
+        "kind": "literal",
+        "gold_id": "L:OrderStatus.closed",
+        "gen_id": "L:OrderStatus.closed",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "literal"
+      },
+      {
+        "diagram": "structural",
+        "kind": "literal",
+        "gold_id": "L:OrderStatus.filled",
+        "gen_id": "L:OrderStatus.filled",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "literal"
+      },
+      {
+        "diagram": "structural",
+        "kind": "literal",
+        "gold_id": "L:OrderStatus.pending",
+        "gen_id": "L:OrderStatus.pending",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "literal"
+      },
+      {
+        "diagram": "structural",
+        "kind": "literal",
+        "gold_id": "L:OrderStatus.shipped",
+        "gen_id": "L:OrderStatus.shipped",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "literal"
+      },
+      {
+        "diagram": "structural",
+        "kind": "literal",
+        "gold_id": "L:OrderStatus.submitted",
+        "gen_id": "L:OrderStatus.submitted",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "literal"
+      },
+      {
+        "diagram": "structural",
+        "kind": "literal",
+        "gold_id": "L:PaymentMethod.bank",
+        "gen_id": "L:PaymentMethod.bank",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "literal"
+      },
+      {
+        "diagram": "structural",
+        "kind": "literal",
+        "gold_id": "L:PaymentMethod.card",
+        "gen_id": "L:PaymentMethod.card",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "literal"
+      },
+      {
+        "diagram": "structural",
+        "kind": "literal",
+        "gold_id": "L:PaymentMethod.cash",
+        "gen_id": "L:PaymentMethod.cash",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "literal"
+      },
+      {
+        "diagram": "structural",
+        "kind": "literal",
+        "gold_id": "L:PaymentStatus.completed",
+        "gen_id": "L:PaymentStatus.completed",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "literal"
+      },
+      {
+        "diagram": "structural",
+        "kind": "literal",
+        "gold_id": "L:PaymentStatus.failed",
+        "gen_id": "L:PaymentStatus.failed",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "literal"
+      },
+      {
+        "diagram": "structural",
+        "kind": "literal",
+        "gold_id": "L:PaymentStatus.pending",
+        "gen_id": "L:PaymentStatus.pending",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "literal"
+      },
+      {
+        "diagram": "structural",
+        "kind": "relationship",
+        "gold_id": "R:Customer--Order",
+        "gen_id": "R:Customer--Order",
+        "cosine": 0.8678,
+        "excluded": null,
+        "stage": "relationship"
+      },
+      {
+        "diagram": "structural",
+        "kind": "relationship",
+        "gold_id": "R:Order--Invoice",
+        "gen_id": "R:Order--Invoice",
+        "cosine": 0.9612,
+        "excluded": null,
+        "stage": "relationship"
+      }
+    ],
+    "excluded": [
+      {
+        "diagram": "structural",
+        "kind": "attribute",
+        "gold_id": "A:Customer.bankAccount",
+        "gen_id": "A:BankAccount.bankName",
+        "cosine": 0.808,
+        "excluded": "owner_unmatched"
+      },
+      {
+        "diagram": "structural",
+        "kind": "attribute",
+        "gold_id": "A:Customer.bankAccount",
+        "gen_id": "A:BankAccount.accountNumber",
+        "cosine": 0.8059,
+        "excluded": "owner_unmatched"
+      },
+      {
+        "diagram": "structural",
+        "kind": "literal",
+        "gold_id": "L:OrderStatus.pending",
+        "gen_id": "L:PaymentStatus.pending",
+        "cosine": 1.0,
+        "excluded": "owner_unmatched"
+      },
+      {
+        "diagram": "structural",
+        "kind": "literal",
+        "gold_id": "L:PaymentStatus.pending",
+        "gen_id": "L:OrderStatus.pending",
+        "cosine": 1.0,
+        "excluded": "owner_unmatched"
+      }
+    ],
+    "class_map": {
+      "Customer": "Customer",
+      "Invoice": "Invoice",
+      "Order": "Order",
+      "OrderItem": "OrderItem",
+      "Payment": "Payment",
+      "Product": "Product"
+    },
+    "enum_map": {
+      "InvoiceStatus": "InvoiceStatus",
+      "OrderStatus": "OrderStatus",
+      "PaymentMethod": "PaymentMethod",
+      "PaymentStatus": "PaymentStatus"
+    },
+    "action_map": {}
+  },
+  "behavioral": {
+    "assigned": [
+      {
+        "diagram": "behavioral",
+        "kind": "action",
+        "gold_id": "ACT:Accept Payment",
+        "gen_id": "ACT:Confirm Payment",
+        "cosine": 0.7546,
+        "excluded": null,
+        "stage": "action"
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "action",
+        "gold_id": "ACT:Close Order",
+        "gen_id": "ACT:Close Order",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "action"
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "action",
+        "gold_id": "ACT:Fill Order",
+        "gen_id": "ACT:Fill Order",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "action"
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "action",
+        "gold_id": "ACT:Make Payment",
+        "gen_id": "ACT:Submit Payment",
+        "cosine": 0.844,
+        "excluded": null,
+        "stage": "action"
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "action",
+        "gold_id": "ACT:Make an Order",
+        "gen_id": "ACT:Receive Order",
+        "cosine": 0.7165,
+        "excluded": null,
+        "stage": "action"
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "action",
+        "gold_id": "ACT:Receive order",
+        "gen_id": "ACT:Submit Order",
+        "cosine": 0.7226,
+        "excluded": null,
+        "stage": "action"
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "action",
+        "gold_id": "ACT:Reject Payment",
+        "gen_id": "ACT:Reject Payment",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "action"
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "action",
+        "gold_id": "ACT:Send Invoice",
+        "gen_id": "ACT:Create Invoice",
+        "cosine": 0.8303,
+        "excluded": null,
+        "stage": "action"
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "action",
+        "gold_id": "ACT:Ship Order",
+        "gen_id": "ACT:Ship Order",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "action"
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "object_node",
+        "gold_id": "OBJ:Invoice[issued]",
+        "gen_id": "OBJ:Create Invoice[issued]",
+        "cosine": 0.86,
+        "excluded": null,
+        "stage": "object_node"
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "object_node",
+        "gold_id": "OBJ:Invoice[paid]",
+        "gen_id": "OBJ:Set Invoice[paid]",
+        "cosine": 0.7624,
+        "excluded": null,
+        "stage": "object_node"
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "object_node",
+        "gold_id": "OBJ:Order[submitted]",
+        "gen_id": "OBJ:Create Order[submitted]",
+        "cosine": 0.7988,
+        "excluded": null,
+        "stage": "object_node"
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "object_node",
+        "gold_id": "OBJ:Payment[completed]",
+        "gen_id": "OBJ:Set Payment[completed]",
+        "cosine": 0.7051,
+        "excluded": null,
+        "stage": "object_node"
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "object_node",
+        "gold_id": "OBJ:Payment[failed]",
+        "gen_id": "OBJ:Set Payment[failed]",
+        "cosine": 0.7051,
+        "excluded": null,
+        "stage": "object_node"
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "object_node",
+        "gold_id": "OBJ:Payment[pending]",
+        "gen_id": "OBJ:Create Payment[pending]",
+        "cosine": 0.7428,
+        "excluded": null,
+        "stage": "object_node"
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "swimlane",
+        "stage": "swimlane",
+        "gold_id": "LANE:Accept Payment",
+        "gen_id": "LANE:Confirm Payment",
+        "cosine": 0.7546,
+        "excluded": null,
+        "by_construction": true
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "swimlane",
+        "stage": "swimlane",
+        "gold_id": "LANE:Close Order",
+        "gen_id": "LANE:Close Order",
+        "cosine": 1.0,
+        "excluded": null,
+        "by_construction": true
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "swimlane",
+        "stage": "swimlane",
+        "gold_id": "LANE:Fill Order",
+        "gen_id": "LANE:Fill Order",
+        "cosine": 1.0,
+        "excluded": null,
+        "by_construction": true
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "swimlane",
+        "stage": "swimlane",
+        "gold_id": "LANE:Make Payment",
+        "gen_id": "LANE:Submit Payment",
+        "cosine": 0.844,
+        "excluded": null,
+        "by_construction": true
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "swimlane",
+        "stage": "swimlane",
+        "gold_id": "LANE:Make an Order",
+        "gen_id": "LANE:Receive Order",
+        "cosine": 0.7165,
+        "excluded": null,
+        "by_construction": true
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "swimlane",
+        "stage": "swimlane",
+        "gold_id": "LANE:Receive order",
+        "gen_id": "LANE:Submit Order",
+        "cosine": 0.7226,
+        "excluded": null,
+        "by_construction": true
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "swimlane",
+        "stage": "swimlane",
+        "gold_id": "LANE:Reject Payment",
+        "gen_id": "LANE:Reject Payment",
+        "cosine": 1.0,
+        "excluded": null,
+        "by_construction": true
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "swimlane",
+        "stage": "swimlane",
+        "gold_id": "LANE:Send Invoice",
+        "gen_id": "LANE:Create Invoice",
+        "cosine": 0.8303,
+        "excluded": null,
+        "by_construction": true
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "swimlane",
+        "stage": "swimlane",
+        "gold_id": "LANE:Ship Order",
+        "gen_id": "LANE:Ship Order",
+        "cosine": 1.0,
+        "excluded": null,
+        "by_construction": true
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "transition",
+        "stage": "transition",
+        "gold_id": "T:Accept Payment->Close Order",
+        "gen_id": "T:Confirm Payment->Close Order",
+        "cosine": 0.7546,
+        "excluded": null,
+        "by_construction": true
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "transition",
+        "stage": "transition",
+        "gold_id": "T:Fill Order->Send Invoice",
+        "gen_id": "T:Fill Order->Create Invoice",
+        "cosine": 0.8303,
+        "excluded": null,
+        "by_construction": true
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "transition",
+        "stage": "transition",
+        "gold_id": "T:Fill Order->Ship Order",
+        "gen_id": "T:Fill Order->Ship Order",
+        "cosine": 1.0,
+        "excluded": null,
+        "by_construction": true
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "transition",
+        "stage": "transition",
+        "gold_id": "T:Make Payment->Accept Payment",
+        "gen_id": "T:Submit Payment->Confirm Payment",
+        "cosine": 0.7546,
+        "excluded": null,
+        "by_construction": true
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "transition",
+        "stage": "transition",
+        "gold_id": "T:Make Payment->Reject Payment",
+        "gen_id": "T:Submit Payment->Reject Payment",
+        "cosine": 0.844,
+        "excluded": null,
+        "by_construction": true
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "transition",
+        "stage": "transition",
+        "gold_id": "T:Receive order->Close Order",
+        "gen_id": "T:Submit Order->Close Order",
+        "cosine": 0.7226,
+        "excluded": null,
+        "by_construction": true
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "transition",
+        "stage": "transition",
+        "gold_id": "T:Receive order->Fill Order",
+        "gen_id": "T:Submit Order->Fill Order",
+        "cosine": 0.7226,
+        "excluded": null,
+        "by_construction": true
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "transition",
+        "stage": "transition",
+        "gold_id": "T:Ship Order->Close Order",
+        "gen_id": "T:Ship Order->Close Order",
+        "cosine": 1.0,
+        "excluded": null,
+        "by_construction": true
+      }
+    ],
+    "excluded": [],
+    "class_map": {},
+    "enum_map": {},
+    "action_map": {
+      "Accept Payment": "Confirm Payment",
+      "Close Order": "Close Order",
+      "Fill Order": "Fill Order",
+      "Make Payment": "Submit Payment",
+      "Make an Order": "Receive Order",
+      "Receive order": "Submit Order",
+      "Reject Payment": "Reject Payment",
+      "Send Invoice": "Create Invoice",
+      "Ship Order": "Ship Order"
+    }
+  }
+}

@@ -1,0 +1,467 @@
+{
+  "schema": 1,
+  "run_id": "antigravity-2",
+  "target": "generated/antigravity-2",
+  "updated_at": "2026-10-29 22:35:53",
+  "created_at": "2026-10-29 20:43:54",
+  "generation": {
+    "status": "PASS",
+    "model": "standalone",
+    "agent": null,
+    "reasoning": null,
+    "code": "generated/antigravity-2",
+    "output_dir": "generated/antigravity-2",
+    "recorded_at": "2026-10-29 20:43:54"
+  },
+  "grading": {
+    "reqs": {
+      "name": "Requirements Grading (RequirementsGrading)",
+      "passed": true,
+      "message": "status=final",
+      "ran_at": "2026-10-29 22:02:46",
+      "details": {
+        "grading_kind": "reqs",
+        "exit_code": 0,
+        "grading_dir": "generated/antigravity-2/grading/reqs",
+        "metrics": {
+          "run_id": "antigravity-2",
+          "primary_threshold": 0.75,
+          "status": "final",
+          "s_size": 44,
+          "gold_total": 70,
+          "rubric_pass": 27,
+          "pending_polarity": 0,
+          "pending_rubric": 0,
+          "judge_model": "deepseek-v4.1-flash:cloud",
+          "kappa": 1.0,
+          "kappa_n": 27,
+          "kappa_accept": 0.6,
+          "kappa_accepted": true,
+          "manual_default": null,
+          "sweep": [
+            {
+              "threshold": 0.7,
+              "recall": 0.3143,
+              "precision": 0.4318,
+              "f1": 0.3638,
+              "matched_gold": 22,
+              "matched_gen": 19
+            },
+            {
+              "threshold": 0.75,
+              "recall": 0.2429,
+              "precision": 1.0,
+              "f1": 0.3909,
+              "matched_gold": 17,
+              "matched_gen": 17
+            },
+            {
+              "threshold": 0.8,
+              "recall": 0.1429,
+              "precision": 0.2273,
+              "f1": 0.1755,
+              "matched_gold": 10,
+              "matched_gen": 10
+            },
+            {
+              "threshold": 0.85,
+              "recall": 0.1,
+              "precision": 0.1591,
+              "f1": 0.1228,
+              "matched_gold": 7,
+              "matched_gen": 7
+            }
+          ],
+          "diagnostics": {
+            "cross_us_matches": 10,
+            "cross_kind_would_cover": 2,
+            "axis_rejections": {
+              "polarity": 9,
+              "identifier": 50,
+              "numeric": 0
+            },
+            "dedup_removed": 17,
+            "manual_resolved": {
+              "PASS": 4,
+              "FAIL": 0
+            },
+            "ac_per_story": {
+              "US-01": 11,
+              "US-02": 4,
+              "US-03": 4,
+              "US-04": 4,
+              "US-05": 5,
+              "US-06": 6,
+              "US-07": 5,
+              "US-08": 4,
+              "US-09": 4,
+              "US-10": 6
+            },
+            "ac_length": {
+              "mean_gen_tokens": 30.0,
+              "mean_gold_tokens": 22.3
+            },
+            "format_violations": {}
+          }
+        },
+        "format_violations": {}
+      },
+      "models_used": {
+        "embedding_model": "sentence-transformers/all-mpnet-base-v2",
+        "embedding_revision": null,
+        "judge_model": "deepseek-v4.1-flash:cloud"
+      }
+    },
+    "models": {
+      "name": "Model Grading (ModelsGrading)",
+      "passed": true,
+      "message": "status=final",
+      "ran_at": "2026-10-29 22:35:53",
+      "details": {
+        "grading_kind": "models",
+        "exit_code": 0,
+        "grading_dir": "generated/antigravity-2/grading/models",
+        "metrics": {
+          "run_id": "antigravity-2",
+          "primary_threshold": 0.75,
+          "status": "final",
+          "unresolved": 0,
+          "pending_type": 0,
+          "pending_guard": 0,
+          "pending_rubric": 0,
+          "manual_default": "not_covered",
+          "kappa": 1.0,
+          "kappa_n": 18,
+          "kappa_pool": "per_section",
+          "kappa_accept": 0.6,
+          "kappa_accepted": true,
+          "kappa_role": "observation",
+          "control": {
+            "item_1": "pass",
+            "item_2": "fail",
+            "item_3": "pass",
+            "item_4": "fail",
+            "item_5": "pass",
+            "item_6": "pass"
+          },
+          "diagnostics": {
+            "threshold": 0.75,
+            "gate_blocked": {},
+            "rule_rejections": {
+              "swimlane": 2
+            },
+            "prerequisite_blocked": {
+              "structural/literal": 2
+            },
+            "label_collapsed": {
+              "structural": {
+                "gold": [],
+                "gen": []
+              },
+              "behavioral": {
+                "gold": [
+                  {
+                    "element_id": "ACT:Make Payment",
+                    "kind": "action",
+                    "kept_line": 32,
+                    "collapsed_line": 39
+                  },
+                  {
+                    "element_id": "LANE:Make Payment",
+                    "kind": "swimlane",
+                    "kept_line": 32,
+                    "collapsed_line": 39
+                  },
+                  {
+                    "element_id": "OBJ:Payment[pending]",
+                    "kind": "object_node",
+                    "kept_line": 33,
+                    "collapsed_line": 40
+                  },
+                  {
+                    "element_id": "T:Make Payment->Accept Payment",
+                    "kind": "transition",
+                    "kept_line": null,
+                    "collapsed_line": null
+                  },
+                  {
+                    "element_id": "T:Make Payment->Reject Payment",
+                    "kind": "transition",
+                    "kept_line": null,
+                    "collapsed_line": null
+                  }
+                ],
+                "gen": [
+                  {
+                    "element_id": "OBJ:Order[closed]",
+                    "kind": "object_node",
+                    "kept_line": 38,
+                    "collapsed_line": 42
+                  }
+                ]
+              }
+            },
+            "dropped_arrows": {
+              "structural": [],
+              "behavioral": []
+            },
+            "cross_kind_near_miss": [],
+            "manual_resolved": {
+              "type": {},
+              "guard": {
+                "PASS": 2
+              }
+            },
+            "elements_per_kind": {
+              "structural": {
+                "gen": {
+                  "class": 6,
+                  "enum": 4,
+                  "literal": 13,
+                  "attribute": 22,
+                  "relationship": 5
+                },
+                "gold": {
+                  "class": 6,
+                  "enum": 4,
+                  "literal": 13,
+                  "attribute": 22,
+                  "relationship": 5
+                }
+              },
+              "behavioral": {
+                "gen": {
+                  "action": 10,
+                  "swimlane": 10,
+                  "object_node": 10,
+                  "transition": 13
+                },
+                "gold": {
+                  "action": 9,
+                  "swimlane": 9,
+                  "object_node": 10,
+                  "transition": 11
+                }
+              }
+            },
+            "format_violations": {
+              "duplicate_label": 1
+            },
+            "excluded_candidates": {},
+            "stale_ledger_rows": {
+              "type": [],
+              "guard": []
+            }
+          },
+          "structural": {
+            "syntax_validity": 1.0,
+            "gate": "pass",
+            "n_gen": 50,
+            "gold_total": 50,
+            "rubric_pass": 3,
+            "sweep": [
+              {
+                "threshold": 0.7,
+                "recall": 0.94,
+                "precision": 1.0,
+                "f1": 0.9691,
+                "matched_gold": 47,
+                "matched_gen": 47
+              },
+              {
+                "threshold": 0.75,
+                "recall": 0.94,
+                "precision": 1.0,
+                "f1": 0.9691,
+                "matched_gold": 47,
+                "matched_gen": 47
+              },
+              {
+                "threshold": 0.8,
+                "recall": 0.92,
+                "precision": 0.98,
+                "f1": 0.9491,
+                "matched_gold": 46,
+                "matched_gen": 46
+              },
+              {
+                "threshold": 0.85,
+                "recall": 0.92,
+                "precision": 0.98,
+                "f1": 0.9491,
+                "matched_gold": 46,
+                "matched_gen": 46
+              }
+            ],
+            "recall": 0.94,
+            "precision": 1.0,
+            "f1": 0.9691
+          },
+          "behavioral": {
+            "syntax_validity": 1.0,
+            "gate": "pass",
+            "n_gen": 43,
+            "gold_total": 39,
+            "rubric_pass": 13,
+            "sweep": [
+              {
+                "threshold": 0.7,
+                "recall": 0.7692,
+                "precision": 1.0,
+                "f1": 0.8696,
+                "matched_gold": 30,
+                "matched_gen": 30
+              },
+              {
+                "threshold": 0.75,
+                "recall": 0.7179,
+                "precision": 0.9535,
+                "f1": 0.8191,
+                "matched_gold": 28,
+                "matched_gen": 28
+              },
+              {
+                "threshold": 0.8,
+                "recall": 0.6154,
+                "precision": 0.8605,
+                "f1": 0.7176,
+                "matched_gold": 24,
+                "matched_gen": 24
+              },
+              {
+                "threshold": 0.85,
+                "recall": 0.5128,
+                "precision": 0.7674,
+                "f1": 0.6148,
+                "matched_gold": 20,
+                "matched_gen": 20
+              }
+            ],
+            "recall": 0.7179,
+            "precision": 0.9535,
+            "f1": 0.8191
+          }
+        },
+        "syntax": {
+          "structural": {
+            "validity": 1.0,
+            "accepted": 50,
+            "total": 50,
+            "parse_error": null,
+            "rejections": [],
+            "plantuml": {
+              "accepted": true,
+              "error": null
+            },
+            "gate": "pass",
+            "gate_mode": "plantuml"
+          },
+          "behavioral": {
+            "validity": 1.0,
+            "accepted": 42,
+            "total": 42,
+            "parse_error": null,
+            "rejections": [],
+            "plantuml": {
+              "accepted": true,
+              "error": null
+            },
+            "gate": "pass",
+            "gate_mode": "plantuml"
+          }
+        },
+        "syntax_logs": {
+          "structural": "generated/antigravity-2/grading/models/run/structural_model_syntax_correctness.txt",
+          "behavioral": "generated/antigravity-2/grading/models/run/behavioral_model_syntax_correctness.txt"
+        }
+      },
+      "models_used": {
+        "embedding_model": "sentence-transformers/all-mpnet-base-v2",
+        "embedding_revision": null,
+        "judge_model": "deepseek-v4.1-flash:cloud"
+      }
+    },
+    "vmx": {
+      "name": "VMX Grading (VMXGrading)",
+      "passed": true,
+      "message": "status=final",
+      "ran_at": "2026-10-29 22:02:46",
+      "details": {
+        "grading_kind": "vmx",
+        "exit_code": 0,
+        "grading_dir": "generated/antigravity-2/grading/vmx",
+        "metrics": {
+          "run_id": "antigravity-2",
+          "status": "final",
+          "coverage": {
+            "score": 1.0,
+            "covered": 18,
+            "total": 18
+          },
+          "integrity": {
+            "score": 1.0,
+            "resolved": 153,
+            "total": 153,
+            "by_column": {
+              "source": {
+                "resolved": 87,
+                "total": 87,
+                "score": 1.0
+              },
+              "structural": {
+                "resolved": 56,
+                "total": 56,
+                "score": 1.0
+              },
+              "behavioral": {
+                "resolved": 10,
+                "total": 10,
+                "score": 1.0
+              }
+            }
+          },
+          "diagnostics": {
+            "uncovered": [],
+            "broken_references": 0,
+            "duplicate_rows": [],
+            "rows_outside_requirements": []
+          },
+          "inputs": {
+            "domain_path": "materials/M1a.json",
+            "domain_ids": 58,
+            "requirements": {
+              "status": "read",
+              "count": 18
+            },
+            "vmx": {
+              "status": "read",
+              "rows": 18,
+              "schema": {
+                "header": [
+                  "SRS-Req-ID",
+                  "Domain-Req-ID",
+                  "Structural-Elements",
+                  "Behavorial-Elements"
+                ],
+                "missing_columns": [],
+                "unknown_columns": []
+              }
+            },
+            "structural": {
+              "status": "parsed",
+              "size": 32,
+              "validity": 1.0,
+              "parse_error": null
+            },
+            "behavioral": {
+              "status": "parsed",
+              "size": 10,
+              "validity": 1.0,
+              "parse_error": null
+            }
+          }
+        }
+      }
+    }
+  }
+}

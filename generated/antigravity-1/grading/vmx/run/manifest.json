@@ -1,0 +1,35 @@
+{
+  "run_id": "antigravity-1",
+  "submission_dir": "generated/antigravity-1/grading/vmx/submission",
+  "domain_path": "materials/M1a.json",
+  "rules": {
+    "submission_files": {
+      "requirements": "requirements.json",
+      "vmx": "VMX.csv",
+      "structural": "structural.puml",
+      "behavioral": "behavioral.puml"
+    },
+    "columns": {
+      "id": "SRS-Req-ID",
+      "source": "Domain-Req-ID",
+      "structural": "Structural-Elements",
+      "behavioral": "Behavorial-Elements"
+    },
+    "separator": ";",
+    "completeness": {
+      "US-": [
+        "source",
+        "structural"
+      ],
+      "NFR-": [
+        "source"
+      ]
+    },
+    "domain_sections": [
+      "FR_INPUT",
+      "NFR_INPUT"
+    ]
+  },
+  "started_at": "2026-10-29T15:02:46+00:00",
+  "finished_at": "2026-10-29T15:02:46+00:00"
+}

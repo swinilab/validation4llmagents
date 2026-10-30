@@ -1,0 +1,49 @@
+element_id,kind,label,traceable,consistent,reviewer,timestamp
+ACT:Reject close,action,Reject close,yes,yes,Nguyen Duc Manh,28/10/2026
+ACT:Reject order (unknown customer),action,Reject order (unknown customer),yes,yes,Nguyen Duc Manh,28/10/2026
+ACT:Reject payment,action,Reject payment,yes,yes,Nguyen Duc Manh,28/10/2026
+ACT:Reject reject,action,Reject reject,yes,yes,Nguyen Duc Manh,28/10/2026
+ACT:Set status to shipped,action,Set status to shipped,yes,yes,Nguyen Duc Manh,28/10/2026
+ACT:View pending orders,action,View pending orders,no,yes,Nguyen Duc Manh,28/10/2026
+LANE:Optionally raise invoice,swimlane,OrderStaff,no,no,Nguyen Duc Manh,28/10/2026
+LANE:Reject payment,swimlane,Accountant,no,no,Nguyen Duc Manh,28/10/2026
+LANE:Reject reject,swimlane,Accountant,yes,yes,Nguyen Duc Manh,28/10/2026
+LANE:Set Payment status to failed,swimlane,Accountant,yes,yes,Nguyen Duc Manh,28/10/2026
+LANE:Set status to shipped,swimlane,OrderStaff,yes,yes,Nguyen Duc Manh,28/10/2026
+LANE:Submit Order,swimlane,Customer,yes,yes,Nguyen Duc Manh,28/10/2026
+T:Optionally raise invoice->Set status to closed,transition,Optionally raise invoice->Set status to closed,no,no,Nguyen Duc Manh,28/10/2026
+T:Reject fill->Reject close,transition,Reject fill->Reject close,no,yes,Nguyen Duc Manh,28/10/2026
+T:Reject invoice creation->Reject payment,transition,Reject invoice creation->Reject payment,no,yes,Nguyen Duc Manh,28/10/2026
+T:Reject invoice creation->Set Payment status to completed,transition,Reject invoice creation->Set Payment status to completed,no,no,Nguyen Duc Manh,28/10/2026
+T:Reject payment->Reject confirm,transition,Reject payment->Reject confirm,no,yes,Nguyen Duc Manh,28/10/2026
+T:Reject payment->Reject reject,transition,Reject payment->Reject reject,no,yes,Nguyen Duc Manh,28/10/2026
+T:Reject payment->Set Payment status to failed,transition,Reject payment->Set Payment status to failed,no,no,Nguyen Duc Manh,28/10/2026
+T:Reject receive->Reject ship,transition,Reject receive->Reject ship,no,yes,Nguyen Duc Manh,28/10/2026
+T:Reject receive->Set status to shipped,transition,Reject receive->Set status to shipped,no,no,Nguyen Duc Manh,28/10/2026
+T:Reject ship->Reject close,transition,Reject ship->Reject close,no,yes,Nguyen Duc Manh,28/10/2026
+T:Set Invoice status to paid->Set Payment status to failed,transition,Set Invoice status to paid->Set Payment status to failed,no,no,Nguyen Duc Manh,28/10/2026
+T:Set status to filled->Set status to closed,transition,Set status to filled->Set status to closed,no,no,Nguyen Duc Manh,28/10/2026
+T:Set status to pending->Set status to closed,transition,Set status to pending->Set status to closed,no,no,Nguyen Duc Manh,28/10/2026
+T:Set status to shipped->Reject close,transition,Set status to shipped->Reject close,yes,yes,Nguyen Duc Manh,28/10/2026
+T:Submit Order->Reject order (no items),transition,Submit Order->Reject order (no items),yes,yes,Nguyen Duc Manh,28/10/2026
+T:Submit Order->Reject order (unknown customer),transition,Submit Order->Reject order (unknown customer),yes,yes,Nguyen Duc Manh,28/10/2026
+T:View pending orders->Reject receive,transition,View pending orders->Reject receive,no,yes,Nguyen Duc Manh,28/10/2026
+T:View pending orders->Set status to pending,transition,View pending orders->Set status to pending,no,no,Nguyen Duc Manh,28/10/2026
+ACT:Reject receive,action,Reject receive,yes,yes,Nguyen Duc Manh,28/10/2026
+ACT:Reject ship,action,Reject ship,yes,yes,Nguyen Duc Manh,28/10/2026
+ACT:Submit Order,action,Submit Order,yes,yes,Nguyen Duc Manh,28/10/2026
+LANE:Calculate total,swimlane,Customer,yes,no,Nguyen Duc Manh,28/10/2026
+LANE:Reject close,swimlane,OrderStaff,yes,yes,Nguyen Duc Manh,28/10/2026
+LANE:Return OrderId,swimlane,Customer,no,yes,Nguyen Duc Manh,28/10/2026
+LANE:Set status to filled,swimlane,OrderStaff,yes,yes,Nguyen Duc Manh,28/10/2026
+LANE:View pending orders,swimlane,OrderStaff,no,yes,Nguyen Duc Manh,28/10/2026
+OBJ:Create Payment[pending],object_node,Create Payment [pending],yes,yes,Nguyen Duc Manh,28/10/2026
+T:Reject invoice creation->Reject confirm,transition,Reject invoice creation->Reject confirm,yes,no,Nguyen Duc Manh,28/10/2026
+T:Reject payment->Set Payment status to completed,transition,Reject payment->Set Payment status to completed,yes,no,Nguyen Duc Manh,28/10/2026
+T:Reject receive->Optionally raise invoice,transition,Reject receive->Optionally raise invoice,yes,no,Nguyen Duc Manh,28/10/2026
+T:Reject receive->Reject close,transition,Reject receive->Reject close,yes,no,Nguyen Duc Manh,28/10/2026
+T:Set Payment status to completed->Set Invoice status to paid,transition,Set Payment status to completed->Set Invoice status to paid,yes,yes,Nguyen Duc Manh,28/10/2026
+T:Set status to filled->Reject ship,transition,Set status to filled->Reject ship,yes,no,Nguyen Duc Manh,28/10/2026
+T:Set status to pending->Reject fill,transition,Set status to pending->Reject fill,yes,no,Nguyen Duc Manh,28/10/2026
+T:Set status to pending->Set status to filled,transition,Set status to pending->Set status to filled,yes,yes,Nguyen Duc Manh,28/10/2026
+T:View pending orders->Set status to filled,transition,View pending orders->Set status to filled,yes,no,Nguyen Duc Manh,28/10/2026

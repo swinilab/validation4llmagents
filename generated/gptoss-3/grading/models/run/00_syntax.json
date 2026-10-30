@@ -1,0 +1,314 @@
+{
+  "structural": {
+    "validity": 0.521,
+    "accepted": 62,
+    "total": 119,
+    "parse_error": null,
+    "rejections": [
+      {
+        "line": 82,
+        "source": "OrderItem \"1\" --> \"1\" Product : refers to >",
+        "code": "malformed_edge"
+      },
+      {
+        "line": 88,
+        "source": "enum OrderStatus {",
+        "code": "duplicate_declaration"
+      },
+      {
+        "line": 89,
+        "source": "submitted",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 90,
+        "source": "pending",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 91,
+        "source": "filled",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 92,
+        "source": "shipped",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 93,
+        "source": "closed",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 94,
+        "source": "}",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 96,
+        "source": "enum InvoiceStatus {",
+        "code": "duplicate_declaration"
+      },
+      {
+        "line": 97,
+        "source": "issued",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 98,
+        "source": "paid",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 99,
+        "source": "}",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 101,
+        "source": "enum PaymentStatus {",
+        "code": "duplicate_declaration"
+      },
+      {
+        "line": 102,
+        "source": "pending",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 103,
+        "source": "completed",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 104,
+        "source": "failed",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 105,
+        "source": "}",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 107,
+        "source": "enum PaymentMethod {",
+        "code": "duplicate_declaration"
+      },
+      {
+        "line": 108,
+        "source": "bank",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 109,
+        "source": "card",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 110,
+        "source": "cash",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 111,
+        "source": "}",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 113,
+        "source": "class Customer {",
+        "code": "duplicate_declaration"
+      },
+      {
+        "line": 114,
+        "source": "+String name",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 115,
+        "source": "+String address",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 116,
+        "source": "+String phoneNumber",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 117,
+        "source": "+String? bankAccount",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 118,
+        "source": "}",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 120,
+        "source": "class Product {",
+        "code": "duplicate_declaration"
+      },
+      {
+        "line": 121,
+        "source": "+String name",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 122,
+        "source": "+String description",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 123,
+        "source": "+Decimal price",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 124,
+        "source": "+String imageUrl",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 125,
+        "source": "}",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 127,
+        "source": "class Order {",
+        "code": "duplicate_declaration"
+      },
+      {
+        "line": 128,
+        "source": "+DateTime orderDate",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 129,
+        "source": "+Decimal totalAmount",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 130,
+        "source": "+OrderStatus status",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 131,
+        "source": "+PaymentMethod paymentMethod",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 132,
+        "source": "}",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 134,
+        "source": "class OrderItem {",
+        "code": "duplicate_declaration"
+      },
+      {
+        "line": 135,
+        "source": "+int quantity",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 136,
+        "source": "+Decimal unitPrice",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 137,
+        "source": "}",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 139,
+        "source": "class Invoice {",
+        "code": "duplicate_declaration"
+      },
+      {
+        "line": 140,
+        "source": "+DateTime date",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 141,
+        "source": "+Decimal amount",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 142,
+        "source": "+InvoiceStatus status",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 143,
+        "source": "+PaymentMethod paymentMethod",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 144,
+        "source": "}",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 146,
+        "source": "class Payment {",
+        "code": "duplicate_declaration"
+      },
+      {
+        "line": 147,
+        "source": "+DateTime date",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 148,
+        "source": "+Decimal amount",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 149,
+        "source": "+PaymentStatus status",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 150,
+        "source": "+PaymentMethod paymentMethod",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 151,
+        "source": "}",
+        "code": "unsupported_construct"
+      },
+      {
+        "line": 155,
+        "source": "OrderItem \"1\" --\\> \"1\" Product : refers to >",
+        "code": "unsupported_construct"
+      }
+    ],
+    "plantuml": {
+      "accepted": true,
+      "error": null
+    },
+    "gate": "pass",
+    "gate_mode": "plantuml"
+  },
+  "behavioral": {
+    "validity": 1.0,
+    "accepted": 102,
+    "total": 102,
+    "parse_error": null,
+    "rejections": [],
+    "plantuml": {
+      "accepted": true,
+      "error": null
+    },
+    "gate": "pass",
+    "gate_mode": "plantuml"
+  }
+}

@@ -1,0 +1,47 @@
+@startuml behavioral
+|Customer|
+start
+:Submit Order;
+:Order [submitted];
+
+|OrderStaff|
+:Receive Order;
+:Order [pending];
+
+if (Order acceptable?) then ([yes])
+  :Fill Order;
+  :Order [filled];
+  fork
+    |OrderStaff|
+    :Ship Order;
+    :Order [shipped];
+  fork again
+    |Accountant|
+    :Raise Invoice;
+    :Invoice [issued];
+    |Customer|
+    repeat
+      :Submit Payment;
+      :Payment [pending];
+      |Accountant|
+      if (Payment valid?) then ([no])
+        :Reject Payment;
+        :Payment [failed];
+        |Customer|
+      else ([yes])
+        :Confirm Payment;
+        :Payment [completed];
+        :Invoice [paid];
+      endif
+    repeat while (Payment status is failed?) is ([yes]) not ([no])
+  end fork
+  |OrderStaff|
+  :Close Order;
+  :Order [closed];
+  stop
+else ([no])
+  :Decline Order;
+  :Order [closed];
+  stop
+endif
+@enduml

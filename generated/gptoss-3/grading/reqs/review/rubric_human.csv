@@ -1,0 +1,35 @@
+gen_id,gen_text,traceable,consistent,reviewer,timestamp
+NFR-04,"The system shall allow only users holding the accountant role to confirm or reject a payment, and shall reject the same request from any other user.",yes,yes,Nguyen Nhat Lam,29/10/2026
+US-01-AC01,"The profile shall store a name, an address and a phone number (REQ-F-01) and may store at most one bank account (REQ-F-02).",yes,yes,Nguyen Nhat Lam,29/10/2026
+US-01-AC02,All stored attributes are mandatory except the bank account (REQ-F-45).,yes,yes,Nguyen Nhat Lam,29/10/2026
+US-02-AC01,"Each product shall have a name, description, price and image (REQ-F-03) stored as decimal for price (REQ-F-46).",yes,yes,Nguyen Nhat Lam,29/10/2026
+US-02-AC02,All product attributes are mandatory (REQ-F-45).,yes,yes,Nguyen Nhat Lam,29/10/2026
+US-02-AC03,"Given a product creation request with valid data, when the system stores the product, then the product becomes available for order items.",yes,yes,Nguyen Nhat Lam,29/10/2026
+US-03-AC01,An order shall reference exactly one known customer (REQ-F-08) and contain at least one order item (REQ-F-15).,yes,yes,Nguyen Nhat Lam,29/10/2026
+US-03-AC02,"Every order item shall refer to an existing product (REQ-F-16) and store quantity, unit price and a reference to exactly one product (REQ-F-06).",yes,yes,Nguyen Nhat Lam,29/10/2026
+US-03-AC03,"Given a valid order submission, when the system records the order date as the submission date and computes the total amount as Σ(quantity × unit price) (REQ-F-17), then the order status is set to submitted.",yes,yes,Nguyen Nhat Lam,29/10/2026
+US-03-AC04,"Given an order submission where the customer is unknown, when the system validates the request, then the order is rejected and no record is created (REQ-F-14).",yes,yes,Nguyen Nhat Lam,29/10/2026
+US-03-AC05,"Given an order submission containing a non‑existent product, when the system validates the items, then the order is rejected and no record is created (REQ-F-16).",yes,yes,Nguyen Nhat Lam,29/10/2026
+US-04-AC01,The status of an order may change from submitted to pending only (REQ-F-49).,yes,yes,Nguyen Nhat Lam,29/10/2026
+US-04-AC02,"Given an order with status submitted, when OrderStaff selects “receive”, then the order status becomes pending (REQ-F-18).",yes,yes,Nguyen Nhat Lam,29/10/2026
+US-05-AC01,Status may change from pending to filled only (REQ-F-49).,yes,no,Nguyen Nhat Lam,29/10/2026
+US-05-AC02,"Given a pending order, when OrderStaff selects “fill”, then the order status becomes filled (REQ-F-20).",yes,yes,Nguyen Nhat Lam,29/10/2026
+US-06-AC02,"Given a pending order, when OrderStaff selects “decline”, then the order status becomes closed (REQ-F-22).",yes,yes,Nguyen Nhat Lam,29/10/2026
+US-07-AC01,Status may change from filled to shipped only (REQ-F-49).,yes,yes,Nguyen Nhat Lam,29/10/2026
+US-07-AC02,"Given a filled order, when OrderStaff selects “ship”, then the order status becomes shipped (REQ-F-25).",yes,yes,Nguyen Nhat Lam,29/10/2026
+US-08-AC01,An invoice may be created only for orders with status filled or shipped (REQ-F-28) and only if the order does not already have an invoice (REQ-F-29).,yes,yes,Nguyen Nhat Lam,29/10/2026
+US-08-AC02,Invoice status is initially issued (REQ-F-28) and may change only to paid (REQ-F-50).,yes,yes,Nguyen Nhat Lam,29/10/2026
+US-08-AC03,"Given an eligible order, when Accountant creates the invoice with date, amount, payment method, then the invoice is linked to the order and its status is issued.",yes,yes,Nguyen Nhat Lam,29/10/2026
+US-08-AC04,"Given an order that is declined, when Accountant attempts to raise an invoice, then the request is rejected (REQ-F-24).",yes,yes,Nguyen Nhat Lam,29/10/2026
+US-08-AC05,"Given an order whose status is submitted, pending or closed, when Accountant attempts to raise an invoice, then the request is rejected (REQ-F-30).",yes,yes,Nguyen Nhat Lam,29/10/2026
+US-09-AC01,Payments may be recorded only against invoices with status issued (REQ-F-32) and the payment status starts as pending (REQ-F-35).,yes,yes,Nguyen Nhat Lam,29/10/2026
+US-09-AC04,"Given a failed payment, when a further payment is submitted, then the new payment is created with status pending while the failed one remains failed (REQ-F-34).",yes,yes,Nguyen Nhat Lam,29/10/2026
+US-09-AC05,"Given a pending payment, when Accountant confirms it, then the payment status becomes completed (REQ-F-35) and the invoice status becomes paid (REQ-F-36).",yes,yes,Nguyen Nhat Lam,29/10/2026
+US-10-AC01,An order may change from shipped to closed only when its linked invoice status is paid (REQ-F-40).,yes,yes,Nguyen Nhat Lam,29/10/2026
+US-10-AC02,"Given a shipped order with a paid invoice, when OrderStaff selects “close”, then the order status becomes closed (REQ-F-40).",yes,yes,Nguyen Nhat Lam,29/10/2026
+US-10-AC04,"Given an order whose invoice is paid but whose status is not shipped, when OrderStaff attempts to close it, then the request is rejected (REQ-F-42).",yes,yes,Nguyen Nhat Lam,29/10/2026
+US-10-AC05,Once an order reaches status closed it never changes again (REQ-F-44).,yes,yes,Nguyen Nhat Lam,29/10/2026
+US-01-AC03,"Given a new profile request with all mandatory fields, when the system validates the data, then the profile is created and a confirmation is returned.",no,yes,Nguyen Nhat Lam,29/10/2026
+US-09-AC02,"Given an invoice with status issued, when Accountant records a payment with date, amount and method, then a payment entity is created with status pending.",yes,no,Nguyen Nhat Lam,29/10/2026
+US-09-AC03,"Given an invoice with status paid, when a payment is submitted, then the request is rejected (REQ-F-33).",yes,yes,Nguyen Nhat Lam,29/10/2026
+US-09-AC06,"Given a pending payment, when Accountant rejects it, then the payment status becomes failed (REQ-F-38) and invoice and order statuses remain unchanged.",yes,yes,Nguyen Nhat Lam,29/10/2026

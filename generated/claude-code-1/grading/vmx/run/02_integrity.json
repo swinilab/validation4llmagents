@@ -1,0 +1,23 @@
+{
+  "score": 1.0,
+  "resolved": 201,
+  "total": 201,
+  "by_column": {
+    "source": {
+      "resolved": 84,
+      "total": 84,
+      "score": 1.0
+    },
+    "structural": {
+      "resolved": 91,
+      "total": 91,
+      "score": 1.0
+    },
+    "behavioral": {
+      "resolved": 26,
+      "total": 26,
+      "score": 1.0
+    }
+  },
+  "broken": []
+}

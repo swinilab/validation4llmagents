@@ -2,7 +2,7 @@
   "schema": 1,
   "run_id": "gptoss-1",
   "target": "generated/gptoss-1",
-  "updated_at": "2026-10-27 13:01:59",
+  "updated_at": "2026-10-29 22:57:41",
   "created_at": "2026-10-27 13:01:59",
   "generation": {
     "status": "PASS",
@@ -12,5 +12,484 @@
     "code": "generated/gptoss-1/sdk_ChatDev_v1_20261027125915_20261027125915/code_workspace",
     "output_dir": "generated/gptoss-1",
     "recorded_at": "2026-10-27 13:01:59"
+  },
+  "grading": {
+    "reqs": {
+      "name": "Requirements Grading (RequirementsGrading)",
+      "passed": true,
+      "message": "status=final",
+      "ran_at": "2026-10-29 22:02:47",
+      "details": {
+        "grading_kind": "reqs",
+        "exit_code": 0,
+        "grading_dir": "generated/gptoss-1/grading/reqs",
+        "metrics": {
+          "run_id": "gptoss-1",
+          "primary_threshold": 0.75,
+          "status": "final",
+          "s_size": 43,
+          "gold_total": 70,
+          "rubric_pass": 20,
+          "pending_polarity": 0,
+          "pending_rubric": 0,
+          "judge_model": "deepseek-v4.1-flash:cloud",
+          "kappa": 0.8976,
+          "kappa_n": 26,
+          "kappa_accept": 0.6,
+          "kappa_accepted": true,
+          "manual_default": null,
+          "sweep": [
+            {
+              "threshold": 0.7,
+              "recall": 0.2429,
+              "precision": 0.4186,
+              "f1": 0.3074,
+              "matched_gold": 17,
+              "matched_gen": 18
+            },
+            {
+              "threshold": 0.75,
+              "recall": 0.2429,
+              "precision": 0.8605,
+              "f1": 0.3789,
+              "matched_gold": 17,
+              "matched_gen": 17
+            },
+            {
+              "threshold": 0.8,
+              "recall": 0.2286,
+              "precision": 0.3721,
+              "f1": 0.2832,
+              "matched_gold": 16,
+              "matched_gen": 16
+            },
+            {
+              "threshold": 0.85,
+              "recall": 0.2,
+              "precision": 0.3256,
+              "f1": 0.2478,
+              "matched_gold": 14,
+              "matched_gen": 14
+            }
+          ],
+          "diagnostics": {
+            "cross_us_matches": 10,
+            "cross_kind_would_cover": 0,
+            "axis_rejections": {
+              "polarity": 6,
+              "identifier": 60,
+              "numeric": 0
+            },
+            "dedup_removed": 4,
+            "manual_resolved": {
+              "PASS": 8,
+              "FAIL": 2
+            },
+            "ac_per_story": {
+              "US-01": 3,
+              "US-02": 3,
+              "US-03": 3,
+              "US-04": 4,
+              "US-05": 3,
+              "US-06": 3,
+              "US-07": 3,
+              "US-08": 3,
+              "US-09": 3,
+              "US-10": 3,
+              "US-11": 3,
+              "US-12": 3,
+              "US-13": 3
+            },
+            "ac_length": {
+              "mean_gen_tokens": 16.3,
+              "mean_gold_tokens": 22.3
+            },
+            "format_violations": {}
+          }
+        },
+        "format_violations": {}
+      },
+      "models_used": {
+        "embedding_model": "sentence-transformers/all-mpnet-base-v2",
+        "embedding_revision": null,
+        "judge_model": "deepseek-v4.1-flash:cloud"
+      }
+    },
+    "models": {
+      "name": "Model Grading (ModelsGrading)",
+      "passed": true,
+      "message": "status=final",
+      "ran_at": "2026-10-29 22:57:41",
+      "details": {
+        "grading_kind": "models",
+        "exit_code": 0,
+        "grading_dir": "generated/gptoss-1/grading/models",
+        "metrics": {
+          "run_id": "gptoss-1",
+          "primary_threshold": 0.75,
+          "status": "final",
+          "unresolved": 0,
+          "pending_type": 0,
+          "pending_guard": 0,
+          "pending_rubric": 0,
+          "manual_default": null,
+          "kappa": 0.5272,
+          "kappa_n": 33,
+          "kappa_pool": "per_section",
+          "kappa_accept": 0.6,
+          "kappa_accepted": false,
+          "kappa_role": "observation",
+          "control": {
+            "item_1": "pass",
+            "item_2": "pass",
+            "item_3": "pass",
+            "item_4": "fail",
+            "item_5": "fail",
+            "item_6": "pass"
+          },
+          "diagnostics": {
+            "threshold": 0.75,
+            "gate_blocked": {},
+            "rule_rejections": {
+              "swimlane": 1
+            },
+            "prerequisite_blocked": {
+              "structural/attribute": 1,
+              "structural/literal": 2
+            },
+            "label_collapsed": {
+              "structural": {
+                "gold": [],
+                "gen": []
+              },
+              "behavioral": {
+                "gold": [
+                  {
+                    "element_id": "ACT:Make Payment",
+                    "kind": "action",
+                    "kept_line": 32,
+                    "collapsed_line": 39
+                  },
+                  {
+                    "element_id": "LANE:Make Payment",
+                    "kind": "swimlane",
+                    "kept_line": 32,
+                    "collapsed_line": 39
+                  },
+                  {
+                    "element_id": "OBJ:Payment[pending]",
+                    "kind": "object_node",
+                    "kept_line": 33,
+                    "collapsed_line": 40
+                  },
+                  {
+                    "element_id": "T:Make Payment->Accept Payment",
+                    "kind": "transition",
+                    "kept_line": null,
+                    "collapsed_line": null
+                  },
+                  {
+                    "element_id": "T:Make Payment->Reject Payment",
+                    "kind": "transition",
+                    "kept_line": null,
+                    "collapsed_line": null
+                  }
+                ],
+                "gen": [
+                  {
+                    "element_id": "ACT:RaiseInvoice",
+                    "kind": "action",
+                    "kept_line": 24,
+                    "collapsed_line": 31
+                  },
+                  {
+                    "element_id": "LANE:RaiseInvoice",
+                    "kind": "swimlane",
+                    "kept_line": 24,
+                    "collapsed_line": 31
+                  }
+                ]
+              }
+            },
+            "dropped_arrows": {
+              "structural": [],
+              "behavioral": []
+            },
+            "cross_kind_near_miss": [],
+            "manual_resolved": {
+              "type": {
+                "PASS": 1
+              },
+              "guard": {}
+            },
+            "elements_per_kind": {
+              "structural": {
+                "gen": {
+                  "class": 7,
+                  "enum": 4,
+                  "literal": 13,
+                  "attribute": 23,
+                  "relationship": 2
+                },
+                "gold": {
+                  "class": 6,
+                  "enum": 4,
+                  "literal": 13,
+                  "attribute": 22,
+                  "relationship": 5
+                }
+              },
+              "behavioral": {
+                "gen": {
+                  "action": 12,
+                  "swimlane": 12,
+                  "object_node": 10,
+                  "transition": 13
+                },
+                "gold": {
+                  "action": 9,
+                  "swimlane": 9,
+                  "object_node": 10,
+                  "transition": 11
+                }
+              }
+            },
+            "format_violations": {
+              "duplicate_label": 2,
+              "orphan_node": 10,
+              "unknown_rel_arrow": 3
+            },
+            "excluded_candidates": {},
+            "stale_ledger_rows": {
+              "type": [],
+              "guard": []
+            }
+          },
+          "structural": {
+            "syntax_validity": 0.9423,
+            "gate": "pass",
+            "n_gen": 49,
+            "gold_total": 50,
+            "rubric_pass": 7,
+            "sweep": [
+              {
+                "threshold": 0.7,
+                "recall": 0.86,
+                "precision": 1.0204,
+                "f1": 0.9334,
+                "matched_gold": 43,
+                "matched_gen": 43
+              },
+              {
+                "threshold": 0.75,
+                "recall": 0.84,
+                "precision": 1.0,
+                "f1": 0.913,
+                "matched_gold": 42,
+                "matched_gen": 42
+              },
+              {
+                "threshold": 0.8,
+                "recall": 0.82,
+                "precision": 0.9796,
+                "f1": 0.8927,
+                "matched_gold": 41,
+                "matched_gen": 41
+              },
+              {
+                "threshold": 0.85,
+                "recall": 0.82,
+                "precision": 0.9796,
+                "f1": 0.8927,
+                "matched_gold": 41,
+                "matched_gen": 41
+              }
+            ],
+            "recall": 0.84,
+            "precision": 1.0,
+            "f1": 0.913
+          },
+          "behavioral": {
+            "syntax_validity": 1.0,
+            "gate": "pass",
+            "n_gen": 47,
+            "gold_total": 39,
+            "rubric_pass": 22,
+            "sweep": [
+              {
+                "threshold": 0.7,
+                "recall": 0.5897,
+                "precision": 0.9574,
+                "f1": 0.7299,
+                "matched_gold": 23,
+                "matched_gen": 23
+              },
+              {
+                "threshold": 0.75,
+                "recall": 0.4872,
+                "precision": 0.8723,
+                "f1": 0.6252,
+                "matched_gold": 19,
+                "matched_gen": 19
+              },
+              {
+                "threshold": 0.8,
+                "recall": 0.359,
+                "precision": 0.766,
+                "f1": 0.4888,
+                "matched_gold": 14,
+                "matched_gen": 14
+              },
+              {
+                "threshold": 0.85,
+                "recall": 0.359,
+                "precision": 0.766,
+                "f1": 0.4888,
+                "matched_gold": 14,
+                "matched_gen": 14
+              }
+            ],
+            "recall": 0.4872,
+            "precision": 0.8723,
+            "f1": 0.6252
+          }
+        },
+        "syntax": {
+          "structural": {
+            "validity": 0.9423,
+            "accepted": 49,
+            "total": 52,
+            "parse_error": null,
+            "rejections": [
+              {
+                "line": 66,
+                "source": "Customer \"1\" --> \"0..*\" Order : places >",
+                "code": "malformed_edge"
+              },
+              {
+                "line": 68,
+                "source": "OrderItem \"1\" --> \"1\" Product : refers to >",
+                "code": "malformed_edge"
+              },
+              {
+                "line": 69,
+                "source": "Order \"0..1\" --> \"1\" Invoice : has >",
+                "code": "malformed_edge"
+              }
+            ],
+            "plantuml": {
+              "accepted": true,
+              "error": null
+            },
+            "gate": "pass",
+            "gate_mode": "plantuml"
+          },
+          "behavioral": {
+            "validity": 1.0,
+            "accepted": 32,
+            "total": 32,
+            "parse_error": null,
+            "rejections": [],
+            "plantuml": {
+              "accepted": true,
+              "error": null
+            },
+            "gate": "pass",
+            "gate_mode": "plantuml"
+          }
+        },
+        "syntax_logs": {
+          "structural": "generated/gptoss-1/grading/models/run/structural_model_syntax_correctness.txt",
+          "behavioral": "generated/gptoss-1/grading/models/run/behavioral_model_syntax_correctness.txt"
+        }
+      },
+      "models_used": {
+        "embedding_model": "sentence-transformers/all-mpnet-base-v2",
+        "embedding_revision": null,
+        "judge_model": "deepseek-v4.1-flash:cloud"
+      }
+    },
+    "vmx": {
+      "name": "VMX Grading (VMXGrading)",
+      "passed": true,
+      "message": "status=final",
+      "ran_at": "2026-10-29 22:02:47",
+      "details": {
+        "grading_kind": "vmx",
+        "exit_code": 0,
+        "grading_dir": "generated/gptoss-1/grading/vmx",
+        "metrics": {
+          "run_id": "gptoss-1",
+          "status": "final",
+          "coverage": {
+            "score": 1.0,
+            "covered": 20,
+            "total": 20
+          },
+          "integrity": {
+            "score": 0.967,
+            "resolved": 88,
+            "total": 91,
+            "by_column": {
+              "source": {
+                "resolved": 44,
+                "total": 44,
+                "score": 1.0
+              },
+              "structural": {
+                "resolved": 32,
+                "total": 33,
+                "score": 0.9697
+              },
+              "behavioral": {
+                "resolved": 12,
+                "total": 14,
+                "score": 0.8571
+              }
+            }
+          },
+          "diagnostics": {
+            "uncovered": [],
+            "broken_references": 3,
+            "duplicate_rows": [],
+            "rows_outside_requirements": []
+          },
+          "inputs": {
+            "domain_path": "materials/M1a.json",
+            "domain_ids": 58,
+            "requirements": {
+              "status": "read",
+              "count": 20
+            },
+            "vmx": {
+              "status": "read",
+              "rows": 20,
+              "schema": {
+                "header": [
+                  "SRS-Req-ID",
+                  "Domain-Req-ID",
+                  "Structural-Elements",
+                  "Behavorial-Elements"
+                ],
+                "missing_columns": [],
+                "unknown_columns": []
+              }
+            },
+            "structural": {
+              "status": "parsed",
+              "size": 34,
+              "validity": 0.9423,
+              "parse_error": null
+            },
+            "behavioral": {
+              "status": "parsed",
+              "size": 12,
+              "validity": 1.0,
+              "parse_error": null
+            }
+          }
+        }
+      }
+    }
   }
 }

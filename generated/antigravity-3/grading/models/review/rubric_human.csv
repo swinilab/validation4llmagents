@@ -1,0 +1,8 @@
+element_id,kind,label,traceable,consistent,reviewer,timestamp
+A:Order.paymentMethod,attribute,paymentMethod: PaymentMethod,yes,yes,Le Anh Duc,28/10/2026
+A:Payment.paymentMethod,attribute,paymentMethod: PaymentMethod,yes,yes,Le Anh Duc,28/10/2026
+R:Customer--Order,relationship,,yes,yes,Le Anh Duc,28/10/2026
+R:Invoice--Payment,relationship,,yes,yes,Le Anh Duc,28/10/2026
+R:Order--Invoice,relationship,,yes,yes,Le Anh Duc,28/10/2026
+R:Order--OrderItem,relationship,,yes,yes,Le Anh Duc,28/10/2026
+R:OrderItem--Product,relationship,,yes,yes,Le Anh Duc,28/10/2026

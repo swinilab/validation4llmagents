@@ -1,0 +1,16 @@
+{
+  "item_1": "pass",
+  "item_2": "fail",
+  "item_3": "pass",
+  "item_4": "fail",
+  "item_5": "pass",
+  "item_6": "pass",
+  "details": {
+    "item_1": "1 initial, 2 final",
+    "item_2": "2 unguarded edge(s): ['line 34 -> node 13', 'line 34 -> node 24']",
+    "item_3": "1 fork(s) paired with 1 join(s)",
+    "item_4": "loop found but without a back edge, a body or a guarded exit",
+    "item_5": "10 action(s) followed by an object node",
+    "item_6": "all 10 action(s) sit in a whitelisted lane"
+  }
+}

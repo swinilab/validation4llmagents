@@ -1,0 +1,108 @@
+{
+  "score": 0.9186,
+  "resolved": 158,
+  "total": 172,
+  "by_column": {
+    "source": {
+      "resolved": 115,
+      "total": 115,
+      "score": 1.0
+    },
+    "structural": {
+      "resolved": 33,
+      "total": 45,
+      "score": 0.7333
+    },
+    "behavioral": {
+      "resolved": 10,
+      "total": 12,
+      "score": 0.8333
+    }
+  },
+  "broken": [
+    {
+      "row": 2,
+      "id": "US-02",
+      "column": "behavioral",
+      "reference": "Add Product"
+    },
+    {
+      "row": 3,
+      "id": "US-03",
+      "column": "structural",
+      "reference": "OrderItem.product"
+    },
+    {
+      "row": 9,
+      "id": "US-09",
+      "column": "behavioral",
+      "reference": "Create Payment"
+    },
+    {
+      "row": 19,
+      "id": "US-01",
+      "column": "structural",
+      "reference": "Customer.phoneNumber"
+    },
+    {
+      "row": 21,
+      "id": "US-03",
+      "column": "structural",
+      "reference": "Submit Order"
+    },
+    {
+      "row": 22,
+      "id": "US-04",
+      "column": "structural",
+      "reference": "Receive Order"
+    },
+    {
+      "row": 23,
+      "id": "US-05",
+      "column": "structural",
+      "reference": "Fill Order"
+    },
+    {
+      "row": 24,
+      "id": "US-06",
+      "column": "structural",
+      "reference": "Decline Order"
+    },
+    {
+      "row": 25,
+      "id": "US-07",
+      "column": "structural",
+      "reference": "Ship Order"
+    },
+    {
+      "row": 26,
+      "id": "US-08",
+      "column": "structural",
+      "reference": "Create Invoice"
+    },
+    {
+      "row": 27,
+      "id": "US-09",
+      "column": "structural",
+      "reference": "Submit Payment"
+    },
+    {
+      "row": 28,
+      "id": "US-10",
+      "column": "structural",
+      "reference": "Confirm Payment"
+    },
+    {
+      "row": 28,
+      "id": "US-10",
+      "column": "structural",
+      "reference": "Reject Payment"
+    },
+    {
+      "row": 29,
+      "id": "US-11",
+      "column": "structural",
+      "reference": "Close Order"
+    }
+  ]
+}

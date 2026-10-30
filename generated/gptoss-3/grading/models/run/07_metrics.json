@@ -1,0 +1,674 @@
+{
+  "run_id": "gptoss-3",
+  "primary_threshold": 0.75,
+  "status": "final",
+  "unresolved": 0,
+  "pending_type": 0,
+  "pending_guard": 0,
+  "pending_rubric": 0,
+  "manual_default": null,
+  "kappa": 0.82,
+  "kappa_n": 45,
+  "kappa_pool": "per_section",
+  "kappa_accept": 0.6,
+  "kappa_accepted": true,
+  "kappa_role": "observation",
+  "control": {
+    "item_1": "fail",
+    "item_2": "fail",
+    "item_3": "fail",
+    "item_4": "fail",
+    "item_5": "fail",
+    "item_6": "pass"
+  },
+  "diagnostics": {
+    "threshold": 0.75,
+    "gate_blocked": {},
+    "rule_rejections": {
+      "guard": 8,
+      "rel_multiplicity": 1,
+      "rel_type": 1,
+      "swimlane": 3
+    },
+    "prerequisite_blocked": {
+      "structural/attribute": 2,
+      "structural/literal": 2
+    },
+    "label_collapsed": {
+      "structural": {
+        "gold": [],
+        "gen": [
+          {
+            "element_id": "R:Customer--Order",
+            "kind": "relationship",
+            "kept_line": 80,
+            "collapsed_line": 153
+          },
+          {
+            "element_id": "R:Order--OrderItem",
+            "kind": "relationship",
+            "kept_line": 81,
+            "collapsed_line": 154
+          },
+          {
+            "element_id": "R:Order--Invoice",
+            "kind": "relationship",
+            "kept_line": 83,
+            "collapsed_line": 156
+          },
+          {
+            "element_id": "R:Invoice--Payment",
+            "kind": "relationship",
+            "kept_line": 84,
+            "collapsed_line": 157
+          }
+        ]
+      },
+      "behavioral": {
+        "gold": [
+          {
+            "element_id": "ACT:Make Payment",
+            "kind": "action",
+            "kept_line": 32,
+            "collapsed_line": 39
+          },
+          {
+            "element_id": "LANE:Make Payment",
+            "kind": "swimlane",
+            "kept_line": 32,
+            "collapsed_line": 39
+          },
+          {
+            "element_id": "OBJ:Payment[pending]",
+            "kind": "object_node",
+            "kept_line": 33,
+            "collapsed_line": 40
+          },
+          {
+            "element_id": "T:Make Payment->Accept Payment",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Make Payment->Reject Payment",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          }
+        ],
+        "gen": [
+          {
+            "element_id": "ACT:Submit Order",
+            "kind": "action",
+            "kept_line": 4,
+            "collapsed_line": 64
+          },
+          {
+            "element_id": "LANE:Submit Order",
+            "kind": "swimlane",
+            "kept_line": 4,
+            "collapsed_line": 64
+          },
+          {
+            "element_id": "OBJ:Create Order[submitted]",
+            "kind": "object_node",
+            "kept_line": 6,
+            "collapsed_line": 66
+          },
+          {
+            "element_id": "ACT:Receive Order",
+            "kind": "action",
+            "kept_line": 12,
+            "collapsed_line": 73
+          },
+          {
+            "element_id": "LANE:Receive Order",
+            "kind": "swimlane",
+            "kept_line": 12,
+            "collapsed_line": 73
+          },
+          {
+            "element_id": "OBJ:Update Order[pending]",
+            "kind": "object_node",
+            "kept_line": 13,
+            "collapsed_line": 74
+          },
+          {
+            "element_id": "ACT:Fill Order",
+            "kind": "action",
+            "kept_line": 18,
+            "collapsed_line": 76
+          },
+          {
+            "element_id": "LANE:Fill Order",
+            "kind": "swimlane",
+            "kept_line": 18,
+            "collapsed_line": 76
+          },
+          {
+            "element_id": "OBJ:Update Order[filled]",
+            "kind": "object_node",
+            "kept_line": 19,
+            "collapsed_line": 77
+          },
+          {
+            "element_id": "ACT:Decline Order",
+            "kind": "action",
+            "kept_line": 24,
+            "collapsed_line": 79
+          },
+          {
+            "element_id": "LANE:Decline Order",
+            "kind": "swimlane",
+            "kept_line": 24,
+            "collapsed_line": 79
+          },
+          {
+            "element_id": "OBJ:Update Order[closed]",
+            "kind": "object_node",
+            "kept_line": 25,
+            "collapsed_line": 80
+          },
+          {
+            "element_id": "ACT:Ship Order",
+            "kind": "action",
+            "kept_line": 29,
+            "collapsed_line": 82
+          },
+          {
+            "element_id": "LANE:Ship Order",
+            "kind": "swimlane",
+            "kept_line": 29,
+            "collapsed_line": 82
+          },
+          {
+            "element_id": "OBJ:Update Order[shipped]",
+            "kind": "object_node",
+            "kept_line": 30,
+            "collapsed_line": 83
+          },
+          {
+            "element_id": "OBJ:Create Payment[pending]",
+            "kind": "object_node",
+            "kept_line": 41,
+            "collapsed_line": 92
+          },
+          {
+            "element_id": "ACT:Close Order",
+            "kind": "action",
+            "kept_line": 55,
+            "collapsed_line": 105
+          },
+          {
+            "element_id": "LANE:Close Order",
+            "kind": "swimlane",
+            "kept_line": 55,
+            "collapsed_line": 105
+          },
+          {
+            "element_id": "OBJ:Update Order[closed]",
+            "kind": "object_node",
+            "kept_line": 25,
+            "collapsed_line": 106
+          },
+          {
+            "element_id": "T:Fill Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Fill Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Fill Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Fill Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Fill Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Fill Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Fill Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Decline Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Decline Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Decline Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Decline Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Decline Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Decline Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Decline Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Ship Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Ship Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Ship Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Ship Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Ship Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Ship Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Ship Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Link Invoice to Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Link Invoice to Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Link Invoice to Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Link Invoice to Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Link Invoice to Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Link Invoice to Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Link Invoice to Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Submit Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Submit Order->Reject Payment",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Submit Order->Confirm Payment",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Submit Order->Submit Payment",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Submit Order->Receive Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Receive Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Receive Order->Reject Payment",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Receive Order->Confirm Payment",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Receive Order->Submit Payment",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Fill Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Fill Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Fill Order->Reject Payment",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Fill Order->Confirm Payment",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Fill Order->Submit Payment",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Decline Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Decline Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Decline Order->Reject Payment",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Decline Order->Confirm Payment",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Decline Order->Submit Payment",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Ship Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Ship Order->Close Order",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Ship Order->Reject Payment",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Ship Order->Confirm Payment",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Ship Order->Submit Payment",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          }
+        ]
+      }
+    },
+    "dropped_arrows": {
+      "structural": [],
+      "behavioral": []
+    },
+    "cross_kind_near_miss": [],
+    "manual_resolved": {
+      "type": {
+        "PASS": 1
+      },
+      "guard": {
+        "FAIL": 8
+      }
+    },
+    "elements_per_kind": {
+      "structural": {
+        "gen": {
+          "class": 7,
+          "enum": 4,
+          "literal": 13,
+          "attribute": 29,
+          "relationship": 5
+        },
+        "gold": {
+          "class": 6,
+          "enum": 4,
+          "literal": 13,
+          "attribute": 22,
+          "relationship": 5
+        }
+      },
+      "behavioral": {
+        "gen": {
+          "action": 11,
+          "swimlane": 11,
+          "object_node": 15,
+          "transition": 38
+        },
+        "gold": {
+          "action": 9,
+          "swimlane": 9,
+          "object_node": 10,
+          "transition": 11
+        }
+      }
+    },
+    "format_violations": {
+      "duplicate_declaration": 10,
+      "duplicate_label": 75,
+      "unknown_rel_arrow": 1
+    },
+    "excluded_candidates": {},
+    "stale_ledger_rows": {
+      "type": [],
+      "guard": []
+    }
+  },
+  "structural": {
+    "syntax_validity": 0.521,
+    "gate": "pass",
+    "n_gen": 58,
+    "gold_total": 50,
+    "rubric_pass": 10,
+    "sweep": [
+      {
+        "threshold": 0.7,
+        "recall": 0.86,
+        "precision": 0.9138,
+        "f1": 0.8861,
+        "matched_gold": 43,
+        "matched_gen": 43
+      },
+      {
+        "threshold": 0.75,
+        "recall": 0.84,
+        "precision": 0.8966,
+        "f1": 0.8674,
+        "matched_gold": 42,
+        "matched_gen": 42
+      },
+      {
+        "threshold": 0.8,
+        "recall": 0.82,
+        "precision": 0.8793,
+        "f1": 0.8486,
+        "matched_gold": 41,
+        "matched_gen": 41
+      },
+      {
+        "threshold": 0.85,
+        "recall": 0.82,
+        "precision": 0.8793,
+        "f1": 0.8486,
+        "matched_gold": 41,
+        "matched_gen": 41
+      }
+    ],
+    "recall": 0.84,
+    "precision": 0.8966,
+    "f1": 0.8674
+  },
+  "behavioral": {
+    "syntax_validity": 1.0,
+    "gate": "pass",
+    "n_gen": 75,
+    "gold_total": 39,
+    "rubric_pass": 29,
+    "sweep": [
+      {
+        "threshold": 0.7,
+        "recall": 0.5385,
+        "precision": 0.6667,
+        "f1": 0.5957,
+        "matched_gold": 21,
+        "matched_gen": 21
+      },
+      {
+        "threshold": 0.75,
+        "recall": 0.4103,
+        "precision": 0.6,
+        "f1": 0.4873,
+        "matched_gold": 16,
+        "matched_gen": 16
+      },
+      {
+        "threshold": 0.8,
+        "recall": 0.3077,
+        "precision": 0.5467,
+        "f1": 0.3938,
+        "matched_gold": 12,
+        "matched_gen": 12
+      },
+      {
+        "threshold": 0.85,
+        "recall": 0.2308,
+        "precision": 0.5067,
+        "f1": 0.3171,
+        "matched_gold": 9,
+        "matched_gen": 9
+      }
+    ],
+    "recall": 0.4103,
+    "precision": 0.6,
+    "f1": 0.4873
+  }
+}

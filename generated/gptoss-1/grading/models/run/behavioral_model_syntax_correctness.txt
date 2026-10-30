@@ -1,0 +1,77 @@
+==========================================================================
+BEHAVIORAL MODEL SYNTAX CORRECTNESS (behavioral.puml)
+==========================================================================
+Gate: pass  |  Syntax validity: 1.0 (32/32 declarations accepted)
+
+Line  Status  Kind          Source                                 Message
+--------------------------------------------------------------------------
+   1  -                     @startuml behavioral                   -
+   2  -                                                            -
+   3  -                     ' Swimlanes                            -
+   4  PASS    swimlane      |Customer|                             -
+   5  PASS    initial       start                                  -
+   6  PASS    action        :RegisterCustomer;                     -
+   7  -                     note right: US-01                      -
+   8  PASS    action        :BrowseProducts;                       -
+   9  -                     note right: US-03                      -
+  10  PASS    action        :SubmitOrder;                          -
+  11  -                     note right: US-04                      -
+  12  PASS    partition     partition OrderProcessing {            -
+  13  PASS    swimlane      |OrderStaff|                           -
+  14  PASS    action        :ReceiveOrder;                         -
+  15  -                     note right: US-05                      -
+  16  PASS    action        :MarkOrderPending;                     -
+  17  -                     note right: US-05                      -
+  18  PASS    action        :FillOrder;                            -
+  19  -                     note right: US-06                      -
+  20  PASS    fork          fork                                   -
+  21  PASS    action        :ShipOrder;                            -
+  22  -                     note right: US-07                      -
+  23  PASS    fork          fork again                             -
+  24  PASS    action        :RaiseInvoice;                         -
+  25  -                     note right: US-10                      -
+  26  PASS    join          end fork                               -
+  27  PASS    action        :CloseOrder;                           -
+  28  -                     note right: US-09                      -
+  29  -                     }                                      -
+  30  PASS    swimlane      |Accountant|                           -
+  31  PASS    action        :RaiseInvoice;                         -
+  32  -                     note right: US-10                      -
+  33  PASS    action        :SubmitPayment;                        -
+  34  -                     note right: US-11                      -
+  35  PASS    action        :ConfirmPayment;                       -
+  36  -                     note right: US-12                      -
+  37  PASS    action        :RejectPayment;                        -
+  38  -                     note right: US-13                      -
+  39  PASS    final         stop                                   -
+  40  -                                                            -
+  41  -                     ' Object nodes showing status changes  -
+  42  PASS    object_node   :Order [submitted];                    orphan_node: object node Order[submitted] is unreachable from the initial node
+  43  PASS    object_node   :Order [pending];                      orphan_node: object node Order[pending] is unreachable from the initial node
+  44  PASS    object_node   :Order [filled];                       orphan_node: object node Order[filled] is unreachable from the initial node
+  45  PASS    object_node   :Order [shipped];                      orphan_node: object node Order[shipped] is unreachable from the initial node
+  46  PASS    object_node   :Order [closed];                       orphan_node: object node Order[closed] is unreachable from the initial node
+  47  PASS    object_node   :Invoice [issued];                     orphan_node: object node Invoice[issued] is unreachable from the initial node
+  48  PASS    object_node   :Invoice [paid];                       orphan_node: object node Invoice[paid] is unreachable from the initial node
+  49  PASS    object_node   :Payment [pending];                    orphan_node: object node Payment[pending] is unreachable from the initial node
+  50  PASS    object_node   :Payment [completed];                  orphan_node: object node Payment[completed] is unreachable from the initial node
+  51  PASS    object_node   :Payment [failed];                     orphan_node: object node Payment[failed] is unreachable from the initial node
+  52  -                                                            -
+  53  -                     @enduml                                -
+--------------------------------------------------------------------------
+
+Rejected declarations (0):
+  none
+
+Format violations (10):
+  line 42: orphan_node: object node Order[submitted] is unreachable from the initial node
+  line 43: orphan_node: object node Order[pending] is unreachable from the initial node
+  line 44: orphan_node: object node Order[filled] is unreachable from the initial node
+  line 45: orphan_node: object node Order[shipped] is unreachable from the initial node
+  line 46: orphan_node: object node Order[closed] is unreachable from the initial node
+  line 47: orphan_node: object node Invoice[issued] is unreachable from the initial node
+  line 48: orphan_node: object node Invoice[paid] is unreachable from the initial node
+  line 49: orphan_node: object node Payment[pending] is unreachable from the initial node
+  line 50: orphan_node: object node Payment[completed] is unreachable from the initial node
+  line 51: orphan_node: object node Payment[failed] is unreachable from the initial node
+==========================================================================

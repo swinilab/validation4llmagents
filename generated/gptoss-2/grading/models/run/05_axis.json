@@ -1,0 +1,98 @@
+{
+  "records": [
+    {
+      "diagram": "behavioral",
+      "kind": "action",
+      "gold_id": "ACT:Receive order",
+      "gen_id": "ACT:Submit Order",
+      "cosine": 0.7226,
+      "verdict": "PASS",
+      "failed_check": null,
+      "detail": null,
+      "source": "rule"
+    },
+    {
+      "diagram": "behavioral",
+      "kind": "action",
+      "gold_id": "ACT:Reject Payment",
+      "gen_id": "ACT:Reject payment",
+      "cosine": 1.0,
+      "verdict": "PASS",
+      "failed_check": null,
+      "detail": null,
+      "source": "rule"
+    },
+    {
+      "diagram": "behavioral",
+      "kind": "object_node",
+      "gold_id": "OBJ:Invoice[issued]",
+      "gen_id": "OBJ:Create Invoice[issued]",
+      "cosine": 0.86,
+      "verdict": "PASS",
+      "failed_check": null,
+      "detail": null,
+      "source": "rule"
+    },
+    {
+      "diagram": "behavioral",
+      "kind": "object_node",
+      "gold_id": "OBJ:Order[submitted]",
+      "gen_id": "OBJ:Create Order[submitted]",
+      "cosine": 0.7988,
+      "verdict": "PASS",
+      "failed_check": null,
+      "detail": null,
+      "source": "rule"
+    },
+    {
+      "diagram": "behavioral",
+      "kind": "object_node",
+      "gold_id": "OBJ:Payment[pending]",
+      "gen_id": "OBJ:Create Payment[pending]",
+      "cosine": 0.7428,
+      "verdict": "PASS",
+      "failed_check": null,
+      "detail": null,
+      "source": "rule"
+    },
+    {
+      "diagram": "behavioral",
+      "kind": "swimlane",
+      "gold_id": "LANE:Receive order",
+      "gen_id": "LANE:Submit Order",
+      "cosine": 0.7226,
+      "verdict": "FAIL",
+      "failed_check": "swimlane",
+      "detail": "gold='OrderStaff' gen='Customer'",
+      "source": "rule"
+    },
+    {
+      "diagram": "behavioral",
+      "kind": "swimlane",
+      "gold_id": "LANE:Reject Payment",
+      "gen_id": "LANE:Reject payment",
+      "cosine": 1.0,
+      "verdict": "PASS",
+      "failed_check": null,
+      "detail": null,
+      "source": "rule"
+    }
+  ],
+  "pending_type": 0,
+  "pending_guard": 0,
+  "pending_total": 0,
+  "unresolved_type": 0,
+  "unresolved_guard": 0,
+  "stale_ledger_rows": {
+    "type": [],
+    "guard": []
+  },
+  "manual_resolved": {
+    "type": {},
+    "guard": {}
+  },
+  "review_files": {
+    "type": "generated/gptoss-2/grading/models/review/type_ledger.csv",
+    "guard": "generated/gptoss-2/grading/models/review/guard_ledger.csv"
+  }
+}

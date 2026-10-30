@@ -1,0 +1,93 @@
+{
+  "run_id": "gptoss-2",
+  "status": "final",
+  "coverage": {
+    "score": 0.8929,
+    "covered": 25,
+    "total": 28
+  },
+  "integrity": {
+    "score": 0.8584,
+    "resolved": 97,
+    "total": 113,
+    "by_column": {
+      "source": {
+        "resolved": 59,
+        "total": 59,
+        "score": 1.0
+      },
+      "structural": {
+        "resolved": 37,
+        "total": 44,
+        "score": 0.8409
+      },
+      "behavioral": {
+        "resolved": 1,
+        "total": 10,
+        "score": 0.1
+      }
+    }
+  },
+  "diagnostics": {
+    "uncovered": [
+      {
+        "id": "US-18",
+        "outcome": "incomplete",
+        "empty": [
+          "structural"
+        ]
+      },
+      {
+        "id": "US-19",
+        "outcome": "incomplete",
+        "empty": [
+          "structural"
+        ]
+      },
+      {
+        "id": "US-20",
+        "outcome": "incomplete",
+        "empty": [
+          "structural"
+        ]
+      }
+    ],
+    "broken_references": 16,
+    "duplicate_rows": [],
+    "rows_outside_requirements": []
+  },
+  "inputs": {
+    "domain_path": "materials/M1a.json",
+    "domain_ids": 58,
+    "requirements": {
+      "status": "read",
+      "count": 28
+    },
+    "vmx": {
+      "status": "read",
+      "rows": 28,
+      "schema": {
+        "header": [
+          "SRS-Req-ID",
+          "Domain-Req-ID",
+          "Structural-Elements",
+          "Behavorial-Elements"
+        ],
+        "missing_columns": [],
+        "unknown_columns": []
+      }
+    },
+    "structural": {
+      "status": "parsed",
+      "size": 40,
+      "validity": 0.9242,
+      "parse_error": null
+    },
+    "behavioral": {
+      "status": "parsed",
+      "size": 23,
+      "validity": 1.0,
+      "parse_error": null
+    }
+  }
+}

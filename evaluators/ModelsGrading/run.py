@@ -164,6 +164,19 @@ def grade(submission_dir: str | Path, out_dir: str | Path, *,
     run_dir.mkdir(parents=True, exist_ok=True)
     wanted = STAGES if stage == "all" else [stage]
 
+    # A cached run made under another `syntax_gate` has the wrong set of graded
+    # diagrams in every later stage, so it is recomputed rather than reused.
+    cached_syntax = run_dir / OUTPUTS["S0"]
+    if cached_syntax.is_file() and not force:
+        try:
+            blocks = json.loads(cached_syntax.read_text(encoding="utf-8")).values()
+            if any(b.get("gate_mode", "strict") != config["syntax_gate"] for b in blocks):
+                print(f"syntax_gate changed to {config['syntax_gate']!r}: "
+                      "recomputing cached stages")
+                force = True
+        except (OSError, ValueError, AttributeError):
+            pass
+
     def fresh(name: str) -> bool:
         """Should this stage run? A stage skips itself when its output exists."""
         if name not in wanted:

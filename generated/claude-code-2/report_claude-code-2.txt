@@ -1,0 +1,49 @@
+================================================================================
+PIPELINE EVALUATION REPORT — 2026-10-29 22:49:12
+Run ID: claude-code-2 | Target: generated/claude-code-2
+================================================================================
+
+PHASE 1: GENERATION
+--------------------------------------------------------------------------------
+LLM         : standalone
+Reasoning   : standard
+Agent       : ChatDev
+SRS Package : generated/claude-code-2
+
+OVERVIEW
+--------------------------------------------------------------------------------
+Embedding model : sentence-transformers/all-mpnet-base-v2 (revision: unpinned)
+Judge model     : deepseek-v4.1-flash:cloud
+
+PHASE 2: GRADING
+--------------------------------------------------------------------------------
+✅ Requirements Grading (RequirementsGrading): status=final [2026-10-29 22:02:47]
+  [REQUIREMENTS t=0.70]   recall=0.429 | precision=0.398 | f1=0.412 | matched_gold=30/70
+  [REQUIREMENTS t=0.75] * recall=0.400 | precision=0.988 | f1=0.570 | matched_gold=28/70
+  [REQUIREMENTS t=0.80]   recall=0.357 | precision=0.301 | f1=0.327 | matched_gold=25/70
+  [REQUIREMENTS t=0.85]   recall=0.329 | precision=0.277 | f1=0.301 | matched_gold=23/70
+  (* = primary threshold)
+  [UNITS] generated after dedup=83 | rubric_pass=54 | pending polarity=0 rubric=0 | manual_default=None
+  [JUDGE] kappa=1.0 (n=39) | accept>=0.6: accepted
+  [DIAGNOSTICS] axis_rejections={'polarity': 42, 'identifier': 135, 'numeric': 0} | cross_us_matches=12 | cross_kind_would_cover=0 | dedup_removed=10
+  Results: generated/claude-code-2/grading/reqs
+
+✅ Model Grading (ModelsGrading): status=final [2026-10-29 22:49:12]
+  [STRUCTURAL SYNTAX] validity=0.9808 (51/52 declarations) | gate=pass
+    Log: generated/claude-code-2/grading/models/run/structural_model_syntax_correctness.txt
+  [BEHAVIORAL SYNTAX] validity=1.0 (53/53 declarations) | gate=pass
+    Log: generated/claude-code-2/grading/models/run/behavioral_model_syntax_correctness.txt
+  [STRUCTURAL] gate=pass | recall=0.900 | precision=1.000 | f1=0.947
+  [BEHAVIORAL] gate=pass | recall=0.641 | precision=0.898 | f1=0.748
+  [JUDGE] kappa=0.3478 (n=30) | accept>=0.6: below kappa_accept | role=observation
+  Results: generated/claude-code-2/grading/models
+
+✅ VMX Grading (VMXGrading): status=final [2026-10-29 22:02:47]
+  [VMX REQUIREMENT COVERAGE] score=1.000 (20/20 requirements)
+  [VMX REFERENTIAL INTEGRITY] score=1.000 (198/198 references) | source 85/85 | structural 89/89 | behavioral 24/24
+  Results: generated/claude-code-2/grading/vmx
+
+FINAL VERDICT
+--------------------------------------------------------------------------------
+✅ RESULT: PASS — Every selected grading module completed
+================================================================================

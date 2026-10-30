@@ -1,0 +1,16 @@
+{
+  "item_1": "fail",
+  "item_2": "fail",
+  "item_3": "fail",
+  "item_4": "fail",
+  "item_5": "fail",
+  "item_6": "pass",
+  "details": {
+    "item_1": "2 initial node(s), 6 final node(s)",
+    "item_2": "5 unguarded edge(s): ['line 72 -> node 59', 'line 87 -> node 62', 'line 90 -> node 66', 'line 94 -> node 73', 'line 104 -> node 77']",
+    "item_3": "no fork node: concurrent branches modelled as a decision",
+    "item_4": "no loop construct found",
+    "item_5": "1 state-changing action(s) with no object node: ['Create Invoice']",
+    "item_6": "all 17 action(s) sit in a whitelisted lane"
+  }
+}

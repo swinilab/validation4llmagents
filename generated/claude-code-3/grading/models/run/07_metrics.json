@@ -1,0 +1,226 @@
+{
+  "run_id": "claude-code-3",
+  "primary_threshold": 0.75,
+  "status": "final",
+  "unresolved": 0,
+  "pending_type": 0,
+  "pending_guard": 0,
+  "pending_rubric": 0,
+  "manual_default": null,
+  "kappa": 0.8837,
+  "kappa_n": 25,
+  "kappa_pool": "per_section",
+  "kappa_accept": 0.6,
+  "kappa_accepted": true,
+  "kappa_role": "observation",
+  "control": {
+    "item_1": "pass",
+    "item_2": "fail",
+    "item_3": "pass",
+    "item_4": "pass",
+    "item_5": "pass",
+    "item_6": "pass"
+  },
+  "diagnostics": {
+    "threshold": 0.75,
+    "gate_blocked": {},
+    "rule_rejections": {
+      "guard": 1,
+      "swimlane": 2
+    },
+    "prerequisite_blocked": {
+      "structural/literal": 2
+    },
+    "label_collapsed": {
+      "structural": {
+        "gold": [],
+        "gen": []
+      },
+      "behavioral": {
+        "gold": [
+          {
+            "element_id": "ACT:Make Payment",
+            "kind": "action",
+            "kept_line": 32,
+            "collapsed_line": 39
+          },
+          {
+            "element_id": "LANE:Make Payment",
+            "kind": "swimlane",
+            "kept_line": 32,
+            "collapsed_line": 39
+          },
+          {
+            "element_id": "OBJ:Payment[pending]",
+            "kind": "object_node",
+            "kept_line": 33,
+            "collapsed_line": 40
+          },
+          {
+            "element_id": "T:Make Payment->Accept Payment",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          },
+          {
+            "element_id": "T:Make Payment->Reject Payment",
+            "kind": "transition",
+            "kept_line": null,
+            "collapsed_line": null
+          }
+        ],
+        "gen": [
+          {
+            "element_id": "OBJ:Order[closed]",
+            "kind": "object_node",
+            "kept_line": 17,
+            "collapsed_line": 47
+          }
+        ]
+      }
+    },
+    "dropped_arrows": {
+      "structural": [],
+      "behavioral": []
+    },
+    "cross_kind_near_miss": [],
+    "manual_resolved": {
+      "type": {
+        "PASS": 1
+      },
+      "guard": {
+        "PASS": 2,
+        "FAIL": 1
+      }
+    },
+    "elements_per_kind": {
+      "structural": {
+        "gen": {
+          "class": 6,
+          "enum": 4,
+          "literal": 13,
+          "attribute": 22,
+          "relationship": 4
+        },
+        "gold": {
+          "class": 6,
+          "enum": 4,
+          "literal": 13,
+          "attribute": 22,
+          "relationship": 5
+        }
+      },
+      "behavioral": {
+        "gen": {
+          "action": 12,
+          "swimlane": 12,
+          "object_node": 10,
+          "transition": 15
+        },
+        "gold": {
+          "action": 9,
+          "swimlane": 9,
+          "object_node": 10,
+          "transition": 11
+        }
+      }
+    },
+    "format_violations": {
+      "duplicate_label": 1,
+      "unknown_rel_arrow": 1
+    },
+    "excluded_candidates": {},
+    "stale_ledger_rows": {
+      "type": [],
+      "guard": []
+    }
+  },
+  "structural": {
+    "syntax_validity": 0.98,
+    "gate": "pass",
+    "n_gen": 49,
+    "gold_total": 50,
+    "rubric_pass": 3,
+    "sweep": [
+      {
+        "threshold": 0.7,
+        "recall": 0.92,
+        "precision": 1.0,
+        "f1": 0.9583,
+        "matched_gold": 46,
+        "matched_gen": 46
+      },
+      {
+        "threshold": 0.75,
+        "recall": 0.92,
+        "precision": 1.0,
+        "f1": 0.9583,
+        "matched_gold": 46,
+        "matched_gen": 46
+      },
+      {
+        "threshold": 0.8,
+        "recall": 0.9,
+        "precision": 0.9796,
+        "f1": 0.9381,
+        "matched_gold": 45,
+        "matched_gen": 45
+      },
+      {
+        "threshold": 0.85,
+        "recall": 0.88,
+        "precision": 0.9592,
+        "f1": 0.9179,
+        "matched_gold": 44,
+        "matched_gen": 44
+      }
+    ],
+    "recall": 0.92,
+    "precision": 1.0,
+    "f1": 0.9583
+  },
+  "behavioral": {
+    "syntax_validity": 1.0,
+    "gate": "pass",
+    "n_gen": 49,
+    "gold_total": 39,
+    "rubric_pass": 17,
+    "sweep": [
+      {
+        "threshold": 0.7,
+        "recall": 0.7436,
+        "precision": 0.9388,
+        "f1": 0.8299,
+        "matched_gold": 29,
+        "matched_gen": 29
+      },
+      {
+        "threshold": 0.75,
+        "recall": 0.6923,
+        "precision": 0.898,
+        "f1": 0.7818,
+        "matched_gold": 27,
+        "matched_gen": 27
+      },
+      {
+        "threshold": 0.8,
+        "recall": 0.5897,
+        "precision": 0.8163,
+        "f1": 0.6848,
+        "matched_gold": 23,
+        "matched_gen": 23
+      },
+      {
+        "threshold": 0.85,
+        "recall": 0.4359,
+        "precision": 0.6939,
+        "f1": 0.5354,
+        "matched_gold": 17,
+        "matched_gen": 17
+      }
+    ],
+    "recall": 0.6923,
+    "precision": 0.898,
+    "f1": 0.7818
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "score": 0.8584,
+  "resolved": 97,
+  "total": 113,
+  "by_column": {
+    "source": {
+      "resolved": 59,
+      "total": 59,
+      "score": 1.0
+    },
+    "structural": {
+      "resolved": 37,
+      "total": 44,
+      "score": 0.8409
+    },
+    "behavioral": {
+      "resolved": 1,
+      "total": 10,
+      "score": 0.1
+    }
+  },
+  "broken": [
+    {
+      "row": 2,
+      "id": "US-02",
+      "column": "structural",
+      "reference": "Product.price"
+    },
+    {
+      "row": 3,
+      "id": "US-03",
+      "column": "structural",
+      "reference": "Order.totalAmount"
+    },
+    {
+      "row": 3,
+      "id": "US-03",
+      "column": "structural",
+      "reference": "OrderItem.unitPrice"
+    },
+    {
+      "row": 3,
+      "id": "US-03",
+      "column": "structural",
+      "reference": "OrderItem.product"
+    },
+    {
+      "row": 4,
+      "id": "US-04",
+      "column": "structural",
+      "reference": "Order.totalAmount"
+    },
+    {
+      "row": 5,
+      "id": "US-05",
+      "column": "behavioral",
+      "reference": "Receive Order"
+    },
+    {
+      "row": 6,
+      "id": "US-06",
+      "column": "behavioral",
+      "reference": "Mark as Filled"
+    },
+    {
+      "row": 7,
+      "id": "US-07",
+      "column": "behavioral",
+      "reference": "Decline Order"
+    },
+    {
+      "row": 8,
+      "id": "US-08",
+      "column": "behavioral",
+      "reference": "Ship Order"
+    },
+    {
+      "row": 9,
+      "id": "US-09",
+      "column": "structural",
+      "reference": "Invoice.amount"
+    },
+    {
+      "row": 9,
+      "id": "US-09",
+      "column": "behavioral",
+      "reference": "Raise Invoice"
+    },
+    {
+      "row": 10,
+      "id": "US-10",
+      "column": "structural",
+      "reference": "Payment.amount"
+    },
+    {
+      "row": 10,
+      "id": "US-10",
+      "column": "behavioral",
+      "reference": "Submit Payment"
+    },
+    {
+      "row": 11,
+      "id": "US-11",
+      "column": "behavioral",
+      "reference": "Confirm Payment"
+    },
+    {
+      "row": 12,
+      "id": "US-12",
+      "column": "behavioral",
+      "reference": "Reject Payment"
+    },
+    {
+      "row": 13,
+      "id": "US-13",
+      "column": "behavioral",
+      "reference": "Close Order"
+    }
+  ]
+}

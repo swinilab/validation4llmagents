@@ -1,0 +1,54 @@
+{
+  "structural": {
+    "validity": 0.9242,
+    "accepted": 61,
+    "total": 66,
+    "parse_error": null,
+    "rejections": [
+      {
+        "line": 76,
+        "source": "OrderItem \"1\" --> \"1\" Product : references >",
+        "code": "malformed_edge"
+      },
+      {
+        "line": 77,
+        "source": "Order \"1\" --> \"0..1\" Invoice : billed by >",
+        "code": "malformed_edge"
+      },
+      {
+        "line": 79,
+        "source": "Invoice \"1\" --> \"1\" Order : for >",
+        "code": "malformed_edge"
+      },
+      {
+        "line": 80,
+        "source": "Payment \"1\" --> \"1\" Invoice : for >",
+        "code": "malformed_edge"
+      },
+      {
+        "line": 81,
+        "source": "AuditLog \"1\" --> \"1\" * : records >",
+        "code": "unsupported_construct"
+      }
+    ],
+    "plantuml": {
+      "accepted": false,
+      "error": "80 Syntax Error? (Assumed diagram type: class)"
+    },
+    "gate": "fail",
+    "gate_mode": "plantuml"
+  },
+  "behavioral": {
+    "validity": 1.0,
+    "accepted": 87,
+    "total": 87,
+    "parse_error": null,
+    "rejections": [],
+    "plantuml": {
+      "accepted": true,
+      "error": null
+    },
+    "gate": "pass",
+    "gate_mode": "plantuml"
+  }
+}

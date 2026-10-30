@@ -1,0 +1,71 @@
+{
+  "run_id": "claude-code-3",
+  "status": "final",
+  "coverage": {
+    "score": 1.0,
+    "covered": 20,
+    "total": 20
+  },
+  "integrity": {
+    "score": 1.0,
+    "resolved": 219,
+    "total": 219,
+    "by_column": {
+      "source": {
+        "resolved": 90,
+        "total": 90,
+        "score": 1.0
+      },
+      "structural": {
+        "resolved": 93,
+        "total": 93,
+        "score": 1.0
+      },
+      "behavioral": {
+        "resolved": 36,
+        "total": 36,
+        "score": 1.0
+      }
+    }
+  },
+  "diagnostics": {
+    "uncovered": [],
+    "broken_references": 0,
+    "duplicate_rows": [],
+    "rows_outside_requirements": []
+  },
+  "inputs": {
+    "domain_path": "materials/M1a.json",
+    "domain_ids": 58,
+    "requirements": {
+      "status": "read",
+      "count": 20
+    },
+    "vmx": {
+      "status": "read",
+      "rows": 20,
+      "schema": {
+        "header": [
+          "SRS-Req-ID",
+          "Domain-Req-ID",
+          "Structural-Elements",
+          "Behavorial-Elements"
+        ],
+        "missing_columns": [],
+        "unknown_columns": []
+      }
+    },
+    "structural": {
+      "status": "parsed",
+      "size": 32,
+      "validity": 0.98,
+      "parse_error": null
+    },
+    "behavioral": {
+      "status": "parsed",
+      "size": 12,
+      "validity": 1.0,
+      "parse_error": null
+    }
+  }
+}

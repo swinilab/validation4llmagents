@@ -1,0 +1,29 @@
+SRS-Req-ID,Domain-Req-ID,Structural-Elements,Behavorial-Elements
+US-01,REQ-F-01;REQ-F-02,Customer.bankAccount;Customer.name;Customer.address;Customer.phone,
+US-02,REQ-F-03,Product.name;Product.description;Product.price;Product.imageUrl,
+US-03,REQ-F-05;REQ-F-06;REQ-F-07;REQ-F-08;REQ-F-13;REQ-F-14;REQ-F-15;REQ-F-16,Order.orderDate;Order.totalAmount;Order.status;Order.paymentMethod;OrderItem.quantity;OrderItem.unitPrice;OrderItem.product,Submit Order
+US-04,REQ-F-17,Order.totalAmount,
+US-05,REQ-F-18;REQ-F-19,Order.status,Receive Order
+US-06,REQ-F-20;REQ-F-21,Order.status,Mark as Filled
+US-07,REQ-F-22;REQ-F-23,Order.status,Decline Order
+US-08,REQ-F-25;REQ-F-26,Order.status,Ship Order
+US-09,REQ-F-28;REQ-F-29;REQ-F-30;REQ-F-31,Invoice.date;Invoice.amount;Invoice.paymentMethod;Invoice.status,Raise Invoice
+US-10,REQ-F-32;REQ-F-33;REQ-F-34,Payment.date;Payment.amount;Payment.paymentMethod;Payment.status,Submit Payment
+US-11,REQ-F-35;REQ-F-36,Payment.status;Invoice.status,Confirm Payment
+US-12,REQ-F-38;REQ-F-39,Payment.status,Reject Payment
+US-13,REQ-F-40;REQ-F-41;REQ-F-42;REQ-F-43;REQ-F-44,Order.status,Close Order
+US-14,REQ-F-45;REQ-F-47;REQ-F-48,Customer;Product;Order;Invoice;Payment,
+US-15,REQ-F-46,Customer;Product;Order;Invoice;Payment,
+US-16,REQ-F-08;REQ-F-10;REQ-F-12;REQ-F-37,AuditLog,
+US-17,REQ-F-44,Order.status,
+US-18,REQ-N-05,,
+US-19,REQ-N-06,,
+US-20,REQ-N-01;REQ-N-02;REQ-N-03;REQ-N-04,,
+NFR-01,REQ-N-01,, 
+NFR-02,REQ-N-02,, 
+NFR-03,REQ-N-05,, 
+NFR-04,REQ-N-06,, 
+NFR-05,REQ-N-07,, 
+NFR-06,REQ-N-08,, 
+NFR-07,REQ-N-04,, 
+NFR-08,REQ-N-03,, 

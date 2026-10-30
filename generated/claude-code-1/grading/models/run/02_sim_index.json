@@ -1,0 +1,252 @@
+{
+  "structural/attribute": {
+    "gold": [
+      "A:Customer.name",
+      "A:Customer.address",
+      "A:Customer.phone",
+      "A:Customer.bankAccount",
+      "A:Product.name",
+      "A:Product.description",
+      "A:Product.price",
+      "A:Product.image",
+      "A:Order.orderDate",
+      "A:Order.totalAmount",
+      "A:Order.status",
+      "A:Order.method",
+      "A:OrderItem.quantity",
+      "A:OrderItem.unitPrice",
+      "A:Invoice.date",
+      "A:Invoice.amount",
+      "A:Invoice.status",
+      "A:Invoice.method",
+      "A:Payment.date",
+      "A:Payment.amount",
+      "A:Payment.status",
+      "A:Payment.method"
+    ],
+    "gen": [
+      "A:Customer.name",
+      "A:Customer.address",
+      "A:Customer.phone",
+      "A:Customer.bankAccount",
+      "A:Product.name",
+      "A:Product.description",
+      "A:Product.price",
+      "A:Product.image",
+      "A:Order.orderDate",
+      "A:Order.totalAmount",
+      "A:Order.status",
+      "A:Order.paymentMethod",
+      "A:OrderItem.quantity",
+      "A:OrderItem.unitPrice",
+      "A:Invoice.date",
+      "A:Invoice.amount",
+      "A:Invoice.status",
+      "A:Invoice.paymentMethod",
+      "A:Payment.date",
+      "A:Payment.amount",
+      "A:Payment.status",
+      "A:Payment.paymentMethod"
+    ],
+    "embedded": true
+  },
+  "structural/class": {
+    "gold": [
+      "C:Customer",
+      "C:Product",
+      "C:Order",
+      "C:OrderItem",
+      "C:Invoice",
+      "C:Payment"
+    ],
+    "gen": [
+      "C:Customer",
+      "C:Product",
+      "C:Order",
+      "C:OrderItem",
+      "C:Invoice",
+      "C:Payment"
+    ],
+    "embedded": true
+  },
+  "structural/enum": {
+    "gold": [
+      "E:OrderStatus",
+      "E:InvoiceStatus",
+      "E:PaymentStatus",
+      "E:PaymentMethod"
+    ],
+    "gen": [
+      "E:OrderStatus",
+      "E:InvoiceStatus",
+      "E:PaymentStatus",
+      "E:PaymentMethod"
+    ],
+    "embedded": true
+  },
+  "structural/literal": {
+    "gold": [
+      "L:OrderStatus.submitted",
+      "L:OrderStatus.pending",
+      "L:OrderStatus.filled",
+      "L:OrderStatus.shipped",
+      "L:OrderStatus.closed",
+      "L:InvoiceStatus.issued",
+      "L:InvoiceStatus.paid",
+      "L:PaymentStatus.pending",
+      "L:PaymentStatus.completed",
+      "L:PaymentStatus.failed",
+      "L:PaymentMethod.bank",
+      "L:PaymentMethod.card",
+      "L:PaymentMethod.cash"
+    ],
+    "gen": [
+      "L:OrderStatus.submitted",
+      "L:OrderStatus.pending",
+      "L:OrderStatus.filled",
+      "L:OrderStatus.shipped",
+      "L:OrderStatus.closed",
+      "L:InvoiceStatus.issued",
+      "L:InvoiceStatus.paid",
+      "L:PaymentStatus.pending",
+      "L:PaymentStatus.completed",
+      "L:PaymentStatus.failed",
+      "L:PaymentMethod.bank",
+      "L:PaymentMethod.card",
+      "L:PaymentMethod.cash"
+    ],
+    "embedded": true
+  },
+  "structural/relationship": {
+    "gold": [
+      "R:Customer--Order",
+      "R:Order--OrderItem",
+      "R:Order--Invoice",
+      "R:OrderItem--Product",
+      "R:Invoice--Payment"
+    ],
+    "gen": [
+      "R:Customer--Order",
+      "R:Order--OrderItem",
+      "R:Order--Invoice",
+      "R:Invoice--Payment"
+    ],
+    "embedded": true
+  },
+  "behavioral/action": {
+    "gold": [
+      "ACT:Make an Order",
+      "ACT:Receive order",
+      "ACT:Fill Order",
+      "ACT:Ship Order",
+      "ACT:Send Invoice",
+      "ACT:Make Payment",
+      "ACT:Reject Payment",
+      "ACT:Accept Payment",
+      "ACT:Close Order"
+    ],
+    "gen": [
+      "ACT:Maintain customer profile",
+      "ACT:Browse products",
+      "ACT:Submit order",
+      "ACT:Receive order",
+      "ACT:Fill order",
+      "ACT:Decline order",
+      "ACT:Ship order",
+      "ACT:Raise invoice",
+      "ACT:Submit payment",
+      "ACT:Confirm payment",
+      "ACT:Reject payment",
+      "ACT:Close order"
+    ],
+    "embedded": true
+  },
+  "behavioral/object_node": {
+    "gold": [
+      "OBJ:Order[submitted]",
+      "OBJ:Order[pending]",
+      "OBJ:Order[filled]",
+      "OBJ:Order[shipped]",
+      "OBJ:Invoice[issued]",
+      "OBJ:Payment[pending]",
+      "OBJ:Payment[failed]",
+      "OBJ:Payment[completed]",
+      "OBJ:Invoice[paid]",
+      "OBJ:Order[closed]"
+    ],
+    "gen": [
+      "OBJ:Order[submitted]",
+      "OBJ:Order[pending]",
+      "OBJ:Order[filled]",
+      "OBJ:Order[closed]",
+      "OBJ:Order[shipped]",
+      "OBJ:Invoice[issued]",
+      "OBJ:Payment[pending]",
+      "OBJ:Payment[completed]",
+      "OBJ:Invoice[paid]",
+      "OBJ:Payment[failed]"
+    ],
+    "embedded": true
+  },
+  "behavioral/swimlane": {
+    "gold": [
+      "LANE:Make an Order",
+      "LANE:Receive order",
+      "LANE:Fill Order",
+      "LANE:Ship Order",
+      "LANE:Send Invoice",
+      "LANE:Make Payment",
+      "LANE:Reject Payment",
+      "LANE:Accept Payment",
+      "LANE:Close Order"
+    ],
+    "gen": [
+      "LANE:Maintain customer profile",
+      "LANE:Browse products",
+      "LANE:Submit order",
+      "LANE:Receive order",
+      "LANE:Fill order",
+      "LANE:Decline order",
+      "LANE:Ship order",
+      "LANE:Raise invoice",
+      "LANE:Submit payment",
+      "LANE:Confirm payment",
+      "LANE:Reject payment",
+      "LANE:Close order"
+    ],
+    "embedded": false
+  },
+  "behavioral/transition": {
+    "gold": [
+      "T:Make an Order->Receive order",
+      "T:Receive order->Close Order",
+      "T:Receive order->Fill Order",
+      "T:Fill Order->Send Invoice",
+      "T:Fill Order->Ship Order",
+      "T:Ship Order->Close Order",
+      "T:Send Invoice->Make Payment",
+      "T:Make Payment->Accept Payment",
+      "T:Make Payment->Reject Payment",
+      "T:Reject Payment->Make Payment",
+      "T:Accept Payment->Close Order"
+    ],
+    "gen": [
+      "T:Maintain customer profile->Browse products",
+      "T:Browse products->Submit order",
+      "T:Submit order->Receive order",
+      "T:Receive order->Decline order",
+      "T:Receive order->Fill order",
+      "T:Fill order->Raise invoice",
+      "T:Fill order->Ship order",
+      "T:Ship order->Close order",
+      "T:Raise invoice->Submit payment",
+      "T:Submit payment->Reject payment",
+      "T:Submit payment->Confirm payment",
+      "T:Confirm payment->Close order",
+      "T:Confirm payment->Submit payment",
+      "T:Reject payment->Close order",
+      "T:Reject payment->Submit payment"
+    ],
+    "embedded": false
+  }
+}

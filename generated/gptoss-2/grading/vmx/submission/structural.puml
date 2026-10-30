@@ -1,0 +1,83 @@
+@startuml structural
+
+enum OrderStatus {
+    submitted
+    pending
+    filled
+    shipped
+    closed
+}
+enum InvoiceStatus {
+    issued
+    paid
+}
+enum PaymentStatus {
+    pending
+    completed
+    failed
+}
+enum PaymentMethod {
+    bank
+    card
+    cash
+}
+
+class Customer {
+    +customerId : UUID
+    +name : String
+    +address : String
+    +phone : String
+    +bankAccount : String <<optional, encrypted>>
+}
+class Product {
+    +productId : UUID
+    +name : String
+    +description : String
+    +price : Decimal(12,2)
+    +imageUrl : String
+}
+class Order {
+    +orderId : UUID
+    +orderDate : Date
+    +totalAmount : Decimal(12,2)
+    +status : OrderStatus
+    +paymentMethod : PaymentMethod
+}
+class OrderItem {
+    +orderItemId : UUID
+    +quantity : Integer
+    +unitPrice : Decimal(12,2)
+}
+class Invoice {
+    +invoiceId : UUID
+    +date : Date
+    +amount : Decimal(12,2)
+    +status : InvoiceStatus
+    +paymentMethod : PaymentMethod
+}
+class Payment {
+    +paymentId : UUID
+    +date : Date
+    +amount : Decimal(12,2)
+    +status : PaymentStatus
+    +paymentMethod : PaymentMethod
+}
+class AuditLog {
+    +logId : UUID
+    +entity : String
+    +oldStatus : String
+    +newStatus : String
+    +userId : UUID
+    +timestamp : DateTime
+}
+
+Customer "1" o-- "0..*" Order : places >
+Order "1" o-- "1..*" OrderItem : contains >
+OrderItem "1" --> "1" Product : references >
+Order "1" --> "0..1" Invoice : billed by >
+Invoice "1" o-- "0..*" Payment : receives >
+Invoice "1" --> "1" Order : for >
+Payment "1" --> "1" Invoice : for >
+AuditLog "1" --> "1" * : records >
+
+@enduml

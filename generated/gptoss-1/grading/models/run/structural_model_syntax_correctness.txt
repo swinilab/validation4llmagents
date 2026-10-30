@@ -1,0 +1,91 @@
+================================================================================
+STRUCTURAL MODEL SYNTAX CORRECTNESS (structural.puml)
+================================================================================
+Gate: pass  |  Syntax validity: 0.9423 (49/52 declarations accepted)
+
+Line  Status  Kind          Source                                       Message
+--------------------------------------------------------------------------------
+   1  -                     @startuml structural                         -
+   2  -                                                                  -
+   3  -                     ' Enumerations                               -
+   4  PASS    enum          enum OrderStatus {                           -
+   5  PASS    literal       submitted                                    -
+   6  PASS    literal       pending                                      -
+   7  PASS    literal       filled                                       -
+   8  PASS    literal       shipped                                      -
+   9  PASS    literal       closed                                       -
+  10  -                     }                                            -
+  11  PASS    enum          enum InvoiceStatus {                         -
+  12  PASS    literal       issued                                       -
+  13  PASS    literal       paid                                         -
+  14  -                     }                                            -
+  15  PASS    enum          enum PaymentStatus {                         -
+  16  PASS    literal       pending                                      -
+  17  PASS    literal       completed                                    -
+  18  PASS    literal       failed                                       -
+  19  -                     }                                            -
+  20  PASS    enum          enum PaymentMethod {                         -
+  21  PASS    literal       bank                                         -
+  22  PASS    literal       card                                         -
+  23  PASS    literal       cash                                         -
+  24  -                     }                                            -
+  25  -                                                                  -
+  26  -                     ' Domain classes                             -
+  27  PASS    class         class Customer {                             -
+  28  PASS    attribute     +name: String                                -
+  29  PASS    attribute     +address: String                             -
+  30  PASS    attribute     +phone: String                               -
+  31  PASS    attribute     +bankAccount: BankAccount [0..1]             -
+  32  -                     }                                            -
+  33  PASS    class         class BankAccount {                          -
+  34  PASS    attribute     +accountNumber: String                       -
+  35  -                     }                                            -
+  36  PASS    class         class Product {                              -
+  37  PASS    attribute     +name: String                                -
+  38  PASS    attribute     +description: String                         -
+  39  PASS    attribute     +price: Decimal                              -
+  40  PASS    attribute     +imageUrl: String                            -
+  41  -                     }                                            -
+  42  PASS    class         class Order {                                -
+  43  PASS    attribute     +orderDate: Date                             -
+  44  PASS    attribute     +totalAmount: Decimal                        -
+  45  PASS    attribute     +status: OrderStatus                         -
+  46  PASS    attribute     +paymentMethod: PaymentMethod                -
+  47  -                     }                                            -
+  48  PASS    class         class OrderItem {                            -
+  49  PASS    attribute     +quantity: Integer                           -
+  50  PASS    attribute     +unitPrice: Decimal                          -
+  51  -                     }                                            -
+  52  PASS    class         class Invoice {                              -
+  53  PASS    attribute     +date: Date                                  -
+  54  PASS    attribute     +amount: Decimal                             -
+  55  PASS    attribute     +status: InvoiceStatus                       -
+  56  PASS    attribute     +paymentMethod: PaymentMethod                -
+  57  -                     }                                            -
+  58  PASS    class         class Payment {                              -
+  59  PASS    attribute     +date: Date                                  -
+  60  PASS    attribute     +amount: Decimal                             -
+  61  PASS    attribute     +status: PaymentStatus                       -
+  62  PASS    attribute     +paymentMethod: PaymentMethod                -
+  63  -                     }                                            -
+  64  -                                                                  -
+  65  -                     ' Relationships                              -
+  66  FAIL    relationship  Customer "1" --> "0..*" Order : places >     malformed_edge; unknown_rel_arrow: arrow '-->' is in no rel_type_map entry
+  67  PASS    relationship  Order "1" *-- "0..*" OrderItem : contains >  -
+  68  FAIL    relationship  OrderItem "1" --> "1" Product : refers to >  malformed_edge; unknown_rel_arrow: arrow '-->' is in no rel_type_map entry
+  69  FAIL    relationship  Order "0..1" --> "1" Invoice : has >         malformed_edge; unknown_rel_arrow: arrow '-->' is in no rel_type_map entry
+  70  PASS    relationship  Invoice "1" *-- "0..*" Payment : records >   -
+  71  -                                                                  -
+  72  -                     @enduml                                      -
+--------------------------------------------------------------------------------
+
+Rejected declarations (3):
+  line 66: malformed_edge: Customer "1" --> "0..*" Order : places >
+  line 68: malformed_edge: OrderItem "1" --> "1" Product : refers to >
+  line 69: malformed_edge: Order "0..1" --> "1" Invoice : has >
+
+Format violations (3):
+  line 66: unknown_rel_arrow: arrow '-->' is in no rel_type_map entry
+  line 68: unknown_rel_arrow: arrow '-->' is in no rel_type_map entry
+  line 69: unknown_rel_arrow: arrow '-->' is in no rel_type_map entry
+================================================================================

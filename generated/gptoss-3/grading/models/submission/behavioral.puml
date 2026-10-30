@@ -1,0 +1,110 @@
+@startuml behavioral
+|Customer|
+start
+:Submit Order;
+if (Order valid?) then (yes)
+  :Create Order [submitted];
+else (no)
+  stop
+endif
+|OrderStaff|
+if (Receive?) then (yes)
+  :Receive Order;
+  :Update Order [pending];
+else (no)
+  stop
+endif
+if (Fill?) then (yes)
+  :Fill Order;
+  :Update Order [filled];
+else (no)
+  stop
+endif
+if (Decline?) then (yes)
+  :Decline Order;
+  :Update Order [closed];
+else (no)
+endif
+if (Ship?) then (yes)
+  :Ship Order;
+  :Update Order [shipped];
+else (no)
+endif
+|Accountant|
+if (Raise Invoice?) then (yes)
+  :Create Invoice;
+  :Link Invoice to Order;
+  :Set Invoice [issued];
+else (no)
+endif
+if (Record Payment?) then (yes)
+  :Create Payment [pending];
+else (no)
+endif
+if (Confirm Payment?) then (yes)
+  :Set Payment [completed];
+  :Set Invoice [paid];
+else (no)
+endif
+if (Reject Payment?) then (yes)
+  :Set Payment [failed];
+else (no)
+endif
+|OrderStaff|
+if (Close Order?) then (yes)
+  :Close Order;
+  :Set Order [closed];
+else (no)
+endif
+stop
+@enduml
+
+|Customer|
+start
+:Submit Order;
+if (order valid?) then (yes)
+  :Create Order [submitted];
+else (no)
+  stop
+endif
+
+|OrderStaff|
+if (order status == submitted) then (receive)
+  :Receive Order;
+  :Update Order [pending];
+elseif (order status == pending) then (fill)
+  :Fill Order;
+  :Update Order [filled];
+elseif (order status == pending) then (decline)
+  :Decline Order;
+  :Update Order [closed];
+elseif (order status == filled) then (ship)
+  :Ship Order;
+  :Update Order [shipped];
+endif
+
+|Accountant|
+if (order status == filled or shipped) then (create invoice)
+  :Create Invoice [issued];
+endif
+if (invoice status == issued) then (submit payment)
+  :Submit Payment;
+  :Create Payment [pending];
+endif
+if (payment status == pending) then (confirm payment)
+  :Confirm Payment;
+  :Update Payment [completed];
+  :Update Invoice [paid];
+elseif (payment status == pending) then (reject payment)
+  :Reject Payment;
+  :Update Payment [failed];
+endif
+
+|OrderStaff|
+if (order status == shipped and invoice status == paid) then (close order)
+  :Close Order;
+  :Update Order [closed];
+endif
+
+stop
+@enduml

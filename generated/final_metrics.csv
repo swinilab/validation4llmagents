@@ -1,0 +1,10 @@
+run,requirement_recall,structural_semantic_recall,behavioral_semantic_recall,vmx_requirement_coverage,requirement_precision,structural_semantic_precision,behavioral_semantic_precision,structural_syntax_validity,behavioral_syntax_validity,vmx_referential_integrity,structural_syntax_gate,behavioral_syntax_gate,reqs_status,models_status,vmx_status,requirements_kappa,requirements_kappa_n,models_kappa,models_kappa_n
+antigravity-1,0.3143,0.86,0.6667,1.0,0.9825,1.0,0.9535,1.0,1.0,1.0,pass,pass,final,final,final,1.0,34,0.7778,24
+antigravity-2,0.2429,0.94,0.7179,1.0,1.0,1.0,0.9535,1.0,1.0,1.0,pass,pass,final,final,final,1.0,27,1.0,18
+antigravity-3,0.1857,0.86,n/a,1.0,1.0,1.0,n/a,1.0,0.875,0.9948,pass,fail,final,final,final,1.0,31,1.0,7
+claude-code-1,0.4429,0.92,0.6923,1.0,1.0,1.0,0.8776,0.98,1.0,1.0,pass,pass,final,final,final,1.0,38,0.4186,25
+claude-code-2,0.4,0.9,0.641,1.0,0.988,1.0,0.898,0.9808,1.0,1.0,pass,pass,final,final,final,1.0,39,0.3478,30
+claude-code-3,0.4429,0.92,0.6923,1.0,0.9872,1.0,0.898,0.98,1.0,1.0,pass,pass,final,final,final,0.0,30,0.8837,25
+gptoss-1,0.2429,0.84,0.4872,1.0,0.8605,1.0,0.8723,0.9423,1.0,0.967,pass,pass,final,final,final,0.8976,26,0.5272,33
+gptoss-2,0.2714,n/a,0.1026,0.8929,0.8923,n/a,0.5701,0.9242,1.0,0.8584,fail,pass,final,final,final,0.7682,35,0.6116,46
+gptoss-3,0.2429,0.84,0.4103,1.0,0.907,0.8966,0.6,0.521,1.0,0.9186,pass,pass,final,final,final,0.8364,27,0.82,45
