@@ -1,4 +1,4 @@
 gold_id,gen_id,gold_guard,gen_guard,path_detail,verdict,reviewer,timestamp,note
-T:Make Payment->Accept Payment,T:Submit Payment->Confirm Payment,authorized,yes,gold=['authorized'] gen=['yes'] (gen guard outside every alias set),PASS,Le Anh Duc,2026-10-28,
-T:Make Payment->Reject Payment,T:Submit Payment->Reject Payment,declined,no,gold=['declined'] gen=['no'] (gen guard outside every alias set),PASS,Le Anh Duc,2026-10-28,
-T:Reject Payment->Make Payment,T:Reject Payment->Submit Payment,,yes]) not ([no,gold=<empty> gen=['yes]) not ([no'],FAIL,Le Anh Duc,2026-10-28,
+T:Make Payment->Accept Payment,T:Submit Payment->Confirm Payment,authorized,yes,gold=['authorized'] gen=['yes'] (gen guard outside every alias set),PASS,Le Anh Duc,28/10/2026,
+T:Make Payment->Reject Payment,T:Submit Payment->Reject Payment,declined,no,gold=['declined'] gen=['no'] (gen guard outside every alias set),PASS,Le Anh Duc,28/10/2026,
+T:Reject Payment->Make Payment,T:Reject Payment->Submit Payment,,yes]) not ([no,gold=<empty> gen=['yes]) not ([no'],FAIL,Le Anh Duc,28/10/2026,

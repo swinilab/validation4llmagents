@@ -29,3 +29,21 @@ T:Submit Order->Reject order (no items),transition,Submit Order->Reject order (n
 T:Submit Order->Reject order (unknown customer),transition,Submit Order->Reject order (unknown customer),yes,yes,Nguyen Duc Manh,28/10/2026
 T:View pending orders->Reject receive,transition,View pending orders->Reject receive,no,yes,Nguyen Duc Manh,28/10/2026
 T:View pending orders->Set status to pending,transition,View pending orders->Set status to pending,no,no,Nguyen Duc Manh,28/10/2026
+ACT:Reject receive,action,Reject receive,yes,yes,Nguyen Duc Manh,28/10/2026
+ACT:Reject ship,action,Reject ship,yes,yes,Nguyen Duc Manh,28/10/2026
+ACT:Submit Order,action,Submit Order,yes,yes,Nguyen Duc Manh,28/10/2026
+LANE:Calculate total,swimlane,Customer,yes,no,Nguyen Duc Manh,28/10/2026
+LANE:Reject close,swimlane,OrderStaff,yes,yes,Nguyen Duc Manh,28/10/2026
+LANE:Return OrderId,swimlane,Customer,no,yes,Nguyen Duc Manh,28/10/2026
+LANE:Set status to filled,swimlane,OrderStaff,yes,yes,Nguyen Duc Manh,28/10/2026
+LANE:View pending orders,swimlane,OrderStaff,no,yes,Nguyen Duc Manh,28/10/2026
+OBJ:Create Payment[pending],object_node,Create Payment [pending],yes,yes,Nguyen Duc Manh,28/10/2026
+T:Reject invoice creation->Reject confirm,transition,Reject invoice creation->Reject confirm,yes,no,Nguyen Duc Manh,28/10/2026
+T:Reject payment->Set Payment status to completed,transition,Reject payment->Set Payment status to completed,yes,no,Nguyen Duc Manh,28/10/2026
+T:Reject receive->Optionally raise invoice,transition,Reject receive->Optionally raise invoice,yes,no,Nguyen Duc Manh,28/10/2026
+T:Reject receive->Reject close,transition,Reject receive->Reject close,yes,no,Nguyen Duc Manh,28/10/2026
+T:Set Payment status to completed->Set Invoice status to paid,transition,Set Payment status to completed->Set Invoice status to paid,yes,yes,Nguyen Duc Manh,28/10/2026
+T:Set status to filled->Reject ship,transition,Set status to filled->Reject ship,yes,no,Nguyen Duc Manh,28/10/2026
+T:Set status to pending->Reject fill,transition,Set status to pending->Reject fill,yes,no,Nguyen Duc Manh,28/10/2026
+T:Set status to pending->Set status to filled,transition,Set status to pending->Set status to filled,yes,yes,Nguyen Duc Manh,28/10/2026
+T:View pending orders->Set status to filled,transition,View pending orders->Set status to filled,yes,no,Nguyen Duc Manh,28/10/2026

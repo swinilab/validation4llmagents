@@ -1,1 +1,114 @@
-[]
+[
+  {
+    "diagram": "behavioral",
+    "kind": "action",
+    "gold_id": "ACT:Accept Payment",
+    "gen_id": "ACT:Reject payment",
+    "cosine": 0.7356,
+    "excluded": null
+  },
+  {
+    "diagram": "behavioral",
+    "kind": "action",
+    "gold_id": "ACT:Make Payment",
+    "gen_id": "ACT:Reject payment",
+    "cosine": 0.7014,
+    "excluded": null
+  },
+  {
+    "diagram": "behavioral",
+    "kind": "action",
+    "gold_id": "ACT:Receive order",
+    "gen_id": "ACT:Submit Order",
+    "cosine": 0.7226,
+    "excluded": null
+  },
+  {
+    "diagram": "behavioral",
+    "kind": "action",
+    "gold_id": "ACT:Reject Payment",
+    "gen_id": "ACT:Reject payment",
+    "cosine": 1.0,
+    "excluded": null
+  },
+  {
+    "diagram": "behavioral",
+    "kind": "object_node",
+    "gold_id": "OBJ:Invoice[issued]",
+    "gen_id": "OBJ:Create Invoice[issued]",
+    "cosine": 0.86,
+    "excluded": null
+  },
+  {
+    "diagram": "behavioral",
+    "kind": "object_node",
+    "gold_id": "OBJ:Invoice[paid]",
+    "gen_id": "OBJ:Create Invoice[issued]",
+    "cosine": 0.86,
+    "excluded": null
+  },
+  {
+    "diagram": "behavioral",
+    "kind": "object_node",
+    "gold_id": "OBJ:Order[closed]",
+    "gen_id": "OBJ:Create Order[submitted]",
+    "cosine": 0.7988,
+    "excluded": null
+  },
+  {
+    "diagram": "behavioral",
+    "kind": "object_node",
+    "gold_id": "OBJ:Order[filled]",
+    "gen_id": "OBJ:Create Order[submitted]",
+    "cosine": 0.7988,
+    "excluded": null
+  },
+  {
+    "diagram": "behavioral",
+    "kind": "object_node",
+    "gold_id": "OBJ:Order[pending]",
+    "gen_id": "OBJ:Create Order[submitted]",
+    "cosine": 0.7988,
+    "excluded": null
+  },
+  {
+    "diagram": "behavioral",
+    "kind": "object_node",
+    "gold_id": "OBJ:Order[shipped]",
+    "gen_id": "OBJ:Create Order[submitted]",
+    "cosine": 0.7988,
+    "excluded": null
+  },
+  {
+    "diagram": "behavioral",
+    "kind": "object_node",
+    "gold_id": "OBJ:Order[submitted]",
+    "gen_id": "OBJ:Create Order[submitted]",
+    "cosine": 0.7988,
+    "excluded": null
+  },
+  {
+    "diagram": "behavioral",
+    "kind": "object_node",
+    "gold_id": "OBJ:Payment[completed]",
+    "gen_id": "OBJ:Create Payment[pending]",
+    "cosine": 0.7428,
+    "excluded": null
+  },
+  {
+    "diagram": "behavioral",
+    "kind": "object_node",
+    "gold_id": "OBJ:Payment[failed]",
+    "gen_id": "OBJ:Create Payment[pending]",
+    "cosine": 0.7428,
+    "excluded": null
+  },
+  {
+    "diagram": "behavioral",
+    "kind": "object_node",
+    "gold_id": "OBJ:Payment[pending]",
+    "gen_id": "OBJ:Create Payment[pending]",
+    "cosine": 0.7428,
+    "excluded": null
+  }
+]

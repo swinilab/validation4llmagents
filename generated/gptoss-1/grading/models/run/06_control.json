@@ -1,16 +1,16 @@
 {
-  "item_1": "n/a",
-  "item_2": "n/a",
-  "item_3": "n/a",
-  "item_4": "n/a",
-  "item_5": "n/a",
-  "item_6": "n/a",
+  "item_1": "pass",
+  "item_2": "pass",
+  "item_3": "pass",
+  "item_4": "fail",
+  "item_5": "fail",
+  "item_6": "pass",
   "details": {
-    "item_1": "no behavioral diagram",
-    "item_2": "no behavioral diagram",
-    "item_3": "no behavioral diagram",
-    "item_4": "no behavioral diagram",
-    "item_5": "no behavioral diagram",
-    "item_6": "no behavioral diagram"
+    "item_1": "1 initial, 1 final",
+    "item_2": "no decision nodes",
+    "item_3": "1 fork(s) paired with 1 join(s)",
+    "item_4": "no loop construct found",
+    "item_5": "11 state-changing action(s) with no object node: ['SubmitOrder', 'ReceiveOrder', 'MarkOrderPending', 'FillOrder', 'ShipOrder']",
+    "item_6": "all 13 action(s) sit in a whitelisted lane"
   }
 }

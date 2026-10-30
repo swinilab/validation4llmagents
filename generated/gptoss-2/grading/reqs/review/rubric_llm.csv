@@ -1,54 +1,45 @@
 gen_id,gen_text,traceable,consistent,rationale,judge_model,timestamp
-NFR-04,"The system shall allow only users holding the accountant role to confirm or reject a payment, and shall reject the same request from any other user.",,,,,
-US-01-AC01,"Name, address and phone are mandatory strings; bank account is optional.",,,,,
-US-01-AC02,Bank account numbers are stored encrypted at rest.,,,,,
-US-01-AC03,"Given a new customer record with all mandatory fields, when the record is saved, then the system assigns a unique Customer-ID.",,,,,
-US-02-AC01,"Each product has a name, description, price (decimal) and image URL.",,,,,
-US-02-AC03,"Given a request for the product list, when the system returns the list, then every product includes all four attributes.",,,,,
-US-03-AC01,"Given a known Customer-ID, at least one order item and a valid payment method, when the order is submitted, then an Order is created with status submitted and the current date as order-date.",,,,,
-US-03-AC02,"Payment method must be one of {bank, card, cash}.",,,,,
-US-04-AC01,Order total = Σ (order-item.quantity × order-item.unit-price).,,,,,
-US-04-AC02,"Given a successfully created Order, when the total is queried, then the returned total equals the calculated sum.",,,,,
-US-05-AC01,"Given an Order with status submitted, when OrderStaff clicks Receive, then the Order status becomes pending.",,,,,
-US-05-AC02,The status transition submitted → pending is the only allowed transition from submitted.,,,,,
-US-05-AC03,"Given an Order whose status is filled, when OrderStaff attempts to receive it, then the system rejects the request and leaves the status unchanged.",,,,,
-US-06-AC01,"Given an Order with status pending, when OrderStaff selects Mark as Filled, then the Order status becomes filled.",,,,,
-US-06-AC02,No transition is allowed from pending to any status other than filled or closed.,,,,,
-US-07-AC01,"Given an Order with status pending, when OrderStaff selects Decline, then the Order status becomes closed.",,,,,
-US-07-AC02,Decline is only permitted from pending.,,,,,
-US-08-AC01,"Given an Order with status filled, when OrderStaff selects Ship, then the Order status becomes shipped.",,,,,
-US-08-AC02,Transition filled → shipped is the only allowed transition from filled.,,,,,
-US-08-AC03,"Given an Order with status pending, when OrderStaff attempts to ship, then the request is rejected and the status remains pending.",,,,,
-US-09-AC01,"Given an Order with status filled or shipped and no existing Invoice, when Accountant creates an Invoice (date, amount, payment method), then an Invoice with status issued is linked to the Order.",,,,,
-US-09-AC02,Only one Invoice may exist per Order.,,,,,
-US-09-AC03,"Given an Order whose status is submitted, pending or closed, when Accountant tries to raise an Invoice, then the request is rejected.",,,,,
-US-10-AC03,"Given an Invoice with status paid, when a Payment is submitted, then the system rejects the submission.",,,,,
-US-11-AC01,"Given a Payment with status pending, when Accountant marks it completed, then the Payment status becomes completed and the linked Invoice status becomes paid.",,,,,
-US-11-AC03,"Given a Payment whose status is failed, when Accountant attempts to confirm it, then the request is rejected and the status stays failed.",,,,,
-US-12-AC01,"Given a Payment with status pending, when Accountant marks it failed, then the Payment status becomes failed; the Invoice status remains unchanged.",,,,,
-US-12-AC02,Only payments in pending may be rejected.,,,,,
-US-13-AC01,"Given an Order with status shipped and a linked Invoice with status paid, when OrderStaff selects Close, then the Order status becomes closed.",,,,,
-US-13-AC02,Closing is only allowed from shipped when the Invoice is paid.,,,,,
-US-13-AC03,"Given a shipped Order whose Invoice is not paid, when OrderStaff attempts to close, then the request is rejected and the status stays shipped.",,,,,
-US-14-AC01,All attributes except Customer.bankAccount are mandatory.,,,,,
-US-14-AC02,"Order.status ∈ {submitted, pending, filled, shipped, closed}.",,,,,
-US-14-AC03,"Invoice.status ∈ {issued, paid}.",,,,,
-US-14-AC04,"Payment.status ∈ {pending, completed, failed}.",,,,,
-US-15-AC01,"Product.price, OrderItem.unitPrice, Order.totalAmount, Invoice.amount, Payment.amount are of type decimal(12,2).",,,,,
-US-15-AC02,"Given any monetary input, when it is persisted, then the stored value retains two fractional digits.",,,,,
-US-15-AC03,No monetary field may be null.,,,,,
-US-16-AC01,"Every status transition creates an audit record (entity, oldStatus, newStatus, userId, timestamp).",,,,,
-US-16-AC02,"Given a status change, when the audit log is queried, then the record appears with correct user and time.",,,,,
-US-16-AC03,Audit records are retained for a minimum of 12 months.,,,,,
-US-17-AC01,No status transition is allowed from closed.,,,,,
-US-17-AC02,"Given a closed Order, when any staff attempts to change its status, then the request is rejected.",,,,,
-US-17-AC03,The Order entity becomes read‑only after reaching closed.,,,,,
-US-18-AC01,Every API call must contain a valid authentication token.,,,,,
-US-18-AC02,"Given a request without a token, when the request reaches the server, then the system returns HTTP 401 Unauthorized.",,,,,
-US-18-AC03,Unauthenticated requests are logged and rejected 100 % of the time.,,,,,
-US-19-AC01,Only users with role Accountant may invoke the Confirm Payment or Reject Payment actions.,,,,,
-US-19-AC02,"Given a non‑Accountant user attempting to confirm a payment, when the request is processed, then the system returns HTTP 403 Forbidden.",,,,,
-US-19-AC03,All attempts by unauthorized roles are logged.,,,,,
-US-20-AC01,The system shall handle at least 200 concurrent users and at least 20 order submissions per second.,,,,,
-US-20-AC02,95 % of order submissions with ≤ 50 items shall complete within 2 seconds.,,,,,
-US-20-AC03,"Availability shall be ≥ 99.5 % per calendar month, with scheduled maintenance announced ≥ 24 h in advance.",,,,,
+NFR-04,"The system shall allow only users holding the accountant role to confirm or reject a payment, and shall reject the same request from any other user.",yes,yes,It restates REQ-N-06 and matches gold NFR-04 without contradiction.,deepseek-v4.1-flash:cloud,2026-10-29T14:01:21+00:00
+US-01-AC01,"Name, address and phone are mandatory strings; bank account is optional.",yes,yes,"The unit is attributable to REQ-F-01, REQ-F-02, and REQ-F-45, and it does not contradict any gold criterion, since mandatory customer fields and an optional single bank account are allowed.",deepseek-v4.1-flash:cloud,2026-10-29T14:01:25+00:00
+US-01-AC02,Bank account numbers are stored encrypted at rest.,yes,yes,The criterion is attributable to REQ-N-07's requirement to encrypt bank account numbers at rest and does not contradict any gold unit.,deepseek-v4.1-flash:cloud,2026-10-29T14:01:28+00:00
+US-01-AC03,"Given a new customer record with all mandatory fields, when the record is saved, then the system assigns a unique Customer-ID.",no,yes,"The unit introduces a unique Customer-ID, which is absent from the domain specification, but it does not contradict any gold acceptance criterion.",deepseek-v4.1-flash:cloud,2026-10-29T14:01:31+00:00
+US-02-AC03,"Given a request for the product list, when the system returns the list, then every product includes all four attributes.",no,yes,"The product-list request/return capability is not specified in the domain, though the criterion does not contradict the requirement that each product has all four attributes.",deepseek-v4.1-flash:cloud,2026-10-29T14:01:35+00:00
+US-03-AC01,"Given a known Customer-ID, at least one order item and a valid payment method, when the order is submitted, then an Order is created with status submitted and the current date as order-date.",yes,yes,"The criterion directly corresponds to REQ-F-13 and does not contradict any gold unit, as it specifies order creation on submission by a known customer with at least one order item and a valid payment method.",deepseek-v4.1-flash:cloud,2026-10-29T14:01:39+00:00
+US-03-AC02,"Payment method must be one of {bank, card, cash}.",yes,yes,"The criterion is directly supported by REQ-F-48 and aligns with the gold criteria restricting payment methods to bank, card, or cash.",deepseek-v4.1-flash:cloud,2026-10-29T14:01:41+00:00
+US-04-AC01,Order total = Σ (order-item.quantity × order-item.unit-price).,yes,yes,The criterion restates REQ-F-17 and matches gold criterion US-05-AC02 without contradicting any gold unit.,deepseek-v4.1-flash:cloud,2026-10-29T14:01:44+00:00
+US-04-AC02,"Given a successfully created Order, when the total is queried, then the returned total equals the calculated sum.",yes,yes,It aligns with REQ-F-17 by requiring an order’s total to equal the calculated sum and does not contradict any gold acceptance criterion.,deepseek-v4.1-flash:cloud,2026-10-29T14:01:47+00:00
+US-05-AC02,The status transition submitted → pending is the only allowed transition from submitted.,yes,yes,It restates the allowed status transition in REQ-F-49 and does not contradict any gold acceptance criterion.,deepseek-v4.1-flash:cloud,2026-10-29T14:01:50+00:00
+US-05-AC03,"Given an Order whose status is filled, when OrderStaff attempts to receive it, then the system rejects the request and leaves the status unchanged.",yes,yes,"The unit is a valid specific case of REQ-F-19, rejecting a receive attempt when an order’s status is not submitted, and it does not contradict any gold acceptance criterion.",deepseek-v4.1-flash:cloud,2026-10-29T14:01:53+00:00
+US-06-AC02,No transition is allowed from pending to any status other than filled or closed.,yes,yes,It restates the allowed pending-state transitions found in domain requirement REQ-F-49 and does not conflict with any gold acceptance criterion.,deepseek-v4.1-flash:cloud,2026-10-29T14:02:00+00:00
+US-07-AC02,Decline is only permitted from pending.,yes,yes,"The unit restates the domain rule that declining an order is allowed only when its status is pending, matching REQ-F-23 and gold US-08-AC02 without contradiction.",deepseek-v4.1-flash:cloud,2026-10-29T14:02:03+00:00
+US-08-AC02,Transition filled → shipped is the only allowed transition from filled.,yes,yes,The criterion directly restates the domain rule that an order status may change from filled only to shipped and does not conflict with any gold acceptance criterion.,deepseek-v4.1-flash:cloud,2026-10-29T14:02:07+00:00
+US-08-AC03,"Given an Order with status pending, when OrderStaff attempts to ship, then the request is rejected and the status remains pending.",yes,yes,"It is directly supported by REQ-F-26 and consistent with gold criterion US-09-AC02, which requires rejecting shipment when the order status is not filled and leaving the status unchanged.",deepseek-v4.1-flash:cloud,2026-10-29T14:02:10+00:00
+US-09-AC02,Only one Invoice may exist per Order.,yes,yes,It captures REQ-F-10’s at-most-one-invoice-per-order rule and aligns with US-10-AC04 without contradiction.,deepseek-v4.1-flash:cloud,2026-10-29T14:02:13+00:00
+US-10-AC03,"Given an Invoice with status paid, when a Payment is submitted, then the system rejects the submission.",yes,yes,It directly reflects REQ-F-33 and does not contradict any gold acceptance criterion.,deepseek-v4.1-flash:cloud,2026-10-29T14:02:15+00:00
+US-11-AC01,"Given a Payment with status pending, when Accountant marks it completed, then the Payment status becomes completed and the linked Invoice status becomes paid.",yes,yes,"It maps to REQ-F-35/36 governing confirmation of a pending payment and setting the linked invoice to paid, and it does not contradict any gold acceptance criterion.",deepseek-v4.1-flash:cloud,2026-10-29T14:02:25+00:00
+US-11-AC03,"Given a Payment whose status is failed, when Accountant attempts to confirm it, then the request is rejected and the status stays failed.",yes,yes,The unit directly reflects REQ-F-39 and matches gold unit US-13-AC03 without contradiction.,deepseek-v4.1-flash:cloud,2026-10-29T14:02:26+00:00
+US-12-AC01,"Given a Payment with status pending, when Accountant marks it failed, then the Payment status becomes failed; the Invoice status remains unchanged.",yes,yes,The criterion directly reflects REQ-F-38 and gold US-14-AC01/AC02 without contradicting any gold unit.,deepseek-v4.1-flash:cloud,2026-10-29T14:02:29+00:00
+US-12-AC02,Only payments in pending may be rejected.,yes,yes,The unit is supported by REQ-F-38/REQ-F-39/REQ-F-50 and aligns with the gold payment-rejection criteria without contradiction.,deepseek-v4.1-flash:cloud,2026-10-29T14:02:33+00:00
+US-13-AC02,Closing is only allowed from shipped when the Invoice is paid.,yes,yes,"The unit restates REQ-F-40/F-41/F-42/F-49 that closing requires shipped status and a paid invoice, which aligns with gold US-15-AC01 through US-15-AC03.",deepseek-v4.1-flash:cloud,2026-10-29T14:02:36+00:00
+US-14-AC01,All attributes except Customer.bankAccount are mandatory.,yes,yes,The unit restates REQ-F-45 that every attribute is mandatory except Customer.bankAccount and does not contradict any gold acceptance criterion.,deepseek-v4.1-flash:cloud,2026-10-29T14:02:41+00:00
+US-14-AC02,"Order.status ∈ {submitted, pending, filled, shipped, closed}.",yes,yes,"The unit corresponds to REQ-F-47's order-status restriction and agrees with gold criterion US-06-AC03, so it contradicts no gold unit.",deepseek-v4.1-flash:cloud,2026-10-29T14:02:44+00:00
+US-14-AC03,"Invoice.status ∈ {issued, paid}.",yes,yes,"The unit expresses the real domain invariant that an invoice status is limited to issued or paid, and it does not contradict any gold unit.",deepseek-v4.1-flash:cloud,2026-10-29T14:02:46+00:00
+US-14-AC04,"Payment.status ∈ {pending, completed, failed}.",yes,yes,The unit directly reflects REQ-F-47 and US-11-AC04’s permitted payment statuses without contradicting any gold unit.,deepseek-v4.1-flash:cloud,2026-10-29T14:02:48+00:00
+US-15-AC01,"Product.price, OrderItem.unitPrice, Order.totalAmount, Invoice.amount, Payment.amount are of type decimal(12,2).",yes,yes,"The unit refines REQ-F-46's requirement that monetary values be decimal numbers by specifying a decimal(12,2) type, which does not contradict any gold criterion.",deepseek-v4.1-flash:cloud,2026-10-29T14:02:52+00:00
+US-15-AC02,"Given any monetary input, when it is persisted, then the stored value retains two fractional digits.",no,yes,"The two-fractional-digit storage rule is not stated in the domain specification, which only requires monetary values to be decimal, and no gold unit forbids it.",deepseek-v4.1-flash:cloud,2026-10-29T14:02:58+00:00
+US-15-AC03,No monetary field may be null.,yes,yes,"The unit is traceable to REQ-F-45’s general mandatory-attribute rule and is consistent with gold criteria requiring product price, order total, invoice amount, and payment amount to be recorded.",deepseek-v4.1-flash:cloud,2026-10-29T14:03:02+00:00
+US-16-AC01,"Every status transition creates an audit record (entity, oldStatus, newStatus, userId, timestamp).",yes,yes,"The unit is supported by REQ-N-08's requirement to record the user and time of every status change, and it does not contradict any gold unit.",deepseek-v4.1-flash:cloud,2026-10-29T14:03:05+00:00
+US-16-AC02,"Given a status change, when the audit log is queried, then the record appears with correct user and time.",yes,yes,"The criterion verifies REQ-N-08’s requirement to record the user and time for every status change of an order, invoice, or payment, and it does not contradict any gold acceptance criterion.",deepseek-v4.1-flash:cloud,2026-10-29T14:03:10+00:00
+US-16-AC03,Audit records are retained for a minimum of 12 months.,yes,yes,The unit restates the 12-month audit-record retention requirement from REQ-N-08/NFR-06 and does not contradict any gold unit.,deepseek-v4.1-flash:cloud,2026-10-29T14:03:13+00:00
+US-17-AC01,No status transition is allowed from closed.,yes,yes,"The criterion directly reflects REQ-F-44 and gold US-15-AC04, which prohibit changing the status of a closed order.",deepseek-v4.1-flash:cloud,2026-10-29T14:03:15+00:00
+US-17-AC02,"Given a closed Order, when any staff attempts to change its status, then the request is rejected.",yes,yes,The unit restates REQ-F-44 and gold US-15-AC04 by rejecting any status change for a closed order.,deepseek-v4.1-flash:cloud,2026-10-29T14:03:18+00:00
+US-17-AC03,The Order entity becomes read‑only after reaching closed.,no,yes,"The domain and gold criteria only forbid changing the status of a closed order, whereas this criterion adds a broader entity-level read-only rule, so it is not traceable though it does not contradict existing criteria.",deepseek-v4.1-flash:cloud,2026-10-29T14:03:23+00:00
+US-18-AC01,Every API call must contain a valid authentication token.,no,yes,"The unit invents an API-call/token mechanism not stated in the domain, but it does not contradict the gold authentication requirement.",deepseek-v4.1-flash:cloud,2026-10-29T14:03:34+00:00
+US-18-AC02,"Given a request without a token, when the request reaches the server, then the system returns HTTP 401 Unauthorized.",yes,yes,"The unit is attributable to REQ-N-05/NFR-03 requiring rejection of unauthenticated requests, and returning HTTP 401 does not contradict any gold unit.",deepseek-v4.1-flash:cloud,2026-10-29T14:03:37+00:00
+US-18-AC03,Unauthenticated requests are logged and rejected 100 % of the time.,no,yes,"The rejection component matches REQ-N-05, but logging unauthenticated requests is not specified in the domain, and it contradicts no gold unit.",deepseek-v4.1-flash:cloud,2026-10-29T14:03:41+00:00
+US-19-AC01,Only users with role Accountant may invoke the Confirm Payment or Reject Payment actions.,yes,yes,"The unit matches REQ-N-06 and gold NFR-04, requiring only Accountant-role users to confirm or reject payments, and it contradicts no gold unit.",deepseek-v4.1-flash:cloud,2026-10-29T14:03:43+00:00
+US-19-AC02,"Given a non‑Accountant user attempting to confirm a payment, when the request is processed, then the system returns HTTP 403 Forbidden.",yes,yes,The acceptance criterion traces to REQ-N-06/NFR-04 role restriction for confirming payments and does not contradict any gold unit.,deepseek-v4.1-flash:cloud,2026-10-29T14:03:46+00:00
+US-19-AC03,All attempts by unauthorized roles are logged.,no,yes,"The domain requires role-based rejection and logging of status changes, but not logging of unauthorized attempts, and adding such logging does not contradict any gold unit.",deepseek-v4.1-flash:cloud,2026-10-29T14:03:50+00:00
+US-20-AC01,The system shall handle at least 200 concurrent users and at least 20 order submissions per second.,yes,yes,The unit directly corresponds to REQ-N-02/NFR-02 and does not contradict any gold unit.,deepseek-v4.1-flash:cloud,2026-10-29T14:03:52+00:00
+US-20-AC02,95 % of order submissions with ≤ 50 items shall complete within 2 seconds.,yes,yes,The unit directly corresponds to REQ-N-01/NFR-01 and does not contradict any gold acceptance criterion.,deepseek-v4.1-flash:cloud,2026-10-29T14:03:55+00:00
+US-20-AC03,"Availability shall be ≥ 99.5 % per calendar month, with scheduled maintenance announced ≥ 24 h in advance.",yes,yes,The unit restates REQ-N-03/NFR-07’s 99.5% monthly availability target and 24-hour advance notice for scheduled maintenance without contradicting any gold unit.,deepseek-v4.1-flash:cloud,2026-10-29T14:03:57+00:00

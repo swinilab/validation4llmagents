@@ -1,17 +1,17 @@
 {
   "run_id": "antigravity-1",
   "primary_threshold": 0.75,
-  "status": "provisional",
-  "unresolved": 55,
+  "status": "final",
+  "unresolved": 0,
   "pending_type": 0,
   "pending_guard": 0,
   "pending_rubric": 0,
   "manual_default": "not_covered",
-  "kappa": null,
-  "kappa_n": 0,
+  "kappa": 0.7778,
+  "kappa_n": 24,
   "kappa_pool": "per_section",
   "kappa_accept": 0.6,
-  "kappa_accepted": null,
+  "kappa_accepted": true,
   "kappa_role": "observation",
   "control": {
     "item_1": "pass",
@@ -25,7 +25,7 @@
     "threshold": 0.75,
     "gate_blocked": {},
     "rule_rejections": {
-      "guard": 3,
+      "guard": 1,
       "swimlane": 3
     },
     "prerequisite_blocked": {
@@ -86,7 +86,10 @@
     "cross_kind_near_miss": [],
     "manual_resolved": {
       "type": {},
-      "guard": {}
+      "guard": {
+        "PASS": 2,
+        "FAIL": 1
+      }
     },
     "elements_per_kind": {
       "structural": {
@@ -134,87 +137,87 @@
     "gate": "pass",
     "n_gen": 50,
     "gold_total": 50,
-    "rubric_pass": 0,
+    "rubric_pass": 7,
     "sweep": [
       {
         "threshold": 0.7,
         "recall": 0.86,
-        "precision": 0.86,
-        "f1": 0.86,
+        "precision": 1.0,
+        "f1": 0.9247,
         "matched_gold": 43,
         "matched_gen": 43
       },
       {
         "threshold": 0.75,
         "recall": 0.86,
-        "precision": 0.86,
-        "f1": 0.86,
+        "precision": 1.0,
+        "f1": 0.9247,
         "matched_gold": 43,
         "matched_gen": 43
       },
       {
         "threshold": 0.8,
         "recall": 0.84,
-        "precision": 0.84,
-        "f1": 0.84,
+        "precision": 0.98,
+        "f1": 0.9046,
         "matched_gold": 42,
         "matched_gen": 42
       },
       {
         "threshold": 0.85,
         "recall": 0.84,
-        "precision": 0.84,
-        "f1": 0.84,
+        "precision": 0.98,
+        "f1": 0.9046,
         "matched_gold": 42,
         "matched_gen": 42
       }
     ],
     "recall": 0.86,
-    "precision": 0.86,
-    "f1": 0.86
+    "precision": 1.0,
+    "f1": 0.9247
   },
   "behavioral": {
     "syntax_validity": 1.0,
     "gate": "pass",
     "n_gen": 43,
     "gold_total": 39,
-    "rubric_pass": 0,
+    "rubric_pass": 15,
     "sweep": [
       {
         "threshold": 0.7,
+        "recall": 0.7179,
+        "precision": 1.0,
+        "f1": 0.8358,
+        "matched_gold": 28,
+        "matched_gen": 28
+      },
+      {
+        "threshold": 0.75,
         "recall": 0.6667,
-        "precision": 0.6047,
-        "f1": 0.6341,
+        "precision": 0.9535,
+        "f1": 0.7847,
         "matched_gold": 26,
         "matched_gen": 26
       },
       {
-        "threshold": 0.75,
-        "recall": 0.6154,
-        "precision": 0.5581,
-        "f1": 0.5854,
-        "matched_gold": 24,
-        "matched_gen": 24
-      },
-      {
         "threshold": 0.8,
-        "recall": 0.5641,
-        "precision": 0.5116,
-        "f1": 0.5366,
-        "matched_gold": 22,
-        "matched_gen": 22
+        "recall": 0.5897,
+        "precision": 0.8837,
+        "f1": 0.7074,
+        "matched_gold": 23,
+        "matched_gen": 23
       },
       {
         "threshold": 0.85,
         "recall": 0.5128,
-        "precision": 0.4651,
-        "f1": 0.4878,
+        "precision": 0.814,
+        "f1": 0.6292,
         "matched_gold": 20,
         "matched_gen": 20
       }
     ],
-    "recall": 0.6154,
-    "precision": 0.5581,
-    "f1": 0.5854
+    "recall": 0.6667,
+    "precision": 0.9535,
+    "f1": 0.7847
   }
 }

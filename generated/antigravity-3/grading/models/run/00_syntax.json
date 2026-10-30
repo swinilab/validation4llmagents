@@ -5,7 +5,12 @@
     "total": 50,
     "parse_error": null,
     "rejections": [],
-    "gate": "pass"
+    "plantuml": {
+      "accepted": true,
+      "error": null
+    },
+    "gate": "pass",
+    "gate_mode": "plantuml"
   },
   "behavioral": {
     "validity": 0.875,
@@ -44,6 +49,11 @@
         "code": "unbalanced_block"
       }
     ],
-    "gate": "fail"
+    "plantuml": {
+      "accepted": false,
+      "error": "39 Cannot find repeat (Assumed diagram type: activity)"
+    },
+    "gate": "fail",
+    "gate_mode": "plantuml"
   }
 }

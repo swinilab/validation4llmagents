@@ -1,34 +1,34 @@
 {
   "run_id": "antigravity-3",
   "primary_threshold": 0.75,
-  "status": "provisional",
+  "status": "final",
   "s_size": 46,
   "gold_total": 70,
-  "rubric_pass": 0,
-  "pending_polarity": 1,
+  "rubric_pass": 32,
+  "pending_polarity": 0,
   "pending_rubric": 0,
-  "judge_model": null,
-  "kappa": null,
-  "kappa_n": 0,
+  "judge_model": "deepseek-v4.1-flash:cloud",
+  "kappa": 1.0,
+  "kappa_n": 31,
   "kappa_accept": 0.6,
-  "kappa_accepted": null,
-  "manual_default": "not_covered",
+  "kappa_accepted": true,
+  "manual_default": null,
   "sweep": [
     {
       "threshold": 0.7,
-      "recall": 0.2143,
-      "precision": 0.3261,
-      "f1": 0.2586,
-      "matched_gold": 15,
-      "matched_gen": 15
+      "recall": 0.2286,
+      "precision": 0.3478,
+      "f1": 0.2759,
+      "matched_gold": 16,
+      "matched_gen": 16
     },
     {
       "threshold": 0.75,
-      "recall": 0.1714,
-      "precision": 0.2826,
-      "f1": 0.2134,
-      "matched_gold": 12,
-      "matched_gen": 13
+      "recall": 0.1857,
+      "precision": 1.0,
+      "f1": 0.3132,
+      "matched_gold": 13,
+      "matched_gen": 14
     },
     {
       "threshold": 0.8,
@@ -48,16 +48,16 @@
     }
   ],
   "diagnostics": {
-    "cross_us_matches": 6,
+    "cross_us_matches": 7,
     "cross_kind_would_cover": 0,
     "axis_rejections": {
-      "polarity": 28,
+      "polarity": 27,
       "identifier": 83,
       "numeric": 0
     },
     "dedup_removed": 7,
     "manual_resolved": {
-      "PASS": 0,
+      "PASS": 1,
       "FAIL": 0
     },
     "ac_per_story": {

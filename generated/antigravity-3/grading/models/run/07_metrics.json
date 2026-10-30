@@ -1,17 +1,17 @@
 {
   "run_id": "antigravity-3",
   "primary_threshold": 0.75,
-  "status": "provisional",
-  "unresolved": 14,
+  "status": "final",
+  "unresolved": 0,
   "pending_type": 0,
   "pending_guard": 0,
   "pending_rubric": 0,
   "manual_default": "not_covered",
-  "kappa": null,
-  "kappa_n": 0,
+  "kappa": 1.0,
+  "kappa_n": 7,
   "kappa_pool": "per_section",
   "kappa_accept": 0.6,
-  "kappa_accepted": null,
+  "kappa_accepted": true,
   "kappa_role": "observation",
   "control": {
     "item_1": "pass",
@@ -169,44 +169,44 @@
     "gate": "pass",
     "n_gen": 50,
     "gold_total": 50,
-    "rubric_pass": 0,
+    "rubric_pass": 7,
     "sweep": [
       {
         "threshold": 0.7,
         "recall": 0.86,
-        "precision": 0.86,
-        "f1": 0.86,
+        "precision": 1.0,
+        "f1": 0.9247,
         "matched_gold": 43,
         "matched_gen": 43
       },
       {
         "threshold": 0.75,
         "recall": 0.86,
-        "precision": 0.86,
-        "f1": 0.86,
+        "precision": 1.0,
+        "f1": 0.9247,
         "matched_gold": 43,
         "matched_gen": 43
       },
       {
         "threshold": 0.8,
         "recall": 0.84,
-        "precision": 0.84,
-        "f1": 0.84,
+        "precision": 0.98,
+        "f1": 0.9046,
         "matched_gold": 42,
         "matched_gen": 42
       },
       {
         "threshold": 0.85,
         "recall": 0.84,
-        "precision": 0.84,
-        "f1": 0.84,
+        "precision": 0.98,
+        "f1": 0.9046,
         "matched_gold": 42,
         "matched_gen": 42
       }
     ],
     "recall": 0.86,
-    "precision": 0.86,
-    "f1": 0.86
+    "precision": 1.0,
+    "f1": 0.9247
   },
   "behavioral": {
     "syntax_validity": 0.875,

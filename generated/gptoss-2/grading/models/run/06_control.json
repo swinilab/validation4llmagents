@@ -1,16 +1,16 @@
 {
-  "item_1": "n/a",
-  "item_2": "n/a",
-  "item_3": "n/a",
-  "item_4": "n/a",
-  "item_5": "n/a",
-  "item_6": "n/a",
+  "item_1": "fail",
+  "item_2": "fail",
+  "item_3": "pass",
+  "item_4": "fail",
+  "item_5": "pass",
+  "item_6": "pass",
   "details": {
-    "item_1": "no behavioral diagram",
-    "item_2": "no behavioral diagram",
-    "item_3": "no behavioral diagram",
-    "item_4": "no behavioral diagram",
-    "item_5": "no behavioral diagram",
-    "item_6": "no behavioral diagram"
+    "item_1": "3 initial node(s), 3 final node(s)",
+    "item_2": "8 unguarded edge(s): ['line 26 -> node 22', 'line 33 -> node 28', 'line 40 -> node 37', 'line 51 -> node 43', 'line 62 -> node 51']",
+    "item_3": "1 fork(s) paired with 1 join(s)",
+    "item_4": "no loop construct found",
+    "item_5": "2 action(s) followed by an object node",
+    "item_6": "all 23 action(s) sit in a whitelisted lane"
   }
 }

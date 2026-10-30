@@ -1,64 +1,64 @@
 {
   "run_id": "claude-code-2",
   "primary_threshold": 0.75,
-  "status": "provisional",
+  "status": "final",
   "s_size": 83,
   "gold_total": 70,
-  "rubric_pass": 0,
-  "pending_polarity": 5,
+  "rubric_pass": 54,
+  "pending_polarity": 0,
   "pending_rubric": 0,
-  "judge_model": null,
-  "kappa": null,
-  "kappa_n": 0,
+  "judge_model": "deepseek-v4.1-flash:cloud",
+  "kappa": 1.0,
+  "kappa_n": 39,
   "kappa_accept": 0.6,
-  "kappa_accepted": null,
-  "manual_default": "not_covered",
+  "kappa_accepted": true,
+  "manual_default": null,
   "sweep": [
     {
       "threshold": 0.7,
-      "recall": 0.4,
-      "precision": 0.3614,
-      "f1": 0.3797,
-      "matched_gold": 28,
-      "matched_gen": 30
+      "recall": 0.4286,
+      "precision": 0.3976,
+      "f1": 0.4125,
+      "matched_gold": 30,
+      "matched_gen": 33
     },
     {
       "threshold": 0.75,
-      "recall": 0.3714,
-      "precision": 0.3133,
-      "f1": 0.3399,
-      "matched_gold": 26,
-      "matched_gen": 26
+      "recall": 0.4,
+      "precision": 0.988,
+      "f1": 0.5695,
+      "matched_gold": 28,
+      "matched_gen": 28
     },
     {
       "threshold": 0.8,
-      "recall": 0.3429,
-      "precision": 0.2892,
-      "f1": 0.3138,
-      "matched_gold": 24,
-      "matched_gen": 24
+      "recall": 0.3571,
+      "precision": 0.3012,
+      "f1": 0.3268,
+      "matched_gold": 25,
+      "matched_gen": 25
     },
     {
       "threshold": 0.85,
-      "recall": 0.3143,
-      "precision": 0.2651,
-      "f1": 0.2876,
-      "matched_gold": 22,
-      "matched_gen": 22
+      "recall": 0.3286,
+      "precision": 0.2771,
+      "f1": 0.3007,
+      "matched_gold": 23,
+      "matched_gen": 23
     }
   ],
   "diagnostics": {
-    "cross_us_matches": 11,
+    "cross_us_matches": 12,
     "cross_kind_would_cover": 0,
     "axis_rejections": {
-      "polarity": 44,
+      "polarity": 42,
       "identifier": 135,
       "numeric": 0
     },
     "dedup_removed": 10,
     "manual_resolved": {
-      "PASS": 0,
-      "FAIL": 0
+      "PASS": 3,
+      "FAIL": 2
     },
     "ac_per_story": {
       "US-01": 7,

@@ -59,7 +59,7 @@ _NORMALIZATION_KEYS = {
 
 _TYPE_TABLE_KEYS = {"accept", "warn", "fail"}
 
-_SYNTAX_GATE_VALUES = {"strict"}
+_SYNTAX_GATE_VALUES = {"strict", "plantuml"}
 _KAPPA_POOL_VALUES = {"per_section", "pooled"}
 
 
@@ -71,6 +71,20 @@ def _require_mapping(data: Any, source: str) -> dict:
     if not isinstance(data, dict):
         raise ConfigError(f"{source}: expected a mapping at the top level")
     return data
+
+
+def _plantuml_settings(raw: dict, path: Path) -> dict:
+    """How to run PlantUML, read from the shared `pipeline.parse_check` section.
+
+    Used only by `syntax_gate: plantuml`. A relative jar path is taken from the
+    directory of the config file, like the `gold:` paths.
+    """
+    section = (raw.get("pipeline") or {}).get("parse_check") or {}
+    jar = section.get("plantuml_jar")
+    if jar and not Path(jar).is_absolute():
+        jar = str(path.parent / jar)
+    return {"jar": jar, "java_cmd": section.get("java_cmd"),
+            "timeout_seconds": section.get("timeout_seconds")}
 
 
 def load_config(path: str | Path) -> dict:
@@ -97,6 +111,7 @@ def load_config(path: str | Path) -> dict:
         raise ConfigError(f"{path}: missing required key(s): {missing}")
 
     config = {key: raw[key] for key in _CONFIG_KEYS}
+    config["plantuml"] = _plantuml_settings(raw, path)
 
     sweep = config["sweep_models"]
     if not isinstance(sweep, list) or not sweep:
@@ -119,6 +134,12 @@ def load_config(path: str | Path) -> dict:
         raise ConfigError(
             f"{path}: syntax_gate must be one of {sorted(_SYNTAX_GATE_VALUES)}; "
             f"got {config['syntax_gate']!r}")
+    if config["syntax_gate"] == "plantuml":
+        unset = sorted(k for k, v in config["plantuml"].items() if not v)
+        if unset:
+            raise ConfigError(
+                f"{path}: syntax_gate 'plantuml' needs pipeline.parse_check "
+                f"settings {unset} (plantuml_jar, java_cmd, timeout_seconds)")
     if config["kappa_pool"] not in _KAPPA_POOL_VALUES:
         raise ConfigError(
             f"{path}: kappa_pool must be one of {sorted(_KAPPA_POOL_VALUES)}; "

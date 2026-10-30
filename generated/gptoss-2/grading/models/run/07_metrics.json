@@ -1,17 +1,17 @@
 {
   "run_id": "gptoss-2",
   "primary_threshold": 0.75,
-  "status": "provisional",
-  "unresolved": 137,
+  "status": "final",
+  "unresolved": 0,
   "pending_type": 0,
   "pending_guard": 0,
   "pending_rubric": 0,
-  "manual_default": "not_covered",
-  "kappa": null,
-  "kappa_n": 0,
+  "manual_default": null,
+  "kappa": 0.6116,
+  "kappa_n": 46,
   "kappa_pool": "per_section",
   "kappa_accept": 0.6,
-  "kappa_accepted": null,
+  "kappa_accepted": true,
   "kappa_role": "observation",
   "control": {
     "item_1": "fail",
@@ -56,7 +56,9 @@
         ]
       }
     },
-    "rule_rejections": {},
+    "rule_rejections": {
+      "swimlane": 1
+    },
     "prerequisite_blocked": {},
     "label_collapsed": {
       "structural": {
@@ -191,43 +193,43 @@
     "gate": "pass",
     "n_gen": 107,
     "gold_total": 39,
-    "rubric_pass": 0,
+    "rubric_pass": 57,
     "sweep": [
       {
         "threshold": 0.7,
-        "recall": 0.0,
-        "precision": 0.0,
-        "f1": 0.0,
-        "matched_gold": 0,
-        "matched_gen": 0
+        "recall": 0.1538,
+        "precision": 0.5888,
+        "f1": 0.2439,
+        "matched_gold": 6,
+        "matched_gen": 6
       },
       {
         "threshold": 0.75,
-        "recall": 0.0,
-        "precision": 0.0,
-        "f1": 0.0,
-        "matched_gold": 0,
-        "matched_gen": 0
+        "recall": 0.1026,
+        "precision": 0.5701,
+        "f1": 0.1739,
+        "matched_gold": 4,
+        "matched_gen": 4
       },
       {
         "threshold": 0.8,
-        "recall": 0.0,
-        "precision": 0.0,
-        "f1": 0.0,
-        "matched_gold": 0,
-        "matched_gen": 0
+        "recall": 0.0769,
+        "precision": 0.5607,
+        "f1": 0.1353,
+        "matched_gold": 3,
+        "matched_gen": 3
       },
       {
         "threshold": 0.85,
-        "recall": 0.0,
-        "precision": 0.0,
-        "f1": 0.0,
-        "matched_gold": 0,
-        "matched_gen": 0
+        "recall": 0.0769,
+        "precision": 0.5607,
+        "f1": 0.1353,
+        "matched_gold": 3,
+        "matched_gen": 3
       }
     ],
-    "recall": 0.0,
-    "precision": 0.0,
-    "f1": 0.0
+    "recall": 0.1026,
+    "precision": 0.5701,
+    "f1": 0.1739
   }
 }

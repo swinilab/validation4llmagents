@@ -1,11 +1,11 @@
 {
   "run_id": "claude-code-3",
-  "submission_dir": "generated\\claude-code-3",
+  "submission_dir": "generated/claude-code-3/grading/models/submission",
   "gold_paths": {
-    "structural": "C:\\Users\\Admin\\Documents\\validation4llmagents\\materials\\G2-structural-model.puml",
-    "behavioral": "C:\\Users\\Admin\\Documents\\validation4llmagents\\materials\\G3-behavioral-model.puml"
+    "structural": "materials/G2-structural-model.puml",
+    "behavioral": "materials/G3-behavioral-model.puml"
   },
-  "domain_path": "C:\\Users\\Admin\\Documents\\validation4llmagents\\materials\\M1a.json",
+  "domain_path": "materials/M1a.json",
   "diagrams": [
     "structural",
     "behavioral"
@@ -63,29 +63,34 @@
     "sprite/inline image declarations",
     "swimlane alias with colour-only redefinition"
   ],
-  "on_pending": "provisional",
+  "on_pending": "halt",
   "config": {
-    "kappa_sample_size": 30,
-    "judge_model": null,
-    "kappa_pool": "per_section",
-    "threshold_models": 0.75,
-    "judge_max_attempts": 3,
-    "normalize_embeddings": true,
-    "pooling": "mean",
     "sweep_models": [
       0.7,
       0.75,
       0.8,
       0.85
     ],
-    "judge_temperature": 0,
-    "judge_api_base": "https://openrouter.ai/api/v1",
-    "embedding_model": "sentence-transformers/all-mpnet-base-v2",
-    "random_seed": 20261024,
-    "manual_default": "not_covered",
+    "kappa_sample_size": 30,
+    "judge_api_base": "https://ollama.com/v1",
+    "normalize_embeddings": true,
+    "kappa_accept": 0.6,
+    "kappa_pool": "per_section",
     "embedding_revision": null,
-    "syntax_gate": "strict",
-    "kappa_accept": 0.6
+    "judge_temperature": 0,
+    "embedding_model": "sentence-transformers/all-mpnet-base-v2",
+    "judge_model": "deepseek-v4.1-flash:cloud",
+    "syntax_gate": "plantuml",
+    "pooling": "mean",
+    "random_seed": 20261024,
+    "threshold_models": 0.75,
+    "manual_default": "not_covered",
+    "judge_max_attempts": 3,
+    "plantuml": {
+      "jar": "tools/plantuml.jar",
+      "java_cmd": "java",
+      "timeout_seconds": 60
+    }
   },
   "rules": {
     "status_sets": {
@@ -209,7 +214,7 @@
       "lowercase": false
     }
   },
-  "code_commit": "507cab9f493b8adbe6e3190c00e0827b1a1413cd",
-  "started_at": "2026-10-27T14:45:55+00:00",
-  "finished_at": "2026-10-27T14:46:15+00:00"
+  "code_commit": "f461a1c39f52055c68a112263cf43f4fdb6ca685",
+  "started_at": "2026-10-29T15:49:12+00:00",
+  "finished_at": "2026-10-29T15:49:13+00:00"
 }

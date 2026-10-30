@@ -1234,34 +1234,34 @@
   {
     "gold_id": "US-15-AC04",
     "gen_id": "US-02-AC03",
-    "verdict": "FAIL",
-    "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Same closed-order immutability rule",
+    "source": "ledger"
   },
   {
     "gold_id": "US-15-AC04",
     "gen_id": "US-03-AC04",
-    "verdict": "FAIL",
-    "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Same closed-order immutability rule",
+    "source": "ledger"
   },
   {
     "gold_id": "US-15-AC04",
     "gen_id": "US-04-AC04",
-    "verdict": "FAIL",
-    "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Same closed-order immutability rule",
+    "source": "ledger"
   },
   {
     "gold_id": "US-15-AC04",
     "gen_id": "US-10-AC05",
-    "verdict": "FAIL",
-    "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Same closed-order immutability rule",
+    "source": "ledger"
   },
   {
     "gold_id": "US-15-AC05",

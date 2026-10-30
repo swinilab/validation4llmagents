@@ -1,31 +1,46 @@
 element_id,kind,label,traceable,consistent,reviewer,timestamp
-ACT:CloseOrder,action,CloseOrder,yes,yes,Le Anh Duc,2026-10-28
-ACT:ConfirmPayment,action,ConfirmPayment,yes,yes,Le Anh Duc,2026-10-28
-ACT:FillOrder,action,FillOrder,yes,yes,Le Anh Duc,2026-10-28
-ACT:MarkOrderPending,action,MarkOrderPending,yes,yes,Le Anh Duc,2026-10-28
-ACT:RaiseInvoice,action,RaiseInvoice,yes,yes,Le Anh Duc,2026-10-28
-ACT:RejectPayment,action,RejectPayment,yes,yes,Le Anh Duc,2026-10-28
-ACT:ShipOrder,action,ShipOrder,yes,yes,Le Anh Duc,2026-10-28
-ACT:SubmitOrder,action,SubmitOrder,yes,yes,Le Anh Duc,2026-10-28
-ACT:SubmitPayment,action,SubmitPayment,yes,yes,Le Anh Duc,2026-10-28
-LANE:BrowseProducts,swimlane,Customer,yes,no,Le Anh Duc,2026-10-28
-LANE:CloseOrder,swimlane,OrderStaff,yes,yes,Le Anh Duc,2026-10-28
-LANE:FillOrder,swimlane,OrderStaff,yes,yes,Le Anh Duc,2026-10-28
-LANE:MarkOrderPending,swimlane,OrderStaff,yes,yes,Le Anh Duc,2026-10-28
-LANE:ReceiveOrder,swimlane,OrderStaff,yes,yes,Le Anh Duc,2026-10-28
-LANE:RegisterCustomer,swimlane,Customer,yes,no,Le Anh Duc,2026-10-28
-LANE:ShipOrder,swimlane,OrderStaff,yes,yes,Le Anh Duc,2026-10-28
-LANE:SubmitOrder,swimlane,Customer,yes,yes,Le Anh Duc,2026-10-28
-OBJ:Invoice[issued],object_node,Invoice [issued],yes,yes,Le Anh Duc,2026-10-28
-OBJ:Invoice[paid],object_node,Invoice [paid],yes,yes,Le Anh Duc,2026-10-28
-OBJ:Order[closed],object_node,Order [closed],yes,yes,Le Anh Duc,2026-10-28
-OBJ:Order[shipped],object_node,Order [shipped],yes,yes,Le Anh Duc,2026-10-28
-OBJ:Payment[failed],object_node,Payment [failed],yes,yes,Le Anh Duc,2026-10-28
-OBJ:Payment[pending],object_node,Payment [pending],yes,yes,Le Anh Duc,2026-10-28
-T:BrowseProducts->SubmitOrder,transition,BrowseProducts->SubmitOrder,yes,no,Le Anh Duc,2026-10-28
-T:CloseOrder->RaiseInvoice,transition,CloseOrder->RaiseInvoice,yes,no,Le Anh Duc,2026-10-28
-T:ConfirmPayment->RejectPayment,transition,ConfirmPayment->RejectPayment,yes,no,Le Anh Duc,2026-10-28
-T:FillOrder->RaiseInvoice,transition,FillOrder->RaiseInvoice,yes,yes,Le Anh Duc,2026-10-28
-T:MarkOrderPending->FillOrder,transition,MarkOrderPending->FillOrder,yes,yes,Le Anh Duc,2026-10-28
-T:RaiseInvoice->SubmitPayment,transition,RaiseInvoice->SubmitPayment,yes,yes,Le Anh Duc,2026-10-28
-T:SubmitOrder->ReceiveOrder,transition,SubmitOrder->ReceiveOrder,yes,yes,Le Anh Duc,2026-10-28
+ACT:CloseOrder,action,CloseOrder,yes,yes,Le Anh Duc,28/10/2026
+ACT:ConfirmPayment,action,ConfirmPayment,yes,yes,Le Anh Duc,28/10/2026
+ACT:FillOrder,action,FillOrder,yes,yes,Le Anh Duc,28/10/2026
+ACT:MarkOrderPending,action,MarkOrderPending,yes,yes,Le Anh Duc,28/10/2026
+ACT:RaiseInvoice,action,RaiseInvoice,yes,yes,Le Anh Duc,28/10/2026
+ACT:RejectPayment,action,RejectPayment,yes,yes,Le Anh Duc,28/10/2026
+ACT:ShipOrder,action,ShipOrder,yes,yes,Le Anh Duc,28/10/2026
+ACT:SubmitOrder,action,SubmitOrder,yes,yes,Le Anh Duc,28/10/2026
+ACT:SubmitPayment,action,SubmitPayment,yes,yes,Le Anh Duc,28/10/2026
+LANE:BrowseProducts,swimlane,Customer,yes,no,Le Anh Duc,28/10/2026
+LANE:CloseOrder,swimlane,OrderStaff,yes,yes,Le Anh Duc,28/10/2026
+LANE:FillOrder,swimlane,OrderStaff,yes,yes,Le Anh Duc,28/10/2026
+LANE:MarkOrderPending,swimlane,OrderStaff,yes,yes,Le Anh Duc,28/10/2026
+LANE:ReceiveOrder,swimlane,OrderStaff,yes,yes,Le Anh Duc,28/10/2026
+LANE:RegisterCustomer,swimlane,Customer,yes,no,Le Anh Duc,28/10/2026
+LANE:ShipOrder,swimlane,OrderStaff,yes,yes,Le Anh Duc,28/10/2026
+LANE:SubmitOrder,swimlane,Customer,yes,yes,Le Anh Duc,28/10/2026
+OBJ:Invoice[issued],object_node,Invoice [issued],yes,yes,Le Anh Duc,28/10/2026
+OBJ:Invoice[paid],object_node,Invoice [paid],yes,yes,Le Anh Duc,28/10/2026
+OBJ:Order[closed],object_node,Order [closed],yes,yes,Le Anh Duc,28/10/2026
+OBJ:Order[shipped],object_node,Order [shipped],yes,yes,Le Anh Duc,28/10/2026
+OBJ:Payment[failed],object_node,Payment [failed],yes,yes,Le Anh Duc,28/10/2026
+OBJ:Payment[pending],object_node,Payment [pending],yes,yes,Le Anh Duc,28/10/2026
+T:BrowseProducts->SubmitOrder,transition,BrowseProducts->SubmitOrder,yes,no,Le Anh Duc,28/10/2026
+T:CloseOrder->RaiseInvoice,transition,CloseOrder->RaiseInvoice,yes,no,Le Anh Duc,28/10/2026
+T:ConfirmPayment->RejectPayment,transition,ConfirmPayment->RejectPayment,yes,no,Le Anh Duc,28/10/2026
+T:FillOrder->RaiseInvoice,transition,FillOrder->RaiseInvoice,yes,yes,Le Anh Duc,28/10/2026
+T:MarkOrderPending->FillOrder,transition,MarkOrderPending->FillOrder,yes,yes,Le Anh Duc,28/10/2026
+T:RaiseInvoice->SubmitPayment,transition,RaiseInvoice->SubmitPayment,yes,yes,Le Anh Duc,28/10/2026
+T:SubmitOrder->ReceiveOrder,transition,SubmitOrder->ReceiveOrder,yes,yes,Le Anh Duc,28/10/2026
+A:BankAccount.accountNumber,attribute,+accountNumber: String,yes,yes,Le Anh Duc,28/10/2026
+A:Order.paymentMethod,attribute,+paymentMethod: PaymentMethod,yes,yes,Le Anh Duc,28/10/2026
+A:Payment.paymentMethod,attribute,+paymentMethod: PaymentMethod,yes,yes,Le Anh Duc,28/10/2026
+A:Product.imageUrl,attribute,+imageUrl: String,yes,yes,Le Anh Duc,28/10/2026
+ACT:RegisterCustomer,action,RegisterCustomer,no,yes,Le Anh Duc,28/10/2026
+C:BankAccount,class,BankAccount,yes,yes,Le Anh Duc,28/10/2026
+LANE:ConfirmPayment,swimlane,Accountant,yes,yes,Le Anh Duc,28/10/2026
+LANE:RaiseInvoice,swimlane,OrderStaff,yes,no,Le Anh Duc,28/10/2026
+R:Invoice--Payment,relationship,records >,yes,yes,Le Anh Duc,28/10/2026
+R:Order--OrderItem,relationship,contains >,yes,yes,Le Anh Duc,28/10/2026
+T:FillOrder->ShipOrder,transition,FillOrder->ShipOrder,yes,yes,Le Anh Duc,28/10/2026
+T:ReceiveOrder->MarkOrderPending,transition,ReceiveOrder->MarkOrderPending,yes,yes,Le Anh Duc,28/10/2026
+T:RegisterCustomer->BrowseProducts,transition,RegisterCustomer->BrowseProducts,no,yes,Le Anh Duc,28/10/2026
+T:SubmitPayment->ConfirmPayment,transition,SubmitPayment->ConfirmPayment,yes,yes,Le Anh Duc,28/10/2026
+T:RaiseInvoice->CloseOrder,transition,RaiseInvoice->CloseOrder,yes,yes,Le Anh Duc,28/10/2026

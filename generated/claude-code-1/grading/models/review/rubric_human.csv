@@ -1,7 +1,7 @@
 element_id,kind,label,traceable,consistent,reviewer,timestamp
 ACT:Browse products,action,Browse products,yes,yes,vuhuy,27/10/2026
 ACT:Decline order,action,Decline order,yes,yes,vuhuy,27/10/2026
-ACT:Maintain customer profile,action,Maintain customer profile,,,vuhuy,27/10/2026
+ACT:Maintain customer profile,action,Maintain customer profile,no,yes,vuhuy,27/10/2026
 ACT:Raise invoice,action,Raise invoice,yes,yes,vuhuy,27/10/2026
 ACT:Receive order,action,Receive order,yes,yes,vuhuy,27/10/2026
 ACT:Submit order,action,Submit order,yes,yes,vuhuy,27/10/2026
@@ -23,3 +23,7 @@ T:Reject payment->Submit payment,transition,Reject payment->Submit payment,yes,y
 T:Submit order->Receive order,transition,Submit order->Receive order,yes,yes,vuhuy,27/10/2026
 T:Submit payment->Confirm payment,transition,Submit payment->Confirm payment,yes,yes,vuhuy,27/10/2026
 T:Submit payment->Reject payment,transition,Submit payment->Reject payment,yes,yes,vuhuy,27/10/2026
+A:Order.paymentMethod,attribute,paymentMethod : PaymentMethod,yes,yes,vuhuy,27/10/2026
+A:Payment.paymentMethod,attribute,paymentMethod : PaymentMethod,yes,yes,vuhuy,27/10/2026
+A:Product.image,attribute,image : Byte[],yes,yes,vuhuy,27/10/2026
+R:Order--OrderItem,relationship,contains,yes,yes,vuhuy,27/10/2026

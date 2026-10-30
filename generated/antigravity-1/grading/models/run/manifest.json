@@ -1,11 +1,11 @@
 {
   "run_id": "antigravity-1",
-  "submission_dir": "generated\\antigravity-1",
+  "submission_dir": "generated/antigravity-1/grading/models/submission",
   "gold_paths": {
-    "structural": "C:\\Users\\Admin\\Documents\\validation4llmagents\\materials\\G2-structural-model.puml",
-    "behavioral": "C:\\Users\\Admin\\Documents\\validation4llmagents\\materials\\G3-behavioral-model.puml"
+    "structural": "materials/G2-structural-model.puml",
+    "behavioral": "materials/G3-behavioral-model.puml"
   },
-  "domain_path": "C:\\Users\\Admin\\Documents\\validation4llmagents\\materials\\M1a.json",
+  "domain_path": "materials/M1a.json",
   "diagrams": [
     "structural",
     "behavioral"
@@ -65,27 +65,32 @@
   ],
   "on_pending": "provisional",
   "config": {
+    "judge_model": "deepseek-v4.1-flash:cloud",
+    "judge_max_attempts": 3,
+    "kappa_pool": "per_section",
+    "judge_temperature": 0,
+    "normalize_embeddings": true,
+    "manual_default": "not_covered",
     "embedding_model": "sentence-transformers/all-mpnet-base-v2",
     "pooling": "mean",
+    "threshold_models": 0.75,
+    "kappa_sample_size": 30,
+    "judge_api_base": "https://ollama.com/v1",
     "kappa_accept": 0.6,
-    "judge_api_base": "https://openrouter.ai/api/v1",
-    "embedding_revision": null,
     "random_seed": 20261024,
-    "syntax_gate": "strict",
     "sweep_models": [
       0.7,
       0.75,
       0.8,
       0.85
     ],
-    "judge_model": null,
-    "judge_max_attempts": 3,
-    "kappa_pool": "per_section",
-    "manual_default": "not_covered",
-    "normalize_embeddings": true,
-    "threshold_models": 0.75,
-    "kappa_sample_size": 30,
-    "judge_temperature": 0
+    "syntax_gate": "plantuml",
+    "embedding_revision": null,
+    "plantuml": {
+      "jar": "tools/plantuml.jar",
+      "java_cmd": "java",
+      "timeout_seconds": 60
+    }
   },
   "rules": {
     "status_sets": {
@@ -209,7 +214,7 @@
       "lowercase": false
     }
   },
-  "code_commit": "507cab9f493b8adbe6e3190c00e0827b1a1413cd",
-  "started_at": "2026-10-27T14:45:00+00:00",
-  "finished_at": "2026-10-27T14:45:24+00:00"
+  "code_commit": "f461a1c39f52055c68a112263cf43f4fdb6ca685",
+  "started_at": "2026-10-29T15:35:24+00:00",
+  "finished_at": "2026-10-29T15:35:43+00:00"
 }

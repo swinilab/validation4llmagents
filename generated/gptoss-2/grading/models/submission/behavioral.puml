@@ -1,0 +1,93 @@
+@startuml behavioral
+
+|Customer|
+start
+:Submit Order;
+if (Customer known?) then (yes)
+  if (At least one OrderItem?) then (yes)
+    if (All Products exist?) then (yes)
+      :Create Order [submitted];
+      :Calculate total;
+      :Return OrderId;
+    else (no)
+      :Reject order (unknown product);
+    endif
+  else (no)
+    :Reject order (no items);
+  endif
+else (no)
+  :Reject order (unknown customer);
+endif
+stop
+
+|OrderStaff|
+start
+:View pending orders;
+if (Select order to receive) then (yes)
+  if (Order status = submitted) then (yes)
+    :Set status to pending;
+  else (no)
+    :Reject receive;
+  endif
+endif
+if (Select order to fill) then (yes)
+  if (Order status = pending) then (yes)
+    :Set status to filled;
+  else (no)
+    :Reject fill;
+  endif
+endif
+if (Select order to ship) then (yes)
+  if (Order status = filled) then (yes)
+    fork
+      :Set status to shipped;
+    fork again
+      :Optionally raise invoice;
+    end fork
+  else (no)
+    :Reject ship;
+  endif
+endif
+if (Select order to close) then (yes)
+  if (Order status = shipped && Invoice status = paid) then (yes)
+    :Set status to closed;
+  else (no)
+    :Reject close;
+  endif
+endif
+stop
+
+|Accountant|
+start
+if (Raise invoice?) then (yes)
+  if (Order status in {filled, shipped} && no invoice) then (yes)
+    :Create Invoice [issued];
+  else (no)
+    :Reject invoice creation;
+  endif
+endif
+if (Submit payment?) then (yes)
+  if (Invoice status = issued) then (yes)
+    :Create Payment [pending];
+  else (no)
+    :Reject payment;
+  endif
+endif
+if (Confirm payment?) then (yes)
+  if (Payment status = pending) then (yes)
+    :Set Payment status to completed;
+    :Set Invoice status to paid;
+  else (no)
+    :Reject confirm;
+  endif
+endif
+if (Reject payment?) then (yes)
+  if (Payment status = pending) then (yes)
+    :Set Payment status to failed;
+  else (no)
+    :Reject reject;
+  endif
+endif
+stop
+
+@enduml

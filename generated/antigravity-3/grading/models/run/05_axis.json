@@ -488,7 +488,7 @@
     "guard": {}
   },
   "review_files": {
-    "type": "generated\\antigravity-3\\grading\\models\\review\\type_ledger.csv",
-    "guard": "generated\\antigravity-3\\grading\\models\\review\\guard_ledger.csv"
+    "type": "generated/antigravity-3/grading/models/review/type_ledger.csv",
+    "guard": "generated/antigravity-3/grading/models/review/guard_ledger.csv"
   }
 }

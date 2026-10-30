@@ -1,25 +1,29 @@
 element_id,kind,label,traceable,consistent,reviewer,timestamp
-ACT:Browse products,action,Browse products,no,yes,tmh,1:16-28/10/2026,appears in prompt.not in m1a
-ACT:Decline order,action,Decline order,yes,yes,tmh,1:16-28/10/2026
-ACT:Raise invoice,action,Raise invoice,yes,yes,tmh,1:16-28/10/2026
-ACT:Receive order,action,Receive order,yes,yes,tmh,1:16-28/10/2026
-ACT:Register customer details,action,Register customer details,yes,yes,tmh,1:16-28/10/2026
-ACT:Submit order,action,Submit order,yes,yes,tmh,1:16-28/10/2026
-LANE:Browse products,swimlane,Customer,no,yes,tmh,
-LANE:Decline order,swimlane,OrderStaff,yes,yes,tmh,
-LANE:Raise invoice,swimlane,Accountant,yes,yes,tmh,
-LANE:Receive order,swimlane,OrderStaff,yes,yes,tmh,
-LANE:Register customer details,swimlane,Customer,yes,yes,tmh,
-LANE:Submit order,swimlane,Customer,yes,yes,tmh,
-T:Browse products->Submit order,transition,Browse products->Submit order,no,yes,tmh,
-T:Confirm payment->Submit payment,transition,Confirm payment->Submit payment,yes,no,tmh,
-T:Mark order as filled->Raise invoice,transition,Mark order as filled->Raise invoice,yes,yes,tmh,
-T:Raise invoice->Submit payment,transition,Raise invoice->Submit payment,yes,yes,tmh,
-T:Receive order->Decline order,transition,Receive order->Decline order,yes,yes,tmh,
-T:Receive order->Mark order as filled,transition,Receive order->Mark order as filled,yes,yes,tmh,
-T:Register customer details->Browse products,transition,Register customer details->Browse products,no,yes,tmh,
-T:Reject payment->Close order,transition,Reject payment->Close order,yes,no,tmh,
-T:Reject payment->Submit payment,transition,Reject payment->Submit payment,yes,yes,tmh,
-T:Submit order->Receive order,transition,Submit order->Receive order,yes,yes,tmh,
-T:Submit payment->Confirm payment,transition,Submit payment->Confirm payment,yes,yes,tmh,
-T:Submit payment->Reject payment,transition,Submit payment->Reject payment,yes,yes,tmh,
+ACT:Browse products,action,Browse products,no,yes,tmh,28/10/2026,appears in prompt.not in m1a
+ACT:Decline order,action,Decline order,yes,yes,tmh,28/10/2026
+ACT:Raise invoice,action,Raise invoice,yes,yes,tmh,28/10/2026
+ACT:Receive order,action,Receive order,yes,yes,tmh,28/10/2026
+ACT:Register customer details,action,Register customer details,yes,yes,tmh,28/10/2026
+ACT:Submit order,action,Submit order,yes,yes,tmh,28/10/2026
+LANE:Browse products,swimlane,Customer,no,yes,tmh,28/10/2026
+LANE:Decline order,swimlane,OrderStaff,yes,yes,tmh,28/10/2026
+LANE:Raise invoice,swimlane,Accountant,yes,yes,tmh,28/10/2026
+LANE:Receive order,swimlane,OrderStaff,yes,yes,tmh,28/10/2026
+LANE:Register customer details,swimlane,Customer,yes,yes,tmh,28/10/2026
+LANE:Submit order,swimlane,Customer,yes,yes,tmh,28/10/2026
+T:Browse products->Submit order,transition,Browse products->Submit order,no,yes,tmh,28/10/2026
+T:Confirm payment->Submit payment,transition,Confirm payment->Submit payment,yes,no,tmh,28/10/2026
+T:Mark order as filled->Raise invoice,transition,Mark order as filled->Raise invoice,yes,yes,tmh,28/10/2026
+T:Raise invoice->Submit payment,transition,Raise invoice->Submit payment,yes,yes,tmh,28/10/2026
+T:Receive order->Decline order,transition,Receive order->Decline order,yes,yes,tmh,28/10/2026
+T:Receive order->Mark order as filled,transition,Receive order->Mark order as filled,yes,yes,tmh,28/10/2026
+T:Register customer details->Browse products,transition,Register customer details->Browse products,no,yes,tmh,28/10/2026
+T:Reject payment->Close order,transition,Reject payment->Close order,yes,no,tmh,28/10/2026
+T:Reject payment->Submit payment,transition,Reject payment->Submit payment,yes,yes,tmh,28/10/2026
+T:Submit order->Receive order,transition,Submit order->Receive order,yes,yes,tmh,28/10/2026
+T:Submit payment->Confirm payment,transition,Submit payment->Confirm payment,yes,yes,tmh,28/10/2026
+T:Submit payment->Reject payment,transition,Submit payment->Reject payment,yes,yes,tmh,28/10/2026
+A:Order.paymentMethod,attribute,paymentMethod : PaymentMethod,yes,yes,tmh,28/10/2026
+A:Payment.paymentMethod,attribute,paymentMethod : PaymentMethod,yes,yes,tmh,28/10/2026
+A:Product.image,attribute,image : Byte[],yes,yes,tmh,28/10/2026
+R:Order--OrderItem,relationship,contains >,yes,yes,tmh,28/10/2026

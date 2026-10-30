@@ -11,7 +11,12 @@
         "code": "malformed_edge"
       }
     ],
-    "gate": "fail"
+    "plantuml": {
+      "accepted": true,
+      "error": null
+    },
+    "gate": "pass",
+    "gate_mode": "plantuml"
   },
   "behavioral": {
     "validity": 1.0,
@@ -19,6 +24,11 @@
     "total": 48,
     "parse_error": null,
     "rejections": [],
-    "gate": "pass"
+    "plantuml": {
+      "accepted": true,
+      "error": null
+    },
+    "gate": "pass",
+    "gate_mode": "plantuml"
   }
 }

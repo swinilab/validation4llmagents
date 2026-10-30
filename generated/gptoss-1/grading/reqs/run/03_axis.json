@@ -98,10 +98,10 @@
   {
     "gold_id": "US-03-AC01",
     "gen_id": "US-04-AC01",
-    "verdict": "FAIL",
-    "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Same successful order-submission outcome",
+    "source": "ledger"
   },
   {
     "gold_id": "US-03-AC04",
@@ -146,10 +146,10 @@
   {
     "gold_id": "US-06-AC01",
     "gen_id": "US-05-AC01",
-    "verdict": "FAIL",
-    "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Same submitted-to-pending transition",
+    "source": "ledger"
   },
   {
     "gold_id": "US-06-AC01",
@@ -218,10 +218,10 @@
   {
     "gold_id": "US-07-AC01",
     "gen_id": "US-06-AC01",
-    "verdict": "FAIL",
-    "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Same pending-to-filled transition",
+    "source": "ledger"
   },
   {
     "gold_id": "US-07-AC01",
@@ -268,8 +268,8 @@
     "gen_id": "US-06-AC01",
     "verdict": "FAIL",
     "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "detail": "Gold is a rejection case while generated criterion specifies the successful case",
+    "source": "ledger"
   },
   {
     "gold_id": "US-07-AC02",
@@ -290,10 +290,10 @@
   {
     "gold_id": "US-08-AC01",
     "gen_id": "US-08-AC01",
-    "verdict": "FAIL",
-    "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Same pending-decline outcome",
+    "source": "ledger"
   },
   {
     "gold_id": "US-08-AC01",
@@ -362,10 +362,10 @@
   {
     "gold_id": "US-09-AC01",
     "gen_id": "US-07-AC01",
-    "verdict": "FAIL",
-    "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Same filled-to-shipped transition, although the wording is kinda wrong",
+    "source": "ledger"
   },
   {
     "gold_id": "US-09-AC01",
@@ -404,8 +404,8 @@
     "gen_id": "US-07-AC01",
     "verdict": "FAIL",
     "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "detail": "Gold is a rejection case while generated criterion specifies the successful case",
+    "source": "ledger"
   },
   {
     "gold_id": "US-09-AC02",
@@ -458,10 +458,10 @@
   {
     "gold_id": "US-10-AC01",
     "gen_id": "US-10-AC01",
-    "verdict": "FAIL",
-    "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Same invoice-issuance precondition and outcome",
+    "source": "ledger"
   },
   {
     "gold_id": "US-10-AC01",
@@ -514,10 +514,10 @@
   {
     "gold_id": "US-11-AC01",
     "gen_id": "US-11-AC01",
-    "verdict": "FAIL",
-    "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Same issued-invoice payment outcome",
+    "source": "ledger"
   },
   {
     "gold_id": "US-11-AC01",
@@ -802,10 +802,10 @@
   {
     "gold_id": "US-15-AC01",
     "gen_id": "US-09-AC01",
-    "verdict": "FAIL",
-    "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Same shipped-and-paid order-closure outcome",
+    "source": "ledger"
   },
   {
     "gold_id": "US-15-AC01",

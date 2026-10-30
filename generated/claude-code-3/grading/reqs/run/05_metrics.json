@@ -1,34 +1,34 @@
 {
   "run_id": "claude-code-3",
   "primary_threshold": 0.75,
-  "status": "provisional",
+  "status": "final",
   "s_size": 78,
   "gold_total": 70,
-  "rubric_pass": 0,
-  "pending_polarity": 5,
+  "rubric_pass": 47,
+  "pending_polarity": 0,
   "pending_rubric": 0,
-  "judge_model": null,
-  "kappa": null,
-  "kappa_n": 0,
+  "judge_model": "deepseek-v4.1-flash:cloud",
+  "kappa": 0.0,
+  "kappa_n": 30,
   "kappa_accept": 0.6,
-  "kappa_accepted": null,
-  "manual_default": "not_covered",
+  "kappa_accepted": false,
+  "manual_default": null,
   "sweep": [
     {
       "threshold": 0.7,
-      "recall": 0.4429,
-      "precision": 0.3974,
-      "f1": 0.4189,
-      "matched_gold": 31,
-      "matched_gen": 31
+      "recall": 0.4571,
+      "precision": 0.4103,
+      "f1": 0.4324,
+      "matched_gold": 32,
+      "matched_gen": 32
     },
     {
       "threshold": 0.75,
-      "recall": 0.4286,
-      "precision": 0.3718,
-      "f1": 0.3982,
-      "matched_gold": 30,
-      "matched_gen": 29
+      "recall": 0.4429,
+      "precision": 0.9872,
+      "f1": 0.6115,
+      "matched_gold": 31,
+      "matched_gen": 30
     },
     {
       "threshold": 0.8,
@@ -48,17 +48,17 @@
     }
   ],
   "diagnostics": {
-    "cross_us_matches": 13,
+    "cross_us_matches": 14,
     "cross_kind_would_cover": 0,
     "axis_rejections": {
-      "polarity": 46,
+      "polarity": 45,
       "identifier": 144,
       "numeric": 0
     },
     "dedup_removed": 21,
     "manual_resolved": {
-      "PASS": 0,
-      "FAIL": 0
+      "PASS": 1,
+      "FAIL": 4
     },
     "ac_per_story": {
       "US-01": 6,

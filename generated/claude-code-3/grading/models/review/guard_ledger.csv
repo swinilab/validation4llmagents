@@ -1,4 +1,4 @@
 gold_id,gen_id,gold_guard,gen_guard,path_detail,verdict,reviewer,timestamp,note
-T:Make Payment->Accept Payment,T:Submit payment->Confirm payment,authorized,yes,gold=['authorized'] gen=['yes'] (gen guard outside every alias set),PASS,tmh,11:34-28/10/2026,
-T:Make Payment->Reject Payment,T:Submit payment->Reject payment,declined,no,gold=['declined'] gen=['no'] (gen guard outside every alias set),PASS,tmh,11:34-28/10/2026,
-T:Reject Payment->Make Payment,T:Reject payment->Submit payment,,yes) not (no,gold=<empty> gen=['yes) not (no'],FAIL,tmh,11:34-28/10/2026,might be a parser error when extracting from "repeat while (yes) not (no)"
+T:Make Payment->Accept Payment,T:Submit payment->Confirm payment,authorized,yes,gold=['authorized'] gen=['yes'] (gen guard outside every alias set),PASS,tmh,28/10/2026,
+T:Make Payment->Reject Payment,T:Submit payment->Reject payment,declined,no,gold=['declined'] gen=['no'] (gen guard outside every alias set),PASS,tmh,28/10/2026,
+T:Reject Payment->Make Payment,T:Reject payment->Submit payment,,yes) not (no,gold=<empty> gen=['yes) not (no'],FAIL,tmh,28/10/2026,"might be a parser error when extracting from ""repeat while (yes) not (no)"""

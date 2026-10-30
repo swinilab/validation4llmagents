@@ -1,0 +1,49 @@
+================================================================================
+PIPELINE EVALUATION REPORT — 2026-10-29 22:35:53
+Run ID: antigravity-2 | Target: generated/antigravity-2
+================================================================================
+
+PHASE 1: GENERATION
+--------------------------------------------------------------------------------
+LLM         : standalone
+Reasoning   : standard
+Agent       : ChatDev
+SRS Package : generated/antigravity-2
+
+OVERVIEW
+--------------------------------------------------------------------------------
+Embedding model : sentence-transformers/all-mpnet-base-v2 (revision: unpinned)
+Judge model     : deepseek-v4.1-flash:cloud
+
+PHASE 2: GRADING
+--------------------------------------------------------------------------------
+✅ Requirements Grading (RequirementsGrading): status=final [2026-10-29 22:02:46]
+  [REQUIREMENTS t=0.70]   recall=0.314 | precision=0.432 | f1=0.364 | matched_gold=22/70
+  [REQUIREMENTS t=0.75] * recall=0.243 | precision=1.000 | f1=0.391 | matched_gold=17/70
+  [REQUIREMENTS t=0.80]   recall=0.143 | precision=0.227 | f1=0.175 | matched_gold=10/70
+  [REQUIREMENTS t=0.85]   recall=0.100 | precision=0.159 | f1=0.123 | matched_gold=7/70
+  (* = primary threshold)
+  [UNITS] generated after dedup=44 | rubric_pass=27 | pending polarity=0 rubric=0 | manual_default=None
+  [JUDGE] kappa=1.0 (n=27) | accept>=0.6: accepted
+  [DIAGNOSTICS] axis_rejections={'polarity': 9, 'identifier': 50, 'numeric': 0} | cross_us_matches=10 | cross_kind_would_cover=2 | dedup_removed=17
+  Results: generated/antigravity-2/grading/reqs
+
+✅ Model Grading (ModelsGrading): status=final [2026-10-29 22:35:53]
+  [STRUCTURAL SYNTAX] validity=1.0 (50/50 declarations) | gate=pass
+    Log: generated/antigravity-2/grading/models/run/structural_model_syntax_correctness.txt
+  [BEHAVIORAL SYNTAX] validity=1.0 (42/42 declarations) | gate=pass
+    Log: generated/antigravity-2/grading/models/run/behavioral_model_syntax_correctness.txt
+  [STRUCTURAL] gate=pass | recall=0.940 | precision=1.000 | f1=0.969
+  [BEHAVIORAL] gate=pass | recall=0.718 | precision=0.954 | f1=0.819
+  [JUDGE] kappa=1.0 (n=18) | accept>=0.6: accepted | role=observation
+  Results: generated/antigravity-2/grading/models
+
+✅ VMX Grading (VMXGrading): status=final [2026-10-29 22:02:46]
+  [VMX REQUIREMENT COVERAGE] score=1.000 (18/18 requirements)
+  [VMX REFERENTIAL INTEGRITY] score=1.000 (153/153 references) | source 87/87 | structural 56/56 | behavioral 10/10
+  Results: generated/antigravity-2/grading/vmx
+
+FINAL VERDICT
+--------------------------------------------------------------------------------
+✅ RESULT: PASS — Every selected grading module completed
+================================================================================

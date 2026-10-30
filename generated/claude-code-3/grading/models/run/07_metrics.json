@@ -1,17 +1,17 @@
 {
   "run_id": "claude-code-3",
   "primary_threshold": 0.75,
-  "status": "provisional",
-  "unresolved": 51,
+  "status": "final",
+  "unresolved": 0,
   "pending_type": 0,
   "pending_guard": 0,
   "pending_rubric": 0,
-  "manual_default": "not_covered",
-  "kappa": null,
-  "kappa_n": 0,
+  "manual_default": null,
+  "kappa": 0.8837,
+  "kappa_n": 25,
   "kappa_pool": "per_section",
   "kappa_accept": 0.6,
-  "kappa_accepted": null,
+  "kappa_accepted": true,
   "kappa_role": "observation",
   "control": {
     "item_1": "pass",
@@ -23,24 +23,14 @@
   },
   "diagnostics": {
     "threshold": 0.75,
-    "gate_blocked": {
-      "structural": {
-        "gate": "fail",
-        "validity": 0.98,
-        "rejections": [
-          {
-            "line": 59,
-            "source": "OrderItem \"0..*\" --> \"1\" Product : refers to >",
-            "code": "malformed_edge"
-          }
-        ]
-      }
-    },
+    "gate_blocked": {},
     "rule_rejections": {
-      "guard": 3,
+      "guard": 1,
       "swimlane": 2
     },
-    "prerequisite_blocked": {},
+    "prerequisite_blocked": {
+      "structural/literal": 2
+    },
     "label_collapsed": {
       "structural": {
         "gold": [],
@@ -95,8 +85,13 @@
     },
     "cross_kind_near_miss": [],
     "manual_resolved": {
-      "type": {},
-      "guard": {}
+      "type": {
+        "PASS": 1
+      },
+      "guard": {
+        "PASS": 2,
+        "FAIL": 1
+      }
     },
     "elements_per_kind": {
       "structural": {
@@ -142,57 +137,90 @@
   },
   "structural": {
     "syntax_validity": 0.98,
-    "gate": "fail",
+    "gate": "pass",
     "n_gen": 49,
     "gold_total": 50,
-    "recall": "n/a",
-    "precision": "n/a",
-    "f1": "n/a",
-    "rubric_pass": "n/a",
-    "sweep": "n/a"
+    "rubric_pass": 3,
+    "sweep": [
+      {
+        "threshold": 0.7,
+        "recall": 0.92,
+        "precision": 1.0,
+        "f1": 0.9583,
+        "matched_gold": 46,
+        "matched_gen": 46
+      },
+      {
+        "threshold": 0.75,
+        "recall": 0.92,
+        "precision": 1.0,
+        "f1": 0.9583,
+        "matched_gold": 46,
+        "matched_gen": 46
+      },
+      {
+        "threshold": 0.8,
+        "recall": 0.9,
+        "precision": 0.9796,
+        "f1": 0.9381,
+        "matched_gold": 45,
+        "matched_gen": 45
+      },
+      {
+        "threshold": 0.85,
+        "recall": 0.88,
+        "precision": 0.9592,
+        "f1": 0.9179,
+        "matched_gold": 44,
+        "matched_gen": 44
+      }
+    ],
+    "recall": 0.92,
+    "precision": 1.0,
+    "f1": 0.9583
   },
   "behavioral": {
     "syntax_validity": 1.0,
     "gate": "pass",
     "n_gen": 49,
     "gold_total": 39,
-    "rubric_pass": 0,
+    "rubric_pass": 17,
     "sweep": [
       {
         "threshold": 0.7,
+        "recall": 0.7436,
+        "precision": 0.9388,
+        "f1": 0.8299,
+        "matched_gold": 29,
+        "matched_gen": 29
+      },
+      {
+        "threshold": 0.75,
         "recall": 0.6923,
-        "precision": 0.551,
-        "f1": 0.6136,
+        "precision": 0.898,
+        "f1": 0.7818,
         "matched_gold": 27,
         "matched_gen": 27
       },
       {
-        "threshold": 0.75,
-        "recall": 0.641,
-        "precision": 0.5102,
-        "f1": 0.5682,
-        "matched_gold": 25,
-        "matched_gen": 25
-      },
-      {
         "threshold": 0.8,
-        "recall": 0.5641,
-        "precision": 0.449,
-        "f1": 0.5,
-        "matched_gold": 22,
-        "matched_gen": 22
+        "recall": 0.5897,
+        "precision": 0.8163,
+        "f1": 0.6848,
+        "matched_gold": 23,
+        "matched_gen": 23
       },
       {
         "threshold": 0.85,
         "recall": 0.4359,
-        "precision": 0.3469,
-        "f1": 0.3864,
+        "precision": 0.6939,
+        "f1": 0.5354,
         "matched_gold": 17,
         "matched_gen": 17
       }
     ],
-    "recall": 0.641,
-    "precision": 0.5102,
-    "f1": 0.5682
+    "recall": 0.6923,
+    "precision": 0.898,
+    "f1": 0.7818
   }
 }

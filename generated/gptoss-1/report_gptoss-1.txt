@@ -1,5 +1,5 @@
 ================================================================================
-PIPELINE EVALUATION REPORT — 2026-10-27 13:01:59
+PIPELINE EVALUATION REPORT — 2026-10-29 22:57:41
 Run ID: gptoss-1 | Target: generated/gptoss-1
 ================================================================================
 
@@ -10,8 +10,40 @@ Reasoning   : temperature 0.7
 Agent       : ChatDev
 SRS Package : generated/gptoss-1/sdk_ChatDev_v1_20261027125915_20261027125915/code_workspace
 
+OVERVIEW
+--------------------------------------------------------------------------------
+Embedding model : sentence-transformers/all-mpnet-base-v2 (revision: unpinned)
+Judge model     : deepseek-v4.1-flash:cloud
+
+PHASE 2: GRADING
+--------------------------------------------------------------------------------
+✅ Requirements Grading (RequirementsGrading): status=final [2026-10-29 22:02:47]
+  [REQUIREMENTS t=0.70]   recall=0.243 | precision=0.419 | f1=0.307 | matched_gold=17/70
+  [REQUIREMENTS t=0.75] * recall=0.243 | precision=0.861 | f1=0.379 | matched_gold=17/70
+  [REQUIREMENTS t=0.80]   recall=0.229 | precision=0.372 | f1=0.283 | matched_gold=16/70
+  [REQUIREMENTS t=0.85]   recall=0.200 | precision=0.326 | f1=0.248 | matched_gold=14/70
+  (* = primary threshold)
+  [UNITS] generated after dedup=43 | rubric_pass=20 | pending polarity=0 rubric=0 | manual_default=None
+  [JUDGE] kappa=0.8976 (n=26) | accept>=0.6: accepted
+  [DIAGNOSTICS] axis_rejections={'polarity': 6, 'identifier': 60, 'numeric': 0} | cross_us_matches=10 | cross_kind_would_cover=0 | dedup_removed=4
+  Results: generated/gptoss-1/grading/reqs
+
+✅ Model Grading (ModelsGrading): status=final [2026-10-29 22:57:41]
+  [STRUCTURAL SYNTAX] validity=0.9423 (49/52 declarations) | gate=pass
+    Log: generated/gptoss-1/grading/models/run/structural_model_syntax_correctness.txt
+  [BEHAVIORAL SYNTAX] validity=1.0 (32/32 declarations) | gate=pass
+    Log: generated/gptoss-1/grading/models/run/behavioral_model_syntax_correctness.txt
+  [STRUCTURAL] gate=pass | recall=0.840 | precision=1.000 | f1=0.913
+  [BEHAVIORAL] gate=pass | recall=0.487 | precision=0.872 | f1=0.625
+  [JUDGE] kappa=0.5272 (n=33) | accept>=0.6: below kappa_accept | role=observation
+  Results: generated/gptoss-1/grading/models
+
+✅ VMX Grading (VMXGrading): status=final [2026-10-29 22:02:47]
+  [VMX REQUIREMENT COVERAGE] score=1.000 (20/20 requirements)
+  [VMX REFERENTIAL INTEGRITY] score=0.967 (88/91 references) | source 44/44 | structural 32/33 | behavioral 12/14
+  Results: generated/gptoss-1/grading/vmx
 
 FINAL VERDICT
 --------------------------------------------------------------------------------
-✅ RESULT: PASS — Generation completed (grading not run)
+✅ RESULT: PASS — Every selected grading module completed
 ================================================================================

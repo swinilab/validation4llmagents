@@ -1362,10 +1362,10 @@
   {
     "gold_id": "US-13-AC05",
     "gen_id": "US-08-AC03",
-    "verdict": "FAIL",
-    "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Preserves the unchanged-order-status requirement",
+    "source": "ledger"
   },
   {
     "gold_id": "US-14-AC01",

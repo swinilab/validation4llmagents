@@ -1,0 +1,471 @@
+{
+  "schema": 1,
+  "run_id": "antigravity-1",
+  "target": "generated/antigravity-1",
+  "updated_at": "2026-10-29 22:35:43",
+  "created_at": "2026-10-29 20:40:46",
+  "generation": {
+    "status": "PASS",
+    "model": "standalone",
+    "agent": null,
+    "reasoning": null,
+    "code": "generated/antigravity-1",
+    "output_dir": "generated/antigravity-1",
+    "recorded_at": "2026-10-29 20:40:46"
+  },
+  "grading": {
+    "reqs": {
+      "name": "Requirements Grading (RequirementsGrading)",
+      "passed": true,
+      "message": "status=final",
+      "ran_at": "2026-10-29 22:02:46",
+      "details": {
+        "grading_kind": "reqs",
+        "exit_code": 0,
+        "grading_dir": "generated/antigravity-1/grading/reqs",
+        "metrics": {
+          "run_id": "antigravity-1",
+          "primary_threshold": 0.75,
+          "status": "final",
+          "s_size": 57,
+          "gold_total": 70,
+          "rubric_pass": 35,
+          "pending_polarity": 0,
+          "pending_rubric": 0,
+          "judge_model": "deepseek-v4.1-flash:cloud",
+          "kappa": 1.0,
+          "kappa_n": 34,
+          "kappa_accept": 0.6,
+          "kappa_accepted": true,
+          "manual_default": null,
+          "sweep": [
+            {
+              "threshold": 0.7,
+              "recall": 0.3714,
+              "precision": 0.4386,
+              "f1": 0.4022,
+              "matched_gold": 26,
+              "matched_gen": 25
+            },
+            {
+              "threshold": 0.75,
+              "recall": 0.3143,
+              "precision": 0.9825,
+              "f1": 0.4762,
+              "matched_gold": 22,
+              "matched_gen": 21
+            },
+            {
+              "threshold": 0.8,
+              "recall": 0.2286,
+              "precision": 0.2807,
+              "f1": 0.252,
+              "matched_gold": 16,
+              "matched_gen": 16
+            },
+            {
+              "threshold": 0.85,
+              "recall": 0.1429,
+              "precision": 0.1754,
+              "f1": 0.1575,
+              "matched_gold": 10,
+              "matched_gen": 10
+            }
+          ],
+          "diagnostics": {
+            "cross_us_matches": 5,
+            "cross_kind_would_cover": 1,
+            "axis_rejections": {
+              "polarity": 8,
+              "identifier": 69,
+              "numeric": 0
+            },
+            "dedup_removed": 17,
+            "manual_resolved": {
+              "PASS": 5,
+              "FAIL": 0
+            },
+            "ac_per_story": {
+              "US-01": 5,
+              "US-02": 5,
+              "US-03": 11,
+              "US-04": 3,
+              "US-05": 3,
+              "US-06": 4,
+              "US-07": 5,
+              "US-08": 9,
+              "US-09": 8,
+              "US-10": 5,
+              "US-11": 3,
+              "US-12": 5
+            },
+            "ac_length": {
+              "mean_gen_tokens": 25.6,
+              "mean_gold_tokens": 22.3
+            },
+            "format_violations": {}
+          }
+        },
+        "format_violations": {}
+      },
+      "models_used": {
+        "embedding_model": "sentence-transformers/all-mpnet-base-v2",
+        "embedding_revision": null,
+        "judge_model": "deepseek-v4.1-flash:cloud"
+      }
+    },
+    "models": {
+      "name": "Model Grading (ModelsGrading)",
+      "passed": true,
+      "message": "status=final",
+      "ran_at": "2026-10-29 22:35:43",
+      "details": {
+        "grading_kind": "models",
+        "exit_code": 0,
+        "grading_dir": "generated/antigravity-1/grading/models",
+        "metrics": {
+          "run_id": "antigravity-1",
+          "primary_threshold": 0.75,
+          "status": "final",
+          "unresolved": 0,
+          "pending_type": 0,
+          "pending_guard": 0,
+          "pending_rubric": 0,
+          "manual_default": "not_covered",
+          "kappa": 0.7778,
+          "kappa_n": 24,
+          "kappa_pool": "per_section",
+          "kappa_accept": 0.6,
+          "kappa_accepted": true,
+          "kappa_role": "observation",
+          "control": {
+            "item_1": "pass",
+            "item_2": "fail",
+            "item_3": "pass",
+            "item_4": "pass",
+            "item_5": "pass",
+            "item_6": "pass"
+          },
+          "diagnostics": {
+            "threshold": 0.75,
+            "gate_blocked": {},
+            "rule_rejections": {
+              "guard": 1,
+              "swimlane": 3
+            },
+            "prerequisite_blocked": {
+              "structural/literal": 2
+            },
+            "label_collapsed": {
+              "structural": {
+                "gold": [],
+                "gen": []
+              },
+              "behavioral": {
+                "gold": [
+                  {
+                    "element_id": "ACT:Make Payment",
+                    "kind": "action",
+                    "kept_line": 32,
+                    "collapsed_line": 39
+                  },
+                  {
+                    "element_id": "LANE:Make Payment",
+                    "kind": "swimlane",
+                    "kept_line": 32,
+                    "collapsed_line": 39
+                  },
+                  {
+                    "element_id": "OBJ:Payment[pending]",
+                    "kind": "object_node",
+                    "kept_line": 33,
+                    "collapsed_line": 40
+                  },
+                  {
+                    "element_id": "T:Make Payment->Accept Payment",
+                    "kind": "transition",
+                    "kept_line": null,
+                    "collapsed_line": null
+                  },
+                  {
+                    "element_id": "T:Make Payment->Reject Payment",
+                    "kind": "transition",
+                    "kept_line": null,
+                    "collapsed_line": null
+                  }
+                ],
+                "gen": [
+                  {
+                    "element_id": "OBJ:Order[closed]",
+                    "kind": "object_node",
+                    "kept_line": 40,
+                    "collapsed_line": 44
+                  }
+                ]
+              }
+            },
+            "dropped_arrows": {
+              "structural": [],
+              "behavioral": []
+            },
+            "cross_kind_near_miss": [],
+            "manual_resolved": {
+              "type": {},
+              "guard": {
+                "PASS": 2,
+                "FAIL": 1
+              }
+            },
+            "elements_per_kind": {
+              "structural": {
+                "gen": {
+                  "class": 6,
+                  "enum": 4,
+                  "literal": 13,
+                  "attribute": 22,
+                  "relationship": 5
+                },
+                "gold": {
+                  "class": 6,
+                  "enum": 4,
+                  "literal": 13,
+                  "attribute": 22,
+                  "relationship": 5
+                }
+              },
+              "behavioral": {
+                "gen": {
+                  "action": 10,
+                  "swimlane": 10,
+                  "object_node": 10,
+                  "transition": 13
+                },
+                "gold": {
+                  "action": 9,
+                  "swimlane": 9,
+                  "object_node": 10,
+                  "transition": 11
+                }
+              }
+            },
+            "format_violations": {
+              "duplicate_label": 1
+            },
+            "excluded_candidates": {},
+            "stale_ledger_rows": {
+              "type": [],
+              "guard": []
+            }
+          },
+          "structural": {
+            "syntax_validity": 1.0,
+            "gate": "pass",
+            "n_gen": 50,
+            "gold_total": 50,
+            "rubric_pass": 7,
+            "sweep": [
+              {
+                "threshold": 0.7,
+                "recall": 0.86,
+                "precision": 1.0,
+                "f1": 0.9247,
+                "matched_gold": 43,
+                "matched_gen": 43
+              },
+              {
+                "threshold": 0.75,
+                "recall": 0.86,
+                "precision": 1.0,
+                "f1": 0.9247,
+                "matched_gold": 43,
+                "matched_gen": 43
+              },
+              {
+                "threshold": 0.8,
+                "recall": 0.84,
+                "precision": 0.98,
+                "f1": 0.9046,
+                "matched_gold": 42,
+                "matched_gen": 42
+              },
+              {
+                "threshold": 0.85,
+                "recall": 0.84,
+                "precision": 0.98,
+                "f1": 0.9046,
+                "matched_gold": 42,
+                "matched_gen": 42
+              }
+            ],
+            "recall": 0.86,
+            "precision": 1.0,
+            "f1": 0.9247
+          },
+          "behavioral": {
+            "syntax_validity": 1.0,
+            "gate": "pass",
+            "n_gen": 43,
+            "gold_total": 39,
+            "rubric_pass": 15,
+            "sweep": [
+              {
+                "threshold": 0.7,
+                "recall": 0.7179,
+                "precision": 1.0,
+                "f1": 0.8358,
+                "matched_gold": 28,
+                "matched_gen": 28
+              },
+              {
+                "threshold": 0.75,
+                "recall": 0.6667,
+                "precision": 0.9535,
+                "f1": 0.7847,
+                "matched_gold": 26,
+                "matched_gen": 26
+              },
+              {
+                "threshold": 0.8,
+                "recall": 0.5897,
+                "precision": 0.8837,
+                "f1": 0.7074,
+                "matched_gold": 23,
+                "matched_gen": 23
+              },
+              {
+                "threshold": 0.85,
+                "recall": 0.5128,
+                "precision": 0.814,
+                "f1": 0.6292,
+                "matched_gold": 20,
+                "matched_gen": 20
+              }
+            ],
+            "recall": 0.6667,
+            "precision": 0.9535,
+            "f1": 0.7847
+          }
+        },
+        "syntax": {
+          "structural": {
+            "validity": 1.0,
+            "accepted": 50,
+            "total": 50,
+            "parse_error": null,
+            "rejections": [],
+            "plantuml": {
+              "accepted": true,
+              "error": null
+            },
+            "gate": "pass",
+            "gate_mode": "plantuml"
+          },
+          "behavioral": {
+            "validity": 1.0,
+            "accepted": 43,
+            "total": 43,
+            "parse_error": null,
+            "rejections": [],
+            "plantuml": {
+              "accepted": true,
+              "error": null
+            },
+            "gate": "pass",
+            "gate_mode": "plantuml"
+          }
+        },
+        "syntax_logs": {
+          "structural": "generated/antigravity-1/grading/models/run/structural_model_syntax_correctness.txt",
+          "behavioral": "generated/antigravity-1/grading/models/run/behavioral_model_syntax_correctness.txt"
+        }
+      },
+      "models_used": {
+        "embedding_model": "sentence-transformers/all-mpnet-base-v2",
+        "embedding_revision": null,
+        "judge_model": "deepseek-v4.1-flash:cloud"
+      }
+    },
+    "vmx": {
+      "name": "VMX Grading (VMXGrading)",
+      "passed": true,
+      "message": "status=final",
+      "ran_at": "2026-10-29 22:02:46",
+      "details": {
+        "grading_kind": "vmx",
+        "exit_code": 0,
+        "grading_dir": "generated/antigravity-1/grading/vmx",
+        "metrics": {
+          "run_id": "antigravity-1",
+          "status": "final",
+          "coverage": {
+            "score": 1.0,
+            "covered": 20,
+            "total": 20
+          },
+          "integrity": {
+            "score": 1.0,
+            "resolved": 150,
+            "total": 150,
+            "by_column": {
+              "source": {
+                "resolved": 88,
+                "total": 88,
+                "score": 1.0
+              },
+              "structural": {
+                "resolved": 52,
+                "total": 52,
+                "score": 1.0
+              },
+              "behavioral": {
+                "resolved": 10,
+                "total": 10,
+                "score": 1.0
+              }
+            }
+          },
+          "diagnostics": {
+            "uncovered": [],
+            "broken_references": 0,
+            "duplicate_rows": [],
+            "rows_outside_requirements": []
+          },
+          "inputs": {
+            "domain_path": "materials/M1a.json",
+            "domain_ids": 58,
+            "requirements": {
+              "status": "read",
+              "count": 20
+            },
+            "vmx": {
+              "status": "read",
+              "rows": 20,
+              "schema": {
+                "header": [
+                  "SRS-Req-ID",
+                  "Domain-Req-ID",
+                  "Structural-Elements",
+                  "Behavorial-Elements"
+                ],
+                "missing_columns": [],
+                "unknown_columns": []
+              }
+            },
+            "structural": {
+              "status": "parsed",
+              "size": 32,
+              "validity": 1.0,
+              "parse_error": null
+            },
+            "behavioral": {
+              "status": "parsed",
+              "size": 10,
+              "validity": 1.0,
+              "parse_error": null
+            }
+          }
+        }
+      }
+    }
+  }
+}

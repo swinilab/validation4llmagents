@@ -1,6 +1,105 @@
-=====================================================
+==================================================================================
 STRUCTURAL MODEL SYNTAX CORRECTNESS (structural.puml)
-=====================================================
-Gate: missing
-structural.puml was not found: nothing to check.
-=====================================================
+==================================================================================
+Gate: fail  |  Syntax validity: 0.9242 (61/66 declarations accepted)
+
+Line  Status  Kind          Source                                         Message
+----------------------------------------------------------------------------------
+   1  -                     @startuml structural                           -
+   2  -                                                                    -
+   3  PASS    enum          enum OrderStatus {                             -
+   4  PASS    literal       submitted                                      -
+   5  PASS    literal       pending                                        -
+   6  PASS    literal       filled                                         -
+   7  PASS    literal       shipped                                        -
+   8  PASS    literal       closed                                         -
+   9  -                     }                                              -
+  10  PASS    enum          enum InvoiceStatus {                           -
+  11  PASS    literal       issued                                         -
+  12  PASS    literal       paid                                           -
+  13  -                     }                                              -
+  14  PASS    enum          enum PaymentStatus {                           -
+  15  PASS    literal       pending                                        -
+  16  PASS    literal       completed                                      -
+  17  PASS    literal       failed                                         -
+  18  -                     }                                              -
+  19  PASS    enum          enum PaymentMethod {                           -
+  20  PASS    literal       bank                                           -
+  21  PASS    literal       card                                           -
+  22  PASS    literal       cash                                           -
+  23  -                     }                                              -
+  24  -                                                                    -
+  25  PASS    class         class Customer {                               -
+  26  PASS    attribute     +customerId : UUID                             -
+  27  PASS    attribute     +name : String                                 -
+  28  PASS    attribute     +address : String                              -
+  29  PASS    attribute     +phone : String                                -
+  30  PASS    attribute     +bankAccount : String <<optional, encrypted>>  -
+  31  -                     }                                              -
+  32  PASS    class         class Product {                                -
+  33  PASS    attribute     +productId : UUID                              -
+  34  PASS    attribute     +name : String                                 -
+  35  PASS    attribute     +description : String                          -
+  36  PASS    method        +price : Decimal(12,2)                         -
+  37  PASS    attribute     +imageUrl : String                             -
+  38  -                     }                                              -
+  39  PASS    class         class Order {                                  -
+  40  PASS    attribute     +orderId : UUID                                -
+  41  PASS    attribute     +orderDate : Date                              -
+  42  PASS    method        +totalAmount : Decimal(12,2)                   -
+  43  PASS    attribute     +status : OrderStatus                          -
+  44  PASS    attribute     +paymentMethod : PaymentMethod                 -
+  45  -                     }                                              -
+  46  PASS    class         class OrderItem {                              -
+  47  PASS    attribute     +orderItemId : UUID                            -
+  48  PASS    attribute     +quantity : Integer                            -
+  49  PASS    method        +unitPrice : Decimal(12,2)                     -
+  50  -                     }                                              -
+  51  PASS    class         class Invoice {                                -
+  52  PASS    attribute     +invoiceId : UUID                              -
+  53  PASS    attribute     +date : Date                                   -
+  54  PASS    method        +amount : Decimal(12,2)                        -
+  55  PASS    attribute     +status : InvoiceStatus                        -
+  56  PASS    attribute     +paymentMethod : PaymentMethod                 -
+  57  -                     }                                              -
+  58  PASS    class         class Payment {                                -
+  59  PASS    attribute     +paymentId : UUID                              -
+  60  PASS    attribute     +date : Date                                   -
+  61  PASS    method        +amount : Decimal(12,2)                        -
+  62  PASS    attribute     +status : PaymentStatus                        -
+  63  PASS    attribute     +paymentMethod : PaymentMethod                 -
+  64  -                     }                                              -
+  65  PASS    class         class AuditLog {                               -
+  66  PASS    attribute     +logId : UUID                                  -
+  67  PASS    attribute     +entity : String                               -
+  68  PASS    attribute     +oldStatus : String                            -
+  69  PASS    attribute     +newStatus : String                            -
+  70  PASS    attribute     +userId : UUID                                 -
+  71  PASS    attribute     +timestamp : DateTime                          -
+  72  -                     }                                              -
+  73  -                                                                    -
+  74  PASS    relationship  Customer "1" o-- "0..*" Order : places >       -
+  75  PASS    relationship  Order "1" o-- "1..*" OrderItem : contains >    -
+  76  FAIL    relationship  OrderItem "1" --> "1" Product : references >   malformed_edge; unknown_rel_arrow: arrow '-->' is in no rel_type_map entry
+  77  FAIL    relationship  Order "1" --> "0..1" Invoice : billed by >     malformed_edge; unknown_rel_arrow: arrow '-->' is in no rel_type_map entry
+  78  PASS    relationship  Invoice "1" o-- "0..*" Payment : receives >    -
+  79  FAIL    relationship  Invoice "1" --> "1" Order : for >              malformed_edge; unknown_rel_arrow: arrow '-->' is in no rel_type_map entry
+  80  FAIL    relationship  Payment "1" --> "1" Invoice : for >            malformed_edge; unknown_rel_arrow: arrow '-->' is in no rel_type_map entry
+  81  FAIL    unknown       AuditLog "1" --> "1" * : records >             unsupported_construct
+  82  -                                                                    -
+  83  -                     @enduml                                        -
+----------------------------------------------------------------------------------
+
+Rejected declarations (5):
+  line 76: malformed_edge: OrderItem "1" --> "1" Product : references >
+  line 77: malformed_edge: Order "1" --> "0..1" Invoice : billed by >
+  line 79: malformed_edge: Invoice "1" --> "1" Order : for >
+  line 80: malformed_edge: Payment "1" --> "1" Invoice : for >
+  line 81: unsupported_construct: AuditLog "1" --> "1" * : records >
+
+Format violations (4):
+  line 76: unknown_rel_arrow: arrow '-->' is in no rel_type_map entry
+  line 77: unknown_rel_arrow: arrow '-->' is in no rel_type_map entry
+  line 79: unknown_rel_arrow: arrow '-->' is in no rel_type_map entry
+  line 80: unknown_rel_arrow: arrow '-->' is in no rel_type_map entry
+==================================================================================

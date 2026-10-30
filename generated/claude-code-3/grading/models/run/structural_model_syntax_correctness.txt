@@ -1,7 +1,7 @@
 ====================================================================================
 STRUCTURAL MODEL SYNTAX CORRECTNESS (structural.puml)
 ====================================================================================
-Gate: fail  |  Syntax validity: 0.98 (49/50 declarations accepted)
+Gate: pass  |  Syntax validity: 0.98 (49/50 declarations accepted)
 
 Line  Status  Kind          Source                                           Message
 ------------------------------------------------------------------------------------

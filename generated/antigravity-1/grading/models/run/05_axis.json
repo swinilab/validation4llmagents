@@ -787,10 +787,10 @@
       "gold_id": "T:Make Payment->Accept Payment",
       "gen_id": "T:Submit Payment->Confirm Payment",
       "cosine": 0.7546,
-      "verdict": "FAIL",
+      "verdict": "PASS",
       "failed_check": "guard",
-      "detail": "gold=['authorized'] gen=['yes'] (gen guard outside every alias set) [provisional: not_covered]",
-      "source": "default",
+      "detail": "gold=['authorized'] gen=['yes'] (gen guard outside every alias set)",
+      "source": "ledger",
       "ledger": "guard"
     },
     {
@@ -799,10 +799,10 @@
       "gold_id": "T:Make Payment->Reject Payment",
       "gen_id": "T:Submit Payment->Reject Payment",
       "cosine": 0.844,
-      "verdict": "FAIL",
+      "verdict": "PASS",
       "failed_check": "guard",
-      "detail": "gold=['declined'] gen=['no'] (gen guard outside every alias set) [provisional: not_covered]",
-      "source": "default",
+      "detail": "gold=['declined'] gen=['no'] (gen guard outside every alias set)",
+      "source": "ledger",
       "ledger": "guard"
     },
     {
@@ -813,8 +813,8 @@
       "cosine": 0.844,
       "verdict": "FAIL",
       "failed_check": "guard",
-      "detail": "gold=<empty> gen=['yes]) not ([no'] [provisional: not_covered]",
-      "source": "default",
+      "detail": "gold=<empty> gen=['yes]) not ([no']",
+      "source": "ledger",
       "ledger": "guard"
     },
     {
@@ -833,17 +833,20 @@
   "pending_guard": 0,
   "pending_total": 0,
   "unresolved_type": 0,
-  "unresolved_guard": 3,
+  "unresolved_guard": 0,
   "stale_ledger_rows": {
     "type": [],
     "guard": []
   },
   "manual_resolved": {
     "type": {},
-    "guard": {}
+    "guard": {
+      "PASS": 2,
+      "FAIL": 1
+    }
   },
   "review_files": {
-    "type": "generated\\antigravity-1\\grading\\models\\review\\type_ledger.csv",
-    "guard": "generated\\antigravity-1\\grading\\models\\review\\guard_ledger.csv"
+    "type": "generated/antigravity-1/grading/models/review/type_ledger.csv",
+    "guard": "generated/antigravity-1/grading/models/review/guard_ledger.csv"
   }
 }

@@ -1,26 +1,26 @@
 {
   "run_id": "claude-code-2",
-  "submission_path": "generated\\claude-code-2\\requirements.json",
-  "gold_path": "C:\\Users\\Admin\\Documents\\validation4llmagents\\materials\\G1-requirements.json",
+  "submission_path": "generated/claude-code-2/grading/reqs/submission/requirements.json",
+  "gold_path": "materials/G1-requirements.json",
   "embedding_model": "sentence-transformers/all-mpnet-base-v2",
   "embedding_revision": null,
   "sentence_transformers_version": "6.2.0",
   "pooling": "mean",
   "normalized": true,
-  "on_pending": "provisional",
+  "on_pending": "halt",
   "config": {
     "judge_temperature": 0,
-    "random_seed": 20261024,
-    "normalize_embeddings": true,
-    "judge_api_base": "https://openrouter.ai/api/v1",
-    "kappa_accept": 0.6,
     "embedding_model": "sentence-transformers/all-mpnet-base-v2",
-    "judge_model": null,
-    "pooling": "mean",
-    "embedding_revision": null,
-    "judge_max_attempts": 3,
-    "kappa_sample_size": 30,
     "manual_default": "not_covered",
+    "kappa_accept": 0.6,
+    "embedding_revision": null,
+    "judge_model": "deepseek-v4.1-flash:cloud",
+    "random_seed": 20261024,
+    "pooling": "mean",
+    "kappa_sample_size": 30,
+    "judge_api_base": "https://ollama.com/v1",
+    "normalize_embeddings": true,
+    "judge_max_attempts": 3,
     "threshold": 0.75,
     "sweep": [
       0.7,
@@ -135,8 +135,8 @@
       "lowercase": false
     }
   },
-  "code_commit": "507cab9f493b8adbe6e3190c00e0827b1a1413cd",
-  "review_dir": "generated\\claude-code-2\\grading\\reqs\\review",
-  "started_at": "2026-10-27T21:45:12.012961",
-  "finished_at": "2026-10-27T21:45:45.763418"
+  "code_commit": "f461a1c39f52055c68a112263cf43f4fdb6ca685",
+  "review_dir": "generated/claude-code-2/grading/reqs/review",
+  "started_at": "2026-10-29T22:02:46.893888",
+  "finished_at": "2026-10-29T22:02:46.967278"
 }

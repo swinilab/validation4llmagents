@@ -1,25 +1,25 @@
 {
   "run_id": "gptoss-1",
-  "submission_path": "C:\\Users\\Admin\\Documents\\validation4llmagents\\generated\\gptoss-1\\sdk_ChatDev_v1_20261027125915_20261027125915\\code_workspace\\requirements.json",
-  "gold_path": "C:\\Users\\Admin\\Documents\\validation4llmagents\\materials\\G1-requirements.json",
+  "submission_path": "generated/gptoss-1/grading/reqs/submission/requirements.json",
+  "gold_path": "materials/G1-requirements.json",
   "embedding_model": "sentence-transformers/all-mpnet-base-v2",
   "embedding_revision": null,
   "sentence_transformers_version": "6.2.0",
   "pooling": "mean",
   "normalized": true,
-  "on_pending": "provisional",
+  "on_pending": "halt",
   "config": {
+    "judge_temperature": 0,
+    "embedding_model": "sentence-transformers/all-mpnet-base-v2",
     "manual_default": "not_covered",
-    "pooling": "mean",
     "kappa_accept": 0.6,
     "embedding_revision": null,
-    "normalize_embeddings": true,
-    "judge_model": null,
+    "judge_model": "deepseek-v4.1-flash:cloud",
     "random_seed": 20261024,
-    "judge_api_base": "https://openrouter.ai/api/v1",
-    "judge_temperature": 0,
+    "pooling": "mean",
     "kappa_sample_size": 30,
-    "embedding_model": "sentence-transformers/all-mpnet-base-v2",
+    "judge_api_base": "https://ollama.com/v1",
+    "normalize_embeddings": true,
     "judge_max_attempts": 3,
     "threshold": 0.75,
     "sweep": [
@@ -135,8 +135,8 @@
       "lowercase": false
     }
   },
-  "code_commit": "507cab9f493b8adbe6e3190c00e0827b1a1413cd",
-  "review_dir": "generated\\gptoss-1\\grading\\reqs\\review",
-  "started_at": "2026-10-27T22:06:58.052656",
-  "finished_at": "2026-10-27T22:07:06.678825"
+  "code_commit": "f461a1c39f52055c68a112263cf43f4fdb6ca685",
+  "review_dir": "generated/gptoss-1/grading/reqs/review",
+  "started_at": "2026-10-29T22:02:47.243483",
+  "finished_at": "2026-10-29T22:02:47.304037"
 }

@@ -29,4 +29,14 @@ US-10-AC06,Confirming a payment changes the status of the payment only from pend
 US-11-AC01,"Given a payment whose status is pending, When the accountant rejects it, Then the system sets its status to failed.",yes,yes,vuhuy,27/10/2026
 US-11-AC04,Rejecting a payment changes its status only from pending to failed.,yes,yes,vuhuy,27/10/2026
 US-12-AC05,"Once an order has the status closed, its status never changes again.",yes,yes,vuhuy,27/10/2026
-,,,,,
+US-03-AC04,"Given an order submission in which an order item refers to a product that does not exist, When the submission is made, Then the system rejects it and registers no order.",yes,yes,vuhuy,27/10/2026
+US-03-AC06,"Each order records an order date, a total amount, a status and a payment method, none of which may be absent.",yes,yes,vuhuy,27/10/2026
+US-04-AC10,"The payment method of an invoice takes only the values bank, card or cash.",yes,yes,vuhuy,27/10/2026
+US-05-AC03,"Given an invoice whose earlier payment has the status failed, When the customer submits a further payment against it, Then the system records the further payment as a separate payment with the status pending and the earlier payment keeps the status failed.",yes,yes,vuhuy,27/10/2026
+US-05-AC09,"A newly submitted payment has the status pending, from which its status may change only to completed or to failed.",yes,yes,vuhuy,27/10/2026
+US-06-AC04,Receiving an order changes its status only from submitted to pending.,yes,yes,vuhuy,27/10/2026
+US-07-AC04,Marking an order as filled changes its status only from pending to filled.,yes,yes,vuhuy,27/10/2026
+US-08-AC03,"Given an order whose status is closed, When order staff attempt to decline it, Then the system rejects the attempt and the order keeps the status closed.",yes,yes,vuhuy,27/10/2026
+US-11-AC02,"Given a pending payment against an invoice that bills an order, When the accountant rejects the payment, Then the status of the invoice and the status of the order are unchanged.",yes,yes,vuhuy,27/10/2026
+US-12-AC03,"Given an order whose invoice has the status paid and whose status is not shipped, When order staff attempt to close it, Then the system rejects the attempt and the status of the order is unchanged.",yes,yes,vuhuy,27/10/2026
+US-12-AC06,Closing an order changes its status only from shipped to closed.,yes,yes,vuhuy,27/10/2026

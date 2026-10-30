@@ -148,8 +148,8 @@
     "gen_id": "US-02-AC04",
     "verdict": "FAIL",
     "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
   },
   {
     "gold_id": "US-02-AC02",
@@ -276,16 +276,16 @@
     "gen_id": "US-03-AC10",
     "verdict": "FAIL",
     "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "detail": "missing \u201ccannot be moved to another order\u201d",
+    "source": "ledger"
   },
   {
     "gold_id": "US-03-AC06",
     "gen_id": "US-02-AC06",
     "verdict": "FAIL",
     "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "detail": "diff rule US-02-AC04",
+    "source": "ledger"
   },
   {
     "gold_id": "US-04-AC01",
@@ -372,8 +372,8 @@
     "gen_id": "US-03-AC06",
     "verdict": "FAIL",
     "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "detail": "Generated said formulabut the gold text is a rule about registering an order. mapped to  \"US-05-AC02\"",
+    "source": "ledger"
   },
   {
     "gold_id": "US-05-AC02",
@@ -2946,10 +2946,10 @@
   {
     "gold_id": "US-15-AC04",
     "gen_id": "US-12-AC05",
-    "verdict": "FAIL",
-    "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
   },
   {
     "gold_id": "US-15-AC05",

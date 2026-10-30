@@ -18,6 +18,7 @@ try:
 except ImportError:
     pass
 
+from report_summary import summarize
 from workflow_pipeline import run_pipeline
 from workflow_factory import GRADER_NAMES, build
 
@@ -28,9 +29,16 @@ def _parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--phase",
-        choices=["gen", "grade", "all"],
+        choices=["gen", "grade", "all", "summary"],
         default="all",
-        help="Pipeline phase to execute: gen (generation), grade (grading), or all.",
+        help="Pipeline phase to execute: gen (generation), grade (grading), or all. "
+             "summary prints the final metrics of every run in generated/ and "
+             "writes them as CSV (no generation, no grading).",
+    )
+    parser.add_argument(
+        "--out",
+        default=None,
+        help="summary phase: CSV to write (default generated/final_metrics.csv).",
     )
     parser.add_argument(
         "--grade",
@@ -70,6 +78,8 @@ def _parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = _parse_args()
+    if args.phase == "summary":
+        sys.exit(summarize("generated", args.out))
     components = build(config_path=args.config)
     run_pipeline(
         components,

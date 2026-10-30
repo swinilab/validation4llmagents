@@ -1,7 +1,7 @@
 {
   "run_id": "gptoss-2",
-  "submission_dir": "C:\\Users\\Admin\\Documents\\validation4llmagents\\generated\\gptoss-2\\sdk_ChatDev_v1_20261027130026_20261027130026\\code_workspace",
-  "domain_path": "C:\\Users\\Admin\\Documents\\validation4llmagents\\materials\\M1a.json",
+  "submission_dir": "generated/gptoss-2/grading/vmx/submission",
+  "domain_path": "materials/M1a.json",
   "rules": {
     "submission_files": {
       "requirements": "requirements.json",
@@ -30,6 +30,6 @@
       "NFR_INPUT"
     ]
   },
-  "started_at": "2026-10-27T15:07:28+00:00",
-  "finished_at": "2026-10-27T15:07:28+00:00"
+  "started_at": "2026-10-29T15:02:47+00:00",
+  "finished_at": "2026-10-29T15:02:47+00:00"
 }

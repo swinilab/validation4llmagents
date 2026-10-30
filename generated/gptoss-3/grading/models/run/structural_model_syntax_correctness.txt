@@ -1,6 +1,240 @@
-=====================================================
+=================================================================================
 STRUCTURAL MODEL SYNTAX CORRECTNESS (structural.puml)
-=====================================================
-Gate: missing
-structural.puml was not found: nothing to check.
-=====================================================
+=================================================================================
+Gate: pass  |  Syntax validity: 0.521 (62/119 declarations accepted)
+
+Line  Status  Kind          Source                                        Message
+---------------------------------------------------------------------------------
+   1  -                     @startuml structural                          -
+   2  -                     ' Enums                                       -
+   3  PASS    enum          enum OrderStatus {                            -
+   4  PASS    literal       submitted                                     -
+   5  PASS    literal       pending                                       -
+   6  PASS    literal       filled                                        -
+   7  PASS    literal       shipped                                       -
+   8  PASS    literal       closed                                        -
+   9  -                     }                                             -
+  10  -                                                                   -
+  11  PASS    enum          enum InvoiceStatus {                          -
+  12  PASS    literal       issued                                        -
+  13  PASS    literal       paid                                          -
+  14  -                     }                                             -
+  15  -                                                                   -
+  16  PASS    enum          enum PaymentStatus {                          -
+  17  PASS    literal       pending                                       -
+  18  PASS    literal       completed                                     -
+  19  PASS    literal       failed                                        -
+  20  -                     }                                             -
+  21  -                                                                   -
+  22  PASS    enum          enum PaymentMethod {                          -
+  23  PASS    literal       bank                                          -
+  24  PASS    literal       card                                          -
+  25  PASS    literal       cash                                          -
+  26  -                     }                                             -
+  27  -                                                                   -
+  28  -                     ' Classes                                     -
+  29  PASS    class         class Customer {                              -
+  30  PASS    attribute     +id: UUID                                     -
+  31  PASS    attribute     +name: String                                 -
+  32  PASS    attribute     +address: String                              -
+  33  PASS    attribute     +phone: String                                -
+  34  PASS    attribute     +bankAccount: BankAccount [0..1]              -
+  35  -                     }                                             -
+  36  -                                                                   -
+  37  PASS    class         class BankAccount {                           -
+  38  PASS    attribute     +accountNumber: String                        -
+  39  PASS    attribute     +bankName: String                             -
+  40  -                     }                                             -
+  41  -                                                                   -
+  42  PASS    class         class Product {                               -
+  43  PASS    attribute     +id: UUID                                     -
+  44  PASS    attribute     +name: String                                 -
+  45  PASS    attribute     +description: String                          -
+  46  PASS    attribute     +price: Decimal                               -
+  47  PASS    attribute     +imageUrl: String                             -
+  48  -                     }                                             -
+  49  -                                                                   -
+  50  PASS    class         class Order {                                 -
+  51  PASS    attribute     +id: UUID                                     -
+  52  PASS    attribute     +orderDate: Date                              -
+  53  PASS    attribute     +totalAmount: Decimal                         -
+  54  PASS    attribute     +status: OrderStatus                          -
+  55  PASS    attribute     +paymentMethod: PaymentMethod                 -
+  56  -                     }                                             -
+  57  -                                                                   -
+  58  PASS    class         class OrderItem {                             -
+  59  PASS    attribute     +quantity: Integer                            -
+  60  PASS    attribute     +unitPrice: Decimal                           -
+  61  -                     }                                             -
+  62  -                                                                   -
+  63  PASS    class         class Invoice {                               -
+  64  PASS    attribute     +id: UUID                                     -
+  65  PASS    attribute     +date: Date                                   -
+  66  PASS    attribute     +amount: Decimal                              -
+  67  PASS    attribute     +status: InvoiceStatus                        -
+  68  PASS    attribute     +paymentMethod: PaymentMethod                 -
+  69  -                     }                                             -
+  70  -                                                                   -
+  71  PASS    class         class Payment {                               -
+  72  PASS    attribute     +id: UUID                                     -
+  73  PASS    attribute     +date: Date                                   -
+  74  PASS    attribute     +amount: Decimal                              -
+  75  PASS    attribute     +status: PaymentStatus                        -
+  76  PASS    attribute     +paymentMethod: PaymentMethod                 -
+  77  -                     }                                             -
+  78  -                                                                   -
+  79  -                     ' Relationships                               -
+  80  PASS    relationship  Customer "1" -- "*" Order : places >          -
+  81  PASS    relationship  Order "1" *-- "*" OrderItem : contains >      -
+  82  FAIL    relationship  OrderItem "1" --> "1" Product : refers to >   malformed_edge; unknown_rel_arrow: arrow '-->' is in no rel_type_map entry
+  83  PASS    relationship  Order "1" o-- "0..1" Invoice : billed by >    -
+  84  PASS    relationship  Invoice "1" *-- "*" Payment : records >       -
+  85  PASS    relationship  Customer "1" o-- "0..1" BankAccount : has >   -
+  86  -                     @enduml                                       -
+  87  -                                                                   -
+  88  FAIL    enum          enum OrderStatus {                            duplicate_declaration; duplicate_declaration: enum OrderStatus declared more than once
+  89  FAIL    unknown       submitted                                     unsupported_construct
+  90  FAIL    unknown       pending                                       unsupported_construct
+  91  FAIL    unknown       filled                                        unsupported_construct
+  92  FAIL    unknown       shipped                                       unsupported_construct
+  93  FAIL    unknown       closed                                        unsupported_construct
+  94  FAIL    unknown       }                                             unsupported_construct
+  95  -                                                                   -
+  96  FAIL    enum          enum InvoiceStatus {                          duplicate_declaration; duplicate_declaration: enum InvoiceStatus declared more than once
+  97  FAIL    unknown       issued                                        unsupported_construct
+  98  FAIL    unknown       paid                                          unsupported_construct
+  99  FAIL    unknown       }                                             unsupported_construct
+ 100  -                                                                   -
+ 101  FAIL    enum          enum PaymentStatus {                          duplicate_declaration; duplicate_declaration: enum PaymentStatus declared more than once
+ 102  FAIL    unknown       pending                                       unsupported_construct
+ 103  FAIL    unknown       completed                                     unsupported_construct
+ 104  FAIL    unknown       failed                                        unsupported_construct
+ 105  FAIL    unknown       }                                             unsupported_construct
+ 106  -                                                                   -
+ 107  FAIL    enum          enum PaymentMethod {                          duplicate_declaration; duplicate_declaration: enum PaymentMethod declared more than once
+ 108  FAIL    unknown       bank                                          unsupported_construct
+ 109  FAIL    unknown       card                                          unsupported_construct
+ 110  FAIL    unknown       cash                                          unsupported_construct
+ 111  FAIL    unknown       }                                             unsupported_construct
+ 112  -                                                                   -
+ 113  FAIL    class         class Customer {                              duplicate_declaration; duplicate_declaration: class Customer declared more than once
+ 114  FAIL    unknown       +String name                                  unsupported_construct
+ 115  FAIL    unknown       +String address                               unsupported_construct
+ 116  FAIL    unknown       +String phoneNumber                           unsupported_construct
+ 117  FAIL    unknown       +String? bankAccount                          unsupported_construct
+ 118  FAIL    unknown       }                                             unsupported_construct
+ 119  -                                                                   -
+ 120  FAIL    class         class Product {                               duplicate_declaration; duplicate_declaration: class Product declared more than once
+ 121  FAIL    unknown       +String name                                  unsupported_construct
+ 122  FAIL    unknown       +String description                           unsupported_construct
+ 123  FAIL    unknown       +Decimal price                                unsupported_construct
+ 124  FAIL    unknown       +String imageUrl                              unsupported_construct
+ 125  FAIL    unknown       }                                             unsupported_construct
+ 126  -                                                                   -
+ 127  FAIL    class         class Order {                                 duplicate_declaration; duplicate_declaration: class Order declared more than once
+ 128  FAIL    unknown       +DateTime orderDate                           unsupported_construct
+ 129  FAIL    unknown       +Decimal totalAmount                          unsupported_construct
+ 130  FAIL    unknown       +OrderStatus status                           unsupported_construct
+ 131  FAIL    unknown       +PaymentMethod paymentMethod                  unsupported_construct
+ 132  FAIL    unknown       }                                             unsupported_construct
+ 133  -                                                                   -
+ 134  FAIL    class         class OrderItem {                             duplicate_declaration; duplicate_declaration: class OrderItem declared more than once
+ 135  FAIL    unknown       +int quantity                                 unsupported_construct
+ 136  FAIL    unknown       +Decimal unitPrice                            unsupported_construct
+ 137  FAIL    unknown       }                                             unsupported_construct
+ 138  -                                                                   -
+ 139  FAIL    class         class Invoice {                               duplicate_declaration; duplicate_declaration: class Invoice declared more than once
+ 140  FAIL    unknown       +DateTime date                                unsupported_construct
+ 141  FAIL    unknown       +Decimal amount                               unsupported_construct
+ 142  FAIL    unknown       +InvoiceStatus status                         unsupported_construct
+ 143  FAIL    unknown       +PaymentMethod paymentMethod                  unsupported_construct
+ 144  FAIL    unknown       }                                             unsupported_construct
+ 145  -                                                                   -
+ 146  FAIL    class         class Payment {                               duplicate_declaration; duplicate_declaration: class Payment declared more than once
+ 147  FAIL    unknown       +DateTime date                                unsupported_construct
+ 148  FAIL    unknown       +Decimal amount                               unsupported_construct
+ 149  FAIL    unknown       +PaymentStatus status                         unsupported_construct
+ 150  FAIL    unknown       +PaymentMethod paymentMethod                  unsupported_construct
+ 151  FAIL    unknown       }                                             unsupported_construct
+ 152  -                                                                   -
+ 153  PASS    relationship  Customer "1" o-- "*" Order : places >         -
+ 154  PASS    relationship  Order "1" o-- "*" OrderItem : contains >      -
+ 155  FAIL    unknown       OrderItem "1" --\> "1" Product : refers to >  unsupported_construct
+ 156  PASS    relationship  Order "1" o-- "0..1" Invoice : has >          -
+ 157  PASS    relationship  Invoice "1" o-- "*" Payment : receives >      -
+ 158  -                                                                   -
+ 159  -                     @enduml                                       -
+---------------------------------------------------------------------------------
+
+Rejected declarations (57):
+  line 82: malformed_edge: OrderItem "1" --> "1" Product : refers to >
+  line 88: duplicate_declaration: enum OrderStatus {
+  line 89: unsupported_construct: submitted
+  line 90: unsupported_construct: pending
+  line 91: unsupported_construct: filled
+  line 92: unsupported_construct: shipped
+  line 93: unsupported_construct: closed
+  line 94: unsupported_construct: }
+  line 96: duplicate_declaration: enum InvoiceStatus {
+  line 97: unsupported_construct: issued
+  line 98: unsupported_construct: paid
+  line 99: unsupported_construct: }
+  line 101: duplicate_declaration: enum PaymentStatus {
+  line 102: unsupported_construct: pending
+  line 103: unsupported_construct: completed
+  line 104: unsupported_construct: failed
+  line 105: unsupported_construct: }
+  line 107: duplicate_declaration: enum PaymentMethod {
+  line 108: unsupported_construct: bank
+  line 109: unsupported_construct: card
+  line 110: unsupported_construct: cash
+  line 111: unsupported_construct: }
+  line 113: duplicate_declaration: class Customer {
+  line 114: unsupported_construct: +String name
+  line 115: unsupported_construct: +String address
+  line 116: unsupported_construct: +String phoneNumber
+  line 117: unsupported_construct: +String? bankAccount
+  line 118: unsupported_construct: }
+  line 120: duplicate_declaration: class Product {
+  line 121: unsupported_construct: +String name
+  line 122: unsupported_construct: +String description
+  line 123: unsupported_construct: +Decimal price
+  line 124: unsupported_construct: +String imageUrl
+  line 125: unsupported_construct: }
+  line 127: duplicate_declaration: class Order {
+  line 128: unsupported_construct: +DateTime orderDate
+  line 129: unsupported_construct: +Decimal totalAmount
+  line 130: unsupported_construct: +OrderStatus status
+  line 131: unsupported_construct: +PaymentMethod paymentMethod
+  line 132: unsupported_construct: }
+  line 134: duplicate_declaration: class OrderItem {
+  line 135: unsupported_construct: +int quantity
+  line 136: unsupported_construct: +Decimal unitPrice
+  line 137: unsupported_construct: }
+  line 139: duplicate_declaration: class Invoice {
+  line 140: unsupported_construct: +DateTime date
+  line 141: unsupported_construct: +Decimal amount
+  line 142: unsupported_construct: +InvoiceStatus status
+  line 143: unsupported_construct: +PaymentMethod paymentMethod
+  line 144: unsupported_construct: }
+  line 146: duplicate_declaration: class Payment {
+  line 147: unsupported_construct: +DateTime date
+  line 148: unsupported_construct: +Decimal amount
+  line 149: unsupported_construct: +PaymentStatus status
+  line 150: unsupported_construct: +PaymentMethod paymentMethod
+  line 151: unsupported_construct: }
+  line 155: unsupported_construct: OrderItem "1" --\> "1" Product : refers to >
+
+Format violations (11):
+  line 82: unknown_rel_arrow: arrow '-->' is in no rel_type_map entry
+  line 88: duplicate_declaration: enum OrderStatus declared more than once
+  line 96: duplicate_declaration: enum InvoiceStatus declared more than once
+  line 101: duplicate_declaration: enum PaymentStatus declared more than once
+  line 107: duplicate_declaration: enum PaymentMethod declared more than once
+  line 113: duplicate_declaration: class Customer declared more than once
+  line 120: duplicate_declaration: class Product declared more than once
+  line 127: duplicate_declaration: class Order declared more than once
+  line 134: duplicate_declaration: class OrderItem declared more than once
+  line 139: duplicate_declaration: class Invoice declared more than once
+  line 146: duplicate_declaration: class Payment declared more than once
+=================================================================================

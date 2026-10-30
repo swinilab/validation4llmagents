@@ -1,17 +1,17 @@
 {
   "run_id": "gptoss-3",
   "primary_threshold": 0.75,
-  "status": "provisional",
-  "unresolved": 105,
+  "status": "final",
+  "unresolved": 0,
   "pending_type": 0,
   "pending_guard": 0,
   "pending_rubric": 0,
-  "manual_default": "not_covered",
-  "kappa": null,
-  "kappa_n": 0,
+  "manual_default": null,
+  "kappa": 0.82,
+  "kappa_n": 45,
   "kappa_pool": "per_section",
   "kappa_accept": 0.6,
-  "kappa_accepted": null,
+  "kappa_accepted": true,
   "kappa_role": "observation",
   "control": {
     "item_1": "fail",
@@ -23,301 +23,17 @@
   },
   "diagnostics": {
     "threshold": 0.75,
-    "gate_blocked": {
-      "structural": {
-        "gate": "fail",
-        "validity": 0.521,
-        "rejections": [
-          {
-            "line": 82,
-            "source": "OrderItem \"1\" --> \"1\" Product : refers to >",
-            "code": "malformed_edge"
-          },
-          {
-            "line": 88,
-            "source": "enum OrderStatus {",
-            "code": "duplicate_declaration"
-          },
-          {
-            "line": 89,
-            "source": "submitted",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 90,
-            "source": "pending",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 91,
-            "source": "filled",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 92,
-            "source": "shipped",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 93,
-            "source": "closed",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 94,
-            "source": "}",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 96,
-            "source": "enum InvoiceStatus {",
-            "code": "duplicate_declaration"
-          },
-          {
-            "line": 97,
-            "source": "issued",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 98,
-            "source": "paid",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 99,
-            "source": "}",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 101,
-            "source": "enum PaymentStatus {",
-            "code": "duplicate_declaration"
-          },
-          {
-            "line": 102,
-            "source": "pending",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 103,
-            "source": "completed",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 104,
-            "source": "failed",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 105,
-            "source": "}",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 107,
-            "source": "enum PaymentMethod {",
-            "code": "duplicate_declaration"
-          },
-          {
-            "line": 108,
-            "source": "bank",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 109,
-            "source": "card",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 110,
-            "source": "cash",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 111,
-            "source": "}",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 113,
-            "source": "class Customer {",
-            "code": "duplicate_declaration"
-          },
-          {
-            "line": 114,
-            "source": "+String name",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 115,
-            "source": "+String address",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 116,
-            "source": "+String phoneNumber",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 117,
-            "source": "+String? bankAccount",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 118,
-            "source": "}",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 120,
-            "source": "class Product {",
-            "code": "duplicate_declaration"
-          },
-          {
-            "line": 121,
-            "source": "+String name",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 122,
-            "source": "+String description",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 123,
-            "source": "+Decimal price",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 124,
-            "source": "+String imageUrl",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 125,
-            "source": "}",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 127,
-            "source": "class Order {",
-            "code": "duplicate_declaration"
-          },
-          {
-            "line": 128,
-            "source": "+DateTime orderDate",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 129,
-            "source": "+Decimal totalAmount",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 130,
-            "source": "+OrderStatus status",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 131,
-            "source": "+PaymentMethod paymentMethod",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 132,
-            "source": "}",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 134,
-            "source": "class OrderItem {",
-            "code": "duplicate_declaration"
-          },
-          {
-            "line": 135,
-            "source": "+int quantity",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 136,
-            "source": "+Decimal unitPrice",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 137,
-            "source": "}",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 139,
-            "source": "class Invoice {",
-            "code": "duplicate_declaration"
-          },
-          {
-            "line": 140,
-            "source": "+DateTime date",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 141,
-            "source": "+Decimal amount",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 142,
-            "source": "+InvoiceStatus status",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 143,
-            "source": "+PaymentMethod paymentMethod",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 144,
-            "source": "}",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 146,
-            "source": "class Payment {",
-            "code": "duplicate_declaration"
-          },
-          {
-            "line": 147,
-            "source": "+DateTime date",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 148,
-            "source": "+Decimal amount",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 149,
-            "source": "+PaymentStatus status",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 150,
-            "source": "+PaymentMethod paymentMethod",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 151,
-            "source": "}",
-            "code": "unsupported_construct"
-          },
-          {
-            "line": 155,
-            "source": "OrderItem \"1\" --\\> \"1\" Product : refers to >",
-            "code": "unsupported_construct"
-          }
-        ]
-      }
+    "gate_blocked": {},
+    "rule_rejections": {
+      "guard": 8,
+      "rel_multiplicity": 1,
+      "rel_type": 1,
+      "swimlane": 3
     },
-    "rule_rejections": {},
-    "prerequisite_blocked": {},
+    "prerequisite_blocked": {
+      "structural/attribute": 2,
+      "structural/literal": 2
+    },
     "label_collapsed": {
       "structural": {
         "gold": [],
@@ -817,8 +533,12 @@
     },
     "cross_kind_near_miss": [],
     "manual_resolved": {
-      "type": {},
-      "guard": {}
+      "type": {
+        "PASS": 1
+      },
+      "guard": {
+        "FAIL": 8
+      }
     },
     "elements_per_kind": {
       "structural": {
@@ -865,57 +585,90 @@
   },
   "structural": {
     "syntax_validity": 0.521,
-    "gate": "fail",
+    "gate": "pass",
     "n_gen": 58,
     "gold_total": 50,
-    "recall": "n/a",
-    "precision": "n/a",
-    "f1": "n/a",
-    "rubric_pass": "n/a",
-    "sweep": "n/a"
+    "rubric_pass": 10,
+    "sweep": [
+      {
+        "threshold": 0.7,
+        "recall": 0.86,
+        "precision": 0.9138,
+        "f1": 0.8861,
+        "matched_gold": 43,
+        "matched_gen": 43
+      },
+      {
+        "threshold": 0.75,
+        "recall": 0.84,
+        "precision": 0.8966,
+        "f1": 0.8674,
+        "matched_gold": 42,
+        "matched_gen": 42
+      },
+      {
+        "threshold": 0.8,
+        "recall": 0.82,
+        "precision": 0.8793,
+        "f1": 0.8486,
+        "matched_gold": 41,
+        "matched_gen": 41
+      },
+      {
+        "threshold": 0.85,
+        "recall": 0.82,
+        "precision": 0.8793,
+        "f1": 0.8486,
+        "matched_gold": 41,
+        "matched_gen": 41
+      }
+    ],
+    "recall": 0.84,
+    "precision": 0.8966,
+    "f1": 0.8674
   },
   "behavioral": {
     "syntax_validity": 1.0,
     "gate": "pass",
     "n_gen": 75,
     "gold_total": 39,
-    "rubric_pass": 0,
+    "rubric_pass": 29,
     "sweep": [
       {
         "threshold": 0.7,
-        "recall": 0.0,
-        "precision": 0.0,
-        "f1": 0.0,
-        "matched_gold": 0,
-        "matched_gen": 0
+        "recall": 0.5385,
+        "precision": 0.6667,
+        "f1": 0.5957,
+        "matched_gold": 21,
+        "matched_gen": 21
       },
       {
         "threshold": 0.75,
-        "recall": 0.0,
-        "precision": 0.0,
-        "f1": 0.0,
-        "matched_gold": 0,
-        "matched_gen": 0
+        "recall": 0.4103,
+        "precision": 0.6,
+        "f1": 0.4873,
+        "matched_gold": 16,
+        "matched_gen": 16
       },
       {
         "threshold": 0.8,
-        "recall": 0.0,
-        "precision": 0.0,
-        "f1": 0.0,
-        "matched_gold": 0,
-        "matched_gen": 0
+        "recall": 0.3077,
+        "precision": 0.5467,
+        "f1": 0.3938,
+        "matched_gold": 12,
+        "matched_gen": 12
       },
       {
         "threshold": 0.85,
-        "recall": 0.0,
-        "precision": 0.0,
-        "f1": 0.0,
-        "matched_gold": 0,
-        "matched_gen": 0
+        "recall": 0.2308,
+        "precision": 0.5067,
+        "f1": 0.3171,
+        "matched_gold": 9,
+        "matched_gen": 9
       }
     ],
-    "recall": 0.0,
-    "precision": 0.0,
-    "f1": 0.0
+    "recall": 0.4103,
+    "precision": 0.6,
+    "f1": 0.4873
   }
 }

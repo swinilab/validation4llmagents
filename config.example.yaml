@@ -79,7 +79,7 @@ requirement_grading:
 # Requirements; §16.3 requires its own sensitivity run before it is published.
 threshold_models: 0.75            # primary, reported in the paper body
 sweep_models: [0.70, 0.75, 0.80, 0.85]
-syntax_gate: strict               # strict = require 1.0; no other value yet defined
+syntax_gate: plantuml             # plantuml = PlantUML accepts the file (pipeline.parse_check); strict = own parser must accept every declaration
 kappa_pool: per_section           # per_section | pooled
 
 # --- vmx (VMXGrading) ---

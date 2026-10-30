@@ -1,7 +1,7 @@
 {
   "run_id": "antigravity-2",
-  "submission_dir": "generated\\antigravity-2",
-  "domain_path": "C:\\Users\\Admin\\Documents\\validation4llmagents\\materials\\M1a.json",
+  "submission_dir": "generated/antigravity-2/grading/vmx/submission",
+  "domain_path": "materials/M1a.json",
   "rules": {
     "submission_files": {
       "requirements": "requirements.json",
@@ -30,6 +30,6 @@
       "NFR_INPUT"
     ]
   },
-  "started_at": "2026-10-27T14:45:49+00:00",
-  "finished_at": "2026-10-27T14:45:49+00:00"
+  "started_at": "2026-10-29T15:02:46+00:00",
+  "finished_at": "2026-10-29T15:02:46+00:00"
 }

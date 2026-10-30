@@ -1,0 +1,339 @@
+{
+  "version": "1.1",
+  "updated": "2026-10-21",
+  "requirements": [
+    {
+      "id": "US-01",
+      "type": "functional",
+      "statement": "As a Customer, I want to register my personal details (name, address, phone), so that the system can uniquely identify me.",
+      "acceptance_criteria": [
+        {
+          "id": "US-01-AC01",
+          "format": "condition",
+          "text": "All of name, address and phone must be provided and non‑empty."
+        },
+        {
+          "id": "US-01-AC02",
+          "format": "condition",
+          "text": "The system assigns a unique identifier to each customer record."
+        },
+        {
+          "id": "US-01-AC03",
+          "format": "given_when_then",
+          "text": "Given a registration request, when the data passes validation, then the system stores the customer and returns a success response."
+        }
+      ]
+    },
+    {
+      "id": "US-02",
+      "type": "functional",
+      "statement": "As a Customer, I want to optionally add a bank account, so that I can use it as a payment method.",
+      "acceptance_criteria": [
+        {
+          "id": "US-02-AC01",
+          "format": "condition",
+          "text": "A bank account may be associated with a customer at most once."
+        },
+        {
+          "id": "US-02-AC02",
+          "format": "given_when_then",
+          "text": "Given a customer who has no bank account, when the customer adds a bank account, then the system stores the account and links it to the customer."
+        },
+        {
+          "id": "US-02-AC03",
+          "format": "condition",
+          "text": "The bank‑account field is optional; the customer record remains valid without it."
+        }
+      ]
+    },
+    {
+      "id": "US-03",
+      "type": "functional",
+      "statement": "As a Customer, I want to view product information (name, description, price, image), so that I can decide what to buy.",
+      "acceptance_criteria": [
+        {
+          "id": "US-03-AC01",
+          "format": "condition",
+          "text": "Each product must have name, description, price and image URL; all are mandatory."
+        },
+        {
+          "id": "US-03-AC02",
+          "format": "condition",
+          "text": "Product price is stored as a decimal number."
+        },
+        {
+          "id": "US-03-AC03",
+          "format": "given_when_then",
+          "text": "Given a request to view the catalog, when the request is authenticated, then the system returns the list of products with the required attributes."
+        }
+      ]
+    },
+    {
+      "id": "US-04",
+      "type": "functional",
+      "statement": "As a Customer, I want to submit an order that contains one or more order items, each referencing an existing product and a payment method, so that I can purchase the items.",
+      "acceptance_criteria": [
+        {
+          "id": "US-04-AC01",
+          "format": "given_when_then",
+          "text": "Given a known customer, when the customer submits an order with at least one order item referencing existing products and a valid payment method, then the system creates an order with status submitted, order date = submission date, and total amount = Σ(quantity × unitPrice)."
+        },
+        {
+          "id": "US-04-AC02",
+          "format": "given_when_then",
+          "text": "Given an unknown customer, when the customer attempts to submit an order, then the system rejects the submission and no order is recorded."
+        },
+        {
+          "id": "US-04-AC03",
+          "format": "condition",
+          "text": "An order must contain at least one order item; otherwise the submission is rejected."
+        },
+        {
+          "id": "US-04-AC04",
+          "format": "condition",
+          "text": "All referenced products must exist; otherwise the submission is rejected."
+        }
+      ]
+    },
+    {
+      "id": "US-05",
+      "type": "functional",
+      "statement": "As OrderStaff, I want to receive a submitted order and set its status to pending, so that the order enters the processing workflow.",
+      "acceptance_criteria": [
+        {
+          "id": "US-05-AC01",
+          "format": "given_when_then",
+          "text": "Given an order with status submitted, when OrderStaff receives the order, then the system changes the status to pending."
+        },
+        {
+          "id": "US-05-AC02",
+          "format": "condition",
+          "text": "The status transition submitted → pending is allowed; any other transition is rejected."
+        },
+        {
+          "id": "US-05-AC03",
+          "format": "condition",
+          "text": "The order’s status cannot be changed after it reaches closed."
+        }
+      ]
+    },
+    {
+      "id": "US-06",
+      "type": "functional",
+      "statement": "As OrderStaff, I want to mark a pending order as filled, so that it is ready for shipping.",
+      "acceptance_criteria": [
+        {
+          "id": "US-06-AC01",
+          "format": "given_when_then",
+          "text": "Given a pending order, when OrderStaff marks it as filled, then the system changes the status to filled."
+        },
+        {
+          "id": "US-06-AC02",
+          "format": "condition",
+          "text": "The status transition pending → filled is allowed; any other transition is rejected."
+        },
+        {
+          "id": "US-06-AC03",
+          "format": "condition",
+          "text": "When an order becomes filled, its order items remain attached (composition)."
+        }
+      ]
+    },
+    {
+      "id": "US-07",
+      "type": "functional",
+      "statement": "As OrderStaff, I want to ship a filled order, so that it is dispatched to the customer.",
+      "acceptance_criteria": [
+        {
+          "id": "US-07-AC01",
+          "format": "given_when_then",
+          "text": "Given a filled order, when OrderStaff ships the order, then the system changes the status to shipped."
+        },
+        {
+          "id": "US-07-AC02",
+          "format": "condition",
+          "text": "The status transition filled → shipped is allowed; any other transition is rejected."
+        },
+        {
+          "id": "US-07-AC03",
+          "format": "condition",
+          "text": "Shipping does not alter the status of any associated invoice or payment."
+        }
+      ]
+    },
+    {
+      "id": "US-08",
+      "type": "functional",
+      "statement": "As OrderStaff, I want to decline a pending order, so that it is closed without further processing.",
+      "acceptance_criteria": [
+        {
+          "id": "US-08-AC01",
+          "format": "given_when_then",
+          "text": "Given a pending order, when OrderStaff declines it, then the system changes the status to closed."
+        },
+        {
+          "id": "US-08-AC02",
+          "format": "condition",
+          "text": "The status transition pending → closed is allowed; any other transition is rejected."
+        },
+        {
+          "id": "US-08-AC03",
+          "format": "condition",
+          "text": "A declined order cannot later have an invoice raised."
+        }
+      ]
+    },
+    {
+      "id": "US-09",
+      "type": "functional",
+      "statement": "As OrderStaff, I want to close a shipped order whose invoice is paid, so that the transaction is completed.",
+      "acceptance_criteria": [
+        {
+          "id": "US-09-AC01",
+          "format": "given_when_then",
+          "text": "Given a shipped order whose linked invoice has status paid, when OrderStaff closes the order, then the system changes the order status to closed."
+        },
+        {
+          "id": "US-09-AC02",
+          "format": "condition",
+          "text": "The system rejects an attempt to close a shipped order whose invoice is not paid."
+        },
+        {
+          "id": "US-09-AC03",
+          "format": "condition",
+          "text": "Once an order is closed its status cannot be changed further."
+        }
+      ]
+    },
+    {
+      "id": "US-10",
+      "type": "functional",
+      "statement": "As an Accountant, I want to raise an invoice for a filled or shipped order that has no invoice, so that the customer can be billed.",
+      "acceptance_criteria": [
+        {
+          "id": "US-10-AC01",
+          "format": "given_when_then",
+          "text": "Given a filled (or shipped) order with no invoice, when Accountant raises an invoice with date, amount, payment method and status issued, then the system creates the invoice linked to the order."
+        },
+        {
+          "id": "US-10-AC02",
+          "format": "condition",
+          "text": "An order can have at most one invoice; a second attempt is rejected."
+        },
+        {
+          "id": "US-10-AC03",
+          "format": "condition",
+          "text": "Invoices can be raised only when the order status is filled or shipped."
+        }
+      ]
+    },
+    {
+      "id": "US-11",
+      "type": "functional",
+      "statement": "As a Customer, I want to submit a payment against an issued invoice, so that the invoice can be settled.",
+      "acceptance_criteria": [
+        {
+          "id": "US-11-AC01",
+          "format": "given_when_then",
+          "text": "Given an issued invoice, when a Customer submits a payment with date, amount and payment method, then the system creates a payment with status pending linked to the invoice."
+        },
+        {
+          "id": "US-11-AC02",
+          "format": "condition",
+          "text": "Payments cannot be submitted against an invoice whose status is paid."
+        },
+        {
+          "id": "US-11-AC03",
+          "format": "condition",
+          "text": "The system permits multiple payments per invoice; each payment is recorded separately."
+        }
+      ]
+    },
+    {
+      "id": "US-12",
+      "type": "functional",
+      "statement": "As an Accountant, I want to confirm a pending payment, so that the related invoice becomes paid.",
+      "acceptance_criteria": [
+        {
+          "id": "US-12-AC01",
+          "format": "given_when_then",
+          "text": "Given a pending payment, when Accountant confirms it, then the system changes the payment status to completed and sets the linked invoice status to paid."
+        },
+        {
+          "id": "US-12-AC02",
+          "format": "condition",
+          "text": "The status transition pending → completed is allowed; any other transition is rejected."
+        },
+        {
+          "id": "US-12-AC03",
+          "format": "condition",
+          "text": "Confirming a payment does not alter the status of the associated order."
+        }
+      ]
+    },
+    {
+      "id": "US-13",
+      "type": "functional",
+      "statement": "As an Accountant, I want to reject a pending payment, so that the failure is recorded and the invoice remains unchanged.",
+      "acceptance_criteria": [
+        {
+          "id": "US-13-AC01",
+          "format": "given_when_then",
+          "text": "Given a pending payment, when Accountant rejects it, then the system changes the payment status to failed and leaves the invoice and order statuses unchanged."
+        },
+        {
+          "id": "US-13-AC02",
+          "format": "condition",
+          "text": "The status transition pending → failed is allowed; any other transition is rejected."
+        },
+        {
+          "id": "US-13-AC03",
+          "format": "condition",
+          "text": "After a payment is failed, further payments may be submitted (see US‑11)."
+        }
+      ]
+    },
+    {
+      "id": "NFR-01",
+      "type": "performance",
+      "statement": "The system shall register an order containing up to 50 order items and respond within 2 seconds for at least 95% of submissions.",
+      "acceptance_criteria": []
+    },
+    {
+      "id": "NFR-02",
+      "type": "performance",
+      "statement": "The system shall support at least 200 concurrent users and process at least 20 order submissions per second while meeting the response time of NFR-01.",
+      "acceptance_criteria": []
+    },
+    {
+      "id": "NFR-03",
+      "type": "security",
+      "statement": "The system shall authenticate every user before granting access to any customer, order, invoice or payment data and shall reject 100% of unauthenticated requests.",
+      "acceptance_criteria": []
+    },
+    {
+      "id": "NFR-04",
+      "type": "security",
+      "statement": "The system shall allow only users holding the accountant role to confirm or reject a payment and shall reject the same request from any other user.",
+      "acceptance_criteria": []
+    },
+    {
+      "id": "NFR-05",
+      "type": "security",
+      "statement": "The system shall protect customer personal data and bank account numbers by encrypting them in transit with TLS 1.2 or higher and at rest.",
+      "acceptance_criteria": []
+    },
+    {
+      "id": "NFR-06",
+      "type": "availability",
+      "statement": "The system shall be available for at least 99.5% of each calendar month, excluding scheduled maintenance announced at least 24 hours in advance.",
+      "acceptance_criteria": []
+    },
+    {
+      "id": "NFR-07",
+      "type": "availability",
+      "statement": "When a server failure occurs, the system shall resume accepting requests within 15 minutes without losing any order, invoice or payment recorded before the failure.",
+      "acceptance_criteria": []
+    }
+  ]
+}

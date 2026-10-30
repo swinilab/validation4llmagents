@@ -1,1 +1,2 @@
 gold_id,gen_id,gold_type,gen_type,cosine,verdict,reviewer,timestamp,note
+A:Product.image,A:Product.image,String,Byte,1.0,PASS,vuhuy,27/10/2026,

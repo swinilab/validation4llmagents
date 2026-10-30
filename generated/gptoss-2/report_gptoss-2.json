@@ -2,7 +2,7 @@
   "schema": 1,
   "run_id": "gptoss-2",
   "target": "generated/gptoss-2",
-  "updated_at": "2026-10-27 13:02:23",
+  "updated_at": "2026-10-29 22:49:17",
   "created_at": "2026-10-27 13:02:23",
   "generation": {
     "status": "PASS",
@@ -12,5 +12,528 @@
     "code": "generated/gptoss-2/sdk_ChatDev_v1_20261027130026_20261027130026/code_workspace",
     "output_dir": "generated/gptoss-2",
     "recorded_at": "2026-10-27 13:02:23"
+  },
+  "grading": {
+    "reqs": {
+      "name": "Requirements Grading (RequirementsGrading)",
+      "passed": true,
+      "message": "status=final",
+      "ran_at": "2026-10-29 22:02:47",
+      "details": {
+        "grading_kind": "reqs",
+        "exit_code": 0,
+        "grading_dir": "generated/gptoss-2/grading/reqs",
+        "metrics": {
+          "run_id": "gptoss-2",
+          "primary_threshold": 0.75,
+          "status": "final",
+          "s_size": 65,
+          "gold_total": 70,
+          "rubric_pass": 37,
+          "pending_polarity": 0,
+          "pending_rubric": 0,
+          "judge_model": "deepseek-v4.1-flash:cloud",
+          "kappa": 0.7682,
+          "kappa_n": 35,
+          "kappa_accept": 0.6,
+          "kappa_accepted": true,
+          "manual_default": null,
+          "sweep": [
+            {
+              "threshold": 0.7,
+              "recall": 0.3,
+              "precision": 0.3538,
+              "f1": 0.3247,
+              "matched_gold": 21,
+              "matched_gen": 23
+            },
+            {
+              "threshold": 0.75,
+              "recall": 0.2714,
+              "precision": 0.8923,
+              "f1": 0.4162,
+              "matched_gold": 19,
+              "matched_gen": 21
+            },
+            {
+              "threshold": 0.8,
+              "recall": 0.2429,
+              "precision": 0.2615,
+              "f1": 0.2519,
+              "matched_gold": 17,
+              "matched_gen": 17
+            },
+            {
+              "threshold": 0.85,
+              "recall": 0.2143,
+              "precision": 0.2308,
+              "f1": 0.2222,
+              "matched_gold": 15,
+              "matched_gen": 15
+            }
+          ],
+          "diagnostics": {
+            "cross_us_matches": 14,
+            "cross_kind_would_cover": 1,
+            "axis_rejections": {
+              "polarity": 19,
+              "identifier": 102,
+              "numeric": 0
+            },
+            "dedup_removed": 4,
+            "manual_resolved": {
+              "PASS": 10,
+              "FAIL": 6
+            },
+            "ac_per_story": {
+              "US-01": 3,
+              "US-02": 3,
+              "US-03": 3,
+              "US-04": 3,
+              "US-05": 3,
+              "US-06": 3,
+              "US-07": 3,
+              "US-08": 3,
+              "US-09": 3,
+              "US-10": 3,
+              "US-11": 3,
+              "US-12": 3,
+              "US-13": 3,
+              "US-14": 4,
+              "US-15": 3,
+              "US-16": 3,
+              "US-17": 3,
+              "US-18": 3,
+              "US-19": 3,
+              "US-20": 3
+            },
+            "ac_length": {
+              "mean_gen_tokens": 14.8,
+              "mean_gold_tokens": 22.3
+            },
+            "format_violations": {}
+          }
+        },
+        "format_violations": {}
+      },
+      "models_used": {
+        "embedding_model": "sentence-transformers/all-mpnet-base-v2",
+        "embedding_revision": null,
+        "judge_model": "deepseek-v4.1-flash:cloud"
+      }
+    },
+    "models": {
+      "name": "Model Grading (ModelsGrading)",
+      "passed": true,
+      "message": "status=final",
+      "ran_at": "2026-10-29 22:49:17",
+      "details": {
+        "grading_kind": "models",
+        "exit_code": 0,
+        "grading_dir": "generated/gptoss-2/grading/models",
+        "metrics": {
+          "run_id": "gptoss-2",
+          "primary_threshold": 0.75,
+          "status": "final",
+          "unresolved": 0,
+          "pending_type": 0,
+          "pending_guard": 0,
+          "pending_rubric": 0,
+          "manual_default": null,
+          "kappa": 0.6116,
+          "kappa_n": 46,
+          "kappa_pool": "per_section",
+          "kappa_accept": 0.6,
+          "kappa_accepted": true,
+          "kappa_role": "observation",
+          "control": {
+            "item_1": "fail",
+            "item_2": "fail",
+            "item_3": "pass",
+            "item_4": "fail",
+            "item_5": "pass",
+            "item_6": "pass"
+          },
+          "diagnostics": {
+            "threshold": 0.75,
+            "gate_blocked": {
+              "structural": {
+                "gate": "fail",
+                "validity": 0.9242,
+                "rejections": [
+                  {
+                    "line": 76,
+                    "source": "OrderItem \"1\" --> \"1\" Product : references >",
+                    "code": "malformed_edge"
+                  },
+                  {
+                    "line": 77,
+                    "source": "Order \"1\" --> \"0..1\" Invoice : billed by >",
+                    "code": "malformed_edge"
+                  },
+                  {
+                    "line": 79,
+                    "source": "Invoice \"1\" --> \"1\" Order : for >",
+                    "code": "malformed_edge"
+                  },
+                  {
+                    "line": 80,
+                    "source": "Payment \"1\" --> \"1\" Invoice : for >",
+                    "code": "malformed_edge"
+                  },
+                  {
+                    "line": 81,
+                    "source": "AuditLog \"1\" --> \"1\" * : records >",
+                    "code": "unsupported_construct"
+                  }
+                ]
+              }
+            },
+            "rule_rejections": {
+              "swimlane": 1
+            },
+            "prerequisite_blocked": {},
+            "label_collapsed": {
+              "structural": {
+                "gold": [],
+                "gen": []
+              },
+              "behavioral": {
+                "gold": [
+                  {
+                    "element_id": "ACT:Make Payment",
+                    "kind": "action",
+                    "kept_line": 32,
+                    "collapsed_line": 39
+                  },
+                  {
+                    "element_id": "LANE:Make Payment",
+                    "kind": "swimlane",
+                    "kept_line": 32,
+                    "collapsed_line": 39
+                  },
+                  {
+                    "element_id": "OBJ:Payment[pending]",
+                    "kind": "object_node",
+                    "kept_line": 33,
+                    "collapsed_line": 40
+                  },
+                  {
+                    "element_id": "T:Make Payment->Accept Payment",
+                    "kind": "transition",
+                    "kept_line": null,
+                    "collapsed_line": null
+                  },
+                  {
+                    "element_id": "T:Make Payment->Reject Payment",
+                    "kind": "transition",
+                    "kept_line": null,
+                    "collapsed_line": null
+                  }
+                ],
+                "gen": [
+                  {
+                    "element_id": "T:Reject invoice creation->Reject reject",
+                    "kind": "transition",
+                    "kept_line": null,
+                    "collapsed_line": null
+                  },
+                  {
+                    "element_id": "T:Reject invoice creation->Set Payment status to failed",
+                    "kind": "transition",
+                    "kept_line": null,
+                    "collapsed_line": null
+                  },
+                  {
+                    "element_id": "T:Reject invoice creation->Reject confirm",
+                    "kind": "transition",
+                    "kept_line": null,
+                    "collapsed_line": null
+                  },
+                  {
+                    "element_id": "T:Reject invoice creation->Set Payment status to completed",
+                    "kind": "transition",
+                    "kept_line": null,
+                    "collapsed_line": null
+                  }
+                ]
+              }
+            },
+            "dropped_arrows": {
+              "structural": [],
+              "behavioral": []
+            },
+            "cross_kind_near_miss": [],
+            "manual_resolved": {
+              "type": {},
+              "guard": {}
+            },
+            "elements_per_kind": {
+              "structural": {
+                "gen": {
+                  "class": 7,
+                  "enum": 4,
+                  "literal": 13,
+                  "attribute": 29,
+                  "relationship": 3
+                },
+                "gold": {
+                  "class": 6,
+                  "enum": 4,
+                  "literal": 13,
+                  "attribute": 22,
+                  "relationship": 5
+                }
+              },
+              "behavioral": {
+                "gen": {
+                  "action": 23,
+                  "swimlane": 23,
+                  "object_node": 3,
+                  "transition": 58
+                },
+                "gold": {
+                  "action": 9,
+                  "swimlane": 9,
+                  "object_node": 10,
+                  "transition": 11
+                }
+              }
+            },
+            "format_violations": {
+              "duplicate_label": 4,
+              "unknown_rel_arrow": 4
+            },
+            "excluded_candidates": {},
+            "stale_ledger_rows": {
+              "type": [],
+              "guard": []
+            }
+          },
+          "structural": {
+            "syntax_validity": 0.9242,
+            "gate": "fail",
+            "n_gen": 56,
+            "gold_total": 50,
+            "recall": "n/a",
+            "precision": "n/a",
+            "f1": "n/a",
+            "rubric_pass": "n/a",
+            "sweep": "n/a"
+          },
+          "behavioral": {
+            "syntax_validity": 1.0,
+            "gate": "pass",
+            "n_gen": 107,
+            "gold_total": 39,
+            "rubric_pass": 57,
+            "sweep": [
+              {
+                "threshold": 0.7,
+                "recall": 0.1538,
+                "precision": 0.5888,
+                "f1": 0.2439,
+                "matched_gold": 6,
+                "matched_gen": 6
+              },
+              {
+                "threshold": 0.75,
+                "recall": 0.1026,
+                "precision": 0.5701,
+                "f1": 0.1739,
+                "matched_gold": 4,
+                "matched_gen": 4
+              },
+              {
+                "threshold": 0.8,
+                "recall": 0.0769,
+                "precision": 0.5607,
+                "f1": 0.1353,
+                "matched_gold": 3,
+                "matched_gen": 3
+              },
+              {
+                "threshold": 0.85,
+                "recall": 0.0769,
+                "precision": 0.5607,
+                "f1": 0.1353,
+                "matched_gold": 3,
+                "matched_gen": 3
+              }
+            ],
+            "recall": 0.1026,
+            "precision": 0.5701,
+            "f1": 0.1739
+          }
+        },
+        "syntax": {
+          "structural": {
+            "validity": 0.9242,
+            "accepted": 61,
+            "total": 66,
+            "parse_error": null,
+            "rejections": [
+              {
+                "line": 76,
+                "source": "OrderItem \"1\" --> \"1\" Product : references >",
+                "code": "malformed_edge"
+              },
+              {
+                "line": 77,
+                "source": "Order \"1\" --> \"0..1\" Invoice : billed by >",
+                "code": "malformed_edge"
+              },
+              {
+                "line": 79,
+                "source": "Invoice \"1\" --> \"1\" Order : for >",
+                "code": "malformed_edge"
+              },
+              {
+                "line": 80,
+                "source": "Payment \"1\" --> \"1\" Invoice : for >",
+                "code": "malformed_edge"
+              },
+              {
+                "line": 81,
+                "source": "AuditLog \"1\" --> \"1\" * : records >",
+                "code": "unsupported_construct"
+              }
+            ],
+            "plantuml": {
+              "accepted": false,
+              "error": "80 Syntax Error? (Assumed diagram type: class)"
+            },
+            "gate": "fail",
+            "gate_mode": "plantuml"
+          },
+          "behavioral": {
+            "validity": 1.0,
+            "accepted": 87,
+            "total": 87,
+            "parse_error": null,
+            "rejections": [],
+            "plantuml": {
+              "accepted": true,
+              "error": null
+            },
+            "gate": "pass",
+            "gate_mode": "plantuml"
+          }
+        },
+        "syntax_logs": {
+          "structural": "generated/gptoss-2/grading/models/run/structural_model_syntax_correctness.txt",
+          "behavioral": "generated/gptoss-2/grading/models/run/behavioral_model_syntax_correctness.txt"
+        }
+      },
+      "models_used": {
+        "embedding_model": "sentence-transformers/all-mpnet-base-v2",
+        "embedding_revision": null,
+        "judge_model": "deepseek-v4.1-flash:cloud"
+      }
+    },
+    "vmx": {
+      "name": "VMX Grading (VMXGrading)",
+      "passed": true,
+      "message": "status=final",
+      "ran_at": "2026-10-29 22:02:47",
+      "details": {
+        "grading_kind": "vmx",
+        "exit_code": 0,
+        "grading_dir": "generated/gptoss-2/grading/vmx",
+        "metrics": {
+          "run_id": "gptoss-2",
+          "status": "final",
+          "coverage": {
+            "score": 0.8929,
+            "covered": 25,
+            "total": 28
+          },
+          "integrity": {
+            "score": 0.8584,
+            "resolved": 97,
+            "total": 113,
+            "by_column": {
+              "source": {
+                "resolved": 59,
+                "total": 59,
+                "score": 1.0
+              },
+              "structural": {
+                "resolved": 37,
+                "total": 44,
+                "score": 0.8409
+              },
+              "behavioral": {
+                "resolved": 1,
+                "total": 10,
+                "score": 0.1
+              }
+            }
+          },
+          "diagnostics": {
+            "uncovered": [
+              {
+                "id": "US-18",
+                "outcome": "incomplete",
+                "empty": [
+                  "structural"
+                ]
+              },
+              {
+                "id": "US-19",
+                "outcome": "incomplete",
+                "empty": [
+                  "structural"
+                ]
+              },
+              {
+                "id": "US-20",
+                "outcome": "incomplete",
+                "empty": [
+                  "structural"
+                ]
+              }
+            ],
+            "broken_references": 16,
+            "duplicate_rows": [],
+            "rows_outside_requirements": []
+          },
+          "inputs": {
+            "domain_path": "materials/M1a.json",
+            "domain_ids": 58,
+            "requirements": {
+              "status": "read",
+              "count": 28
+            },
+            "vmx": {
+              "status": "read",
+              "rows": 28,
+              "schema": {
+                "header": [
+                  "SRS-Req-ID",
+                  "Domain-Req-ID",
+                  "Structural-Elements",
+                  "Behavorial-Elements"
+                ],
+                "missing_columns": [],
+                "unknown_columns": []
+              }
+            },
+            "structural": {
+              "status": "parsed",
+              "size": 40,
+              "validity": 0.9242,
+              "parse_error": null
+            },
+            "behavioral": {
+              "status": "parsed",
+              "size": 23,
+              "validity": 1.0,
+              "parse_error": null
+            }
+          }
+        }
+      }
+    }
   }
 }

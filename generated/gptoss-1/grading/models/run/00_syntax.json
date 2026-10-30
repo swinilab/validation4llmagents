@@ -1,18 +1,44 @@
 {
   "structural": {
-    "validity": "n/a",
-    "accepted": 0,
-    "total": 0,
-    "parse_error": "structural.puml not found",
-    "rejections": [],
-    "gate": "missing"
+    "validity": 0.9423,
+    "accepted": 49,
+    "total": 52,
+    "parse_error": null,
+    "rejections": [
+      {
+        "line": 66,
+        "source": "Customer \"1\" --> \"0..*\" Order : places >",
+        "code": "malformed_edge"
+      },
+      {
+        "line": 68,
+        "source": "OrderItem \"1\" --> \"1\" Product : refers to >",
+        "code": "malformed_edge"
+      },
+      {
+        "line": 69,
+        "source": "Order \"0..1\" --> \"1\" Invoice : has >",
+        "code": "malformed_edge"
+      }
+    ],
+    "plantuml": {
+      "accepted": true,
+      "error": null
+    },
+    "gate": "pass",
+    "gate_mode": "plantuml"
   },
   "behavioral": {
-    "validity": "n/a",
-    "accepted": 0,
-    "total": 0,
-    "parse_error": "behavioral.puml not found",
+    "validity": 1.0,
+    "accepted": 32,
+    "total": 32,
+    "parse_error": null,
     "rejections": [],
-    "gate": "missing"
+    "plantuml": {
+      "accepted": true,
+      "error": null
+    },
+    "gate": "pass",
+    "gate_mode": "plantuml"
   }
 }

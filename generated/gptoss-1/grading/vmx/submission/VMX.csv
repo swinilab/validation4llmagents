@@ -1,0 +1,21 @@
+SRS-Req-ID,Domain-Req-ID,Structural-Elements,Behavorial-Elements
+US-01,"REQ-F-01; REQ-F-45","Customer.name;Customer.address;Customer.phone","RegisterCustomer"
+US-02,"REQ-F-02; REQ-F-45","Customer.bankAccount;BankAccount.accountNumber","AddBankAccount"
+US-03,"REQ-F-03; REQ-F-45","Product.name;Product.description;Product.price;Product.imageUrl","BrowseProducts"
+US-04,"REQ-F-05; REQ-F-06; REQ-F-13; REQ-F-14; REQ-F-15; REQ-F-16; REQ-F-17","Order.orderDate;Order.totalAmount;Order.status;Order.paymentMethod;OrderItem.quantity;OrderItem.unitPrice;OrderItem.product;Product","SubmitOrder"
+US-05,"REQ-F-18; REQ-F-19","Order.status","ReceiveOrder;MarkOrderPending"
+US-06,"REQ-F-20; REQ-F-21","Order.status","FillOrder"
+US-07,"REQ-F-25; REQ-F-26","Order.status","ShipOrder"
+US-08,"REQ-F-22; REQ-F-23","Order.status","DeclineOrder"
+US-09,"REQ-F-40; REQ-F-41; REQ-F-42; REQ-F-43; REQ-F-44","Order.status","CloseOrder"
+US-10,"REQ-F-28; REQ-F-29; REQ-F-30; REQ-F-31","Invoice.date;Invoice.amount;Invoice.status;Invoice.paymentMethod","RaiseInvoice"
+US-11,"REQ-F-32; REQ-F-33; REQ-F-34","Payment.date;Payment.amount;Payment.status;Payment.paymentMethod","SubmitPayment"
+US-12,"REQ-F-35; REQ-F-36","Payment.status;Invoice.status","ConfirmPayment"
+US-13,"REQ-F-38; REQ-F-39","Payment.status","RejectPayment"
+NFR-01,"REQ-N-01","",
+NFR-02,"REQ-N-02","",
+NFR-03,"REQ-N-05","",
+NFR-04,"REQ-N-06","",
+NFR-05,"REQ-N-07","",
+NFR-06,"REQ-N-03","",
+NFR-07,"REQ-N-04",""

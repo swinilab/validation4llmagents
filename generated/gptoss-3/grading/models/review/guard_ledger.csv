@@ -1,1 +1,9 @@
 gold_id,gen_id,gold_guard,gen_guard,path_detail,verdict,reviewer,timestamp,note
+T:Accept Payment->Close Order,T:Confirm Payment->Close Order,,close order,gold=<empty> gen=['close order'],FAIL,Nguyen Nhat Lam,29/10/2026,
+T:Fill Order->Send Invoice,T:Fill Order->Create Invoice,,no;yes,"gold=<empty> gen=['no', 'yes']",FAIL,Nguyen Nhat Lam,29/10/2026,
+T:Fill Order->Ship Order,T:Fill Order->Ship Order,,no;yes,"gold=<empty> gen=['no', 'yes']",FAIL,Nguyen Nhat Lam,29/10/2026,
+T:Make Payment->Accept Payment,T:Submit Payment->Confirm Payment,authorized,confirm payment,gold=['authorized'] gen=['confirm payment'] (gen guard outside every alias set),FAIL,Nguyen Nhat Lam,29/10/2026,
+T:Make Payment->Reject Payment,T:Submit Payment->Reject Payment,declined,reject payment,gold=['declined'] gen=['reject payment'] (gen guard outside every alias set),FAIL,Nguyen Nhat Lam,29/10/2026,
+T:Receive order->Close Order,T:Submit Order->Close Order,declined,close order;yes,"gold=['declined'] gen=['close order', 'yes'] (gen guard outside every alias set)",FAIL,Nguyen Nhat Lam,29/10/2026,
+T:Receive order->Fill Order,T:Submit Order->Fill Order,accepted,fill;yes,"gold=['accepted'] gen=['fill', 'yes'] (gen guard outside every alias set)",FAIL,Nguyen Nhat Lam,29/10/2026,
+T:Ship Order->Close Order,T:Ship Order->Close Order,,no;yes,"gold=<empty> gen=['no', 'yes']",FAIL,Nguyen Nhat Lam,29/10/2026,

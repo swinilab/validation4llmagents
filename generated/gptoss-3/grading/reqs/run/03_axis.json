@@ -122,10 +122,10 @@
   {
     "gold_id": "US-06-AC01",
     "gen_id": "US-04-AC02",
-    "verdict": "FAIL",
-    "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
   },
   {
     "gold_id": "US-06-AC01",
@@ -250,10 +250,10 @@
   {
     "gold_id": "US-07-AC01",
     "gen_id": "US-05-AC02",
-    "verdict": "FAIL",
-    "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
   },
   {
     "gold_id": "US-07-AC01",
@@ -340,8 +340,8 @@
     "gen_id": "US-05-AC02",
     "verdict": "FAIL",
     "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
   },
   {
     "gold_id": "US-07-AC02",
@@ -370,10 +370,10 @@
   {
     "gold_id": "US-08-AC01",
     "gen_id": "US-06-AC02",
-    "verdict": "FAIL",
-    "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
   },
   {
     "gold_id": "US-08-AC01",
@@ -460,8 +460,8 @@
     "gen_id": "US-05-AC03",
     "verdict": "FAIL",
     "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
   },
   {
     "gold_id": "US-08-AC02",
@@ -538,10 +538,10 @@
   {
     "gold_id": "US-09-AC01",
     "gen_id": "US-07-AC02",
-    "verdict": "FAIL",
-    "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
   },
   {
     "gold_id": "US-09-AC01",
@@ -604,8 +604,8 @@
     "gen_id": "US-07-AC02",
     "verdict": "FAIL",
     "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
   },
   {
     "gold_id": "US-09-AC02",
@@ -676,8 +676,8 @@
     "gen_id": "US-08-AC04",
     "verdict": "FAIL",
     "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
   },
   {
     "gold_id": "US-10-AC02",
@@ -690,10 +690,10 @@
   {
     "gold_id": "US-10-AC03",
     "gen_id": "US-08-AC05",
-    "verdict": "FAIL",
-    "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
   },
   {
     "gold_id": "US-10-AC03",
@@ -978,10 +978,10 @@
   {
     "gold_id": "US-15-AC01",
     "gen_id": "US-10-AC02",
-    "verdict": "FAIL",
-    "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
   },
   {
     "gold_id": "US-15-AC01",
@@ -1010,18 +1010,18 @@
   {
     "gold_id": "US-15-AC02",
     "gen_id": "US-10-AC03",
-    "verdict": "FAIL",
-    "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
   },
   {
     "gold_id": "US-15-AC02",
     "gen_id": "US-10-AC04",
     "verdict": "FAIL",
     "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
   },
   {
     "gold_id": "US-15-AC02",
@@ -1082,18 +1082,18 @@
   {
     "gold_id": "US-15-AC03",
     "gen_id": "US-10-AC04",
-    "verdict": "FAIL",
-    "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
   },
   {
     "gold_id": "US-15-AC03",
     "gen_id": "US-10-AC03",
     "verdict": "FAIL",
     "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
   },
   {
     "gold_id": "US-15-AC03",
@@ -1154,9 +1154,9 @@
   {
     "gold_id": "US-15-AC04",
     "gen_id": "US-10-AC05",
-    "verdict": "FAIL",
-    "failed_axis": "polarity",
-    "detail": "Provisional default (not_covered)",
-    "source": "default"
+    "verdict": "PASS",
+    "failed_axis": null,
+    "detail": "Adjudicated via polarity ledger",
+    "source": "ledger"
   }
 ]

@@ -1,1 +1,78 @@
-{}
+{
+  "behavioral": {
+    "assigned": [
+      {
+        "diagram": "behavioral",
+        "kind": "action",
+        "gold_id": "ACT:Receive order",
+        "gen_id": "ACT:Submit Order",
+        "cosine": 0.7226,
+        "excluded": null,
+        "stage": "action"
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "action",
+        "gold_id": "ACT:Reject Payment",
+        "gen_id": "ACT:Reject payment",
+        "cosine": 1.0,
+        "excluded": null,
+        "stage": "action"
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "object_node",
+        "gold_id": "OBJ:Invoice[issued]",
+        "gen_id": "OBJ:Create Invoice[issued]",
+        "cosine": 0.86,
+        "excluded": null,
+        "stage": "object_node"
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "object_node",
+        "gold_id": "OBJ:Order[submitted]",
+        "gen_id": "OBJ:Create Order[submitted]",
+        "cosine": 0.7988,
+        "excluded": null,
+        "stage": "object_node"
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "object_node",
+        "gold_id": "OBJ:Payment[pending]",
+        "gen_id": "OBJ:Create Payment[pending]",
+        "cosine": 0.7428,
+        "excluded": null,
+        "stage": "object_node"
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "swimlane",
+        "stage": "swimlane",
+        "gold_id": "LANE:Receive order",
+        "gen_id": "LANE:Submit Order",
+        "cosine": 0.7226,
+        "excluded": null,
+        "by_construction": true
+      },
+      {
+        "diagram": "behavioral",
+        "kind": "swimlane",
+        "stage": "swimlane",
+        "gold_id": "LANE:Reject Payment",
+        "gen_id": "LANE:Reject payment",
+        "cosine": 1.0,
+        "excluded": null,
+        "by_construction": true
+      }
+    ],
+    "excluded": [],
+    "class_map": {},
+    "enum_map": {},
+    "action_map": {
+      "Receive order": "Submit Order",
+      "Reject Payment": "Reject payment"
+    }
+  }
+}

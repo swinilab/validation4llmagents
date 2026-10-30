@@ -35,7 +35,7 @@
     "rows_outside_requirements": []
   },
   "inputs": {
-    "domain_path": "C:\\Users\\Admin\\Documents\\validation4llmagents\\materials\\M1a.json",
+    "domain_path": "materials/M1a.json",
     "domain_ids": 58,
     "requirements": {
       "status": "read",

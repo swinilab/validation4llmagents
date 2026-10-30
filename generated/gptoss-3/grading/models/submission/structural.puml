@@ -1,0 +1,159 @@
+@startuml structural
+' Enums
+enum OrderStatus {
+  submitted
+  pending
+  filled
+  shipped
+  closed
+}
+
+enum InvoiceStatus {
+  issued
+  paid
+}
+
+enum PaymentStatus {
+  pending
+  completed
+  failed
+}
+
+enum PaymentMethod {
+  bank
+  card
+  cash
+}
+
+' Classes
+class Customer {
+  +id: UUID
+  +name: String
+  +address: String
+  +phone: String
+  +bankAccount: BankAccount [0..1]
+}
+
+class BankAccount {
+  +accountNumber: String
+  +bankName: String
+}
+
+class Product {
+  +id: UUID
+  +name: String
+  +description: String
+  +price: Decimal
+  +imageUrl: String
+}
+
+class Order {
+  +id: UUID
+  +orderDate: Date
+  +totalAmount: Decimal
+  +status: OrderStatus
+  +paymentMethod: PaymentMethod
+}
+
+class OrderItem {
+  +quantity: Integer
+  +unitPrice: Decimal
+}
+
+class Invoice {
+  +id: UUID
+  +date: Date
+  +amount: Decimal
+  +status: InvoiceStatus
+  +paymentMethod: PaymentMethod
+}
+
+class Payment {
+  +id: UUID
+  +date: Date
+  +amount: Decimal
+  +status: PaymentStatus
+  +paymentMethod: PaymentMethod
+}
+
+' Relationships
+Customer "1" -- "*" Order : places >
+Order "1" *-- "*" OrderItem : contains >
+OrderItem "1" --> "1" Product : refers to >
+Order "1" o-- "0..1" Invoice : billed by >
+Invoice "1" *-- "*" Payment : records >
+Customer "1" o-- "0..1" BankAccount : has >
+@enduml
+
+enum OrderStatus {
+    submitted
+    pending
+    filled
+    shipped
+    closed
+}
+
+enum InvoiceStatus {
+    issued
+    paid
+}
+
+enum PaymentStatus {
+    pending
+    completed
+    failed
+}
+
+enum PaymentMethod {
+    bank
+    card
+    cash
+}
+
+class Customer {
+    +String name
+    +String address
+    +String phoneNumber
+    +String? bankAccount
+}
+
+class Product {
+    +String name
+    +String description
+    +Decimal price
+    +String imageUrl
+}
+
+class Order {
+    +DateTime orderDate
+    +Decimal totalAmount
+    +OrderStatus status
+    +PaymentMethod paymentMethod
+}
+
+class OrderItem {
+    +int quantity
+    +Decimal unitPrice
+}
+
+class Invoice {
+    +DateTime date
+    +Decimal amount
+    +InvoiceStatus status
+    +PaymentMethod paymentMethod
+}
+
+class Payment {
+    +DateTime date
+    +Decimal amount
+    +PaymentStatus status
+    +PaymentMethod paymentMethod
+}
+
+Customer "1" o-- "*" Order : places >
+Order "1" o-- "*" OrderItem : contains >
+OrderItem "1" --\> "1" Product : refers to >
+Order "1" o-- "0..1" Invoice : has >
+Invoice "1" o-- "*" Payment : receives >
+
+@enduml

@@ -29,3 +29,12 @@ US-09-AC04,"Given an order whose status is filled and that has no invoice, When 
 US-10-AC06,Confirming a payment changes the status of its invoice only from issued to paid.,yes,yes,vuhuy,27/10/2026
 US-12-AC03,"Given an order whose invoice has the status paid and whose status is not shipped, When order staff attempt to close the order, Then the system rejects the attempt and leaves the status of the order unchanged.",yes,yes,vuhuy,27/10/2026
 US-12-AC05,Closing an order changes its status only from shipped to closed.,yes,yes,vuhuy,27/10/2026
+US-04-AC02,"Given an order that already has an invoice, When the accountant requests a further invoice for that order, Then the system rejects the request and records no further invoice.",yes,yes,vuhuy,27/10/2026
+US-04-AC08,The amount of an invoice is a decimal number.,yes,yes,vuhuy,27/10/2026
+US-05-AC05,"An invoice may have any number of payments, including none, and each payment is recorded against exactly one invoice.",yes,yes,vuhuy,27/10/2026
+US-06-AC03,Receiving an order changes its status only from submitted to pending.,yes,yes,vuhuy,27/10/2026
+US-07-AC01,"Given an order whose status is pending, When order staff mark the order as filled, Then the system sets the status of the order to filled.",yes,yes,vuhuy,27/10/2026
+US-07-AC03,Marking an order as filled changes its status only from pending to filled.,yes,yes,vuhuy,27/10/2026
+US-09-AC02,"Given an order whose status is not filled, When order staff attempt to set the order to shipped, Then the system rejects the attempt and leaves the status of the order unchanged.",yes,yes,vuhuy,27/10/2026
+US-09-AC06,Shipping never changes the status of an order whose status is closed.,yes,yes,vuhuy,27/10/2026
+US-10-AC05,Confirming a payment changes the status of the payment only from pending to completed.,yes,yes,vuhuy,27/10/2026

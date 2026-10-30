@@ -1,25 +1,31 @@
 element_id,kind,label,traceable,consistent,rationale,judge_model,timestamp
-ACT:Browse product catalogue,action,Browse product catalogue,,,,,
-ACT:Decline order,action,Decline order,,,,,
-ACT:Raise invoice,action,Raise invoice,,,,,
-ACT:Receive order,action,Receive order,,,,,
-ACT:Register customer record,action,Register customer record,,,,,
-ACT:Submit order,action,Submit order,,,,,
-LANE:Browse product catalogue,swimlane,Customer,,,,,
-LANE:Decline order,swimlane,OrderStaff,,,,,
-LANE:Raise invoice,swimlane,Accountant,,,,,
-LANE:Receive order,swimlane,OrderStaff,,,,,
-LANE:Register customer record,swimlane,Customer,,,,,
-LANE:Submit order,swimlane,Customer,,,,,
-T:Browse product catalogue->Submit order,transition,Browse product catalogue->Submit order,,,,,
-T:Confirm payment->Submit payment,transition,Confirm payment->Submit payment,,,,,
-T:Mark order filled->Raise invoice,transition,Mark order filled->Raise invoice,,,,,
-T:Raise invoice->Submit payment,transition,Raise invoice->Submit payment,,,,,
-T:Receive order->Decline order,transition,Receive order->Decline order,,,,,
-T:Receive order->Mark order filled,transition,Receive order->Mark order filled,,,,,
-T:Register customer record->Browse product catalogue,transition,Register customer record->Browse product catalogue,,,,,
-T:Reject payment->Close order,transition,Reject payment->Close order,,,,,
-T:Reject payment->Submit payment,transition,Reject payment->Submit payment,,,,,
-T:Submit order->Receive order,transition,Submit order->Receive order,,,,,
-T:Submit payment->Confirm payment,transition,Submit payment->Confirm payment,,,,,
-T:Submit payment->Reject payment,transition,Submit payment->Reject payment,,,,,
+ACT:Browse product catalogue,action,Browse product catalogue,no,yes,"Browsing a product catalogue is not specified by any domain requirement, though it does not contradict any gold model element.",deepseek-v4.1-flash:cloud,2026-10-29T13:50:31+00:00
+ACT:Decline order,action,Decline order,yes,yes,"The action corresponds to REQ-F-22/23, which explicitly allow declining a pending order by setting it closed, and it does not contradict any gold element.",deepseek-v4.1-flash:cloud,2026-10-29T13:50:37+00:00
+ACT:Raise invoice,action,Raise invoice,yes,yes,“Raise invoice” is directly supported by REQ-F-28 and does not contradict the gold model’s invoice-related actions or transitions.,deepseek-v4.1-flash:cloud,2026-10-29T13:50:40+00:00
+ACT:Receive order,action,Receive order,yes,yes,"The action “Receive order” is directly supported by REQ-F-18, and it matches the gold element ACT:Receive order without contradiction.",deepseek-v4.1-flash:cloud,2026-10-29T13:50:42+00:00
+ACT:Register customer record,action,Register customer record,yes,yes,"Customer records with mandatory name, address, and phone are required by REQ-F-01 and REQ-F-45, and registering such records does not contradict any gold element.",deepseek-v4.1-flash:cloud,2026-10-29T13:50:46+00:00
+ACT:Submit order,action,Submit order,yes,yes,"Submitting an order is directly required by REQ-F-13 through REQ-F-17, and it does not contradict any gold element.",deepseek-v4.1-flash:cloud,2026-10-29T13:50:48+00:00
+LANE:Browse product catalogue,swimlane,Customer,yes,yes,"Customer is a domain actor explicitly required for order and payment submissions, and no gold element contradicts such a swimlane.",deepseek-v4.1-flash:cloud,2026-10-29T13:51:12+00:00
+LANE:Decline order,swimlane,OrderStaff,yes,yes,"OrderStaff is a domain actor and declining an order is explicitly allowed for order staff by REQ-F-22, and the swimlane does not contradict any listed gold element.",deepseek-v4.1-flash:cloud,2026-10-29T13:51:19+00:00
+LANE:Raise invoice,swimlane,Accountant,yes,yes,"The Accountant role is explicitly authorized to raise invoices by REQ-F-28, and an Accountant swimlane does not contradict any gold element.",deepseek-v4.1-flash:cloud,2026-10-29T13:51:25+00:00
+LANE:Receive order,swimlane,OrderStaff,yes,yes,"Order staff receiving orders is explicitly required by REQ-F-18/19, and the swimlane does not contradict any gold element.",deepseek-v4.1-flash:cloud,2026-10-29T13:51:51+00:00
+LANE:Register customer record,swimlane,Customer,yes,yes,"The Customer swimlane is attributable to the customer actor and customer records referenced in the requirements, and it does not contradict any gold element.",deepseek-v4.1-flash:cloud,2026-10-29T13:51:59+00:00
+LANE:Submit order,swimlane,Customer,yes,yes,The Customer swimlane corresponds to the customer participant who may submit orders under REQ-F-13 and does not contradict any gold element.,deepseek-v4.1-flash:cloud,2026-10-29T13:52:03+00:00
+T:Browse product catalogue->Submit order,transition,Browse product catalogue->Submit order,no,yes,"The transition relies on a “Browse product catalogue” capability not specified in the domain requirements, but it does not contradict any gold element.",deepseek-v4.1-flash:cloud,2026-10-29T13:52:06+00:00
+T:Confirm payment->Submit payment,transition,Confirm payment->Submit payment,no,no,"The transition reverses the payment lifecycle—payments are submitted before confirmation, and after confirmation the invoice is paid—so it is not traceable and conflicts with the gold flow from Make Payment to Accept Payment and then Close Order.",deepseek-v4.1-flash:cloud,2026-10-29T13:52:23+00:00
+T:Mark order filled->Raise invoice,transition,Mark order filled->Raise invoice,yes,yes,Raising an invoice for a filled order is explicitly allowed by REQ-F-28/REQ-F-31 and matches the gold transition from filling an order to sending an invoice without contradiction.,deepseek-v4.1-flash:cloud,2026-10-29T13:52:27+00:00
+T:Raise invoice->Submit payment,transition,Raise invoice->Submit payment,yes,yes,"The transition is grounded in REQ-F-28 and REQ-F-32, where an invoice is raised as issued and a payment may then be submitted against it, and it does not contradict the gold transition Send Invoice→Make Payment.",deepseek-v4.1-flash:cloud,2026-10-29T13:52:31+00:00
+T:Receive order->Decline order,transition,Receive order->Decline order,yes,yes,"The transition corresponds to declining a received (pending) order, supported by REQ-F-18 and REQ-F-22, and does not contradict the gold transitions.",deepseek-v4.1-flash:cloud,2026-10-29T13:52:36+00:00
+T:Receive order->Mark order filled,transition,Receive order->Mark order filled,yes,yes,It corresponds to REQ-F-20 allowing a pending order to be marked filled and aligns with the gold transition Receive order->Fill Order.,deepseek-v4.1-flash:cloud,2026-10-29T13:52:38+00:00
+T:Register customer record->Browse product catalogue,transition,Register customer record->Browse product catalogue,no,yes,"The transition relies on invented actions not present in the domain requirements, and it does not contradict any listed gold element.",deepseek-v4.1-flash:cloud,2026-10-29T13:52:42+00:00
+T:Reject payment->Close order,transition,Reject payment->Close order,no,no,"The transition invents a direct flow from rejecting a payment to closing an order, whereas rejection leaves the invoice/order unchanged and closing is only allowed once the order is shipped and its invoice paid, contradicting the gold flow from Reject Payment to Make Payment and from Accept Payment to Close Order.",deepseek-v4.1-flash:cloud,2026-10-29T13:53:06+00:00
+T:Reject payment->Submit payment,transition,Reject payment->Submit payment,yes,yes,"It reflects REQ-F-34, which allows a further payment after an earlier payment has failed, and aligns with the gold transition Reject Payment->Make Payment.",deepseek-v4.1-flash:cloud,2026-10-29T13:53:10+00:00
+T:Submit order->Receive order,transition,Submit order->Receive order,yes,yes,"The transition reflects the domain flow from submitting/registering an order to receiving it when its status is submitted, and it does not contradict the gold model’s equivalent Make an Order to Receive order transition.",deepseek-v4.1-flash:cloud,2026-10-29T13:53:13+00:00
+T:Submit payment->Confirm payment,transition,Submit payment->Confirm payment,yes,yes,The transition reflects the domain flow from submitting a payment (REQ-F-32) to confirming/accepting a pending payment (REQ-F-35) and does not contradict the gold payment transitions.,deepseek-v4.1-flash:cloud,2026-10-29T13:53:17+00:00
+T:Submit payment->Reject payment,transition,Submit payment->Reject payment,yes,yes,"It corresponds to the domain flow where a submitted payment is pending and can subsequently be rejected by an accountant, matching the gold transition Make Payment->Reject Payment.",deepseek-v4.1-flash:cloud,2026-10-29T13:53:20+00:00
+A:BankAccount.accountNumber,attribute,accountNumber : String,yes,yes,"The accountNumber attribute is traceable to the domain's bank account data and NFR-07's protection of bank account numbers, and a String representation does not contradict any gold element.",deepseek-v4.1-flash:cloud,2026-10-29T15:36:38+00:00
+A:Order.paymentMethod,attribute,paymentMethod : PaymentMethod,yes,yes,"REQ-F-05 requires each order to record a payment method, and Order.paymentMethod with type PaymentMethod aligns with the gold PaymentMethod enum and the gold Order.method attribute without contradicting it.",deepseek-v4.1-flash:cloud,2026-10-29T15:36:41+00:00
+A:Payment.paymentMethod,attribute,paymentMethod : PaymentMethod,yes,yes,"Payment.paymentMethod is directly required by REQ-F-11 and restricted by REQ-F-48, and it does not contradict the gold Payment.method/PaymentMethod elements since naming differences are out of scope.",deepseek-v4.1-flash:cloud,2026-10-29T15:36:46+00:00
+C:BankAccount,class,BankAccount,yes,yes,"REQ-F-02 and REQ-F-45 require an optional customer bank account, so a BankAccount class is attributable to the domain and does not contradict the gold model’s Customer.bankAccount attribute.",deepseek-v4.1-flash:cloud,2026-10-29T15:36:55+00:00
+R:Customer--BankAccount,relationship,holds,yes,yes,"The optional single bank account is required by REQ-F-02 and REQ-F-45, and the association does not contradict the gold model’s Customer.bankAccount attribute.",deepseek-v4.1-flash:cloud,2026-10-29T15:37:10+00:00
+R:Order--OrderItem,relationship,contains,yes,yes,"The contains relationship is directly supported by REQ-F-06 and REQ-F-07, and it aligns with the gold model's Order–OrderItem relationship without contradiction.",deepseek-v4.1-flash:cloud,2026-10-29T15:37:12+00:00
