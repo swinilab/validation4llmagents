@@ -1,6 +1,0 @@
-element_id,element_type,canonical_name,owner_class,detail,tier
-CL-01,class,OrderLine,,,C
-AT-01,attribute,order_line_id,OrderLine,type=String,O
-CL-02,class,Payment,,Records a PaymentTransaction for the order.,C
-AT-02,attribute,gateway_ref,Payment_Gateway,type=String,O
-AT-03,attribute,owner_name,Customers,type=String,O
