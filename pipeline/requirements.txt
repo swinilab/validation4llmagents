@@ -1,7 +1,0 @@
-# Stage 1 pinned dependencies. Determinism depends on these exact versions:
-# a different spaCy model produces different lemmas and POS tags.
-spacy==3.8.7
-# The exact English model. Not on PyPI; installed from its release URL.
-en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl
-PyYAML==6.0.3
-pytest==9.1.1
